@@ -1,0 +1,1 @@
+Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);

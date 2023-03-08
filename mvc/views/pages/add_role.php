@@ -144,6 +144,21 @@
                                         <input class="form-check-input" type="checkbox" value="1" id="">
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Cài đặt</td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="mb-4">

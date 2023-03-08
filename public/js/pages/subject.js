@@ -167,8 +167,6 @@ $(document).on("click", "tr td a[action='delete']", function () {
 });
 
 $("#edit_class").click(function(e){
-
-
     $.ajax({
         type: "post",
         url: "./subject/update",

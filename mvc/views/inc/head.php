@@ -41,5 +41,5 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" id="css-main" href="./public/css/dashmix.css">
     <link rel="stylesheet" id="css-main" href="./public/css/custom.css">
-    <script defer src="./public/js/lib/jquery.min.js"></script>
+    <script src="./public/js/lib/jquery.min.js"></script>
 </head>

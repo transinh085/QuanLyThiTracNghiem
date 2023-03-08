@@ -1,9 +1,10 @@
 <div class="content">
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">All Question</h3>
+            <h3 class="block-title">Tất cả câu hỏi</h3>
             <div class="block-options">
-                <a name="" id="" class="btn btn-primary ms-3" href="./question/add" role="button">Add new</a>
+                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modal-add-question"><i class="fa-regular fa-plus"></i> Thêm câu hỏi mới</button>
             </div>
         </div>
         <div class="block-content">
@@ -24,7 +25,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters <i class="fa fa-angle-down ms-1"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters"
+                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters"
                                 style="">
                                 <a class="dropdown-item d-flex align-items-center justify-content-between"
                                     href="javascript:void(0)">
@@ -74,8 +75,8 @@
                                         class="fa fa-angle-down ms-1"></i></button>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary" href="#"
-                                    data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
+                                <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
+                                    aria-label="View" data-bs-original-title="View">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
@@ -140,8 +141,8 @@
                                         class="fa fa-angle-down ms-1"></i></button>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary" href="#"
-                                    data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
+                                <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
+                                    aria-label="View" data-bs-original-title="View">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
@@ -204,6 +205,185 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modal-add-question" tabindex="-1" role="dialog" aria-labelledby="modal-add-question"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <ul class="nav nav-tabs nav-tabs-alt mb-1" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="btabs-alt-static-home-tab" data-bs-toggle="tab"
+                        data-bs-target="#btabs-alt-static-home" role="tab" aria-controls="btabs-alt-static-home"
+                        aria-selected="true">
+                        Thêm thủ công
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="btabs-alt-static-profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#btabs-alt-static-profile" role="tab" aria-controls="btabs-alt-static-profile"
+                        aria-selected="false">
+                        Thêm từ file
+                    </button>
+                </li>
+                <li class="nav-item ms-auto">
+                    <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </li>
+            </ul>
+            <div class="modal-body block block-transparent bg-white mb-0 block-rounded">
+                <div class="block-content tab-content">
+                    <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel"
+                        aria-labelledby="btabs-static-home-tab" tabindex="0">
+                        <form method="POST" onsubmit="return false;">
+                            <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Môn học</label>
+                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc" name="mon-hoc"
+                                            style="width: 100%;" data-placeholder="Choose one..">
+                                            <option></option>
+                                            <option value="1">HTML</option>
+                                            <option value="2">CSS</option>
+                                            <option value="3">JavaScript</option>
+                                            <option value="4">PHP</option>
+                                            <option value="5">MySQL</option>
+                                            <option value="6">Ruby</option>
+                                            <option value="7">Angular</option>
+                                            <option value="8">React</option>
+                                            <option value="9">Vue.js</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Chương</label>
+                                        <select class="js-select2 form-select" id="chuong" name="chuong"
+                                            style="width: 100%;" data-placeholder="Choose one..">
+                                            <option></option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Độ khó</label>
+                                        <select class="js-select2 form-select" id="dokho" name="chuong"
+                                            style="width: 100%;" data-placeholder="Choose one..">
+                                            <option></option>
+                                            <option value="1">Cơ bản</option>
+                                            <option value="2">Trung bình</option>
+                                            <option value="3">Nâng cao</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor">Nội dung câu hỏi</label>
+                                <textarea id="js-ckeditor" name="ckeditor">OOP là viết tắt của từ nào ?</textarea>
+                            </div>
+                            <div class="mb-4 row">
+                                <h6>Danh sách đáp án</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter">
+                                        <tbody id="list-options">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>
+                                    <button class="btn btn-hero btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#add_option" aria-expanded="false" aria-controls="add_option">
+                                        Thêm câu trả lời <i class="fa fa-fw fa-angle-down opacity-50"></i>
+                                    </button>
+                                </p>
+                                <div class="collapse" id="add_option">
+                                    <div class="card card-body">
+                                        <label class="form-label" for="option-content">Nội dung trả lời</label>
+                                        <textarea id="option-content" name="ckeditor">Sinh</textarea>
+                                        <div class="form-check mt-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="true-option">
+                                            <label class="form-check-label" for="true-option">
+                                                Đáp án đúng
+                                            </label>
+                                        </div>
+                                        <p>
+                                            <button type="button" class="btn btn-primary mt-3" id="save-option">Lưu câu
+                                                trả lời</button>
+                                            <button type="button" class="btn btn-primary mt-3" id="update-option">Cập
+                                                nhật câu trả lời</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i
+                                        class="fa fa-fw fa-plus me-1"></i> Lưu
+                                    câu hỏi</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-profile" role="tabpanel"
+                        aria-labelledby="btabs-static-profile-tab" tabindex="0">
+                        <form id="form-upload" method="POST" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="" class="form-label">Môn học</label>
+                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc-tab-file" name="mon-hoc-tab-file"
+                                            style="width: 100%;" data-placeholder="Choose one..">
+                                            <option></option>
+                                            <option value="1">HTML</option>
+                                            <option value="2">CSS</option>
+                                            <option value="3">JavaScript</option>
+                                            <option value="4">PHP</option>
+                                            <option value="5">MySQL</option>
+                                            <option value="6">Ruby</option>
+                                            <option value="7">Angular</option>
+                                            <option value="8">React</option>
+                                            <option value="9">Vue.js</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Chương</label>
+                                        <select class="js-select2 form-select" id="chuong-tab-file" name="chuong-tab-file"
+                                            style="width: 100%;" data-placeholder="Choose one..">
+                                            <option></option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor">Nội dung</label>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx">
+                            </div>
+                            <div class="mb-4">
+                                <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
+                            </div>
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-alt-primary" id="xuly-file"><i
+                                        class="fa fa-fw fa-eye me-1"></i> Phân tích file</button>
+                            </div>
+                        </form>
+                        <div id="content-file"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

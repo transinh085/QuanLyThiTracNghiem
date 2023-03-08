@@ -15,7 +15,12 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
         function default() {
             $this->view("main_layout", [
                 "Page" => "question",
-                "Title" => "Câu hỏi"
+                "Title" => "Câu hỏi",
+                "Plugin" => [
+                    "ckeditor" => 1,
+                    "select" => 1
+                ],
+                "Script" => "question"
             ]);
         }
 

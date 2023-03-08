@@ -200,3 +200,7 @@
 }
 
 /* END Landing page */
+
+.select2-dropdown{
+    z-index: 1056;
+}

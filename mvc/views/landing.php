@@ -2,383 +2,37 @@
 
 <body>
     <!-- Page Container -->
-    <!--
-      Available classes for #page-container:
-
-      GENERIC
-
-        'remember-theme'                            Remembers active color theme and dark mode between pages using localStorage when set through
-                                                    - Theme helper buttons [data-toggle="theme"],
-                                                    - Layout helper buttons [data-toggle="layout" data-action="dark_mode_[on/off/toggle]"]
-                                                    - ..and/or Dashmix.layout('dark_mode_[on/off/toggle]')
-
-      SIDEBAR & SIDE OVERLAY
-
-        'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
-        'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
-        'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
-        'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
-        'sidebar-dark'                              Dark themed sidebar
-
-        'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
-        'side-overlay-o'                            Visible Side Overlay by default
-
-        'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
-
-        'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
-
-      HEADER
-
-        ''                                          Static Header if no class is added
-        'page-header-fixed'                         Fixed Header
-
-
-      FOOTER
-
-        ''                                          Static Footer if no class is added
-        'page-footer-fixed'                         Fixed Footer (please have in mind that the footer has a specific height when is fixed)
-
-      HEADER STYLE
-
-        ''                                          Classic Header style if no class is added
-        'page-header-dark'                          Dark themed Header
-        'page-header-glass'                         Light themed Header with transparency by default
-                                                    (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
-        'page-header-glass page-header-dark'         Dark themed Header with transparency by default
-                                                    (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
-
-      MAIN CONTENT LAYOUT
-
-        ''                                          Full width Main Content if no class is added
-        'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
-        'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
-
-      DARK MODE
-
-        'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
-    -->
     <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-glass main-content-boxed">
-
-        <!-- Sidebar -->
-        <!--
-        Sidebar Mini Mode - Display Helper classes
-
-        Adding 'smini-hide' class to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
-        Adding 'smini-show' class to an element will make it visible (opacity: 1) when the sidebar is in mini mode
-          If you would like to disable the transition animation, make sure to also add the 'no-transition' class to your element
-
-        Adding 'smini-hidden' to an element will hide it when the sidebar is in mini mode
-        Adding 'smini-visible' to an element will show it (display: inline-block) only when the sidebar is in mini mode
-        Adding 'smini-visible-block' to an element will show it (display: block) only when the sidebar is in mini mode
-      -->
-        <nav id="sidebar" aria-label="Main Navigation">
-            <!-- Side Header -->
-            <div class="bg-header-dark">
-                <div class="content-header bg-white-5">
-                    <!-- Logo -->
-                    <a class="fw-semibold text-white tracking-wide" href="index.html">
-                        <span class="smini-visible">
-                            D<span class="opacity-75">x</span>
-                        </span>
-                        <span class="smini-hidden">
-                            Dash<span class="opacity-75">mix</span>
-                        </span>
+        <!-- Header -->
+        <header id="page-header">
+            <div class="content-header">
+                <div class="space-x-1 d-flex align-items-center space-x-2">
+                    <a class="link-fx fw-bold" href="home">
+                        <i class="fa fa-fire text-primary"></i>
+                        <span class="fs-4 text-dual">On</span><span class="fs-4 text-primary">Test</span>
                     </a>
-                    <!-- END Logo -->
-
-                    <!-- Options -->
-                    <div>
-                        <!-- Toggle Sidebar Style -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
-                        <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
-                            data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on"
-                            onclick="Dashmix.layout('sidebar_style_toggle');">
-                            <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
-                        </button>
-                        <!-- END Toggle Sidebar Style -->
-
-                        <!-- Close Sidebar, Visible only on mobile screens -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
-                            data-action="sidebar_close">
-                            <i class="fa fa-times-circle"></i>
-                        </button>
-                        <!-- END Close Sidebar -->
-                    </div>
-                    <!-- END Options -->
+                    <span class="d-inline-block fs-xs fw-medium bg-primary-dark text-white rounded-pill py-1 px-2">5.4</span>
                 </div>
-            </div>
-            <!-- END Side Header -->
-
-            <!-- Sidebar Scrolling -->
-            <div class="js-sidebar-scroll">
-                <!-- Side Navigation -->
-                <div class="content-side">
-                    <ul class="nav-main">
+                <div class="space-x-1">
+                    <ul class="nav-main nav-main-horizontal nav-main-hover nav">
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="gs_landing.html">
-                                <i class="nav-main-link-icon fa fa-home"></i>
-                                <span class="nav-main-link-name">Home</span>
+                            <a class="btn btn-alt-secondary px-3" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
+                                <i class="fa fa-burn"></i>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fa fa-rocket"></i>
-                                <span class="nav-main-link-name">Features</span>
+                            <a class="btn btn-light" href="auth/signup">
+                                Đăng ký
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fab fa-paypal"></i>
-                                <span class="nav-main-link-name">Pricing</span>
+                            <a class="btn btn-primary" href="auth/signin">
+                                Đăng nhập
                             </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fa fa-envelope"></i>
-                                <span class="nav-main-link-name">Contact</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-heading">Extra</li>
-                        <li class="nav-main-item ms-lg-auto">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
-                                aria-expanded="false" href="#">
-                                <i class="nav-main-link-icon fa fa-brush"></i>
-                                <span class="nav-main-link-name">Themes</span>
-                            </a>
-                            <ul class="nav-main-submenu nav-main-submenu-right">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme" data-theme="default" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-default"></i>
-                                        <span class="nav-main-link-name">Default</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xwork.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xwork"></i>
-                                        <span class="nav-main-link-name">xWork</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xmodern.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xmodern"></i>
-                                        <span class="nav-main-link-name">xModern</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xeco.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xeco"></i>
-                                        <span class="nav-main-link-name">xEco</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xsmooth.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xsmooth"></i>
-                                        <span class="nav-main-link-name">xSmooth</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xinspire.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xinspire"></i>
-                                        <span class="nav-main-link-name">xInspire</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xdream.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xdream"></i>
-                                        <span class="nav-main-link-name">xDream</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xpro.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xpro"></i>
-                                        <span class="nav-main-link-name">xPro</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" data-toggle="theme"
-                                        data-theme="./public/css/themes/xplay.min.css" href="#">
-                                        <i class="nav-main-link-icon fa fa-circle text-xplay"></i>
-                                        <span class="nav-main-link-name">xPlay</span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </div>
-                <!-- END Side Navigation -->
             </div>
-            <!-- END Sidebar Scrolling -->
-        </nav>
-        <!-- END Sidebar -->
-
-        <!-- Header -->
-        <header id="page-header">
-            <!-- Header Content -->
-            <div class="content-header">
-                <!-- Left Section -->
-                <div class="d-flex align-items-center">
-                    <!-- Logo -->
-                    <a class="link-fx fs-lg fw-semibold text-dark" href="index.html">
-                        Dash<span class="text-primary">mix</span>
-                    </a>
-                    <!-- END Logo -->
-                </div>
-                <!-- END Left Section -->
-
-                <!-- Right Section -->
-                <div class="d-flex align-items-center">
-                    <!-- Menu -->
-                    <div class="d-none d-lg-block">
-                        <ul class="nav-main nav-main-horizontal nav-main-hover">
-                            <li class="nav-main-item">
-                                <a class="nav-main-link active" href="gs_landing.html">
-                                    <i class="nav-main-link-icon fa fa-home"></i>
-                                    <span class="nav-main-link-name">Home</span>
-                                </a>
-                            </li>
-                            <li class="nav-main-item">
-                                <a class="nav-main-link" href="javascript:void(0)">
-                                    <i class="nav-main-link-icon fa fa-rocket"></i>
-                                    <span class="nav-main-link-name">Features</span>
-                                </a>
-                            </li>
-                            <li class="nav-main-item">
-                                <a class="nav-main-link" href="javascript:void(0)">
-                                    <i class="nav-main-link-icon fab fa-paypal"></i>
-                                    <span class="nav-main-link-name">Pricing</span>
-                                </a>
-                            </li>
-                            <li class="nav-main-item">
-                                <a class="nav-main-link" href="javascript:void(0)">
-                                    <i class="nav-main-link-icon fa fa-envelope"></i>
-                                    <span class="nav-main-link-name">Contact</span>
-                                </a>
-                            </li>
-                            <li class="nav-main-heading">Extra</li>
-                            <li class="nav-main-item ms-lg-auto">
-                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
-                                    aria-haspopup="true" aria-expanded="false" href="#">
-                                    <i class="nav-main-link-icon fa fa-brush"></i>
-                                    <span class="nav-main-link-name">Themes</span>
-                                </a>
-                                <ul class="nav-main-submenu nav-main-submenu-right">
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme" data-theme="default" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-default"></i>
-                                            <span class="nav-main-link-name">Default</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xwork.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xwork"></i>
-                                            <span class="nav-main-link-name">xWork</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xmodern.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xmodern"></i>
-                                            <span class="nav-main-link-name">xModern</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xeco.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xeco"></i>
-                                            <span class="nav-main-link-name">xEco</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xsmooth.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xsmooth"></i>
-                                            <span class="nav-main-link-name">xSmooth</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xinspire.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xinspire"></i>
-                                            <span class="nav-main-link-name">xInspire</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xdream.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xdream"></i>
-                                            <span class="nav-main-link-name">xDream</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xpro.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xpro"></i>
-                                            <span class="nav-main-link-name">xPro</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-main-item">
-                                        <a class="nav-main-link" data-toggle="theme"
-                                            data-theme="./public/css/themes/xplay.min.css" href="#">
-                                            <i class="nav-main-link-icon fa fa-circle text-xplay"></i>
-                                            <span class="nav-main-link-name">xPlay</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- END Menu -->
-
-                    <!-- Toggle Sidebar -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-alt-secondary d-lg-none ms-1" data-toggle="layout"
-                        data-action="sidebar_toggle">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button>
-                    <!-- END Toggle Sidebar -->
-                </div>
-                <!-- END Right Section -->
-            </div>
-            <!-- END Header Content -->
-
-            <!-- Header Search -->
-            <div id="page-header-search" class="overlay-header bg-primary">
-                <div class="content-header">
-                    <form class="w-100" method="POST">
-                        <div class="input-group">
-                            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                            <button type="button" class="btn btn-primary" data-toggle="layout"
-                                data-action="header_search_off">
-                                <i class="fa fa-fw fa-times-circle"></i>
-                            </button>
-                            <input type="text" class="form-control border-0" placeholder="Search or hit ESC.."
-                                id="page-header-search-input" name="page-header-search-input">
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- END Header Search -->
-
-            <!-- Header Loader -->
-            <!-- Please check out the Loaders page under Components category to see examples of showing/hiding it -->
-            <div id="page-header-loader" class="overlay-header bg-primary-darker">
-                <div class="content-header">
-                    <div class="w-100 text-center">
-                        <i class="fa fa-fw fa-2x fa-sun fa-spin text-white"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- END Header Loader -->
         </header>
         <!-- END Header -->
 
@@ -388,57 +42,85 @@
             <div class="hero hero-lg bg-body-extra-light overflow-hidden">
                 <div class="hero-inner">
                     <div class="content content-full">
-                        <div class="row">
-                            <div class="col-lg-5 text-center text-lg-start d-lg-flex align-items-lg-center">
-                                <div>
-                                    <h1 class="h2 fw-bold mb-3">
-                                        Product Title
+                        <div class="row g-6 w-100 py-7 overflow-hidden">
+                            <div class="col-md-7 order-md-last py-4 d-md-flex align-items-md-center justify-content-md-end">
+                                <img class="img-fluid" src="./public/media/various/landing-promo-hero.png" alt="Hero Promo">
+                            </div>
+                            <div class="col-md-5 py-4 d-flex align-items-center">
+                                <div class="text-center text-md-start">
+                                    <h1 class="fw-bold fs-2 mb-3">
+                                    Hệ thống thi và tạo đề thi trắc nghiệm online tốt nhất.
                                     </h1>
-                                    <p class="fs-4 text-muted mb-5">
-                                        Lead paragraph containing the main purpose of your product.
+                                    <p class="text-dark fw-medium mb-4">
+                                    Hỗ trợ bạn các chức năng tốt nhất để dễ dàng tạo và quản lý ngân hàng câu hỏi, đề thi trắc nghiệm, bài giảng.
+                                    Tổ chức các kỳ thi online, giao bài tập về nhà trên mọi nền tảng Web, Mobile...
                                     </p>
-                                    <div>
-                                        <a class="btn btn-primary px-3 py-2 m-1" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-link opacity-50 me-1"></i> Call to action
-                                        </a>
-                                        <a class="btn btn-alt-primary px-3 py-2 m-1" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-link opacity-50 me-1"></i> Call to action
-                                        </a>
-                                    </div>
+                                    <a class="btn btn-alt-primary py-2 px-3 m-1" href="auth/signin" target="_blank">
+                                        <i class="fa fa-arrow-right opacity-50 me-1"></i> Tham gia ngay
+                                    </a>
+                                    <a class="btn btn-alt-secondary py-2 px-3 m-1 btn--scroll-to">
+                                        <i class="fa fa-arrow-down opacity-50 me-1"></i> Tìm hiểu thêm
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-lg-6 offset-lg-1 d-none d-lg-block">
-                                <img class="img-fluid rounded" src="./public/media/various/promo_dashboard.png"
-                                    srcset="./public/media/various/promo_dashboard@2x.png 2x" alt="Hero Promo">
-                            </div>
                         </div>
-                    </div>
-                </div>      
-                <div class="hero-meta">
-                    <div>
-                        <span class="d-inline-block animated bounce infinite">
-                            <i class="si si-arrow-down text-muted fa-2x"></i>
-                        </span>
                     </div>
                 </div>
             </div>
             <!-- END Hero -->
 
             <!-- Section 1 -->
-            <div class="bg-body-light">
+            <div class="bg-body-light" id="section--1">
                 <div class="content content-full">
-                    <div class="py-5 push">
-                        <h2 class="mb-2 text-center">
-                            Title 1
-                        </h2>
-                        <h3 class="text-muted mb-0 text-center">
-                            Subtitle
-                        </h3>
-                    </div>
-                    <div class="text-center">
-                        <p>
-                            Your content..
-                        </p>
+                    <h2 class="mt-5 mb-3 text-center">
+                        Trắc nghiệm thông minh
+                    </h2>
+                    <div class="row g-0 justify-content-center text-center mb-5">
+                        <div class="col-xl-4">
+                        <div class="w-100 py-4">
+                            <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
+                            <div class="d-inline-block bg-corporate-lighter rounded p-4">
+                                <i class="fa fa-cubes fa-2x text-corporate"></i>
+                            </div>
+                            </div>
+                            <h3 class="h4 fw-bold mb-1">
+                            Đa dạng nội dung
+                            </h3>
+                            <p class="fw-medium text-dark mb-0">
+                            Cung cấp đa dạng nội dung các câu hỏi trắc nghiệm thuộc nhiều lĩnh vực khác nhau.
+                            </p>
+                        </div>
+                        </div>
+                        <div class="col-xl-4">
+                        <div class="w-100 py-4">
+                            <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
+                            <div class="d-inline-block bg-pulse-lighter rounded p-4">
+                                <i class="fa fa-code fa-2x text-pulse"></i>
+                            </div>
+                            </div>
+                            <h3 class="h4 fw-bold mb-1">
+                            Ma trận câu hỏi
+                            </h3>
+                            <p class="fw-medium text-dark mb-0">
+                                Hệ thống sẽ dựa vào ma trận câu hỏi phong phú để tự tổng hợp thành đề trắc nghiệm.
+                            </p>
+                        </div>
+                        </div>
+                        <div class="col-xl-4">
+                        <div class="w-100 py-4">
+                            <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
+                            <div class="d-inline-block bg-elegance-lighter rounded p-4">
+                                <i class="fa fa-rocket fa-2x text-elegance"></i>
+                            </div>
+                            </div>
+                            <h3 class="h4 fw-bold mb-1">
+                                Đáp án chi tiết
+                            </h3>
+                            <p class="fw-medium text-dark mb-0">
+                                Sau khi hoàn thành bài kiểm tra trắc nghiệm hệ thống sẽ thông báo số điểm đạt được kèm lời giải chi tiết.
+                            </p>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -447,18 +129,70 @@
             <!-- Section 2 -->
             <div class="bg-body-extra-light">
                 <div class="content content-full">
-                    <div class="py-5 push">
-                        <h2 class="mb-2 text-center">
-                            Title 2
-                        </h2>
-                        <h3 class="text-muted mb-0 text-center">
-                            Subtitle
-                        </h3>
+                    <div class="content content-full">
+                        <div class="row">
+                            <div class="order-md-1 col-md-6 d-flex align-items-center justify-content-center py-5">
+                                <img src="./public/media/various/promo-questions.png" alt="" class="feature__img">
+                            </div>
+                            <div class="order-md-0 col-md-6 d-flex align-items-center">
+                                <div>
+                                    <h2 class="h1 mb-2">
+                                        Dễ dàng tạo bài thi online với nhiều dạng câu hỏi
+                                    </h2>
+                                    <p class=" text-dark mb-4">
+                                        <i class="fa-solid fa-circle-check"></i> Tạo bài kiểm tra với nhiều dạng câu hỏi
+
+                                        <br> <i class="fa-solid fa-circle-check"></i> Câu hỏi chọn 1 kết quả
+
+                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời đoạn văn ngắn
+
+                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời bằng cách upload file (Hình ảnh, word, video)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <p>
-                            Your content..
-                        </p>
+
+                    <div class="content content-full">
+                        <div class="row">
+                            <div class="order-md-0 col-md-6 d-flex align-items-center justify-content-center py-5">
+                                <img src="./public/media/various/promo-create-test.png" alt="" class="feature__img">
+                            </div>
+                            <div class="order-md-1 col-md-6 d-flex align-items-center">
+                                <div>
+                                    <h2 class="h1 mb-2">
+                                        Lên trước lịch làm bài hoặc giới hạn thời gian làm bài thi
+                                    </h2>
+                                    <p class=" text-dark mb-4">
+                                        <!-- <i class="fa-sharp fa-solid fa-circle-check"></i> -->
+                                        Bạn có thể cài đặt thời gian để học sinh chỉ làm bài trong khung thời gian qui định:
+                                        <br> <i class="fa-solid fa-circle-check"></i> Qui định thời gian cho bài làm ( 10’, 15’, 45’...)
+                                        <br> <i class="fa-solid fa-circle-check"></i> Qui định thời gian có thể bắt đầu làm bài
+                                        <br> <i class="fa-solid fa-circle-check"></i> Qui định thời gian kết thúc hiệu lực làm bài
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content content-full">
+                    <div class="row">
+                            <div class="order-md-1 col-md-6 d-flex align-items-center justify-content-center py-5">
+                                <img src="./public/media/various/promo-users.png" alt="" class="feature__img">
+                            </div>
+                            <div class="order-md-0 col-md-6 d-flex align-items-center">
+                                <div>
+                                    <h2 class="h1 mb-2">
+                                        Học sinh làm bài không cần cài đặt thêm ứng dụng
+                                    </h2>
+                                    <p class=" text-dark mb-4">
+                                        <i class="fa-solid fa-circle-check"></i> Học sinh dễ dàng truy cập và làm bài thi mà không cần cài đặt thêm ứng dụng
+                                        <br> <i class="fa-solid fa-circle-check"></i> Giao diện làm bài kiểm tra trực quan và dễ tương tác
+                                        <br> <i class="fa-solid fa-circle-check"></i> Giao diện tuỳ biến theo kích thước màn hình mà không làm thay đổi chất lượng hình ảnh
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -467,19 +201,63 @@
             <!-- Section 3 -->
             <div class="bg-body-light">
                 <div class="content content-full">
-                    <div class="py-5 push">
+                    <div class="py-4">
                         <h2 class="mb-2 text-center">
-                            Title 3
+                            Mọi người nói gì về chúng tôi
                         </h2>
-                        <h3 class="text-muted mb-0 text-center">
-                            Subtitle
+                        <h3 class="text-dark mb-0 text-center">
+                            Luôn đồng hành và mang lại các trải nghiệm tốt nhất cho người dùng.
                         </h3>
                     </div>
-                    <div class="text-center">
-                        <p>
-                            Your content..
-                        </p>
+                    <!-- Slider -->
+                    <div class="mb-3 slider">
+                        <div class="slide slide--1">
+                            <div class="testimonial">
+                                <blockquote class="testimonial__text">
+                                    Sử dụng nhiều công cụ trong việc dạy học, nhưng OnTest VN là công cụ mình yêu thích nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên sẽ biết đến OnTest hơn.
+                                </blockquote>
+                                <div class="d-flex align-items-center testimonial__author">
+                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="testimonial__name">asd</span>
+                                        <span class="testimonial__location">asdasd</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide slide--2">
+                            <div class="testimonial">
+                                <blockquote class="testimonial__text">
+                                    Ứng dụng OnTest VN có giao diện trực quan, dễ dùng và có đầy đủ các tính năng phục vụ cho dạy và học thời đại 4.0. Ngoài ra ứng dụng luôn được cập nhật và đổi mới từng ngày theo nhu cầu của các thầy cô giáo và học sinh.
+                                </blockquote>
+                                <div class="d-flex align-items-center testimonial__author">
+                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="testimonial__name">asd</span>
+                                        <span class="testimonial__location">asdasd</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide slide--3">
+                            <div class="testimonial">
+                                <blockquote class="testimonial__text">
+                                    Nhờ có OnTest VN mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
+                                </blockquote>
+                                <div class="d-flex align-items-center testimonial__author">
+                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="testimonial__name">asd</span>
+                                        <span class="testimonial__location">asdasd</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="slider__btn slider__btn--left">&larr;</button>
+                        <button class="slider__btn slider__btn--right">&rarr;</button>
+                        <div class="dots"></div>
                     </div>
+                    <!-- END Slider -->
                 </div>
             </div>
             <!-- END Section 3 -->
@@ -492,103 +270,52 @@
                 <!-- Footer Navigation -->
                 <div class="row items-push fs-sm border-bottom pt-4">
                     <div class="col-6 col-md-4">
-                        <h3 class="fw-semibold">Category</h3>
+                        <h3 class="fw-semibold">Thông tin</h3>
                         <ul class="list list-simple-mini">
                             <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #1
+                                <a class="fw-semibold text-dark" href="#">
+                                    Chính sách bảo mật
                                 </a>
                             </li>
                             <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #2
+                                <a class="fw-semibold text-dark" href="#">
+                                    Điều khoản sử dụng
                                 </a>
                             </li>
                             <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #3
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #4
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #5
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #6
+                                <a class="fw-semibold text-dark" href="#">
+                                   Hướng dẫn
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-4">
-                        <h3 class="fw-semibold">Category</h3>
-                        <ul class="list list-simple-mini">
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #1
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #2
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #3
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #4
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #5
-                                </a>
-                            </li>
-                            <li>
-                                <a class="fw-semibold" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-link text-primary-lighter me-1"></i> Link #6
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h3 class="fw-semibold">Company</h3>
+                        <h3 class="fw-semibold">Địa chỉ</h3>
                         <div class="fs-sm push">
-                            1080 Sunshine Valley, Suite 2563<br>
-                            San Francisco, CA 85214<br>
-                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                            Trường Đại học Sài Gòn<br>
+                            273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh<br>
                         </div>
-                        <h3 class="fw-semibold">Subscribe to our news</h3>
-                        <form>
-                            <div class="input-group">
-                                <input type="email" class="form-control form-control-alt" id="dm-gs-subscribe-email"
-                                    name="dm-gs-subscribe-email" placeholder="Your email..">
-                                <button type="submit" class="btn btn-alt-primary">Subscribe</button>
-                            </div>
-                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="fw-semibold">Kết nối</h3>
+                            <ul class="list list-simple-mini">
+                                <li>
+                                    <a class="fw-semibold" href="#">
+                                        <i class="fab fa-1x fa-facebook-f me-2 text-dark"></i>
+                                    </a>
+                                    <a class="fw-semibold" href="#">
+                                        <i class="fab fa-1x fa-facebook-messenger text-dark"></i>
+                                    </a>
+                                </li>
+                            </ul>
                     </div>
                 </div>
                 <!-- END Footer Navigation -->
 
                 <!-- Footer Copyright -->
                 <div class="row fs-sm pt-4">
-                    <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
-                        Crafted with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold"
-                            href="https://1.envato.market/ydb" target="_blank">pixelcave</a>
-                    </div>
-                    <div class="col-sm-6 order-sm-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="https://1.envato.market/r6y" target="_blank">Dashmix 5.5</a> &copy;
-                        <span data-toggle="year-copy"></span>
+                    <div class="col-md-6 offset-md-3 text-center">
+                        Copyright © 2023 OnTestVN. All rights reserved.
                     </div>
                 </div>
                 <!-- END Footer Copyright -->
@@ -598,7 +325,7 @@
     </div>
     <!-- END Page Container -->
 
-    <script src="./public/js/dashmix.app.min.js"></script>
+    <?php require "inc/script.php"?>
 </body>
 
 </html>

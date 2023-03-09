@@ -23,12 +23,8 @@ class Subject extends Controller{
 
     public function add()
     {
-        $valid = true;
-        if(isset($_POST['mamon']) && isset($_POST['tenmon'])) {
             $result = $this->monHocModel->create($_POST['mamon'],$_POST['tenmon']);
-            if(!$result) $valid = false;
-        }
-        echo json_encode($valid);
+            echo $result;
     }
 
     public function getData()

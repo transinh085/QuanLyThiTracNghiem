@@ -1,8 +1,3 @@
-/*!
- * dashmix - v5.5.0
- * @author pixelcave - https://pixelcave.com
- * Copyright (c) 2022
- */
 Dashmix.onLoad((() => class {
     static sweetAlert2() {
         let e = Swal.mixin({
@@ -43,3 +38,19 @@ Dashmix.onLoad((() => class {
         this.sweetAlert2()
     }
 }.init()));
+
+$(document).ready(function () {
+    let roles = [];
+    $("#save-role").click(function (e) { 
+        e.preventDefault();
+        let arr = $(".table-role .form-check-input");
+        $.each(arr, function (i, item) {
+            let name = $(item).attr("name");
+            let action = $(item).val();
+            let check = $(item).prop( "checked");
+            let role = new Map().set(`${name}`, [`${action}`, `${check}`]);
+            roles.push(role);
+        });
+        console.log(roles);
+    });
+});

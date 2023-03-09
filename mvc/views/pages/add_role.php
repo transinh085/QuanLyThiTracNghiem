@@ -9,8 +9,8 @@
                 <div class="col-md-10 col-lg-10">
                     <form action="./roles/addRole" method="POST">
                         <div class="mb-4">
-                            <label class="form-label" for="one-ecom-product-id">Tên nhóm quyền</label>
-                            <input type="text" class="form-control" id="one-ecom-product-id" name="one-ecom-product-id"
+                            <label class="form-label" for="ten-nhom-quyen">Tên nhóm quyền</label>
+                            <input type="text" class="form-control" id="ten-nhom-quyen" name="ten-nhom-quyen"
                                 placeholder="VD: Giảng viên">
                         </div>
                         <table class="table table-vcenter">

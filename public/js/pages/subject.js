@@ -85,7 +85,6 @@ function showData(subjects) {
     $("#list-subject").html(html);
 }
 
-function viewChapter($id) { }
 
 $("#add_class").on("click", function () {
     $.ajax({
@@ -96,7 +95,6 @@ $("#add_class").on("click", function () {
             tenmon: $("#subject_name").val(),
         },
         success: function (response) {
-            alert(response)
                 $("#modal-add-subject").modal("hide");
                 loadData();
         },
@@ -105,7 +103,48 @@ $("#add_class").on("click", function () {
 
 $(document).on("click", ".subject-infor", function () {
     var trid = $(this).attr("dataid");
+    $("#mamonhoc").val(trid)
+    showChaper(trid)
+
 });
+
+function showChaper(id){
+    $.ajax({
+        type: "post",
+        url: "./subject/getAllChapper",
+        data: {
+            mamonhoc: id
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log($("#showChapper"));
+            let data = response;
+            let html = '';
+            data.forEach((chapper) =>{
+                html += `<tr>
+                <td class="text-center fs-sm"><strong>1</strong></td>
+                <td>Quản trị kinh tế</td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_order.html"
+                        data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
+                        <i class="fa fa-fw fa-eye"></i>
+                    </a>
+                    <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_order.html"
+                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                        <i class="fa fa-fw fa-pencil"></i>
+                    </a>
+                    <a class="btn btn-sm btn-alt-secondary delete_roles" href="javascript:void(0)"
+                        data-bs-toggle="tooltip" aria-label="Delete"
+                        data-bs-original-title="Delete">
+                        <i class="fa fa-fw fa-times"></i>
+                    </a>
+                </td>
+            </tr>`
+            })
+            $("#showChapper").html(html);
+        }
+    });
+}
 
 $(document).on("click", ".subject-edit", function () {
     var trid = $(this).attr("dataid");
@@ -176,6 +215,9 @@ $("#edit_class").click(function(e){
         }
     });
 })
+
+//chapter
+
 
 
 

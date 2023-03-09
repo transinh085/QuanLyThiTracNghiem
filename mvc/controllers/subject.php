@@ -6,7 +6,7 @@ class Subject extends Controller{
     public function __construct()
     {
         $this->monHocModel = $this->model("MonHocModel");
-        $this->chuongModel = $this->model("MonHocModel");
+        $this->chuongModel = $this->model("ChuongModel");
     }
 
     public function default()
@@ -46,6 +46,13 @@ class Subject extends Controller{
             $tenmon = $_POST['tenmon'];
             $result = $this->monHocModel->update($mamon,$tenmon);
         }
+    }
+
+    //Chapper
+
+    public function getAllChapper(){
+        $result = $this->chuongModel->getAll($_POST['mamonhoc']);
+        echo json_encode($result);
     }
 }
 

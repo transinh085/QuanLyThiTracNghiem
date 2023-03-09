@@ -2,18 +2,18 @@
 class MonHocModel extends DB{
     public function create($id,$name)
     {   
-        $check = true;
         $sql = "INSERT INTO `monhoc`(`mamonhoc`, `tenmonhoc`) VALUES ('$id','$name')";
         $result = mysqli_query($this->con,$sql);
-        if(!$result) $check = false;
-        return $check;
+        echo $sql;
     }
 
     public function update($id, $name) 
     {
+        $check = true;
         $sql = "UPDATE `monhoc` SET `tenmonhoc`='$name' WHERE `mamonhoc`='$id'";
         $result = mysqli_query($this->con,$sql);
-        return $sql;
+        if(!$result) $check = false;
+        return $check;
     }
 
     public function delete($id) 

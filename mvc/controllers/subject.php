@@ -54,6 +54,19 @@ class Subject extends Controller{
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);
     }
+
+    public function chaperDelete(){
+        $this->chuongModel->delete($_POST['dataid']);
+    }
+
+    public function addChaper(){
+        $this->chuongModel->insert($_POST['mamonhoc'],$_POST['tenchuong']);
+    }
+
+    public function updateChaper()
+    {
+        $this->chuongModel->update($_POST['machuong'], $_POST['tenchuong']);
+    }
 }
 
 ?>

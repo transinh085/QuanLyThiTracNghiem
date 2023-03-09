@@ -149,6 +149,7 @@
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-sm btn-primary" id="edit_class">Lưu</button>
                     <input type="hidden" value="" id="mamonhoc">
+                    <input type="hidden" value="" id="machuong">
                 </div>
             </div>
         </div>
@@ -197,21 +198,23 @@
                                         </a>
                                     </td>
                                 </tr>
+                                <input type="hidden" value="" id="chaperId">
                             </tbody>
                         </table>
                     </div>
                     <div class="mb-3">
                         <div class="block block-rounded border">
                             <div class="block-content pb-3">
-                                <a class="fw-bold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-fw fa-plus"></i>Thêm chương</a>
+                                <a class="fw-bold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="btnaddChapper"><i class="fa fa-fw fa-plus"></i>Thêm chương</a>
                                 <div class="collapse" id="collapseExample">
                                     <form method="post" class="mt-2">
                                         <div class="row mb-1">
                                             <div class="col-8">
-                                                <input type="text" class="form-control" name="name_group" id="name_group" placeholder="Nhập tên chương">
+                                                <input type="text" class="form-control" name="name_group" id="name_chaper" placeholder="Nhập tên chương">
                                             </div>
                                             <div class="col-4">
-                                                <button id="add_group" type="submit" class="btn btn-primary" name="add_group">Tạo chương</button>
+                                                <button id="addchaper" type="submit" class="btn btn-primary">Tạo chương</button>
+                                                <button id="editchaper" type="submit" class="btn btn-primary">Đổi tên</button>
                                             </div>
                                         </div>
                                     </form>
@@ -221,8 +224,7 @@
                     </div>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="add_class">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary me-1" data-bs-dismiss="modal">Thoát</button>
                 </div>
             </div>
         </div>

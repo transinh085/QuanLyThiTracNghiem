@@ -4,6 +4,10 @@ CKEDITOR.replace("option-content");
 $(document).ready(function () {
     let options = [];
     
+    $('select').select2({
+        dropdownParent: $('#modal-add-question')
+    });
+
     $("[data-bs-target='#add_option']").on('click', function () {
         $("#update-option").hide();
         $("#save-option").show();
@@ -42,7 +46,7 @@ $(document).ready(function () {
                     </td>
                     <td class="d-none d-sm-table-cell">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="da-dung" data-id="${index}" id="da-${index}" onchange="changeOptionTrue(this)" ${item.check == true ? `checked` : ``}>
+                            <input class="form-check-input" type="radio" name="da-dung" data-id="${index}" id="da-${index}" ${item.check == true ? `checked` : ``}>
                             <label class="form-check-label" for="da-${index}">
                                 Đáp án đúng
                             </label>
@@ -50,12 +54,12 @@ $(document).ready(function () {
                     </td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-alt-secondary"
-                                data-bs-toggle="tooltip" title="Edit" onclick="editOption(${index})">
+                            <button type="button" class="btn btn-sm btn-alt-secondary btn-edit-option"
+                                data-bs-toggle="tooltip" title="Edit" data-id="${index}">
                                 <i class="fa fa-pencil-alt"></i>
                             </button>
-                            <button type="button" class="btn btn-sm btn-alt-secondary"
-                                data-bs-toggle="tooltip" title="Delete" onclick="deleteOption(${index})">
+                            <button type="button" class="btn btn-sm btn-alt-secondary btn-delete-option"
+                                data-bs-toggle="tooltip" title="Delete" data-id="${index}">
                                 <i class="fa fa-times"></i>
                             </button>
                         </div>
@@ -69,8 +73,9 @@ $(document).ready(function () {
         CKEDITOR.instances["option-content"].setData("");
         $("#true-option").prop("checked",false);
     }
-    
-    function editOption(index) {
+
+    $(document).on("click", ".btn-edit-option", function () {
+        let index = $(this).data('id');
         $("#update-option").show();
         $("#save-option").hide();
         $("#update-option").data('id', index)
@@ -79,22 +84,26 @@ $(document).ready(function () {
         if(options[index].check == true) {
             $("#true-option").prop("checked",true);
         }
-    }
+    });
     
-    function deleteOption(index) {
+    $(document).on("click", ".btn-delete-option", function () {
+        let index = $(this).data('id');
         if(confirm("Bạn có chắc chắn muốn xoá lựa chọn ?") == true) {
             options.splice(index,1);
             showOptions(options);
         }
-    }
+    });
     
-    function changeOptionTrue(x) {
-        let index = $(x).data('id');
+
+    $(document).on("change", "[name='da-dung']", function () {
+        let index = $(this).data('id');
         options.forEach(item => {
             item.check = false;
         });
         options[index].check = true;
-    }
+        console.log(options);
+    });
+
     
     $.get("./subject/getData",function (data) {
         let html = "<option></option>";
@@ -104,7 +113,21 @@ $(document).ready(function () {
         $(".data-monhoc").html(html);
     },"json");
     
-    
+
+    $(".data-monhoc").on("change", function() {
+        let selectedValue = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "./subject/getDataChapter",
+            data: {
+                mamonhoc: selectedValue
+            },
+            dataType: "json",
+            success: function (response) {
+                // load ra select
+            }
+        });
+    });
     
     $("#add_question").click(function (e) {
         e.preventDefault();
@@ -171,5 +194,4 @@ $(document).ready(function () {
         });
         $("#content-file").html(data);
     }
-    
 });

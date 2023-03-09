@@ -1,10 +1,12 @@
 <?php
 class Subject extends Controller{
     public $monHocModel;
+    public $chuongModel;
 
     public function __construct()
     {
         $this->monHocModel = $this->model("MonHocModel");
+        $this->chuongModel = $this->model("MonHocModel");
     }
 
     public function default()
@@ -30,6 +32,11 @@ class Subject extends Controller{
     {
         $data = $this->monHocModel->getAll();
         echo json_encode($data);
+    }
+
+    public function getDataChapter()
+    {
+        
     }
 }
 

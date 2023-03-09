@@ -242,8 +242,7 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc" name="mon-hoc"
-                                            style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">HTML</option>
                                             <option value="2">CSS</option>
@@ -258,18 +257,8 @@
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select" id="chuong" name="chuong"
-                                            style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
                                         </select>
                                     </div>
                                     <div class="col-4">
@@ -335,8 +324,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc-tab-file" name="mon-hoc-tab-file"
-                                            style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-monhoc" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">HTML</option>
                                             <option value="2">CSS</option>
@@ -351,18 +339,8 @@
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select" id="chuong-tab-file" name="chuong-tab-file"
-                                            style="width: 100%;" data-placeholder="Choose one..">
-                                            <option></option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
+                                        <select class="js-select2 form-select" style="width: 100%;" data-placeholder="Choose one..">
+                                            
                                         </select>
                                     </div>
                                 </div>

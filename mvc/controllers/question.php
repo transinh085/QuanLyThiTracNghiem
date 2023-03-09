@@ -24,31 +24,6 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
             ]);
         }
 
-        function add() {
-            $this->view("main_layout", [
-                "Page" => "add_question",
-                "Title" => "Tạo câu hỏi",
-                "Plugin" => [
-                    "ckeditor" => 1,
-                    "select" => 1
-                ],
-                "Script" => "add_question"
-            ]);
-        }
-
-        public function addfile()
-        {
-            $this->view("main_layout", [
-                "Page" => "add_question_from_file",
-                "Title" => "Tạo câu hỏi",
-                "Plugin" => [
-                    "ckeditor" => 1,
-                    "select" => 1
-                ],
-                "Script" => "add_file_docx"
-            ]);
-        }
-
 
         function edit($id) {
             $this->view("main_layout", [

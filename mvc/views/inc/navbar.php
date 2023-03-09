@@ -64,26 +64,10 @@ $page = $components[2];
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link nav-main-link-submenu <?php if($page == 'question') echo "active" ?>"
-                        data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="./question">
+                    <a class="nav-main-link <?php if($page == 'question') echo "active" ?>" href="./question">
                         <i class="nav-main-link-icon si si-question"></i>
                         <span class="nav-main-link-name">Câu hỏi</span>
                     </a>
-                    <ul class="nav-main-submenu">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="./question/add">
-                                <span class="nav-main-link-name">Tạo câu hỏi thủ công</span>
-                            </a>
-                            <a class="nav-main-link" href="./question/addfile">
-                                <span class="nav-main-link-name">Tạo câu hỏi từ file</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="./question">
-                                <span class="nav-main-link-name">Danh sách câu hỏi</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link <?php if($page == 'user') echo "active" ?>" href="./user">

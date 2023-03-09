@@ -201,13 +201,13 @@ function showChaper(id){
                 <td class="text-center fs-sm"><strong>${index++}</strong></td>
                 <td>${chapper['tenchuong']}</td>
                 <td class="text-center">
-                    <a class="btn btn-sm btn-alt-secondary chaper-edit" href="be_pages_ecom_order.html"
-                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" dataid="">
+                    <a class="btn btn-sm btn-alt-secondary chaper-edit"
+                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" dataid="${chapper['machuong']}">
                         <i class="fa fa-fw fa-pencil"></i>
                     </a>
                     <a class="btn btn-sm btn-alt-secondary delete_roles chaper-delete" href="javascript:void(0)"
                         data-bs-toggle="tooltip" aria-label="Delete"
-                        data-bs-original-title="Delete">
+                        data-bs-original-title="Delete" dataid="${chapper['machuong']}">
                         <i class="fa fa-fw fa-times"></i>
                     </a>
                 </td>
@@ -217,6 +217,74 @@ function showChaper(id){
         }
     });
 }
+
+$("#btnaddChapper").click(function(){
+    $("#addchaper").show();
+    $("#editchaper").hide();
+    $("#name_chaper").val("")
+})
+
+$("#addchaper").on("click", function(e){
+    e.preventDefault();
+    $.ajax({
+        type: "post",
+        url: "./subject/addChaper",
+        data: {
+            mamonhoc: $("#mamonhoc").val(),
+            tenchuong: $("#name_chaper").val()
+        },
+        success: function (response) {
+            showChaper($("#mamonhoc").val());
+            $("#name_chaper").val("")
+            $("#collapseExample").collapse('hide')
+        }
+    });
+})
+
+$(document).on("click", ".chaper-delete", function(){
+    let idMH = $(this).attr("dataid");
+    deleteChaper(idMH);
+})
+
+function deleteChaper(id){
+    $.ajax({
+        type: "post",
+        url: "./subject/chaperDelete",
+        data: {
+            dataid: id
+        },
+        success: function (response) {
+            showChaper($("#mamonhoc").val())
+        }
+    });
+}
+
+$(document).on("click", ".chaper-edit", function(){
+    let id = $(this).attr("dataid");
+    $("#machuong").val(id)
+    $("#addchaper").hide();
+    $("#editchaper").show();
+    $("#collapseExample").collapse('show');
+    let name = $(this).closest("td").closest("tr").children().eq(1).text()
+    $("#name_chaper").val(name);
+})
+
+$("#editchaper").on("click", function(e){
+    e.preventDefault();
+    $.ajax({
+        type: "post",
+        url: "./subject/updateChaper",
+        data: {
+            machuong: $("#machuong").val(),
+            tenchuong: $("#name_chaper").val()
+        },
+        success: function (response) {
+            showChaper($("#mamonhoc").val());
+            $("#name_chaper").val("")
+            $("#collapseExample").collapse('hide')
+        }
+    });
+})
 
 
 

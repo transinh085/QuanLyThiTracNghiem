@@ -7,7 +7,7 @@
         <div class="block-content">
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-10">
-                    <form action="be_pages_ecom_product_edit.html" method="POST" onsubmit="return false;">
+                    <form action="./roles/addRole" method="POST">
                         <div class="mb-4">
                             <label class="form-label" for="one-ecom-product-id">Tên nhóm quyền</label>
                             <input type="text" class="form-control" id="one-ecom-product-id" name="one-ecom-product-id"
@@ -27,16 +27,16 @@
                                 <tr>
                                     <td>Người dùng</td>
                                     <td class="text-center">
-                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                        <input class="form-check-input" type="checkbox" name="user" value="view">
                                     </td>
                                     <td class="text-center">
-                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                        <input class="form-check-input" type="checkbox" name="user" value="create">
                                     </td>
                                     <td class="text-center">
-                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                        <input class="form-check-input" type="checkbox" name="user" value="update">
                                     </td>
                                     <td class="text-center">
-                                        <input class="form-check-input" type="checkbox" value="1" id="">
+                                        <input class="form-check-input" type="checkbox" name="user" value="delete">
                                     </td>
                                 </tr>
                                 <tr>

@@ -48,9 +48,15 @@ $(document).ready(function () {
             let name = $(item).attr("name");
             let action = $(item).val();
             let check = $(item).prop( "checked");
-            let role = new Map().set(`${name}`, [`${action}`, `${check}`]);
+            let role = {
+                name: name,
+                action: action,
+                check: check ? 1 : 0
+            }
             roles.push(role);
         });
         console.log(roles);
     });
 });
+
+

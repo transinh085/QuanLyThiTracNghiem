@@ -15,14 +15,6 @@ class Roles extends Controller{
 
     public function add()
     {
-        $this->view("main_layout",[
-            "Page" => "add_role",
-            "Title" => "Tạo quyền",
-        ]);
-    }
-
-    public function addRole()
-    {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<pre>";
             print_r($_POST);

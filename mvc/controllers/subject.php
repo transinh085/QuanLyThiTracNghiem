@@ -12,7 +12,10 @@ class Subject extends Controller{
         $this->view("main_layout",[
             "Page" => "subject",
             "Title" => "Quản lý môn học",
-            "Script" => "subject"
+            "Script" => "subject",
+            "Plugin" => [
+                "sweetalert2" => 1
+            ]
         ]);
     }
 
@@ -30,6 +33,21 @@ class Subject extends Controller{
     {
         $data = $this->monHocModel->getAll();
         echo json_encode($data);
+    }
+
+    public function deleteData(){
+        if(isset($_POST['mamon'])){
+            $mamon = $_POST['mamon'];
+            $result = $this->monHocModel->delete($mamon);
+        }
+    }
+
+    public function update(){
+        if(isset($_POST['mamon'])){
+            $mamon = $_POST['mamon'];
+            $tenmon = $_POST['tenmon'];
+            $result = $this->monHocModel->update($mamon,$tenmon);
+        }
     }
 }
 

@@ -10,6 +10,7 @@ class ChuongModel extends DB {
         }
         return $rows;
     }
+    
     public function insert($mamonhoc,$tenchuong) 
     {
         $sql = "INSERT INTO `chuong`(`mamonhoc`,`tenchuong`) VALUES ('$mamonhoc','$tenchuong')";

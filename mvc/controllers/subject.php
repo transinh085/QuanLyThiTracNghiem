@@ -49,7 +49,6 @@ class Subject extends Controller{
     }
 
     //Chapper
-
     public function getAllChapper(){
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);

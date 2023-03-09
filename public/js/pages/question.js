@@ -116,15 +116,20 @@ $(document).ready(function () {
 
     $(".data-monhoc").on("change", function() {
         let selectedValue = $(this).val();
+        let id = $(this).data('tab');
+        let html = '<option></option>';
         $.ajax({
             type: "post",
-            url: "./subject/getDataChapter",
+            url: "./subject/getAllChapper",
             data: {
                 mamonhoc: selectedValue
             },
             dataType: "json",
-            success: function (response) {
-                // load ra select
+            success: function (data) {
+                data.forEach(item => {
+                    html += `<option value="${item.machuong}">${item.tenchuong}</option>`;
+                });
+                $(`.data-chuong[data-tab="${id}"]`).html(html);
             }
         });
     });

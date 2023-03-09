@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="block-content">
-            <form action="be_pages_ecom_orders.html" method="POST" onsubmit="return false;">
+            <form onsubmit="return false;">
                 <div class="row mb-4 align-items-center">
                     <div class="col-10">
                         <div class="input-group">
@@ -242,7 +242,7 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">HTML</option>
                                             <option value="2">CSS</option>
@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                         </select>
                                     </div>
@@ -324,7 +324,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-monhoc" data-tab="2" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">HTML</option>
                                             <option value="2">CSS</option>
@@ -339,7 +339,7 @@
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-chuong" data-tab="2" style="width: 100%;" data-placeholder="Choose one..">
                                             
                                         </select>
                                     </div>

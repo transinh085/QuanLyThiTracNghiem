@@ -177,7 +177,7 @@
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="showChapper">
                                 <tr>
                                     <td class="text-center fs-sm"><strong>1</strong></td>
                                     <td>Quản trị kinh tế</td>

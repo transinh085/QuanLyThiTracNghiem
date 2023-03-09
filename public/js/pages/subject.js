@@ -108,7 +108,6 @@ $("#add_class").on("click", function () {
 
 $(document).on("click", "tr td a[action='add']", function () {
     var trid = $(this).closest("td").closest("tr").attr("tid");
-
 });
 
 $(document).on("click", "tr td a[action='update']", function () {
@@ -180,6 +179,8 @@ $("#edit_class").click(function(e){
         }
     });
 })
+
+
 
 
 loadData();

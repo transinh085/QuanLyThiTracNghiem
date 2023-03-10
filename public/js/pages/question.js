@@ -275,10 +275,10 @@ $(document).ready(function () {
                                     </p>
                                 </div>
                                 <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off">
-                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off">
-                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" checked="">
-                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_2">C</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off">
-                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_3">D</label></div>
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off">
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" checked>
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_2">C</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off">
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_3">D</label></div>
                             </div>
                         </div>
                     </td>

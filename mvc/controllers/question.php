@@ -98,5 +98,10 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
                 }
             }
         }
+
+        public function getQuestion(){
+            $result = $this->cauHoiModel->getAll();
+            echo json_encode($result);
+        }
     }
 ?>

@@ -54,7 +54,7 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="listQuestion">
                         <tr>
                             <td class="text-center fs-sm">
                                 <a class="fw-semibold" href="#">
@@ -63,7 +63,7 @@
                             </td>
                             <td>Lập trình hướng đối tượng là gì ?</td>
                             <td class="d-none d-xl-table-cell fs-sm">
-                                <a class="fw-semibold" href="be_pages_ecom_customer.html">Lập trình hướng đối tượng</a>
+                                <a class="fw-semibold">Lập trình hướng đối tượng</a>
                             </td>
                             <td class="d-none d-sm-table-cell fs-sm">
                                 <strong>Cơ bản</strong>
@@ -129,7 +129,7 @@
                             </td>
                             <td>OOP là viết tắt của:</td>
                             <td class="d-none d-xl-table-cell fs-sm">
-                                <a class="fw-semibold" href="be_pages_ecom_customer.html">Lập trình java</a>
+                                <a class="fw-semibold">Lập trình java</a>
                             </td>
                             <td class="d-none d-sm-table-cell fs-sm">
                                 <strong>Cơ bản</strong>
@@ -141,7 +141,7 @@
                                         class="fa fa-angle-down ms-1"></i></button>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
+                                <a class="btn btn-sm btn-alt-secondary" href="#collapseExample1" data-bs-toggle="tooltip"
                                     aria-label="View" data-bs-original-title="View">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>

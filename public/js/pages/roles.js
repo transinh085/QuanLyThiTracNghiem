@@ -10,8 +10,8 @@ Dashmix.onLoad((() => class {
             }
         });
 
-        document.querySelectorAll(".delete_roles").forEach(item => {
-            item.addEventListener("click", (t => {
+        $(document).on("click", ".delete_roles", function () {
+            this.addEventListener("click", (t => {
                 e.fire({
                     title: "Are you sure?",
                     text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
@@ -33,6 +33,7 @@ Dashmix.onLoad((() => class {
                 }))
             }))
         });
+
     }
     static init() {
         this.sweetAlert2()
@@ -48,15 +49,86 @@ $(document).ready(function () {
             let name = $(item).attr("name");
             let action = $(item).val();
             let check = $(item).prop( "checked");
-            let role = {
-                name: name,
-                action: action,
-                check: check ? 1 : 0
+            if(check) {
+                let role = {
+                    name: name,
+                    action: action,
+                }
+                roles.push(role);
             }
-            roles.push(role);
         });
+
         console.log(roles);
+
+        $.ajax({
+            type: "post",
+            url: "./roles/add",
+            data: {
+                name: $("#ten-nhom-quyen").val(),
+                roles: roles
+            },
+            success: function (response) {
+                if(response) {
+                    loadDataTable()
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền thành công!' });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền không thành công!' });
+                }
+            }
+        });
     });
+
+
+    function loadDataTable() {
+        let html = ``;
+        $.getJSON("./roles/getAllSl",
+            function (data) {
+                data.forEach(item => {
+                    html += `<tr>
+                    <td class="text-center fs-sm"><strong>${item.manhomquyen}</strong></td>
+                    <td>${item.tennhomquyen}</td>
+                    <td class="text-center fs-sm">${item.soluong}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-alt-secondary btn-view" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
+                            <i class="fa fa-fw fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-alt-secondary btn-update" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                            <i class="fa fa-fw fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-alt-secondary delete_roles" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Delete"
+                            data-bs-original-title="Delete">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </td>
+                </tr>`
+                });
+                $("#list-roles").html(html);
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+        );
+    }
+
+    $(document).on("click", ".btn-view", function () {
+        $.ajax({
+            type: "post",
+            url: "./roles/getDetail",
+            data: {
+                manhomquyen: $(this).data('id')
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+                $("#ten-nhom-quyen").val(response[1].tennhomquyen);
+                $.each(response, function (index, item) { 
+                    $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked',true)
+                });
+                $("#modal-add-role").modal("show");
+            }
+        });
+    });
+
+    loadDataTable()
+
 });
 
 

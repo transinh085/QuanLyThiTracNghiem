@@ -137,28 +137,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#add_question").click(function (e) {
-    console.log("Mon hoc:" + $("#mon-hoc").val());
-    console.log("Ten chuong:" + $("#chuong").val());
-    console.log("Do kho:" + $("#dokho").val());
-    console.log("Noi dung:" + CKEDITOR.instances["js-ckeditor"].getData());
-    console.log("Cau tra loi:" + options);
-    e.preventDefault();
-    $.ajax({
-      type: "post",
-      url: "./question/addQues",
-      data: {
-        mamon: $("#mon-hoc").val(),
-        machuong: $("#chuong").val(),
-        dokho: $("#dokho").val(),
-        noidung: CKEDITOR.instances["js-ckeditor"].getData(),
-        cautraloi: options,
-      },
-      success: function (response) {
-        console.log(response);
-      },
-    });
-  });
+  
 
   $("#form-upload").submit(function (e) {
     e.preventDefault();
@@ -275,8 +254,8 @@ $(document).ready(function () {
                                     </p>
                                 </div>
                                 <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off">
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off">
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" checked>
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" checked>
+                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off">
                                 <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_2">C</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off">
                                 <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_3">D</label></div>
                             </div>
@@ -291,4 +270,28 @@ $(document).ready(function () {
   }
 
   loadQuestion();
+
+  //add question 
+  $("#add_question").click(function (e) {
+    console.log("Mon hoc:" + $("#mon-hoc").val());
+    console.log("Ten chuong:" + $("#chuong").val());
+    console.log("Do kho:" + $("#dokho").val());
+    console.log("Noi dung:" + CKEDITOR.instances["js-ckeditor"].getData());
+    console.log(options);
+    // e.preventDefault();
+    // $.ajax({
+    //   type: "post",
+    //   url: "./question/addQues",
+    //   data: {
+    //     mamon: $("#mon-hoc").val(),
+    //     machuong: $("#chuong").val(),
+    //     dokho: $("#dokho").val(),
+    //     noidung: CKEDITOR.instances["js-ckeditor"].getData(),
+    //     cautraloi: options,
+    //   },
+    //   success: function (response) {
+    //     console.log(response);
+    //   },
+    // });
+  });
 });

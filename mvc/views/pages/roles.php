@@ -25,7 +25,7 @@
                         <table class="table table-vcenter">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Mã nhóm</th>
+                                    <th class="text-center">Mã nhóm quyền</th>
                                     <th>Tên nhóm</th>
                                     <th class="text-center">Số người dùng</th>
                                     <th class="text-center">Hành động</th>
@@ -225,6 +225,18 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="space-x-2">
+                        <div class="form-check form-switch form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="example-switch-inline1"
+                                name="example-switch-inline1" checked>
+                            <label class="form-check-label" for="example-switch-inline1">Option 1</label>
+                        </div>
+                        <div class="form-check form-switch form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="example-switch-inline2"
+                                name="example-switch-inline2">
+                            <label class="form-check-label" for="example-switch-inline2">Option 2</label>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

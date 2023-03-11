@@ -37,11 +37,11 @@ class GoogleAuth extends DB{
             $sqlcheck = "SELECT * FROM `nguoidung` WHERE email = '$email'";
             $check = mysqli_query($this->con, $sqlcheck);
             if(mysqli_num_rows($check) == 0){
-                $sql = "INSERT INTO `nguoidung`(`email`, `googleid`, `hoten`, `token`,`trangthai`,`nhomquyen`) VALUES ('$email','$userid','$username','$token','1','1')";
+                $sql = "INSERT INTO `nguoidung`(`email`, `googleid`, `hoten`, `token`,`trangthai`,`manhomquyen`) VALUES ('$email','$userid','$username','$token','1','1')";
                 mysqli_query($this->con,$sql);
             }
             // Chuyển hướng đến trang chủ
-            header('Location: ../');
+            header('Location: ../auth/signin');
             exit;
         } catch (Exception $e) {
             echo $e->getMessage();

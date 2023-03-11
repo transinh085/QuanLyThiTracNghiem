@@ -43,5 +43,12 @@ class Roles extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function update()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+        }
+    }
 }
 ?>

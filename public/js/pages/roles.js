@@ -1,44 +1,34 @@
-Dashmix.onLoad((() => class {
-    static sweetAlert2() {
-        let e = Swal.mixin({
-            buttonsStyling: !1,
-            target: "#page-container",
-            customClass: {
-                confirmButton: "btn btn-success m-1",
-                cancelButton: "btn btn-danger m-1",
-                input: "form-control"
-            }
-        });
-
-        $(document).on("click", ".delete_roles", function () {
-            this.addEventListener("click", (t => {
-                e.fire({
-                    title: "Are you sure?",
-                    text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    customClass: {
-                        confirmButton: "btn btn-danger m-1",
-                        cancelButton: "btn btn-secondary m-1"
-                    },
-                    confirmButtonText: "Vâng, tôi chắc chắn!",
-                    html: !1,
-                    preConfirm: e => new Promise((e => {
-                        setTimeout((() => {
-                            e()
-                        }), 50)
-                    }))
-                }).then((t => {
-                    t.value ? e.fire("Deleted!", "Your imaginary file has been deleted.", "success") : "cancel" === t.dismiss && e.fire("Cancelled", "Your imaginary file is safe :)", "error")
-                }))
-            }))
-        });
-
+let e = Swal.mixin({
+    buttonsStyling: !1,
+    target: "#page-container",
+    customClass: {
+        confirmButton: "btn btn-success m-1",
+        cancelButton: "btn btn-danger m-1",
+        input: "form-control"
     }
-    static init() {
-        this.sweetAlert2()
-    }
-}.init()));
+});
+
+$(document).on("click", ".delete_roles", function () {
+    e.fire({
+        title: "Are you sure?",
+        text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
+        icon: "warning",
+        showCancelButton: !0,
+        customClass: {
+            confirmButton: "btn btn-danger m-1",
+            cancelButton: "btn btn-secondary m-1"
+        },
+        confirmButtonText: "Vâng, tôi chắc chắn!",
+        html: !1,
+        preConfirm: e => new Promise((e => {
+            setTimeout((() => {
+                e()
+            }), 50)
+        }))
+    }).then((t => {
+        t.value ? e.fire("Deleted!", "Your imaginary file has been deleted.", "success") : "cancel" === t.dismiss && e.fire("Cancelled", "Your imaginary file is safe :)", "error")
+    }))
+});
 
 $(document).ready(function () {
     let roles = [];
@@ -57,8 +47,6 @@ $(document).ready(function () {
                 roles.push(role);
             }
         });
-
-        console.log(roles);
 
         $.ajax({
             type: "post",
@@ -109,7 +97,15 @@ $(document).ready(function () {
         );
     }
 
+    $("[data-bs-target='#modal-add-role']").click(function (e) { 
+        e.preventDefault();
+        $(".add-role-element").show();
+        $(".update-role-element").hide();
+    });
+
     $(document).on("click", ".btn-view", function () {
+        $(".add-role-element").hide();
+        $(".update-role-element").show();
         $.ajax({
             type: "post",
             url: "./roles/getDetail",
@@ -119,8 +115,8 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 console.log(response)
-                $("#ten-nhom-quyen").val(response[0].tennhomquyen);
-                $.each(response, function (index, item) { 
+                $("#ten-nhom-quyen").val(response.name);
+                $.each(response.detail, function (index, item) { 
                     $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked',true)
                 });
                 $("#modal-add-role").modal("show");

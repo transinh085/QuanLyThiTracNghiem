@@ -1,5 +1,4 @@
 <?php require "inc/head.php" ?>
-
 <body>
     <!-- Page Container -->
     <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-glass main-content-boxed">
@@ -35,7 +34,6 @@
             </div>
         </header>
         <!-- END Header -->
-
         <!-- Main Container -->
         <main id="main-container">
             <!-- Hero -->

@@ -45,13 +45,17 @@ class NhomQuyenModel extends DB {
 
     public function getById($manhomquyen)
     {
-        $sql = "SELECT tennhomquyen,loaiquyen,hanhdong FROM nhomquyen, chitietquyen WHERE nhomquyen.manhomquyen = chitietquyen.manhomquyen AND nhomquyen.manhomquyen = $manhomquyen";
-        $result = mysqli_query($this->con,$sql);
-        $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
+        $query_name = "SELECT tennhomquyen FROM nhomquyen WHERE manhomquyen = $manhomquyen";
+        $query_detail = "SELECT loaiquyen,hanhdong FROM nhomquyen, chitietquyen WHERE nhomquyen.manhomquyen = chitietquyen.manhomquyen AND nhomquyen.manhomquyen = $manhomquyen";
+        $result_name = mysqli_query($this->con,$query_name);
+        $result_detail = mysqli_query($this->con,$query_detail);
+        $result = array();
+        $result['name'] = mysqli_fetch_assoc($result_name)['tennhomquyen'];
+        $result['detail'] = array();
+        while($row = mysqli_fetch_assoc($result_detail)) {
+            $result['detail'][] = $row;
         }
-        return $rows;
+        return $result;
     }
 }
 ?>

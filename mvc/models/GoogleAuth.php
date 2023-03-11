@@ -11,6 +11,7 @@ class GoogleAuth {
         $this->client->setClientSecret('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');
         $this->client->setRedirectUri('http://localhost/Quanlythitracnghiem/auth/signin');
         $this->client->setScopes('email');
+        $this->client->addScope('profile');
     }
 
     public function getAuthUrl() {

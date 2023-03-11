@@ -71,7 +71,8 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm nhóm quyền</h5>
+                <h5 class="modal-title add-role-element">Thêm nhóm quyền</h5>
+                <h5 class="modal-title update-role-element">Sửa nhóm quyền</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-1">
@@ -225,23 +226,26 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="space-x-2">
-                        <div class="form-check form-switch form-check-inline">
+                    <div class="row justify-content-around">
+                        <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
                             <input class="form-check-input" type="checkbox" value="" id="example-switch-inline1"
-                                name="example-switch-inline1" checked>
-                            <label class="form-check-label" for="example-switch-inline1">Option 1</label>
+                                name="example-switch-inline1">
+                            <label class="form-check-label" for="example-switch-inline1">Tham gia
+                                thi</label>
                         </div>
-                        <div class="form-check form-switch form-check-inline">
+                        <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
                             <input class="form-check-input" type="checkbox" value="" id="example-switch-inline2"
                                 name="example-switch-inline2">
-                            <label class="form-check-label" for="example-switch-inline2">Option 2</label>
+                            <label class="form-check-label" for="example-switch-inline2">Tham gia học
+                                phần</label>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" id="save-role">Lưu</button>
+                <button type="button" class="btn btn-sm btn-primary add-role-element" data-bs-dismiss="modal" id="save-role">Lưu</button>
+                <button type="button" class="btn btn-sm btn-primary update-role-element" data-bs-dismiss="modal" id="update-role">Cập nhật</button>
             </div>
         </div>
     </div>

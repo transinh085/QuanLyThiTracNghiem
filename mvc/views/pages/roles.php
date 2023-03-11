@@ -243,9 +243,10 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <input type="hidden" name="manhomquyen">
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Huỷ</button>
                 <button type="button" class="btn btn-sm btn-primary add-role-element" data-bs-dismiss="modal" id="save-role">Lưu</button>
-                <button type="button" class="btn btn-sm btn-primary update-role-element" data-bs-dismiss="modal" id="update-role">Cập nhật</button>
+                <button type="button" class="btn btn-sm btn-primary update-role-element" data-bs-dismiss="modal" id="update-role-btn">Cập nhật</button>
             </div>
         </div>
     </div>

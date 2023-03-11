@@ -20,8 +20,27 @@ class NhomQuyenModel extends DB {
         return $valid;
     }
 
-    public function getAll()
+    public function update($manhomquyen,$tennhomquyen,$chitietquyen)
     {
+        $valid = true;
+        $sql = "UPDATE `nhomquyen` SET `tennhomquyen`='$tennhomquyen' WHERE `manhomquyen` = '$manhomquyen'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) {
+            $valid = false;
+        } else {
+            foreach($chitietquyen as $ct) {
+                $hanhdong = $ct['action'];
+                $loaiquyen = $ct['name'];
+                $sql = "UPDATE `chitietquyen` SET `loaiquyen`='$loaiquyen',`hanhdong`='$hanhdong' WHERE `manhomquyen`= $manhomquyen";
+                $result = mysqli_query($this->con, $sql);
+                if(!$result) return false;
+            }
+        }
+        return $valid;
+    }
+
+    public function getAll()
+    { 
         $sql = "SELECT * FROM `nhomquyen`";
         $result = mysqli_query($this->con,$sql);
         $rows = array();

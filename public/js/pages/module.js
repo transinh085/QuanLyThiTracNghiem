@@ -19,6 +19,38 @@ function updateGroup(id) {
   });
 }
 
+function openModalUpdateGroup(id) {
+  $.ajax({
+    type: "post",
+    url: "./module/getClass",
+    data: {
+      id: id,
+    },
+    success: function (response) {
+      const obj = JSON.parse(response);
+      $("#modal-update__class-name").val(obj.tennhom);
+      $("#modal-update__class-note").val(obj.ghichu);
+      $("#modal-update__class-id").val(obj.manhom);
+    },
+  });
+}
+
+$("#update_class").click(function (e) {
+  $.ajax({
+    type: "post",
+    url: "./module/updateClass",
+    data: {
+      id: $("#modal-update__class-id").val(),
+      name: $("#modal-update__class-name").val(),
+      note: $("#modal-update__class-note").val(),
+    },
+    success: function (response) {
+      loadDataClass();
+      $("#modal-update-group").modal("hide");
+    },
+  });
+});
+
 function deleteGroup(id) {
   $.ajax({
     type: "post",
@@ -37,18 +69,34 @@ function deleteGroup(id) {
   });
 }
 
-function updateClass(attribute, id) {
-  // const value = document.querySelector();
+function deleteClass(id) {
+  $.ajax({
+    type: "post",
+    url: "./module/deleteClass",
+    data: {
+      id: id,
+    },
+    success: function (response) {
+      loadDataClass();
+      // One.helpers("jq-notify", {
+      //   type: "success",
+      //   icon: "fa fa-check me-1",
+      //   message: "Xoá nhóm thành công!",
+      // });
+    },
+  });
+}
+
+function updateClass(id) {
   $.ajax({
     type: "post",
     url: "./module/updateClass",
     data: {
       id: id,
-      attr: attribute,
       value: "",
     },
     success: function (response) {
-      console.log(response);
+      loadDataClass();
     },
   });
 }
@@ -90,17 +138,17 @@ function loadDataClass() {
                     <h2 class="content-heading">${item.tennhomhocphan}</h2>
                     <div class="dropdown">
                         <button type="button" class="btn btn-sm btn-alt-secondary space-x-1 ms-2" id="dropdown-content-rich-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-pencil"></i>
+                          <i class="fa fa-fw fa-pencil"></i>
                         </button>
                         <div class="dropdown-menu p-1" aria-labelledby="dropdown-content-rich-primary">
-                        <div class="p-2" style="width:200px">
+                          <div class="p-2" style="width:200px">
                             <div class="mb-3">
-                            <label class="form-label" for="tennhomhocphan_${item.manhomhocphan}">Cập nhật nhóm</label>
-                            <input type="email" class="form-control" id="tennhomhocphan_${item.manhomhocphan}" name="tennhomhocphan_${item.manhomhocphan}" value="${item.tennhomhocphan}">
+                              <label class="form-label" for="tennhomhocphan_${item.manhomhocphan}">Cập nhật nhóm</label>
+                              <input type="email" class="form-control" id="tennhomhocphan_${item.manhomhocphan}" name="tennhomhocphan_${item.manhomhocphan}" value="${item.tennhomhocphan}">
                             </div>
                             <button class="btn btn-sm btn-danger delete_group" onclick="deleteGroup(${item.manhomhocphan})">Xoá</button>
                             <button class="btn btn-sm btn-primary update_group" data-id="${item.manhomhocphan}" onclick="updateGroup(${item.manhomhocphan})">Cập nhật</button>
-                        </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -110,14 +158,14 @@ function loadDataClass() {
         } else {
           item.class.forEach((element) => {
             if (element.ghichu != "") {
-              htmlGhiChu = `<p>${element.ghichu}</p>`;
+              htmlGhiChu = `<p class="block-class-note">${element.ghichu}</p>`;
             }
             html += `
             <div class="col-sm-6 col-lg-6 col-xl-3">
               <!-- <a class="block block-rounded block-link-shadow" href="./module/detail/${element.manhom}"> </a> -->
               <div class="block block-rounded">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">${element.tennhom}</h3>
+                    <h3 class="block-title block-class-name">${element.tennhom}</h3>
                     <div class="block-options">
                       <div class="dropdown">
                         <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${element.manhom}">
@@ -128,17 +176,14 @@ function loadDataClass() {
                             <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
                             <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
                           </a>
-                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
+                          <!-- Sao chep ma moi -->
+                          <a class="nav-main-link dropdown-item btn-update-group" data-bs-toggle="modal" data-bs-target="#modal-update-group" href="javascript:void(0)" data-id="${element.manhom}" onclick="openModalUpdateGroup(${element.manhom})">
                             <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
-                            <span class="nav-main-link-name fw-normal">Đổi tên nhóm</span>
+                            <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
                           </a>
-                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
-                            <i class="nav-main-link-icon si si-notebook me-2 text-dark"></i>
-                            <span class="nav-main-link-name fw-normal">Ghi chú</span>
-                          </a>
-                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
-                            <i class="nav-main-link-icon si si-trash me-2 text-dark"></i>
-                            <span class="nav-main-link-name fw-normal">Xoá nhóm</span>
+                          <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${element.manhom}" onclick="deleteClass(${element.manhom})">
+                            <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
+                            <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
                           </a>
                         </div>
                       </div>
@@ -182,12 +227,13 @@ $("#add_class").click(function (e) {
     url: "./module/addClass",
     data: {
       name: $("#class_name").val(),
+      note: $("#class_note").val() != "" ? $("#class_note").val() : null,
       group: $('input[name="ds-grp"]:checked').val(),
     },
     success: function (response) {
       $("#class_name").val("");
       $("#class_note").val("");
-      $("#modal-block-vcenter").modal("hide");
+      $("#modal-add-group").modal("hide");
       loadDataClass();
       // One.helpers("jq-notify", {
       //   type: "success",
@@ -200,3 +246,24 @@ $("#add_class").click(function (e) {
 
 loadDataClass();
 loadDataGroup();
+
+// $(document).on("click", ".btn-update-group", function () {
+//   var trid = $(this).attr("dataid");
+//   $("#mamon").val(trid);
+//   $("#tenmon").val($(this).closest("td").closest("tr").children().eq(1).text());
+// });
+
+// $("#edit_class").click(function (e) {
+//   $.ajax({
+//     type: "post",
+//     url: "./subject/update",
+//     data: {
+//       mamon: $("#mamon").val(),
+//       tenmon: $("#tenmon").val(),
+//     },
+//     success: function (response) {
+//       loadData();
+//       $("#modal-edit-chapter").modal("hide");
+//     },
+//   });
+// });

@@ -78,7 +78,7 @@ class NguoiDungModel extends DB{
                 $_SESSION['user_email'] = $row['email'];
                 $_SESSION['user_name'] = $row['hoten'];
             }
-            return false;
+            return true;
         }
         return false;
     }

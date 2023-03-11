@@ -221,11 +221,11 @@ $(document).ready(function () {
                             aria-label="View" data-bs-original-title="View">
                             <i class="fa fa-fw fa-eye"></i>
                         </a>
-                        <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
+                        <a class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip"
                                     aria-label="Edit" data-bs-original-title="Edit">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                        <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
+                        <a class="btn btn-sm btn-alt-secondary" 
                             data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
                             <i class="fa fa-fw fa-times"></i>
                         </a>
@@ -252,7 +252,11 @@ $(document).ready(function () {
     let dokho = $("dokho").val();
     let noidung = $("noidung").val();
     let cautraloi = options;
-    $("#mon-hoc").focus();
+    if(mamonhoc == '' || machuong == '' || dokho == ''|| noidung == '' || cautraloi.length == 0){
+
+    } else {
+      
+    }
     // e.preventDefault();
     // $.ajax({
     //   type: "post",

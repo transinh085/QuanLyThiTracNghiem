@@ -216,52 +216,21 @@ $(document).ready(function () {
                     <td class="d-none d-sm-table-cell fs-sm">
                         <strong>Cơ bản</strong>
                     </td>
-                    <td class="d-none d-xl-table-cell text-center fs-sm">
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample${index}" aria-expanded="false"
-                            aria-controls="collapseExample1">Show all <i
-                                class="fa fa-angle-down ms-1"></i></button>
-                    </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary" href="#collapseExample${index}" data-bs-toggle="tooltip"
+                        <a class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip"
                             aria-label="View" data-bs-original-title="View">
                             <i class="fa fa-fw fa-eye"></i>
                         </a>
+                        <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
+                                    aria-label="Edit" data-bs-original-title="Edit">
+                                    <i class="fa fa-fw fa-pencil"></i>
+                                </a>
                         <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
                             data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
                             <i class="fa fa-fw fa-times"></i>
                         </a>
                     </td>
-                </tr>
-                <tr class="tbl-collapse">
-                    <td colspan="6">
-                        <div class="collapse" id="collapseExample${index++}">
-                            <div class="p-3">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="rounded p-1 m-0">A. Object Open Programming</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="rounded p-1 m-0">B. Open Object Programming</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="rounded p-1 m-0">C. Object Oriented Programming.</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="rounded p-1 m-0">
-                                            D. Object Oriented Proccessing.
-                                    </div>
-                                    </p>
-                                </div>
-                                <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off">
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" checked>
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off">
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_2">C</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off">
-                                <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c0_3">D</label></div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>`;
+                </tr>`
         });
         $("#listQuestion").html(html);
       },
@@ -278,6 +247,12 @@ $(document).ready(function () {
     console.log("Do kho:" + $("#dokho").val());
     console.log("Noi dung:" + CKEDITOR.instances["js-ckeditor"].getData());
     console.log(options);
+    let mamonhoc = $("#mon-hoc").val();
+    let machuong = $("#chuong").val();
+    let dokho = $("dokho").val();
+    let noidung = $("noidung").val();
+    let cautraloi = options;
+    $("#mon-hoc").focus();
     // e.preventDefault();
     // $.ajax({
     //   type: "post",

@@ -142,26 +142,33 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                let data = response;
                 let html = '';
-                let index = 1;
-                data.forEach((chapper) =>{
-                    html += `<tr>
-                    <td class="text-center fs-sm"><strong>${index++}</strong></td>
-                    <td>${chapper['tenchuong']}</td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary chaper-edit"
-                            data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" dataid="${chapper['machuong']}">
-                            <i class="fa fa-fw fa-pencil"></i>
-                        </a>
-                        <a class="btn btn-sm btn-alt-secondary delete_roles chaper-delete" href="javascript:void(0)"
-                            data-bs-toggle="tooltip" aria-label="Delete"
-                            data-bs-original-title="Delete" dataid="${chapper['machuong']}">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
+                if(response.length > 0) {
+                    let index = 1;
+                    response.forEach((chapper) =>{
+                        html += `<tr>
+                        <td class="text-center fs-sm"><strong>${index++}</strong></td>
+                        <td>${chapper['tenchuong']}</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-alt-secondary chaper-edit"
+                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" dataid="${chapper['machuong']}">
+                                <i class="fa fa-fw fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-sm btn-alt-secondary delete_roles chaper-delete" href="javascript:void(0)"
+                                data-bs-toggle="tooltip" aria-label="Delete"
+                                data-bs-original-title="Delete" dataid="${chapper['machuong']}">
+                                <i class="fa fa-fw fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>`
+                    })
+                } else {
+                    html += `<tr><td class="text-center fs-sm" colspan="3">
+                    <img style="width:180px" src="./public/media/svg/empty_data.png" alt=""/>
+                    <p class="text-center mt-3">Không có dữ liệu</p>
                     </td>
-                </tr>`
-                })
+                    </tr>`
+                }
                 $("#showChapper").html(html);
             }
         });

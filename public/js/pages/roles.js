@@ -68,6 +68,7 @@ $(document).ready(function () {
                 roles: roles
             },
             success: function (response) {
+                console.log(response);
                 if(response) {
                     loadDataTable()
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền thành công!' });
@@ -118,7 +119,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 console.log(response)
-                $("#ten-nhom-quyen").val(response[1].tennhomquyen);
+                $("#ten-nhom-quyen").val(response[0].tennhomquyen);
                 $.each(response, function (index, item) { 
                     $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked',true)
                 });

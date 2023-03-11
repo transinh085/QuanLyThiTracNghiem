@@ -12,12 +12,12 @@ class NhomQuyenModel extends DB {
             foreach($chitietquyen as $ct) {
                 $hanhdong = $ct['action'];
                 $loaiquyen = $ct['name'];
-                $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `hanhdong`, `loaiquyen`) VALUES ('$manhomquyen','$hanhdong','$loaiquyen')";
+                $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `loaiquyen`, `hanhdong`) VALUES ('$manhomquyen','$loaiquyen','$hanhdong')";
                 $result = mysqli_query($this->con, $sql);
                 if(!$result) return false;
             }
         }
-        return $result;
+        return $valid;
     }
 
     public function getAll()

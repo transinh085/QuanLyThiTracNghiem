@@ -2,10 +2,8 @@
 class CauHoiModel extends DB{
     public function create($noidung, $dokho, $mamonhoc, $machuong, $nguoitao)
     {
-        $valid = true;
         $sql = "INSERT INTO `cauhoi`(`noidung`, `dokho`, `mamonhoc`, `machuong`, `nguoitao`) VALUES ('$noidung','$dokho','$mamonhoc','$machuong','$nguoitao')";
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
         return $this->con;
     }
 

@@ -9,7 +9,7 @@
         </div>
         <div class="col-6 d-flex align-items-center justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i> Add class</button>
+                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i> Thêm lớp</button>
             <div class="dropdown">
                 <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -92,10 +92,15 @@
                             placeholder="Nhập tên lớp">
                     </div>
                     <div class="mb-3">
+                        <label for="" class="form-label">Ghi chú</label>
+                        <input type="text" class="form-control" name="class_note" id="class_note"
+                            placeholder="Nhập ghi chú">
+                    </div>
+                    <div class="mb-3">
                         <div class="block block-rounded border">
                             <div class="block-header block-header-default">
                                 <h3 class="block-title">
-                                    Chọn nhóm lớp
+                                    Chọn nhóm học phần
                                 </h3>
                             </div>
                             <div class="block-content pb-3">

@@ -50,7 +50,6 @@
                             <th>Nội dung câu hỏi</th>
                             <th class="d-none d-sm-table-cell">Môn học</th>
                             <th class="d-none d-xl-table-cell">Độ khó</th>
-                            <th class="d-none d-xl-table-cell text-center">Đáp án</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -76,7 +75,7 @@
                             </td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
-                                    aria-label="View" data-bs-original-title="View">
+                                    aria-label="Edit" data-bs-original-title="Edit">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
@@ -257,13 +256,13 @@
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select data-chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Độ khó</label>
-                                        <select class="js-select2 form-select" id="dokho" name="chuong"
+                                        <select class="js-select2 form-select" id="dokho"
                                             style="width: 100%;" data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">Cơ bản</option>
@@ -275,7 +274,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung câu hỏi</label>
-                                <textarea id="js-ckeditor" name="ckeditor">OOP là viết tắt của từ nào ?</textarea>
+                                <textarea id="js-ckeditor" name="ckeditor"></textarea>
                             </div>
                             <div class="mb-4 row">
                                 <h6>Danh sách đáp án</h6>
@@ -294,7 +293,7 @@
                                 <div class="collapse" id="add_option">
                                     <div class="card card-body">
                                         <label class="form-label" for="option-content">Nội dung trả lời</label>
-                                        <textarea id="option-content" name="ckeditor">Sinh</textarea>
+                                        <textarea id="option-content" name="ckeditor"></textarea>
                                         <div class="form-check mt-4">
                                             <input class="form-check-input" type="checkbox" value="" id="true-option">
                                             <label class="form-check-label" for="true-option">

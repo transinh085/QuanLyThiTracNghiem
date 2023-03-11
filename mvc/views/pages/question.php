@@ -50,7 +50,6 @@
                             <th>Nội dung câu hỏi</th>
                             <th class="d-none d-sm-table-cell">Môn học</th>
                             <th class="d-none d-xl-table-cell">Độ khó</th>
-                            <th class="d-none d-xl-table-cell text-center">Đáp án</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -76,7 +75,7 @@
                             </td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
-                                    aria-label="View" data-bs-original-title="View">
+                                    aria-label="Edit" data-bs-original-title="Edit">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"

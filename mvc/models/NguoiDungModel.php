@@ -1,16 +1,25 @@
 <?php
 class NguoiDungModel extends DB{
     
-    public function create($fullname, $email, $password)
+    public function create($email, $fullname , $ngaysinh, $gioitinh)
     {
-        $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`, `hoten`, `matkhau`, `ngaysinh`, `trangthai`) VALUES ('$email','$fullname','$password','2000-01-01',1)";
+        // $password = password_hash($password,PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `ngaysinh`, `trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$ngaysinh',1, 1)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {
             $check = false;
         }
         return json_encode($check);
+    }
+
+    public function delete($id) 
+    {
+        $check = true;
+        $sql = "DELETE FROM `nguoidung` WHERE `id`='$id'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $check = false;
+        return $check;
     }
 
     public function getAll()

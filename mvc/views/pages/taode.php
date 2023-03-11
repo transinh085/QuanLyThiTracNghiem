@@ -74,20 +74,16 @@
                         </div>
                         <div class="mb-4">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <label class="form-label">Số câu cơ bản</label>
                                     <input type="text" class="form-control">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <label class="form-label">Số câu trung bình</label>
                                     <input type="text" class="form-control">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <label class="form-label">Số câu nâng cao</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label">Số câu khó</label>
                                     <input type="text" class="form-control">
                                 </div>
                             </div>

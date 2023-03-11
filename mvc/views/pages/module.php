@@ -15,7 +15,7 @@
                     aria-haspopup="true" aria-expanded="false">
                     Filters <i class="fa fa-angle-down ms-1"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters" style="">
+                <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters">
                     <a class="dropdown-item d-flex align-items-center justify-content-between"
                         href="javascript:void(0)">
                         Pending..

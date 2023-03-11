@@ -45,14 +45,11 @@ function loadDataGroup() {
       data.forEach((item) => {
         html += `<div class="col-6">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="${
-                      item.manhomhocphan
-                    }" id="group-${item.manhomhocphan}" name="ds-grp" ${
-          item.manhomhocphan === "0" ? "checked" : ""
-        }>
-                    <label class="form-check-label" for="group-${
-                      item.manhomhocphan
-                    }">${item.tennhomhocphan}</label>
+                    <input class="form-check-input" type="radio" value="${item.manhomhocphan
+          }" id="group-${item.manhomhocphan}" name="ds-grp" ${item.manhomhocphan === "0" ? "checked" : ""
+          }>
+                    <label class="form-check-label" for="group-${item.manhomhocphan
+          }">${item.tennhomhocphan}</label>
                 </div>
             </div>`;
       });

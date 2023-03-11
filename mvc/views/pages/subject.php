@@ -212,8 +212,9 @@
                                                 <input type="text" class="form-control" name="name_group" id="name_chaper" placeholder="Nhập tên chương">
                                             </div>
                                             <div class="col-4">
-                                                <button id="addchaper" type="submit" class="btn btn-primary">Tạo chương</button>
+                                                <button id="addchaper" type="submit" class="btn btn-alt-primary">Tạo chương</button>
                                                 <button id="editchaper" type="submit" class="btn btn-primary">Đổi tên</button>
+                                                <button type="button" class="btn btn-alt-secondary close-chapter">Huỷ</button>
                                             </div>
                                         </div>
                                     </form>

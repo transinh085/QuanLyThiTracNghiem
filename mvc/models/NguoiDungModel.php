@@ -61,8 +61,7 @@ class NguoiDungModel extends DB{
                     return "Đăng nhập thành công";
                 } else {
                     return "Đăng nhập không thành công";
-                }
-                
+                }               
             } else {
                 return "Mật khẩu không khớp";
             }

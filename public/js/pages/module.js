@@ -1,6 +1,6 @@
 function updateGroup(id) {
   // check input rỗng: alert không để input rỗng
-  const a = document.querySelector(`#tennhom_${id}`);
+  const a = document.querySelector(`#tennhomhocphan_${id}`);
   $.ajax({
     type: "post",
     url: "./module/updateGroup",
@@ -37,6 +37,22 @@ function deleteGroup(id) {
   });
 }
 
+function updateClass(attribute, id) {
+  // const value = document.querySelector();
+  $.ajax({
+    type: "post",
+    url: "./module/updateClass",
+    data: {
+      id: id,
+      attr: attribute,
+      value: "",
+    },
+    success: function (response) {
+      console.log(response);
+    },
+  });
+}
+
 function loadDataGroup() {
   fetch("./module/loadDataGroup")
     .then((response) => response.json())
@@ -63,6 +79,7 @@ function loadDataGroup() {
 
 function loadDataClass() {
   let html = "";
+  let htmlGhiChu = "";
   fetch("./module/loadDataClass")
     .then((response) => response.json())
     .then((result) => {
@@ -78,8 +95,8 @@ function loadDataClass() {
                         <div class="dropdown-menu p-1" aria-labelledby="dropdown-content-rich-primary">
                         <div class="p-2" style="width:200px">
                             <div class="mb-3">
-                            <label class="form-label" for="tennhom_${item.manhomhocphan}">Cập nhật nhóm</label>
-                            <input type="email" class="form-control" id="tennhom_${item.manhomhocphan}" name="tennhom_${item.manhomhocphan}" value="${item.tennhomhocphan}">
+                            <label class="form-label" for="tennhomhocphan_${item.manhomhocphan}">Cập nhật nhóm</label>
+                            <input type="email" class="form-control" id="tennhomhocphan_${item.manhomhocphan}" name="tennhomhocphan_${item.manhomhocphan}" value="${item.tennhomhocphan}">
                             </div>
                             <button class="btn btn-sm btn-danger delete_group" onclick="deleteGroup(${item.manhomhocphan})">Xoá</button>
                             <button class="btn btn-sm btn-primary update_group" data-id="${item.manhomhocphan}" onclick="updateGroup(${item.manhomhocphan})">Cập nhật</button>
@@ -92,20 +109,48 @@ function loadDataClass() {
           html += `<p class="text-center">Không có lớp nào</p>`;
         } else {
           item.class.forEach((element) => {
-            html += `<div class="col-sm-6 col-lg-6 col-xl-3">
-                            <a class="block block-rounded block-link-shadow" href="./module/detail/${element.manhom}">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">${element.tennhom}</h3>
-                                    <div class="block-options">
-                                        <button type="button" class="btn btn-sm btn-alt-primary" data-id="${element.manhom}"><i class="si si-pencil"></i></button>
-                                        <button type="button" class="btn btn-sm btn-alt-danger" data-id="${element.manhom}"><i class="fa fa-fw fa-times"></i></button>
-                                    </div>
-                                </div>
-                                <div class="block-content">
-                                    <p>Sỉ số: 0</p>
-                                </div>
-                            </a>
-                        </div>`;
+            if (element.ghichu != "") {
+              htmlGhiChu = `<p>${element.ghichu}</p>`;
+            }
+            html += `
+            <div class="col-sm-6 col-lg-6 col-xl-3">
+              <!-- <a class="block block-rounded block-link-shadow" href="./module/detail/${element.manhom}"> </a> -->
+              <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">${element.tennhom}</h3>
+                    <div class="block-options">
+                      <div class="dropdown">
+                        <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${element.manhom}">
+                          <i class="si si-settings"></i>
+                        </button>
+                        <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-light" style="">
+                          <a class="nav-main-link dropdown-item" href="module/detail/${element.manhom}" target="_blank">
+                            <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
+                          </a>
+                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
+                            <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Đổi tên nhóm</span>
+                          </a>
+                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
+                            <i class="nav-main-link-icon si si-notebook me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Ghi chú</span>
+                          </a>
+                          <a class="nav-main-link dropdown-item" href="javascript:void(0)">
+                            <i class="nav-main-link-icon si si-trash me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Xoá nhóm</span>
+                          </a>
+                        </div>
+                      </div>
+                        <!-- <button type="button" class="btn-light btn-block-option text-dark" data-id="${element.manhom}"><i class="si si-settings"></i></button> -->
+                    </div>
+                </div>
+                <div class="block-content">
+                  ${htmlGhiChu}
+                  <p>Sỉ số: ${element.siso}</p>
+                </div>
+              </div>
+            </div>`;
           });
         }
         html += `</div></div>`;

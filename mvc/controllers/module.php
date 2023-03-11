@@ -98,5 +98,10 @@
                 $this->nhomModel->update($_POST['id'], $_POST['name']);
             }
         }
+
+        public function updateClass()
+        {
+            
+        }
     }
 ?>

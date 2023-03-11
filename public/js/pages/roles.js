@@ -159,7 +159,6 @@ $(document).ready(function () {
     $("#update-role-btn").click(function (e) {
         e.preventDefault();
         let roles = getDataForm();
-        console.log($("[name='manhomquyen']").val())
         $.ajax({
             type: "post",
             url: "./roles/edit",
@@ -171,9 +170,9 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     loadDataTable()
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền thành công!' });
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm quyền thành công!' });
                 } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo nhóm quyền không thành công!' });
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật nhóm quyền không thành công!' });
                 }
             }
         });

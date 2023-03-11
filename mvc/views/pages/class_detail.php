@@ -19,8 +19,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end fs-sm mt-1" aria-labelledby="dropdown-analytics-overview"
-                    style="">
+                <div class="dropdown-menu dropdown-menu-end fs-sm mt-1" aria-labelledby="dropdown-analytics-overview">
                     <a class="dropdown-item" href="javascript:void(0)">Thông báo</a>
                     <a class="dropdown-item" href="javascript:void(0)">Previous Week</a>
                     <div class="dropdown-divider"></div>

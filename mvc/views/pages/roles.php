@@ -4,7 +4,7 @@
             <h3 class="block-title">Danh sách nhóm quyền</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-role"><i class="fa-regular fa-plus"></i> Thêm mới</button>
+                    data-bs-target="#modal-add-role"><i class="fa-regular fa-plus me-1"></i> Thêm mới</button>
             </div>
         </div>
         <div class="block-content">

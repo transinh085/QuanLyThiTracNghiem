@@ -28,12 +28,16 @@ class NhomQuyenModel extends DB {
         if(!$result) {
             $valid = false;
         } else {
-            foreach($chitietquyen as $ct) {
-                $hanhdong = $ct['action'];
-                $loaiquyen = $ct['name'];
-                $sql = "UPDATE `chitietquyen` SET `loaiquyen`='$loaiquyen',`hanhdong`='$hanhdong' WHERE `manhomquyen`= $manhomquyen";
-                $result = mysqli_query($this->con, $sql);
-                if(!$result) return false;
+            $sql_del = "DELETE FROM `chitietquyen` WHERE `manhomquyen`= $manhomquyen";
+            $result = mysqli_query($this->con, $sql_del);
+            if($result) {
+                foreach($chitietquyen as $ct) {
+                    $hanhdong = $ct['action'];
+                    $loaiquyen = $ct['name'];
+                    $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `loaiquyen`, `hanhdong`) VALUES ('$manhomquyen','$loaiquyen','$hanhdong')";
+                    $result = mysqli_query($this->con, $sql);
+                    if(!$result) return false;
+                }
             }
         }
         return $valid;
@@ -75,6 +79,12 @@ class NhomQuyenModel extends DB {
             $result['detail'][] = $row;
         }
         return $result;
+    }
+
+    public function getRoleUser($id)
+    {
+        $sql = "";
+        
     }
 }
 ?>

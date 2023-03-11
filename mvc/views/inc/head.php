@@ -1,6 +1,6 @@
-<?php require_once "./mvc/models/NguoiDungModel.php";?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -43,3 +43,6 @@
     <link rel="stylesheet" id="css-main" href="./public/css/custom.css">
     <script src="./public/js/lib/jquery.min.js"></script>
 </head>
+
+
+

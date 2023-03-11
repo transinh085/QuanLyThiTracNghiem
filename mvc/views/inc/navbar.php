@@ -88,7 +88,7 @@ $page = $components[2];
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'lop') echo "active" ?>" href="./hocphan">
+                    <a class="nav-main-link <?php if($page == 'lop') echo "active" ?>" href="./module">
                         <i class="nav-main-link-icon si si-layers"></i>
                         <span class="nav-main-link-name">Nhóm học phần</span>
                     </a>

@@ -203,7 +203,6 @@ $(document).ready(function () {
         let html = "";
         let index = 1;
         data.forEach((question) => {
-          console.log(question)
           html += `<tr>
                     <td class="text-center fs-sm">
                         <a class="fw-semibold" href="#">
@@ -212,7 +211,7 @@ $(document).ready(function () {
                     </td>
                     <td>${question["noidung"]}</td>
                     <td class="d-none d-xl-table-cell fs-sm">
-                        <a class="fw-semibold">Lập trình java</a>
+                        <a class="fw-semibold">${question["tenmonhoc"]}</a>
                     </td>
                     <td class="d-none d-sm-table-cell fs-sm">
                         <strong>Cơ bản</strong>

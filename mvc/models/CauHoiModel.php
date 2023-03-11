@@ -27,7 +27,7 @@ class CauHoiModel extends DB{
 
     public function getAll()
     {
-        $sql = "SELECT * FROM `cauhoi`";
+        $sql = "SELECT * FROM `cauhoi` join `monhoc`";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

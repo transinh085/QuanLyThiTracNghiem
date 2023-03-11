@@ -96,10 +96,10 @@ class Auth extends Controller{
             $email = $_POST['email'];
             $password = $_POST['password'];
             $result = $this->userModel->create($fullname,$email,$password);
-            echo $result;
-        } else {
-            header("Location: ./");
-        }
+            if($result){
+                echo $result;
+            }
+        } 
     }
 
     public function getUser()

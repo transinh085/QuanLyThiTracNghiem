@@ -203,10 +203,11 @@ $(document).ready(function () {
         let html = "";
         let index = 1;
         data.forEach((question) => {
+          console.log(question)
           html += `<tr>
                     <td class="text-center fs-sm">
                         <a class="fw-semibold" href="#">
-                            <strong>${index}</strong>
+                            <strong>${index++}</strong>
                         </a>
                     </td>
                     <td>${question["noidung"]}</td>

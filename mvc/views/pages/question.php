@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody id="listQuestion">
-                        <tr>
+                        <!-- <tr>
                             <td class="text-center fs-sm">
                                 <a class="fw-semibold" href="#">
                                     <strong>0001</strong>
@@ -173,7 +173,7 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>

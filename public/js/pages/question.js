@@ -246,31 +246,57 @@ $(document).ready(function () {
     console.log("Ten chuong:" + $("#chuong").val());
     console.log("Do kho:" + $("#dokho").val());
     console.log("Noi dung:" + CKEDITOR.instances["js-ckeditor"].getData());
+    console.log("Luc gui");
     console.log(options);
     let mamonhoc = $("#mon-hoc").val();
     let machuong = $("#chuong").val();
-    let dokho = $("dokho").val();
-    let noidung = $("noidung").val();
+    let dokho = $("#dokho").val();
+    let noidung = CKEDITOR.instances["js-ckeditor"].getData();
     let cautraloi = options;
-    if(mamonhoc == '' || machuong == '' || dokho == ''|| noidung == '' || cautraloi.length == 0){
-
+    if(mamonhoc != '' && machuong != '' && dokho != '' && noidung != '' && cautraloi.length > 1 && checkSOption(options) == true){
+      $.ajax({
+        type: "post",
+        url: "./question/addQues",
+        data: {
+          mamon: mamonhoc,
+          machuong: machuong,
+          dokho: dokho,
+          noidung: noidung,
+          cautraloi: options,
+        },
+        success: function (response) {
+            console.log("Luc nhan");
+            console.log(response)
+        },
+      });
     } else {
-      
+      if(mamonhoc == ''){
+        $("#mon-hoc").focus();
+      } else if(machuong == ''){
+        $("#chuong").focus();
+      }
+      else if(dokho == ''){
+        $("#dokho").focus();
+      }
+      else if(noidung == ''){
+        CKEDITOR.instances["js-ckeditor"].focus();
+      }
+      else if(cautraloi.length < 2){
+        alert("Vui long them cau tra loi");
+      } else if (checkSOption(options) == false){
+        alert("Vui long chon cau tra loi dung");
+      }
     }
-    // e.preventDefault();
-    // $.ajax({
-    //   type: "post",
-    //   url: "./question/addQues",
-    //   data: {
-    //     mamon: $("#mon-hoc").val(),
-    //     machuong: $("#chuong").val(),
-    //     dokho: $("#dokho").val(),
-    //     noidung: CKEDITOR.instances["js-ckeditor"].getData(),
-    //     cautraloi: options,
-    //   },
-    //   success: function (response) {
-    //     console.log(response);
-    //   },
-    // });
+    
   });
+
+  function checkSOption(options){
+    let check = false;
+    options.forEach((question) => {
+      if(question['check'] == true){
+        check = true;
+      }
+    })
+    return check;
+  }
 });

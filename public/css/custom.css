@@ -201,11 +201,6 @@
 
 /* END Landing page */
 
-/* Nhom hoc phan */
-.module__dropdown:after {
-    content: none;
-}
-
-.select2-dropdown {
+.select2-dropdown{
     z-index: 1056;
 }

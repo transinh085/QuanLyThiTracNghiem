@@ -15,7 +15,7 @@
                 "Title" => "Quản lý nhóm học phần",
                 "Script" => "module",
                 "Plugin" => [
-                    "notify" => 1
+                    "sweetalert2" => 1
                 ]
             ]);
         }

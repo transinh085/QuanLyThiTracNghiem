@@ -1,106 +1,3 @@
-function updateGroup(id) {
-  // check input rỗng: alert không để input rỗng
-  const a = document.querySelector(`#tennhomhocphan_${id}`);
-  $.ajax({
-    type: "post",
-    url: "./module/updateGroup",
-    data: {
-      id: id,
-      name: a.value,
-    },
-    success: function (response) {
-      loadDataClass();
-      //   One.helpers("jq-notify", {
-      //     type: "success",
-      //     icon: "fa fa-check me-1",
-      //     message: "Cập nhật nhóm thành công!",
-      //   });
-    },
-  });
-}
-
-function openModalUpdateGroup(id) {
-  $.ajax({
-    type: "post",
-    url: "./module/getClass",
-    data: {
-      id: id,
-    },
-    success: function (response) {
-      const obj = JSON.parse(response);
-      $("#modal-update__class-name").val(obj.tennhom);
-      $("#modal-update__class-note").val(obj.ghichu);
-      $("#modal-update__class-id").val(obj.manhom);
-    },
-  });
-}
-
-$("#update_class").click(function (e) {
-  $.ajax({
-    type: "post",
-    url: "./module/updateClass",
-    data: {
-      id: $("#modal-update__class-id").val(),
-      name: $("#modal-update__class-name").val(),
-      note: $("#modal-update__class-note").val(),
-    },
-    success: function (response) {
-      loadDataClass();
-      $("#modal-update-group").modal("hide");
-    },
-  });
-});
-
-function deleteGroup(id) {
-  $.ajax({
-    type: "post",
-    url: "./module/deleteGroup",
-    data: {
-      id: id,
-    },
-    success: function (response) {
-      loadDataClass();
-      // One.helpers("jq-notify", {
-      //   type: "success",
-      //   icon: "fa fa-check me-1",
-      //   message: "Xoá nhóm thành công!",
-      // });
-    },
-  });
-}
-
-function deleteClass(id) {
-  $.ajax({
-    type: "post",
-    url: "./module/deleteClass",
-    data: {
-      id: id,
-    },
-    success: function (response) {
-      loadDataClass();
-      // One.helpers("jq-notify", {
-      //   type: "success",
-      //   icon: "fa fa-check me-1",
-      //   message: "Xoá nhóm thành công!",
-      // });
-    },
-  });
-}
-
-function updateClass(id) {
-  $.ajax({
-    type: "post",
-    url: "./module/updateClass",
-    data: {
-      id: id,
-      value: "",
-    },
-    success: function (response) {
-      loadDataClass();
-    },
-  });
-}
-
 function loadDataGroup() {
   fetch("./module/loadDataGroup")
     .then((response) => response.json())
@@ -131,7 +28,6 @@ function loadDataClass() {
   fetch("./module/loadDataClass")
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       result.forEach((item) => {
         html += `<div>
                 <div class="heading-group d-flex align-items-center">
@@ -205,20 +101,102 @@ function loadDataClass() {
     .catch((error) => console.error(error));
 }
 
-$("#add_group").click(function (e) {
-  e.preventDefault();
+function updateClass(id) {
   $.ajax({
     type: "post",
-    url: "./module/addGroup",
+    url: "./module/updateClass",
     data: {
-      name: $("#name_group").val(),
+      id: id,
+      value: "",
     },
     success: function (response) {
-      loadDataGroup();
-      $("#collapseExample").collapse("hide");
+      loadDataClass();
     },
   });
-});
+}
+
+function deleteClass(id) {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success me-2",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+
+  swalWithBootstrapButtons
+    .fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          url: "./module/deleteClass",
+          data: {
+            id: id,
+          },
+          success: function (response) {
+            loadDataClass();
+            swalWithBootstrapButtons.fire(
+              "Deleted!",
+              "Your class has been deleted.",
+              "success"
+            );
+          },
+        });
+      }
+    });
+}
+
+function updateGroup(id) {
+  const a = document.querySelector(`#tennhomhocphan_${id}`);
+  $.ajax({
+    type: "post",
+    url: "./module/updateGroup",
+    data: {
+      id: id,
+      name: a.value,
+    },
+    success: function (response) {
+      loadDataClass();
+    },
+  });
+}
+
+function deleteGroup(id) {
+  $.ajax({
+    type: "post",
+    url: "./module/deleteGroup",
+    data: {
+      id: id,
+    },
+    success: function (response) {
+      loadDataClass();
+    },
+  });
+}
+
+function openModalUpdateGroup(id) {
+  $.ajax({
+    type: "post",
+    url: "./module/getClass",
+    data: {
+      id: id,
+    },
+    success: function (response) {
+      const obj = JSON.parse(response);
+      $("#modal-update__class-name").val(obj.tennhom);
+      $("#modal-update__class-note").val(obj.ghichu);
+      $("#modal-update__class-id").val(obj.manhom);
+    },
+  });
+}
 
 $("#add_class").click(function (e) {
   e.preventDefault();
@@ -235,35 +213,46 @@ $("#add_class").click(function (e) {
       $("#class_note").val("");
       $("#modal-add-group").modal("hide");
       loadDataClass();
-      // One.helpers("jq-notify", {
-      //   type: "success",
-      //   icon: "fa fa-check me-1",
-      //   message: "Thêm lớp thành công!",
-      // });
+      Swal.fire({
+        icon: "success",
+        title: "Thêm nhóm thành công",
+        showConfirmButton: true,
+        timer: 1500,
+      });
+    },
+  });
+});
+
+$("#update_class").click(function (e) {
+  $.ajax({
+    type: "post",
+    url: "./module/updateClass",
+    data: {
+      id: $("#modal-update__class-id").val(),
+      name: $("#modal-update__class-name").val(),
+      note: $("#modal-update__class-note").val(),
+    },
+    success: function (response) {
+      loadDataClass();
+      $("#modal-update-group").modal("hide");
+    },
+  });
+});
+
+$("#add_group").click(function (e) {
+  e.preventDefault();
+  $.ajax({
+    type: "post",
+    url: "./module/addGroup",
+    data: {
+      name: $("#name_group").val(),
+    },
+    success: function (response) {
+      loadDataGroup();
+      $("#collapseExample").collapse("hide");
     },
   });
 });
 
 loadDataClass();
 loadDataGroup();
-
-// $(document).on("click", ".btn-update-group", function () {
-//   var trid = $(this).attr("dataid");
-//   $("#mamon").val(trid);
-//   $("#tenmon").val($(this).closest("td").closest("tr").children().eq(1).text());
-// });
-
-// $("#edit_class").click(function (e) {
-//   $.ajax({
-//     type: "post",
-//     url: "./subject/update",
-//     data: {
-//       mamon: $("#mamon").val(),
-//       tenmon: $("#tenmon").val(),
-//     },
-//     success: function (response) {
-//       loadData();
-//       $("#modal-edit-chapter").modal("hide");
-//     },
-//   });
-// });

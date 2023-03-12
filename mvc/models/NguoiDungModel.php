@@ -73,14 +73,25 @@ class NguoiDungModel extends DB{
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);
         if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_assoc($result)){
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['user_email'] = $row['email'];
-                $_SESSION['user_name'] = $row['hoten'];
-            }
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_email'] = $row['email'];
+            $_SESSION['user_name'] = $row['hoten'];
+            $_SESSION['roles'] = $this->getRole($row['manhomquyen']);
             return false;
         }
         return false;
+    }
+
+    public function getRole($manhomquyen)
+    {
+        $sql = "SELECT loaiquyen, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
+        $result = mysqli_query($this->con, $sql);
+        $roles = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $roles[] = $row;
+        }
+        return $roles;
     }
 }
 ?>

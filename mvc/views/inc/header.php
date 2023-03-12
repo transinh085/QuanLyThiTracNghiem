@@ -31,12 +31,14 @@
                     <i class="far fa-fw fa-user-circle"></i>
                     <i class="fa fa-fw fa-angle-down d-none opacity-50 d-sm-inline-block"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown" style="">
+                <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                     <div class="bg-body-light rounded-top fw-semibold text-center p-3 border-bottom">
                         <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg"
                             alt="">
                         <div class="pt-2">
-                            <a class="fw-semibold" href="be_pages_generic_profile.html">Henry Harrison</a>
+                            <a class="fw-semibold" href="be_pages_generic_profile.html">
+                                <?php echo $_SESSION['user_name'] ?>
+                            </a>
                             <div class="fs-sm">Admin</div>
                         </div>
                     </div>

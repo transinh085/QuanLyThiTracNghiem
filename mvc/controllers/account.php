@@ -6,6 +6,12 @@ class Account extends Controller{
             "Title" => "Trang cá nhân"
         ]);
     }
+
+    public function check()
+    {
+        echo "<pre>";
+        print_r($_SESSION);
+    }
 }
 
 ?>

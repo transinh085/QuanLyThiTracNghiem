@@ -111,7 +111,7 @@
                         </tr>
                     </thead>
                     <tbody id="list-user">
-                    <tr>
+                    <!-- <tr>
                             <td class="text-center">
                                 <strong>001</strong>
                             </td>
@@ -139,7 +139,7 @@
                                     <i class="fa fa-fw fa-times"></i>
                                 </a>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -204,7 +204,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="user_email" id="user_name"
+                        <input type="text" class="form-control" name="user_email" id="user_email"
                             placeholder="Nhập email">
                     </div>
                     <div class="mb-3">
@@ -218,8 +218,8 @@
                                 <div class="row mb-1" id="list-group">
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="0" id="group-0"
-                                                name="ds-grp">
+                                            <input class="form-check-input" type="radio" value="1" id="group-0"
+                                                name="role">
                                             <label class="form-check-label" for="group-0">Người dùng</label>
                                         </div>
                                     </div>
@@ -227,7 +227,7 @@
                                 <div class="row mb-1" id="list-group">
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="0" id="group-0" name="ds-grp">
+                                            <input class="form-check-input" type="radio" value="2" id="group-0" name="role">
                                             <label class="form-check-label" for="group-0">Học sinh</label>
                                         </div>
                                     </div>
@@ -235,7 +235,7 @@
                                 <div class="row mb-1" id="list-group">
                                     <div class="col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="0" id="group-0" name="ds-grp">
+                                            <input class="form-check-input" type="radio" value="3"id="group-0" name="role">
                                             <label class="form-check-label" for="group-0">Giáo viên</label>
                                         </div>
                                     </div>
@@ -283,24 +283,24 @@
                 <div class="block-content fs-sm">
                     <div class="mb-3">
                         <label for="" class="form-label">Họ và tên</label>
-                        <input type="text" class="form-control" name="chapter_id" id="mamon" placeholder="Nhập họ và tên">
+                        <input type="text" class="form-control" name="chapter_id" id="hoten" placeholder="Nhập họ và tên">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Giới tính</label>
-                        <input type="text" class="form-control" name="chapter_name" id="tenmon" placeholder="Nhập giới tính">
+                        <input type="text" class="form-control" name="chapter_name" id="gioitinh" placeholder="Nhập giới tính">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Ngày sinh</label>
-                        <input type="text" class="form-control" name="chapter_name" id="tenmon" placeholder="Nhập ngày sinh">
+                        <input type="text" class="form-control" name="chapter_name" id="ngaysinh" placeholder="Nhập ngày sinh">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="chapter_name" id="tenmon" placeholder="Nhập email">
+                        <input type="text" class="form-control" name="chapter_name" id="email" placeholder="Nhập email">
                     </div>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="edit_class">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary " id="edit_class">Lưu</button>
                     <input type="hidden" value="" id="mamonhoc">
                     <input type="hidden" value="" id="machuong">
                 </div>

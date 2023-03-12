@@ -121,7 +121,7 @@ $(document).on("click", ".subject-delete", function () {
             cancelButton: "btn btn-danger m-1",
             input: "form-control"
         }
-    });
+});
 
     e.fire({
         title: "Are you sure?",

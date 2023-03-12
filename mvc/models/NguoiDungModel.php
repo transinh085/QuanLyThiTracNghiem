@@ -1,10 +1,10 @@
 <?php
 class NguoiDungModel extends DB{
     
-    public function create($email, $fullname , $ngaysinh, $gioitinh)
+    public function create($email, $fullname , $ngaysinh, $gioitinh, $role)
     {
         // $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `ngaysinh`, `trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$ngaysinh',1, 1)";
+        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `gioitinh`,`ngaysinh`, `trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$gioitinh','$ngaysinh',1, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {
@@ -22,9 +22,20 @@ class NguoiDungModel extends DB{
         return $check;
     }
 
+    public function update($email,$hoten,$gioitinh,$ngaysinh) 
+    {
+        $check = true;
+        $sql = "UPDATE `nguoidung` SET `hoten`='$hoten', `gioitinh`='$gioitinh', `ngaysinh`='$ngaysinh' WHERE `email`='$email'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $check = false;
+        return $check;
+    }
+
     public function getAll()
     {
-        $sql = "SELECT * FROM `nguoidung`";
+        $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
+        FROM nguoidung, nhomquyen
+        WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

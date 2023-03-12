@@ -4,12 +4,12 @@
             <div class="input-group">
                 <span class="input-group-text bg-white"><i class="si si-magnifier"></i></span>
                 <input type="text" class="form-control" id="example-group1-input1" name="example-group1-input1"
-                    placeholder="Lọc theo lớp">
+                    placeholder="Lọc theo nhóm">
             </div>
         </div>
         <div class="col-6 d-flex align-items-center justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i> Thêm lớp</button>
+                data-bs-target="#modal-add-group"><i class="fa fa-fw fa-plus me-1"></i> Thêm nhóm</button>
             <div class="dropdown">
                 <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -28,21 +28,6 @@
                     </a>
                     <a class="dropdown-item d-flex align-items-center justify-content-between"
                         href="javascript:void(0)">
-                        For Delivery
-                        <span class="badge bg-info rounded-pill">20</span>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="javascript:void(0)">
-                        Canceled
-                        <span class="badge bg-danger rounded-pill">72</span>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="javascript:void(0)">
-                        Delivered
-                        <span class="badge bg-success rounded-pill">890</span>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="javascript:void(0)">
                         All
                         <span class="badge bg-primary rounded-pill">997</span>
                     </a>
@@ -51,34 +36,15 @@
         </div>
     </div>
     <div class="class-group" id="class-group">
-        <div>
-            <h2 class="content-heading">Lập trình web và ứng dụng nâng cao</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="block block-rounded">
-                        <div class="block-header block-header-default">
-                            <h3 class="block-title">Title</h3>
-                            <div class="block-options">
-                                <button type="button" class="btn btn-sm btn-alt-primary">Edit</button>
-                                <button type="button" class="btn btn-sm btn-alt-danger">Delete</button>
-                            </div>
-                        </div>
-                        <div class="block-content">
-                            <p>Sỉ số: 0</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="modal fade" id="modal-add-group" tabindex="-1" role="dialog" aria-labelledby="modal-add-group"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Thêm lớp</h3>
+                    <h3 class="block-title">Thêm nhóm</h3>
                     <div class="block-options">
                         <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
                             <i class="fa fa-fw fa-times"></i>
@@ -87,9 +53,9 @@
                 </div>
                 <div class="block-content fs-sm">
                     <div class="mb-3">
-                        <label for="" class="form-label">Tên lớp</label>
+                        <label for="" class="form-label">Tên nhóm</label>
                         <input type="text" class="form-control" name="class_name" id="class_name"
-                            placeholder="Nhập tên lớp">
+                            placeholder="Nhập tên nhóm">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Ghi chú</label>
@@ -120,13 +86,14 @@
                                 <div class="collapse" id="collapseExample">
                                     <form method="post" class="mt-2">
                                         <div class="row mb-1">
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 <input type="text" class="form-control" name="name_group"
                                                     id="name_group" placeholder="Nhập tên nhóm">
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <button id="add_group" type="submit" class="btn btn-primary"
                                                     name="add_group">Tạo nhóm</button>
+                                                <button type="button" class="btn btn-alt-secondary close-chapter">Huỷ</button>
                                             </div>
                                         </div>
                                     </form>
@@ -147,7 +114,7 @@
 
 <div class="modal fade" id="modal-update-group" tabindex="-1" role="dialog" aria-labelledby="modal-update-group"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
@@ -160,9 +127,9 @@
                 </div>
                 <div class="block-content fs-sm">
                     <div class="mb-3">
-                        <label for="" class="form-label">Tên lớp</label>
+                        <label for="" class="form-label">Tên nhóm</label>
                         <input type="text" class="form-control" name="modal-update__class-name" id="modal-update__class-name"
-                            placeholder="Nhập tên lớp">
+                            placeholder="Nhập tên nhóm">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Ghi chú</label>

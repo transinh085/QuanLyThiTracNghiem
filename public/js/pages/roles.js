@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     function getDataForm() {
         let roles = [];
-        let arr = $(".table-role .form-check-input");
+        let arr = $("[type='checkbox']");
         $.each(arr, function (i, item) {
             let name = $(item).attr("name");
             let action = $(item).val();
@@ -51,9 +51,6 @@ $(document).ready(function () {
                     <td>${item.tennhomquyen}</td>
                     <td class="text-center fs-sm">${item.soluong}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-alt-secondary btn-view" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
-                            <i class="fa fa-fw fa-eye"></i>
-                        </button>
                         <button class="btn btn-sm btn-alt-secondary btn-show-update" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
                             <i class="fa fa-fw fa-pencil"></i>
                         </button>
@@ -74,27 +71,6 @@ $(document).ready(function () {
         e.preventDefault();
         $(".add-role-element").show();
         $(".update-role-element").hide();
-    });
-
-    $(document).on("click", ".btn-view", function () {
-        $(".add-role-element").hide();
-        $(".update-role-element").show();
-        $.ajax({
-            type: "post",
-            url: "./roles/getDetail",
-            data: {
-                manhomquyen: $(this).data('id')
-            },
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                $("#ten-nhom-quyen").val(response.name);
-                $.each(response.detail, function (index, item) {
-                    $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked', true)
-                });
-                $("#modal-add-role").modal("show");
-            }
-        });
     });
 
     let e = Swal.mixin({

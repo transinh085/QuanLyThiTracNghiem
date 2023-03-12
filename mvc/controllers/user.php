@@ -14,15 +14,26 @@ class User extends Controller{
             "Title" => "Quản lý người dùng",
             "Script" => "user",
             "Plugin" => [
-                "sweetalert2" => 1
+                "sweetalert2" => 1,
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "select" => 1,
             ]
         ]);
     }
 
     public function add()
     {
-            $result = $this->NguoiDungModel->create($_POST['email'],$_POST['hoten'],$_POST['ngaysinh'], $_POST['gioitinh'],$_POST['role']);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST['email'];
+            $hoten = $_POST['hoten'];
+            $ngaysinh = $_POST['ngaysinh'];
+            $gioitinh = $_POST['gioitinh'];
+            $password = $_POST['password'];
+            $nhomquyen = $_POST['role'];
+            $result = $this->NguoiDungModel->create($email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen);
             echo $result;
+        }
     }
 
     public function getData()
@@ -46,6 +57,14 @@ class User extends Controller{
             $gioitinh = $_POST['gioitinh'];
             $ngaysinh = $_POST['ngaysinh'];
             $result = $this->NguoiDungModel->update($email,$hoten,$gioitinh,$ngaysinh);
+        }
+    }
+
+    public function getDetail()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->NguoiDungModel->getById($_POST['id']);
+            echo json_encode($result);
         }
     }
 

@@ -36,6 +36,12 @@ class Roles extends Controller{
         echo json_encode($result);
     }
 
+    public function getAll()
+    {
+        $result = $this->NhomQuyenModel->getAll();
+        echo json_encode($result);
+    }
+
     public function getDetail()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {

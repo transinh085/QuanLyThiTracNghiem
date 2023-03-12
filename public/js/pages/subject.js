@@ -8,7 +8,7 @@ $(document).ready(function () {
             "json"
         );
     }
-    
+
     loadData();
     
     function showData(subjects) {
@@ -129,7 +129,7 @@ $(document).ready(function () {
         var trid = $(this).attr("dataid");
         $("#mamonhoc").val(trid)
         showChaper(trid)
-        $("#collapseExample").collapse('hide')
+        $("#collapseChapter").collapse('hide')
     
     });
     
@@ -192,10 +192,15 @@ $(document).ready(function () {
             success: function (response) {
                 showChaper($("#mamonhoc").val());
                 $("#name_chaper").val("")
-                $("#collapseExample").collapse('hide')
+                $("#collapseChapter").collapse('hide')
             }
         });
     })
+
+    $(".close-chapter").click(function (e) { 
+        e.preventDefault();
+        $("#collapseChapter").collapse('hide')
+    });
     
     $(document).on("click", ".chaper-delete", function(){
         let idMH = $(this).attr("dataid");
@@ -220,7 +225,7 @@ $(document).ready(function () {
         $("#machuong").val(id)
         $("#addchaper").hide();
         $("#editchaper").show();
-        $("#collapseExample").collapse('show');
+        $("#collapseChapter").collapse('show');
         let name = $(this).closest("td").closest("tr").children().eq(1).text()
         $("#name_chaper").val(name);
     })
@@ -237,7 +242,7 @@ $(document).ready(function () {
             success: function (response) {
                 showChaper($("#mamonhoc").val());
                 $("#name_chaper").val("")
-                $("#collapseExample").collapse('hide')
+                $("#collapseChapter").collapse('hide')
             }
         });
     })    

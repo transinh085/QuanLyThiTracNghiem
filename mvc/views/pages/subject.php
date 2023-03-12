@@ -62,7 +62,7 @@
 </div>
 
 <div class="modal fade" id="modal-add-subject" tabindex="-1" role="dialog" aria-labelledby="modal-add-subject" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
@@ -93,7 +93,7 @@
 </div>
 
 <div class="modal fade" id="modal-add-chapter" tabindex="-1" role="dialog" aria-labelledby="modal-add-chapter" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
@@ -124,7 +124,7 @@
 </div>
 
 <div class="modal fade" id="modal-edit-chapter" tabindex="-1" role="dialog" aria-labelledby="modal-add-chapter" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
@@ -178,25 +178,6 @@
                                 </tr>
                             </thead>
                             <tbody id="showChapper">
-                                <tr>
-                                    <td class="text-center fs-sm"><strong>1</strong></td>
-                                    <td>Quản trị kinh tế</td>
-                                    <td class="text-center">
-                                        <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_order.html"
-                                            data-bs-toggle="tooltip" aria-label="View" data-bs-original-title="View">
-                                            <i class="fa fa-fw fa-eye"></i>
-                                        </a>
-                                        <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_order.html"
-                                            data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <i class="fa fa-fw fa-pencil"></i>
-                                        </a>
-                                        <a class="btn btn-sm btn-alt-secondary delete_roles" href="javascript:void(0)"
-                                            data-bs-toggle="tooltip" aria-label="Delete"
-                                            data-bs-original-title="Delete">
-                                            <i class="fa fa-fw fa-times"></i>
-                                        </a>
-                                    </td>
-                                </tr>
                                 <input type="hidden" value="" id="chaperId">
                             </tbody>
                         </table>
@@ -204,8 +185,8 @@
                     <div class="mb-3">
                         <div class="block block-rounded border">
                             <div class="block-content pb-3">
-                                <a class="fw-bold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="btnaddChapper"><i class="fa fa-fw fa-plus"></i>Thêm chương</a>
-                                <div class="collapse" id="collapseExample">
+                                <a class="fw-bold" data-bs-toggle="collapse" href="#collapseChapter" role="button" aria-expanded="false" aria-controls="collapseChapter" id="btnaddChapper"><i class="fa fa-fw fa-plus"></i>Thêm chương</a>
+                                <div class="collapse" id="collapseChapter">
                                     <form method="post" class="mt-2">
                                         <div class="row mb-1">
                                             <div class="col-8">

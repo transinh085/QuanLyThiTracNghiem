@@ -1,10 +1,10 @@
 <?php
 class NguoiDungModel extends DB{
     
-    public function create($email, $fullname , $ngaysinh, $gioitinh, $role)
+    public function create($email,$fullname,$password,$ngaysinh,$gioitinh,$role)
     {
-        // $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `gioitinh`,`ngaysinh`, `trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$gioitinh','$ngaysinh',1, $role)";
+        $password = password_hash($password,PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$gioitinh','$ngaysinh','$password',1, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {
@@ -44,9 +44,9 @@ class NguoiDungModel extends DB{
         return $rows;
     }
 
-    public function getById($email)
+    public function getById($id)
     {
-        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
+        $sql = "SELECT * FROM `nguoidung` WHERE `id` = '$id'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }

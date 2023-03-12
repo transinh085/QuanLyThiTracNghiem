@@ -43,20 +43,12 @@
 
         public function addClass()
         {
-            $note = "";
-            $group = 0;
-
-            if(isset($_POST['note'])) {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $name = $_POST['name'];
                 $note = $_POST['note'];
-            }
-
-            if(isset($_POST['group'])) {
                 $group = $_POST['group'];
-            }
-
-            if(isset($_POST['name'])) {
-                $c = $this->model("LopModel");
-                $c->insert($_POST['name'], $note, $group);
+                $result = $this->lopModel->create($name,$note,$group);
+                echo $result;
             }
         }
 
@@ -88,21 +80,24 @@
         public function deleteGroup()
         {
             if(isset($_POST['id'])) {
-                $this->nhomModel->delete($_POST['id']);
+                $result = $this->nhomModel->delete($_POST['id']);
+                echo $result;
             }
         }
 
         public function deleteClass()
         {
             if(isset($_POST['id'])) {
-                $this->lopModel->delete($_POST['id']);
+                $result = $this->lopModel->delete($_POST['id']);
+                echo $result;
             }
         }
 
         public function updateGroup()
         {
             if(isset($_POST['id']) && isset($_POST['name'])) {
-                $this->nhomModel->update($_POST['id'], $_POST['name']);
+                $result = $this->nhomModel->update($_POST['id'], $_POST['name']);
+                echo $result;
             }
         }
 

@@ -4,7 +4,7 @@ function loadDataGroup() {
     .then((data) => {
       let html = "";
       data.forEach((item) => {
-        html += `<div class="col-6">
+        html += `<div class="col-12">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" value="${item.manhomhocphan
           }" id="group-${item.manhomhocphan}" name="ds-grp" ${item.manhomhocphan === "0" ? "checked" : ""
@@ -64,8 +64,8 @@ function loadDataClass() {
                         <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${element.manhom}">
                           <i class="si si-settings"></i>
                         </button>
-                        <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-light" style="">
-                          <a class="nav-main-link dropdown-item" href="module/detail/${element.manhom}" target="_blank">
+                        <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light" style="">
+                          <a class="nav-main-link dropdown-item" href="module/detail/${element.manhom}">
                             <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
                             <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
                           </a>
@@ -166,6 +166,11 @@ function updateGroup(id) {
   });
 }
 
+$(".close-chapter").click(function (e) { 
+  e.preventDefault();
+  $("#collapseExample").collapse('hide')
+});
+
 function deleteGroup(id) {
   $.ajax({
     type: "post",
@@ -202,20 +207,31 @@ $("#add_class").click(function (e) {
     url: "./module/addClass",
     data: {
       name: $("#class_name").val(),
-      note: $("#class_note").val() != "" ? $("#class_note").val() : null,
+      note: $("#class_note").val(),
       group: $('input[name="ds-grp"]:checked').val(),
     },
     success: function (response) {
-      $("#class_name").val("");
-      $("#class_note").val("");
-      $("#modal-add-group").modal("hide");
-      loadDataClass();
-      Swal.fire({
-        icon: "success",
-        title: "Thêm nhóm thành công",
-        showConfirmButton: true,
-        timer: 1500,
-      });
+      console.log(response)
+      if(response) {
+        $("#class_name").val("");
+        $("#class_note").val("");
+        $("#modal-add-group").modal("hide");
+        loadDataClass();
+        Swal.fire({
+          icon: "success",
+          title: "Thêm nhóm thành công",
+          showConfirmButton: true,
+          timer: 3500,
+        });
+      } else {
+        $("#modal-add-group").modal("hide");
+        Swal.fire({
+          icon: "warning",
+          title: "Thêm nhóm không thành công",
+          showConfirmButton: true,
+          timer: 3500,
+        });
+      }
     },
   });
 });

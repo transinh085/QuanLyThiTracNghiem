@@ -95,10 +95,8 @@ class Auth extends Controller{
             $fullname = $_POST['fullname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $result = $this->userModel->create($fullname,$email,$password);
-            if($result){
-                echo $result;
-            }
+            $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1);
+            echo $result;
         } 
     }
 

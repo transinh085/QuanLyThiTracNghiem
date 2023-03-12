@@ -134,7 +134,7 @@
                                 <input type="text" class="form-control" name="" id="" placeholder="Số điện thoại">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="" id="" placeholder="Email">
+                                <input type="email" class="form-control" name="" id="" placeholder="Email">
                             </div>
                             <div class="mb-3">
                                 <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"

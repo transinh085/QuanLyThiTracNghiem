@@ -1,10 +1,10 @@
 <?php
 class NguoiDungModel extends DB{
     
-    public function create($fullname, $email, $password)
+    public function create($email, $fullname , $ngaysinh, $gioitinh, $role)
     {
-        $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`, `hoten`, `matkhau`, `trangthai`,`nhomquyen`) VALUES ('$email','$fullname','$password',1,1)";
+        // $password = password_hash($password,PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `gioitinh`,`ngaysinh`, `trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$gioitinh','$ngaysinh',1, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {
@@ -13,9 +13,29 @@ class NguoiDungModel extends DB{
         return json_encode($check);
     }
 
+    public function delete($id) 
+    {
+        $check = true;
+        $sql = "DELETE FROM `nguoidung` WHERE `id`='$id'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $check = false;
+        return $check;
+    }
+
+    public function update($email,$hoten,$gioitinh,$ngaysinh) 
+    {
+        $check = true;
+        $sql = "UPDATE `nguoidung` SET `hoten`='$hoten', `gioitinh`='$gioitinh', `ngaysinh`='$ngaysinh' WHERE `email`='$email'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $check = false;
+        return $check;
+    }
+
     public function getAll()
     {
-        $sql = "SELECT * FROM `nguoidung`";
+        $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
+        FROM nguoidung, nhomquyen
+        WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -73,11 +93,11 @@ class NguoiDungModel extends DB{
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);
         if(mysqli_num_rows($result) > 0){
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_email'] = $row['email'];
-            $_SESSION['user_name'] = $row['hoten'];
-            $_SESSION['roles'] = $this->getRole($row['manhomquyen']);
+            while($row = mysqli_fetch_assoc($result)){
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['user_email'] = $row['email'];
+                $_SESSION['user_name'] = $row['hoten'];
+            }
             return false;
         }
         return false;

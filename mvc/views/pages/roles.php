@@ -4,7 +4,7 @@
             <h3 class="block-title">Danh sách nhóm quyền</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-role"><i class="fa-regular fa-plus"></i> Thêm mới</button>
+                    data-bs-target="#modal-add-role"><i class="fa-regular fa-plus me-1"></i> Thêm mới</button>
             </div>
         </div>
         <div class="block-content">
@@ -25,7 +25,7 @@
                         <table class="table table-vcenter">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Mã nhóm</th>
+                                    <th class="text-center">Mã nhóm quyền</th>
                                     <th>Tên nhóm</th>
                                     <th class="text-center">Số người dùng</th>
                                     <th class="text-center">Hành động</th>
@@ -71,7 +71,8 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm nhóm quyền</h5>
+                <h5 class="modal-title add-role-element">Thêm nhóm quyền</h5>
+                <h5 class="modal-title update-role-element">Sửa nhóm quyền</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-1">
@@ -225,11 +226,27 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row justify-content-around">
+                        <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
+                            <input class="form-check-input" type="checkbox" value="" id="example-switch-inline1"
+                                name="example-switch-inline1">
+                            <label class="form-check-label" for="example-switch-inline1">Tham gia
+                                thi</label>
+                        </div>
+                        <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
+                            <input class="form-check-input" type="checkbox" value="" id="example-switch-inline2"
+                                name="example-switch-inline2">
+                            <label class="form-check-label" for="example-switch-inline2">Tham gia học
+                                phần</label>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
+                <input type="hidden" name="manhomquyen">
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" id="save-role">Lưu</button>
+                <button type="button" class="btn btn-sm btn-primary add-role-element" data-bs-dismiss="modal" id="save-role">Lưu</button>
+                <button type="button" class="btn btn-sm btn-primary update-role-element" data-bs-dismiss="modal" id="update-role-btn">Cập nhật</button>
             </div>
         </div>
     </div>

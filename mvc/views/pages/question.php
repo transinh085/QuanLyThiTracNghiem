@@ -25,8 +25,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters <i class="fa fa-angle-down ms-1"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters"
-                                style="">
+                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters">
                                 <a class="dropdown-item d-flex align-items-center justify-content-between"
                                     href="javascript:void(0)">
                                     Pending..
@@ -54,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody id="listQuestion">
-                        <tr>
+                        <!-- <tr>
                             <td class="text-center fs-sm">
                                 <a class="fw-semibold" href="#">
                                     <strong>0001</strong>
@@ -173,7 +172,7 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>

@@ -156,8 +156,8 @@
     </div>
 </div>
 <div class="modal fade" id="modal-block-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content ">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
                     <h3 class="block-title">Danh sách chương</h3>
@@ -165,7 +165,6 @@
                         <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
                             <i class="fa fa-fw fa-times"></i>
                         </button>
-
                     </div>
                 </div>
                 <div class="block-content fs-sm">
@@ -213,8 +212,9 @@
                                                 <input type="text" class="form-control" name="name_group" id="name_chaper" placeholder="Nhập tên chương">
                                             </div>
                                             <div class="col-4">
-                                                <button id="addchaper" type="submit" class="btn btn-primary">Tạo chương</button>
+                                                <button id="addchaper" type="submit" class="btn btn-alt-primary">Tạo chương</button>
                                                 <button id="editchaper" type="submit" class="btn btn-primary">Đổi tên</button>
+                                                <button type="button" class="btn btn-alt-secondary close-chapter">Huỷ</button>
                                             </div>
                                         </div>
                                     </form>

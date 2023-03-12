@@ -18,7 +18,8 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
                 "Title" => "Câu hỏi",
                 "Plugin" => [
                     "ckeditor" => 1,
-                    "select" => 1
+                    "select" => 1,
+                    "notify" => 1
                 ],
                 "Script" => "question"
             ]);
@@ -90,12 +91,14 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
                 $dokho = $_POST['dokho'];
                 $noidung = $_POST['noidung'];
                 $cautraloi = $_POST['cautraloi'];
-                $nguoitao = "ok";
+                $nguoitao = 27;
                 $result = $this->cauHoiModel->create($noidung,$dokho,$mamon,$machuong,$nguoitao);
                 $macauhoi = mysqli_insert_id($result);
+                $check = '';
                 foreach($cautraloi as $x) {
-                    $this->cauTraLoiModel->create($macauhoi,$x['content'],$x['check'] == true ? 1 : 0);
+                    $this->cauTraLoiModel->create($macauhoi,$x['content'],$x['check']=='true'?1:0);
                 }
+                echo $check;
             }
         }
 

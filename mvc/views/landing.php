@@ -8,7 +8,7 @@
                 <div class="space-x-1 d-flex align-items-center space-x-2">
                     <a class="link-fx fw-bold" href="home">
                         <i class="fa fa-fire text-primary"></i>
-                        <span class="fs-4 text-dual">On</span><span class="fs-4 text-primary">Test</span>
+                        <span class="fs-4 text-dual">OnTest</span><span class="fs-4 text-primary">VN</span>
                     </a>
                     <span class="d-inline-block fs-xs fw-medium bg-primary-dark text-white rounded-pill py-1 px-2">5.4</span>
                 </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="order-md-0 col-md-6 d-flex align-items-center">
                                 <div>
-                                    <h2 class="h1 mb-2">
+                                    <h2 class="h2 mb-2">
                                         Dễ dàng tạo bài thi online với nhiều dạng câu hỏi
                                     </h2>
                                     <p class=" text-dark mb-4">

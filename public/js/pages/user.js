@@ -48,8 +48,8 @@ $(document).ready(function () {
                                 <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill ${user.trangthai == 1 ? "bg-success-light text-success" : "bg-danger-light text-danger"} bg-success-light text-success">${user.trangthai == 1 ? "Hoạt động" : "Khoá"}</span>
                             </td> 
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary delete_roles user-edit" href="javascript:void(0)"
-                                data-bs-toggle="modal" data-bs-target="#modal-add-user" aria-label="Edit" data-bs-original-title="Edit" data-id="${user.id}">
+                                <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
+                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${user.id}">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
@@ -61,6 +61,7 @@ $(document).ready(function () {
         `;
         });
         $('#list-user').html(html);
+        $('[data-bs-toggle="tooltip"]').tooltip();
     }
 
     $("[data-bs-target='#modal-add-user']").click(function (e) { 
@@ -89,6 +90,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".user-edit", function () {
+        $("#modal-add-user").modal("show");
         let id = $(this).data('id');
         $(".add-user-element").hide();
         $(".update-user-element").show();

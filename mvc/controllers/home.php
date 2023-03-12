@@ -1,7 +1,4 @@
 <?php
-
-// http://localhost/live/Home/Show/1/2
-
 class Home extends Controller{
 
     function default(){

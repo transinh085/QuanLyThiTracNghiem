@@ -9,7 +9,7 @@
         </div>
         <div class="col-6 d-flex align-items-center justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i> Thêm lớp</button>
+                data-bs-target="#modal-add-group"><i class="fa fa-fw fa-plus me-1"></i> Thêm lớp</button>
             <div class="dropdown">
                 <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">

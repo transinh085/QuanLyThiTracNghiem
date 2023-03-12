@@ -15,7 +15,7 @@
                 "Title" => "Quản lý nhóm học phần",
                 "Script" => "module",
                 "Plugin" => [
-                    "notify" => 1
+                    "sweetalert2" => 1
                 ]
             ]);
         }
@@ -92,10 +92,32 @@
             }
         }
 
+        public function deleteClass()
+        {
+            if(isset($_POST['id'])) {
+                $this->lopModel->delete($_POST['id']);
+            }
+        }
+
         public function updateGroup()
         {
             if(isset($_POST['id']) && isset($_POST['name'])) {
                 $this->nhomModel->update($_POST['id'], $_POST['name']);
+            }
+        }
+
+        public function getClass()
+        {
+            if(isset($_POST['id'])) {
+                $result = $this->lopModel->getInfo($_POST['id']);
+                echo json_encode($result);
+            }
+        }
+
+        public function updateClass()
+        {
+            if (isset($_POST['id'], $_POST['name'], $_POST['note'])) {
+                $this->lopModel->update($_POST['id'], $_POST['name'], $_POST['note']);
             }
         }
     }

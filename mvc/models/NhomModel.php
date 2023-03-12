@@ -30,6 +30,12 @@ class NhomModel extends DB {
     {
         $sql = "SELECT `nhom`.* FROM `nhom`, `nhomhocphan` WHERE `nhom`.`manhomhp` = `nhomhocphan`.`manhomhocphan` AND `nhom`.`manhomhp` = '$id'";
         return mysqli_query($this->con, $sql);
+        // $result = mysqli_query($this->con, $sql);
+        // $rows = array();
+        // while($row = mysqli_fetch_assoc($result)) {
+        //     $rows[] = $row;
+        // }
+        // return $rows;
     }
 }
 ?>

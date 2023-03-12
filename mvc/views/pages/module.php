@@ -15,7 +15,7 @@
                     aria-haspopup="true" aria-expanded="false">
                     Filters <i class="fa fa-angle-down ms-1"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters">
+                <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters" style="">
                     <a class="dropdown-item d-flex align-items-center justify-content-between"
                         href="javascript:void(0)">
                         Pending..
@@ -72,7 +72,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-block-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter"
+<div class="modal fade" id="modal-add-group" tabindex="-1" role="dialog" aria-labelledby="modal-add-group"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
         <div class="modal-content">
@@ -139,6 +139,42 @@
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-sm btn-primary" id="add_class">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-update-group" tabindex="-1" role="dialog" aria-labelledby="modal-update-group"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+        <div class="modal-content">
+            <div class="block block-rounded block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Cập nhật thông tin</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content fs-sm">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tên lớp</label>
+                        <input type="text" class="form-control" name="modal-update__class-name" id="modal-update__class-name"
+                            placeholder="Nhập tên lớp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Ghi chú</label>
+                        <input type="text" class="form-control" name="modal-update__class-note" id="modal-update__class-note"
+                            placeholder="Nhập ghi chú">
+                    </div>
+                    <input type="hidden" name="modal-update__class-id" id="modal-update__class-id" value="">
+                </div>
+                <div class="block-content block-content-full text-end bg-body">
+                    <button type="button" class="btn btn-sm btn-alt-secondary me-1"
+                        data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="update_class">Lưu</button>
                 </div>
             </div>
         </div>

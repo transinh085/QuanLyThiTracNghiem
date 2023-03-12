@@ -4,7 +4,7 @@ class MonHocModel extends DB{
     {   
         $sql = "INSERT INTO `monhoc`(`mamonhoc`, `tenmonhoc`) VALUES ('$id','$name')";
         $result = mysqli_query($this->con,$sql);
-        echo $sql;
+        echo $result;
     }
 
     public function update($id, $name) 
@@ -28,6 +28,19 @@ class MonHocModel extends DB{
     public function getAll()
     {
         $sql = "SELECT * FROM `monhoc`";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function getAllSl()
+    {
+        $sql = "SELECT monhoc.mamonhoc, monhoc.tenmonhoc, COUNT(chuong.machuong) AS soluong
+        FROM monhoc LEFT JOIN chuong ON monhoc.mamonhoc = chuong.mamonhoc
+        GROUP BY monhoc.mamonhoc";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

@@ -9,7 +9,7 @@
         </div>
         <div class="col-6 d-flex align-items-center justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i> Thêm lớp</button>
+                data-bs-target="#modal-add-group"><i class="fa fa-fw fa-plus me-1"></i> Thêm nhóm</button>
             <div class="dropdown">
                 <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -54,12 +54,12 @@
                 <div class="block-content fs-sm">
                     <div class="mb-3">
                         <label for="" class="form-label">Tên nhóm</label>
-                        <input type="text" class="form-control" name="class_name" id="class_name"
+                        <input type="text" class="form-control form-control-alt" name="class_name" id="class_name"
                             placeholder="Nhập tên nhóm">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Ghi chú</label>
-                        <input type="text" class="form-control" name="class_note" id="class_note"
+                        <input type="text" class="form-control form-control-alt" name="class_note" id="class_note"
                             placeholder="Nhập ghi chú">
                     </div>
                     <div class="mb-3">
@@ -87,7 +87,7 @@
                                     <form method="post" class="mt-2">
                                         <div class="row mb-1">
                                             <div class="col-6">
-                                                <input type="text" class="form-control" name="name_group"
+                                                <input type="text" class="form-control form-control-alt" name="name_group"
                                                     id="name_group" placeholder="Nhập tên nhóm">
                                             </div>
                                             <div class="col-6">
@@ -128,12 +128,12 @@
                 <div class="block-content fs-sm">
                     <div class="mb-3">
                         <label for="" class="form-label">Tên nhóm</label>
-                        <input type="text" class="form-control" name="modal-update__class-name" id="modal-update__class-name"
+                        <input type="text" class="form-control form-control-alt" name="modal-update__class-name" id="modal-update__class-name"
                             placeholder="Nhập tên nhóm">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Ghi chú</label>
-                        <input type="text" class="form-control" name="modal-update__class-note" id="modal-update__class-note"
+                        <input type="text" class="form-control form-control-alt" name="modal-update__class-note" id="modal-update__class-note"
                             placeholder="Nhập ghi chú">
                     </div>
                     <input type="hidden" name="modal-update__class-id" id="modal-update__class-id" value="">

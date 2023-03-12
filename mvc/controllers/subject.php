@@ -29,7 +29,7 @@ class Subject extends Controller{
 
     public function getData()
     {
-        $data = $this->monHocModel->getAll();
+        $data = $this->monHocModel->getAllSl();
         echo json_encode($data);
     }
 

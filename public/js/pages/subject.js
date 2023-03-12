@@ -13,11 +13,12 @@ $(document).ready(function () {
     
     function showData(subjects) {
         let html = "";
+        console.log(subjects);
         subjects.forEach((subject) => {
             html += `<tr tid="${subject.mamonhoc}">
                 <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
                 <td>${subject.tenmonhoc}</td>
-                <td class="d-none d-sm-table-cell text-center fs-sm">10</td>
+                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.soluong}</td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-alt-secondary subject-infor" data-bs-toggle="modal" data-bs-target="#modal-block-vcenter" href="javascript:void(0)"
                         data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" dataid="${subject.mamonhoc}">

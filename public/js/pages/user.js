@@ -80,9 +80,11 @@ $(document).ready(function () {
                 ngaysinh: $("#user_ngaysinh").val(),
                 email: $("#user_email").val(),
                 role: $('#user_nhomquyen').val(),
-                password: $('#user_password').val()
+                password: $('#user_password').val(),
+                status: $("#user_status").prop("checked") ? 1 : 0
             },
             success: function (response) {
+                console.log(response);
                 $("#modal-add-user").modal("hide");
                 loadData();
             },
@@ -109,7 +111,31 @@ $(document).ready(function () {
                 $("#user_ngaysinh").val(response.ngaysinh)
                 $("#user_email").val(response.email)
                 $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
+                $("#user_status").prop("checked", response.trangthai)
             }
+        });
+    });
+
+    $("#btn-update-user").click(function (e) { 
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: "./user/update",
+            data: {
+                id: $(this).data("id"),
+                hoten: $("#user_name").val(),
+                gioitinh: $('input[name="user_gender"]:checked').val(),
+                ngaysinh: $("#user_ngaysinh").val(),
+                email: $("#user_email").val(),
+                role: $('#user_nhomquyen').val(),
+                password: $('#user_password').val(),
+                status: $("#user_status").prop("checked") ? 1 : 0
+            },
+            success: function (response) {
+                console.log(response);
+                $("#modal-add-user").modal("hide");
+                loadData();
+            },
         });
     });
 

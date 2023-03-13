@@ -11,8 +11,8 @@ class NhomQuyenModel extends DB {
             $manhomquyen = mysqli_insert_id($this->con);
             foreach($chitietquyen as $ct) {
                 $hanhdong = $ct['action'];
-                $loaiquyen = $ct['name'];
-                $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `loaiquyen`, `hanhdong`) VALUES ('$manhomquyen','$loaiquyen','$hanhdong')";
+                $chucnang = $ct['name'];
+                $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `chucnang`, `hanhdong`) VALUES ('$manhomquyen','$chucnang','$hanhdong')";
                 $result = mysqli_query($this->con, $sql);
                 if(!$result) return false;
             }
@@ -33,8 +33,8 @@ class NhomQuyenModel extends DB {
             if($result) {
                 foreach($chitietquyen as $ct) {
                     $hanhdong = $ct['action'];
-                    $loaiquyen = $ct['name'];
-                    $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `loaiquyen`, `hanhdong`) VALUES ('$manhomquyen','$loaiquyen','$hanhdong')";
+                    $chucnang = $ct['name'];
+                    $sql = "INSERT INTO `chitietquyen`(`manhomquyen`, `chucnang`, `hanhdong`) VALUES ('$manhomquyen','$chucnang','$hanhdong')";
                     $result = mysqli_query($this->con, $sql);
                     if(!$result) return false;
                 }
@@ -69,7 +69,7 @@ class NhomQuyenModel extends DB {
     public function getById($manhomquyen)
     {
         $query_name = "SELECT tennhomquyen FROM nhomquyen WHERE manhomquyen = $manhomquyen";
-        $query_detail = "SELECT loaiquyen,hanhdong FROM nhomquyen, chitietquyen WHERE nhomquyen.manhomquyen = chitietquyen.manhomquyen AND nhomquyen.manhomquyen = $manhomquyen";
+        $query_detail = "SELECT chucnang,hanhdong FROM nhomquyen, chitietquyen WHERE nhomquyen.manhomquyen = chitietquyen.manhomquyen AND nhomquyen.manhomquyen = $manhomquyen";
         $result_name = mysqli_query($this->con,$query_name);
         $result_detail = mysqli_query($this->con,$query_detail);
         $result = array();

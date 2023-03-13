@@ -130,21 +130,29 @@
                     </div>
                     <div class="mb-3">
                         <label for="user_nhomquyen" class="form-label">Nhóm quyền</label>
-                        <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen" name="user_nhomquyen"
-                            style="width: 100%;" data-placeholder="Choose one..">
+                        <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen"
+                            name="user_nhomquyen" style="width: 100%;" data-placeholder="Choose one..">
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="user_password" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control form-control-alt" name="user_password" id="user_password"
-                            placeholder="Nhập mật khẩu">
+                        <input type="password" class="form-control form-control-alt" name="user_password"
+                            id="user_password" placeholder="Nhập mật khẩu">
+                    </div>
+                    <div class="mb-3 d-flex align-items-center gap-5">
+                        <label for="user_status" class="form-label">Trạng thái</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="user_status">
+                            <label class="form-check-label" for="user_status"></label>
+                        </div>
                     </div>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-sm btn-primary add-user-element" id="btn-add-user">Lưu</button>
-                    <button type="button" class="btn btn-sm btn-primary update-user-element" id="btn-upadte-user" data-id="">Cập nhật</button>
+                    <button type="button" class="btn btn-sm btn-primary update-user-element" id="btn-update-user"
+                        data-id="">Cập nhật</button>
                 </div>
             </div>
         </div>

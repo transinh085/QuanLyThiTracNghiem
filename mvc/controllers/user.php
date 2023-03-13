@@ -31,7 +31,8 @@ class User extends Controller{
             $gioitinh = $_POST['gioitinh'];
             $password = $_POST['password'];
             $nhomquyen = $_POST['role'];
-            $result = $this->NguoiDungModel->create($email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen);
+            $trangthai = $_POST['status'];
+            $result = $this->NguoiDungModel->create($email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
             echo $result;
         }
     }
@@ -50,13 +51,16 @@ class User extends Controller{
     }
 
     public function update(){
-        if(isset($_POST['email'])){
-            // $id = $_POST['id'];
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = $_POST['email'];
             $hoten = $_POST['hoten'];
-            $gioitinh = $_POST['gioitinh'];
             $ngaysinh = $_POST['ngaysinh'];
-            $result = $this->NguoiDungModel->update($email,$hoten,$gioitinh,$ngaysinh);
+            $gioitinh = $_POST['gioitinh'];
+            $password = $_POST['password'];
+            $nhomquyen = $_POST['role'];
+            $trangthai = $_POST['status'];
+            $result = $this->NguoiDungModel->create($email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
+            echo $result;
         }
     }
 

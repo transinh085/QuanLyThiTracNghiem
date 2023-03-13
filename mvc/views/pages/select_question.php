@@ -1,8 +1,3 @@
-<style>
-#page-footer {
-    display: none
-}
-</style>
 <div class="row g-0 flex-md-grow-1">
     <div class="col-lg-5 col-xl-5 h100-scroll">
         <div class="content">

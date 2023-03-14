@@ -72,7 +72,8 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
                 $arrques = array();
                 for($i = 0; $i < count($questions); $i++) {
                     $data = explode("\\n", $questions[$i]);
-                    $arrques[$i]['question'] = trim($data[0]);
+                    $arrques[$i]['question'] = substr($data[0],1,1);
+                    $arrques[$i]['question'] = substr(trim($data[0]),4);
                     $arrques[$i]['answer'] = ord(trim(substr($data[count($data) - 1],8))) - 65 + 1;
                     $arrques[$i]['option'] = array();
                     for($j = 1; $j < count($data) - 1; $j++) {

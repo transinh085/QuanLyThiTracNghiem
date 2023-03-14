@@ -20,8 +20,8 @@ class MailAuth extends DB
         $this->mail->isSMTP(); // gửi mail SMTP
         $this->mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
         $this->mail->SMTPAuth = true; // Enable SMTP authentication
-        $this->mail->Username = 'tsinh579@gmail.com'; // SMTP username
-        $this->mail->Password = ''; // SMTP password
+        $this->mail->Username = 'tsinh11111@gmail.com'; // SMTP username
+        $this->mail->Password = 'ojldjxeqzmdxznbh'; // SMTP password
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $this->mail->Port = 587; // TCP port to connect to
         $this->mail->setFrom('tsinh579@gmail.com', 'QA');
@@ -31,6 +31,7 @@ class MailAuth extends DB
     {
         try {
             $this->mail->addAddress('transinh085@gmail.com'); // Name is optional
+            $this->mail->addAddress('musicanime2501@gmail.com'); // Name is optional
             $this->mail->isHTML(true);   // Set email format to HTML
             $this->mail->Subject = 'Code OPT';
             $this->mail->Body = '<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">

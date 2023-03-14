@@ -35,16 +35,16 @@
                     <label class="form-check-label" for="xembailam">Xem bài làm khi thi xong</label>
                 </div>
                 <div class="form-check form-switch mb-2">
-                    <input class="form-check-input" type="checkbox" id="tudongnoptab">
-                    <label class="form-check-label" for="tudongnoptab">Tự động nộp bài khi chuyển tab</label>
-                </div>
-                <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="daocauhoi">
                     <label class="form-check-label" for="daocauhoi">Đảo câu hỏi</label>
                 </div>
                 <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="daodapan">
                     <label class="form-check-label" for="daodapan">Đảo đáp án</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="tudongnoptab">
+                    <label class="form-check-label" for="tudongnoptab">Tự động nộp bài khi chuyển tab</label>
                 </div>
             </div>
         </div>
@@ -56,19 +56,19 @@
                     <form onsubmit="return false;">
                         <div class="mb-4">
                             <label class="form-label" for="name-exam">Tên đề kiểm tra</label>
-                            <input type="text" class="form-control" id="name-exam" name="name-exam"
+                            <input type="text" class="form-control form-control-alt" id="name-exam" name="name-exam"
                                 placeholder="Nhập tên đề kiểm tra">
                         </div>
                         <div class="row mb-4">
                             <label class="form-label" for="time-start">Thời gian bắt
                                 đầu</label>
                             <div class="col-xl-6">
-                                <input type="text" class="js-flatpickr form-control" id="time-start"
+                                <input type="text" class="js-flatpickr form-control form-control-alt" id="time-start"
                                     name="time-start" data-enable-time="true" data-time_24hr="true"
                                     placeholder="Từ">
                             </div>
                             <div class="col-xl-6">
-                                <input type="text" class="js-flatpickr form-control" id="time-end"
+                                <input type="text" class="js-flatpickr form-control form-control-alt" id="time-end"
                                     name="time-end" data-enable-time="true" data-time_24hr="true"
                                     placeholder="Đến">
                             </div>
@@ -118,18 +118,6 @@
                             <div class="block block-rounded border">
                                 <div class="block-header block-header-default">
                                     <h3 class="block-title">Giao cho</h3>
-                                    <div class="block-options">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="example-radios-inline1"
-                                                name="example-radios-inline" value="option1" checked="">
-                                            <label class="form-check-label" for="example-radios-inline1">Nhóm</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="example-radios-inline2"
-                                                name="example-radios-inline" value="option2">
-                                            <label class="form-check-label" for="example-radios-inline2">Lớp</label>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="block-content pb-3">
                                     <div class="row">

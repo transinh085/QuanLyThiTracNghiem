@@ -265,6 +265,7 @@ $(document).ready(function () {
           cautraloi: options,
         },
         success: function (response) {
+          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo câu hỏi thành công!' });
             console.log("Luc nhan");
             console.log(response)
             $("#mon-hoc").val("");
@@ -272,6 +273,7 @@ $(document).ready(function () {
             $("#dokho").val("");
             CKEDITOR.instances["js-ckeditor"].setData("");
             options = [];
+
         },
       });
     } else {
@@ -304,4 +306,5 @@ $(document).ready(function () {
     })
     return check;
   }
+
 });

@@ -185,7 +185,7 @@ $(document).ready(function () {
       item.option.forEach((op, i) => {
         data += `<input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" ${
           i + 1 == item.answer ? `checked` : ``
-        }>
+        } disabled>
                 <label class="btn btn-light rounded-pill me-2 btn-answer" for="option-c${index}_${i}">${String.fromCharCode(
           i + 65
         )}</label>`;
@@ -267,6 +267,11 @@ $(document).ready(function () {
         success: function (response) {
             console.log("Luc nhan");
             console.log(response)
+            $("#mon-hoc").val("");
+            $("#chuong").val("");
+            $("#dokho").val("");
+            CKEDITOR.instances["js-ckeditor"].setData("");
+            options = [];
         },
       });
     } else {

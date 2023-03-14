@@ -194,6 +194,7 @@ $(document).ready(function () {
                 showChaper($("#mamonhoc").val());
                 $("#name_chaper").val("")
                 $("#collapseChapter").collapse('hide')
+                showData();
             }
         });
     })

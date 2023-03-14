@@ -273,7 +273,7 @@ $(document).ready(function () {
             $("#dokho").val("");
             CKEDITOR.instances["js-ckeditor"].setData("");
             options = [];
-
+            
         },
       });
     } else {

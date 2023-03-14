@@ -123,9 +123,10 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 $("#ten-nhom-quyen").val(response.name);
                 $.each(response.detail, function (index, item) {
-                    $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked', true)
+                    $(`[name="${item.chucnang}"][value="${item.hanhdong}"]`).prop('checked', true)
                 });
                 $("#modal-add-role").modal("show");
             }

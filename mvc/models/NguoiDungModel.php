@@ -1,10 +1,10 @@
 <?php
 class NguoiDungModel extends DB{
     
-    public function create($email,$fullname,$password,$ngaysinh,$gioitinh,$role)
+    public function create($email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
     {
         $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`, `id`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$email', NULL ,'$fullname','$gioitinh','$ngaysinh','$password',1, $role)";
+        $sql = "INSERT INTO `nguoidung`(`email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$gioitinh','$ngaysinh','$password',$trangthai, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {
@@ -22,12 +22,15 @@ class NguoiDungModel extends DB{
         return $check;
     }
 
-    public function update($email,$hoten,$gioitinh,$ngaysinh) 
+    public function update($email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
     {
+        $password = password_hash($password,PASSWORD_DEFAULT);
+        $sql = "UPDATE `nguoidung` SET `email`='[value-1]',`id`='[value-2]',`googleid`='[value-3]',`hoten`='[value-4]',`gioitinh`='[value-5]',`ngaysinh`='[value-6]',`avatar`='[value-7]',`ngaythamgia`='[value-8]',`matkhau`='[value-9]',`trangthai`='[value-10]',`sodienthoai`='[value-11]',`token`='[value-12]',`otp`='[value-13]',`manhomquyen`='[value-14]' WHERE 1";
         $check = true;
-        $sql = "UPDATE `nguoidung` SET `hoten`='$hoten', `gioitinh`='$gioitinh', `ngaysinh`='$ngaysinh' WHERE `email`='$email'";
-        $result = mysqli_query($this->con,$sql);
-        if(!$result) $check = false;
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) {
+            $check = false;
+        }
         return $check;
     }
 
@@ -105,7 +108,7 @@ class NguoiDungModel extends DB{
 
     public function getRole($manhomquyen)
     {
-        $sql = "SELECT loaiquyen, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
+        $sql = "SELECT chucnang, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
         $result = mysqli_query($this->con, $sql);
         $roles = array();
         while($row = mysqli_fetch_assoc($result)) {

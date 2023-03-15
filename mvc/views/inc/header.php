@@ -46,7 +46,7 @@
                         <a class="dropdown-item" href="./account">
                             <i class="si si-settings me-2 fa-fw icon-dropdown-item"></i> Tài khoản
                         </a>
-                        <a class="dropdown-item" href="op_auth_signin.html">
+                        <a class="dropdown-item" href="./auth/logout">
                             <i class="si si-logout me-2 fa-fw icon-dropdown-item"></i> Đăng xuất
                         </a>
                     </div>
@@ -85,3 +85,9 @@
     </div>
 </header>
 <!-- END Header -->
+<?php require_once "./mvc/models/NguoiDungModel.php"?>
+<?php
+if(!isset($_COOKIE['token'])){
+        echo "<script>window.location = './auth/signin'</script>";
+}
+?>

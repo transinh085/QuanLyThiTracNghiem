@@ -266,32 +266,35 @@ $(document).ready(function () {
         },
         success: function (response) {
           Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo câu hỏi thành công!' });
-            console.log("Luc nhan");
-            console.log(response)
             $("#mon-hoc").val("");
             $("#chuong").val("");
             $("#dokho").val("");
             CKEDITOR.instances["js-ckeditor"].setData("");
             options = [];
-            
+            $("#modal-add-question").modal("hide");
+            loadQuestion();
         },
       });
     } else {
       if(mamonhoc == ''){
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng chọn mã môn học' });
         $("#mon-hoc").focus();
       } else if(machuong == ''){
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng chọn mã chương' });
         $("#chuong").focus();
       }
       else if(dokho == ''){
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng chọn độ khó' });
         $("#dokho").focus();
       }
       else if(noidung == ''){
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng nhập nội dung' });
         CKEDITOR.instances["js-ckeditor"].focus();
       }
       else if(cautraloi.length < 2){
-        alert("Vui long them cau tra loi");
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng thêm câu trả lời' });
       } else if (checkSOption(options) == false){
-        alert("Vui long chon cau tra loi dung");
+        Dashmix.helpers('jq-notify', { type: 'error', icon: 'fa fa-check me-1', message: 'Vui lòng chọn đáp án đúng' });
       }
     }
     

@@ -54,6 +54,13 @@ class NguoiDungModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
+    public function getByEmail($id)
+    {
+        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$id'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
     public function changePassword($email,$new_password)
     {
         $new_password = password_hash($new_password,PASSWORD_DEFAULT);
@@ -68,7 +75,7 @@ class NguoiDungModel extends DB{
 
     public function checkLogin($email,$password){
         $password = password_hash($password,PASSWORD_DEFAULT);
-        $user = $this->getById($email);
+        $user = $this->getByEmail($email);
         if($user == ''){
             return "Tài khoản không tồn tại";
         } else {
@@ -115,6 +122,17 @@ class NguoiDungModel extends DB{
             $roles[] = $row;
         }
         return $roles;
+    }
+
+    public function logout(){
+        setcookie("token","",time()-10,'/');
+        $id = $_SESSION['user_id'];
+        $sql = "UPDATE `nguoidung` SET `token`='null' WHERE `id` = '$id'";
+        $_SESSION['user_id'] = "";
+        $_SESSION['user_email'] = "";
+        $_SESSION['user_name'] = "";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
     }
 }
 ?>

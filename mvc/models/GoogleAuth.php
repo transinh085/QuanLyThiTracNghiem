@@ -39,6 +39,9 @@ class GoogleAuth extends DB{
             if(mysqli_num_rows($check) == 0){
                 $sql = "INSERT INTO `nguoidung`(`email`, `googleid`, `hoten`, `token`,`trangthai`,`manhomquyen`) VALUES ('$email','$userid','$username','$token','1','1')";
                 mysqli_query($this->con,$sql);
+            } else {
+                $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
+                mysqli_query($this->con,$sql);
             }
             // Chuyển hướng đến trang chủ
             header('Location: ../auth/signin');

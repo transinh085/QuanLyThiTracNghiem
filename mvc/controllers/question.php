@@ -92,7 +92,7 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
                 $dokho = $_POST['dokho'];
                 $noidung = $_POST['noidung'];
                 $cautraloi = $_POST['cautraloi'];
-                $nguoitao = 27;
+                $nguoitao = 1;
                 $result = $this->cauHoiModel->create($noidung,$dokho,$mamon,$machuong,$nguoitao);
                 $macauhoi = mysqli_insert_id($result);
                 $check = '';

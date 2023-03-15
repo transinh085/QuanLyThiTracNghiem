@@ -113,12 +113,19 @@ class Auth extends Controller{
             $email = $_POST['email'];
             $password = $_POST['password'];
             $result = $this->userModel->checkLogin($email,$password);
-            echo $result;
+            echo json_encode($result);
         }
     }
+    
 
     public function sendOptAuth(){
         $this->mailAuth->sendOpt();
+    }
+
+    public function logout()
+    {
+        $result = $this->userModel->logout();
+        header("Location: ../auth/signin");
     }
 }
 ?>

@@ -92,7 +92,7 @@ if(isset($_COOKIE['token'])){
     $nguoidung = new NguoiDungModel();
     $check = $nguoidung->validateToken($token);
     if($check == true){
-        echo "<script>window.location = './question'</script>";
+        echo "<script>window.location = './dashboard'</script>";
     }
 }
 ?>

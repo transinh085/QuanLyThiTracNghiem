@@ -16,15 +16,44 @@ class Subject extends Controller{
             "Title" => "Quản lý môn học",
             "Script" => "subject",
             "Plugin" => [
-                "sweetalert2" => 1
+                "sweetalert2" => 1,
+                "notify" => 1
             ]
         ]);
     }
 
     public function add()
     {
-            $result = $this->monHocModel->create($_POST['mamon'],$_POST['tenmon']);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $mamon = $_POST['mamon'];
+            $tenmon = $_POST['tenmon'];
+            $sotinchi = $_POST['sotinchi'];
+            $sotietlythuyet = $_POST['sotietlythuyet'];
+            $sotietthuchanh = $_POST['sotietthuchanh'];
+            $result = $this->monHocModel->create($mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
             echo $result;
+        }
+    }
+
+    public function update(){
+        if(isset($_POST['mamon'])){
+            $id = $_POST['id'];
+            $mamon = $_POST['mamon'];
+            $tenmon = $_POST['tenmon'];
+            $sotinchi = $_POST['sotinchi'];
+            $sotietlythuyet = $_POST['sotietlythuyet'];
+            $sotietthuchanh = $_POST['sotietthuchanh'];
+            $result = $this->monHocModel->update($id,$mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
+            echo $result;
+        }
+    }
+
+    public function delete(){
+        if(isset($_POST['mamon'])){
+            $mamon = $_POST['mamon'];
+            $result = $this->monHocModel->delete($mamon);
+            echo $result;
+        }
     }
 
     public function getData()
@@ -33,18 +62,11 @@ class Subject extends Controller{
         echo json_encode($data);
     }
 
-    public function deleteData(){
-        if(isset($_POST['mamon'])){
-            $mamon = $_POST['mamon'];
-            $result = $this->monHocModel->delete($mamon);
-        }
-    }
-
-    public function update(){
-        if(isset($_POST['mamon'])){
-            $mamon = $_POST['mamon'];
-            $tenmon = $_POST['tenmon'];
-            $result = $this->monHocModel->update($mamon,$tenmon);
+    public function getDetail()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $data = $this->monHocModel->getById($_POST['mamon']);
+            echo json_encode($data);
         }
     }
 
@@ -55,17 +77,25 @@ class Subject extends Controller{
     }
 
     public function chaperDelete(){
-        $this->chuongModel->delete($_POST['dataid']);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->chuongModel->delete($_POST['dataid']);
+            echo $result;
+        }
     }
 
     public function addChaper(){
-        $this->chuongModel->insert($_POST['mamonhoc'],$_POST['tenchuong']);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->chuongModel->insert($_POST['mamonhoc'],$_POST['tenchuong']);
+            echo $result;
+        }
     }
 
     public function updateChaper()
     {
-        $this->chuongModel->update($_POST['machuong'], $_POST['tenchuong']);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->chuongModel->update($_POST['machuong'], $_POST['tenchuong']);
+            echo $result;
+        }
     }
 }
-
 ?>

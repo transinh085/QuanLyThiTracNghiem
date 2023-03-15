@@ -125,6 +125,7 @@ class Auth extends Controller{
     public function logout()
     {
         $result = $this->userModel->logout();
+        header("Location: ../auth/signin");
     }
 }
 ?>

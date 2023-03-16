@@ -85,9 +85,3 @@
     </div>
 </header>
 <!-- END Header -->
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-if(!isset($_COOKIE['token'])){
-    echo "<script>window.location = './auth/signin'</script>";
-}
-?>

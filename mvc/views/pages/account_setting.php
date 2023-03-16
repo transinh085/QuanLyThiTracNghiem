@@ -54,32 +54,15 @@
                         <form action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data"
                             onsubmit="return false;">
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-username">Username</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-username"
-                                    name="dm-profile-edit-username" placeholder="Enter your username.."
-                                    value="john.doe">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-name">Name</label>
+                                <label class="form-label" for="dm-profile-edit-name">Họ và tên</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-name"
-                                    name="dm-profile-edit-name" placeholder="Enter your name.." value="John Doe">
+                                    name="dm-profile-edit-name" placeholder="Enter your name.." value="<?php echo $data["User"]["hoten"]?>">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-email">Email Address</label>
                                 <input type="email" class="form-control" id="dm-profile-edit-email"
                                     name="dm-profile-edit-email" placeholder="Enter your email.."
-                                    value="john.doe@example.com">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-job-title">Job Title</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-job-title"
-                                    name="dm-profile-edit-job-title" placeholder="Add your job title.."
-                                    value="Product Manager">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-company">Company</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-company"
-                                    name="dm-profile-edit-company" value="@ProXdesign" readonly>
+                                    value="<?php echo $data["User"]["email"]?>">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Your Avatar</label>

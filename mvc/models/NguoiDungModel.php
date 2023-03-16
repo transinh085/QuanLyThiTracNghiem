@@ -137,9 +137,7 @@ class NguoiDungModel extends DB{
         setcookie("token","",time()-10,'/');
         $id = $_SESSION['user_id'];
         $sql = "UPDATE `nguoidung` SET `token`= NULL WHERE `id` = '$id'";
-        $_SESSION['user_id'] = "";
-        $_SESSION['user_email'] = "";
-        $_SESSION['user_name'] = "";
+        session_destroy();
         $result = mysqli_query($this->con,$sql);
         return $result;
     }

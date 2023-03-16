@@ -106,6 +106,7 @@ class NguoiDungModel extends DB{
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['hoten'];
+            $_SESSION['user_role'] = $row['manhomquyen'];
             return true;
         }
         return false;
@@ -135,7 +136,7 @@ class NguoiDungModel extends DB{
     public function logout(){
         setcookie("token","",time()-10,'/');
         $id = $_SESSION['user_id'];
-        $sql = "UPDATE `nguoidung` SET `token`='null' WHERE `id` = '$id'";
+        $sql = "UPDATE `nguoidung` SET `token`= NULL WHERE `id` = '$id'";
         $_SESSION['user_id'] = "";
         $_SESSION['user_email'] = "";
         $_SESSION['user_name'] = "";

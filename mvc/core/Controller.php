@@ -10,9 +10,12 @@ class Controller{
         require_once "./mvc/views/".$view.".php";
     }
 
-    public function check()
+    public function check($chucnang, $hanhdong)
     {
-        require_once "./mvc/models/".$model.".php";
+        $valid = isset($_SESSION['user_role']);
+        if ($valid) { $valid = in_array($hanhdong, $_SESSION["user"]["permissions"][$module]); }
+        if ($valid) return true;
+        else return false;
     }
 }
 ?>

@@ -123,7 +123,7 @@ $(document).ready(function () {
     let html = "<option></option>";
     $.ajax({
       type: "post",
-      url: "./subject/getAllChapper",
+      url: "./subject/getAllChapter",
       data: {
         mamonhoc: selectedValue,
       },

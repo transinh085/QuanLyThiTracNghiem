@@ -12,11 +12,6 @@ class Account extends Controller{
         echo "<pre>";
         print_r($_SESSION);
     }
-
-    public function checkrole()
-    {
-        echo json_encode($this->checkPer('nguoidung','create'));
-    }
 }
 
 ?>

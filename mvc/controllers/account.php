@@ -15,8 +15,7 @@ class Account extends Controller{
 
     public function checkrole()
     {
-        $nguoidung  = $this->model("NguoiDungModel");
-        echo json_encode($nguoidung->getRole($_SESSION['user_id']));
+        echo json_encode($this->checkPer('nguoidung','create'));
     }
 }
 

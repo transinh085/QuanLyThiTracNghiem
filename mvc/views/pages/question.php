@@ -3,7 +3,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả câu hỏi</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-question"><i class="fa-regular fa-plus"></i> Thêm câu hỏi mới</button>
+                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-question" id="addquestionnew"><i class="fa-regular fa-plus"></i> Thêm câu hỏi mới</button>
             </div>
         </div>
         <div class="block-content">
@@ -297,12 +297,12 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" data-tab="2" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select id="monhocfile" class="js-select2 form-select data-monhoc" data-tab="2" style="width: 100%;" data-placeholder="Choose one.." required>
                                         </select>
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select data-chuong" data-tab="2" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select id="chuongfile" class="js-select2 form-select data-chuong" data-tab="2" style="width: 100%;" data-placeholder="Choose one.." required>
 
                                         </select>
                                     </div>
@@ -310,14 +310,14 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung</label>
-                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx">
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
                             </div>
                             <div class="mb-4">
                                 <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
                             </div>
                             <div class="mb-4 d-flex justify-content-between">
                                 <button type="submit" class="btn btn-alt-primary" id="xuly-file"><i class="fa fa-fw fa-eye me-1"></i> Phân tích file</button>
-                                <button type="submit" class="btn btn-hero btn-primary" id="xuly-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
+                                <button type="button" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
                             </div>
                         </form>
                         <div id="content-file"></div>

@@ -165,6 +165,8 @@ $(document).ready(function () {
     });
   });
 
+  
+
   function loadDataQuestion(questions) {
     let data = ``;
     questions.forEach((item, index) => {
@@ -242,12 +244,6 @@ $(document).ready(function () {
 
   //add question 
   $("#add_question").click(function (e) {
-    console.log("Mon hoc:" + $("#mon-hoc").val());
-    console.log("Ten chuong:" + $("#chuong").val());
-    console.log("Do kho:" + $("#dokho").val());
-    console.log("Noi dung:" + CKEDITOR.instances["js-ckeditor"].getData());
-    console.log("Luc gui");
-    console.log(options);
     let mamonhoc = $("#mon-hoc").val();
     let machuong = $("#chuong").val();
     let dokho = $("#dokho").val();
@@ -266,11 +262,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo câu hỏi thành công!' });
-            $("#mon-hoc").val("");
-            $("#chuong").val("");
-            $("#dokho").val("");
-            CKEDITOR.instances["js-ckeditor"].setData("");
-            options = [];
+
             $("#modal-add-question").modal("hide");
             loadQuestion();
         },
@@ -309,5 +301,36 @@ $(document).ready(function () {
     })
     return check;
   }
+
+  $("#addquestionnew").click(function(){
+    $("#mon-hoc").attr("selected", null);
+    $("#mon-hoc").val(response.manhomquyen).trigger("change")
+    $("#chuong").val(null);
+    $("#dokho").val(null);
+    CKEDITOR.instances["js-ckeditor"].setData(null);
+    options = [];
+  })
+  
+
+  $("#nhap-file").click(function(){
+    console.log("monhoc:"+$("#monhocfile").val())
+    console.log("chuong:"+$("#chuongfile").val())
+    $.ajax({
+      type: "post",
+      url: "./question/addQuesFile",
+      data: {
+        monhoc: $("#monhocfile").val(),
+        chuong: $("#chuongfile").val(),
+        questions: questions
+      },
+      success: function (response) {
+        $("#modal-add-question").modal("hide");
+        loadQuestion();
+        setTimeout(function(){
+          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm câu hỏi từ file thành công!' });
+        },1)
+      }
+    });
+  })
 
 });

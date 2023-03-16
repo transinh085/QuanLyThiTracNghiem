@@ -48,6 +48,8 @@ td p {
     margin-bottom: 0!important;
 }
 
+[data-notify] { z-index: 9999 !important; }
+
 /* Landing page */
 /* Responsive nav */
 @media (max-width: 991px) {

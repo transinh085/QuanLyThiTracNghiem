@@ -25,13 +25,17 @@ class Subject extends Controller{
     public function add()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $mamon = $_POST['mamon'];
-            $tenmon = $_POST['tenmon'];
-            $sotinchi = $_POST['sotinchi'];
-            $sotietlythuyet = $_POST['sotietlythuyet'];
-            $sotietthuchanh = $_POST['sotietthuchanh'];
-            $result = $this->monHocModel->create($mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
-            echo $result;
+            if($this->checkPer('monhoc','create')) {
+                $mamon = $_POST['mamon'];
+                $tenmon = $_POST['tenmon'];
+                $sotinchi = $_POST['sotinchi'];
+                $sotietlythuyet = $_POST['sotietlythuyet'];
+                $sotietthuchanh = $_POST['sotietthuchanh'];
+                $result = $this->monHocModel->create($mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
+                echo $result;
+            } else {
+                return false;
+            }
         }
     }
 

@@ -36,7 +36,7 @@
                         <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg"
                             alt="">
                         <div class="pt-2">
-                            <a class="fw-semibold" href="be_pages_generic_profile.html">
+                            <a class="fw-semibold">
                                 <?php echo $_SESSION['user_name'] ?>
                             </a>
                             <div class="fs-sm">Admin</div>
@@ -88,6 +88,6 @@
 <?php require_once "./mvc/models/NguoiDungModel.php"?>
 <?php
 if(!isset($_COOKIE['token'])){
-        echo "<script>window.location = './auth/signin'</script>";
+    echo "<script>window.location = './auth/signin'</script>";
 }
 ?>

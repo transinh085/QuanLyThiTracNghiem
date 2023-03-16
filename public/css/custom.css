@@ -44,6 +44,10 @@
     margin-bottom: 0;
 }
 
+td p {
+    margin-bottom: 0!important;
+}
+
 /* Landing page */
 /* Responsive nav */
 @media (max-width: 991px) {

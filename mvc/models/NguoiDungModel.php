@@ -92,7 +92,6 @@ class NguoiDungModel extends DB{
                 } else {
                     return "Đăng nhập không thành công";
                 }
-                
             } else {
                 return "Mật khẩu không khớp";
             }
@@ -116,9 +115,19 @@ class NguoiDungModel extends DB{
     {
         $sql = "SELECT chucnang, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
         $result = mysqli_query($this->con, $sql);
-        $roles = array();
+        $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
-            $roles[] = $row;
+            $rows[] = $row;
+        }
+        $roles = array();
+        foreach ($rows as $item) {
+            $chucnang = $item['chucnang'];
+            $hanhdong = $item['hanhdong'];
+            if (!isset($roles[$chucnang])) {
+                $roles[$chucnang] = array($hanhdong);
+            } else {
+                array_push($roles[$chucnang], $hanhdong);
+            }
         }
         return $roles;
     }

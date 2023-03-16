@@ -12,6 +12,12 @@ class Account extends Controller{
         echo "<pre>";
         print_r($_SESSION);
     }
+
+    public function checkrole()
+    {
+        $nguoidung  = $this->model("NguoiDungModel");
+        echo json_encode($nguoidung->getRole($_SESSION['user_id']));
+    }
 }
 
 ?>

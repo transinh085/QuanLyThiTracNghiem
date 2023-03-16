@@ -10,5 +10,9 @@ class Controller{
         require_once "./mvc/views/".$view.".php";
     }
 
+    public function check()
+    {
+        require_once "./mvc/models/".$model.".php";
+    }
 }
 ?>

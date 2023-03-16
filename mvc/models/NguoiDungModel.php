@@ -92,7 +92,6 @@ class NguoiDungModel extends DB{
                 } else {
                     return "Đăng nhập không thành công";
                 }
-                
             } else {
                 return "Mật khẩu không khớp";
             }
@@ -103,11 +102,10 @@ class NguoiDungModel extends DB{
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);
         if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_assoc($result)){
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['user_email'] = $row['email'];
-                $_SESSION['user_name'] = $row['hoten'];
-            }
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_email'] = $row['email'];
+            $_SESSION['user_name'] = $row['hoten'];
             return true;
         }
         return false;
@@ -117,9 +115,19 @@ class NguoiDungModel extends DB{
     {
         $sql = "SELECT chucnang, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
         $result = mysqli_query($this->con, $sql);
-        $roles = array();
+        $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
-            $roles[] = $row;
+            $rows[] = $row;
+        }
+        $roles = array();
+        foreach ($rows as $item) {
+            $chucnang = $item['chucnang'];
+            $hanhdong = $item['hanhdong'];
+            if (!isset($roles[$chucnang])) {
+                $roles[$chucnang] = array($hanhdong);
+            } else {
+                array_push($roles[$chucnang], $hanhdong);
+            }
         }
         return $roles;
     }

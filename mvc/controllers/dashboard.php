@@ -1,6 +1,5 @@
 <?php
 class Dashboard extends Controller{
-
     function default(){
         $this->view("main_layout", [
             "Page" => "dashboard" ,

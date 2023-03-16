@@ -44,5 +44,14 @@ class CauTraLoiModel extends DB{
         $result = mysqli_query($this->con,$sql);
         return mysqli_fetch_assoc($result);
     }
+
+    public function deletebyanswer($macauhoi)
+    {
+        $valid = true;
+        $sql = "DELETE FROM `cautraloi` WHERE `macauhoi` = $macauhoi";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
 }
 ?>

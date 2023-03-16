@@ -219,16 +219,12 @@ $(document).ready(function () {
                         <strong>Cơ bản</strong>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip"
-                            aria-label="View" data-bs-original-title="View">
-                            <i class="fa fa-fw fa-eye"></i>
-                        </a>
-                        <a class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip"
-                                    aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-fw fa-pencil"></i>
+                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#modal-add-subject"
+                                    aria-label="Edit" data-bs-original-title="Edit" data-id="${question["macauhoi"]}">
+                                    <i class="fa fa-fw fa-pencil" ></i>
                                 </a>
-                        <a class="btn btn-sm btn-alt-secondary" 
-                            data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
+                            data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${question["macauhoi"]}">
                             <i class="fa fa-fw fa-times"></i>
                         </a>
                     </td>
@@ -338,4 +334,55 @@ $(document).ready(function () {
     });
   })
 
+  $(document).on("click", ".btn-edit-question", function (){
+    let id = $(this).data("id");
+  })
+
+  $(document).on("click", ".btn-delete-question", function (){
+    let trid = $(this).data("id");
+        let e = Swal.mixin({
+            buttonsStyling: !1,
+            target: "#page-container",
+            customClass: {
+                confirmButton: "btn btn-success m-1",
+                cancelButton: "btn btn-danger m-1",
+                input: "form-control"
+            }
+        });
+    
+        e.fire({
+            title: "Are you sure?",
+            text: "Bạn có chắc chắn muốn xoá nhóm môn học?",
+            icon: "warning",
+            showCancelButton: !0,
+            customClass: {
+                confirmButton: "btn btn-danger m-1",
+                cancelButton: "btn btn-secondary m-1"
+            },
+            confirmButtonText: "Vâng, tôi chắc chắn!",
+            html: !1,
+            preConfirm: e => new Promise((e => {
+                setTimeout((() => {
+                    e()
+                }), 50)
+            }))
+        }).then((t => {
+            if(t.value == true){
+                $.ajax({
+                    type: "post",
+                    url: "./question/delete",
+                    data: {
+                        macauhoi: trid
+                    },
+                    success: function (response) {
+                        e.fire("Deleted!", "Xóa môn học thành công!", "success")
+                        loadQuestion();
+                    }
+                });
+            } else {
+                e.fire("Cancelled", "Bạn đã không xóa môn học :)", "error")
+            }
+        
+        }))
+  })
 });

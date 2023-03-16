@@ -23,7 +23,8 @@ class Question extends Controller
             "Plugin" => [
                 "ckeditor" => 1,
                 "select" => 1,
-                "notify" => 1
+                "notify" => 1,
+                "sweetalert2" => 1,
             ],
             "Script" => "question"
         ]);
@@ -141,5 +142,13 @@ class Question extends Controller
     {
         $result = $this->cauHoiModel->getAll();
         echo json_encode($result);
+    }
+
+    public function delete(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id = $_POST['macauhoi'];
+            $this->cauTraLoiModel->deletebyanswer($id);
+            $this->cauHoiModel->delete($id);
+        }
     }
 }

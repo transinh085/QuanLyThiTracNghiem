@@ -106,7 +106,7 @@ class NguoiDungModel extends DB{
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['hoten'];
-            $_SESSION['user_role'] = $row['manhomquyen'];
+            $_SESSION['user_role'] = $this->getRole($row['manhomquyen']);
             return true;
         }
         return false;

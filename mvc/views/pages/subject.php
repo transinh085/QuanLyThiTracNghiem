@@ -28,7 +28,6 @@
                             <th class="d-none d-sm-table-cell text-center">Số tín chỉ</th>
                             <th class="d-none d-sm-table-cell text-center">Số tiết lý thuyết</th>
                             <th class="d-none d-sm-table-cell text-center">Số tiết thực hành</th>
-                            <th class="d-none d-sm-table-cell text-center">Số chương</th>
                             <th class="text-center">Hành động</th>
                         </tr>
                     </thead>
@@ -145,28 +144,28 @@
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody id="showChapper">
-                                <input type="hidden" value="" id="chaperId">
-                            </tbody>
+                            <tbody id="showChapper"></tbody>
                         </table>
                     </div>
                     <div class="mb-3">
                         <div class="block block-rounded border">
                             <div class="block-content pb-3">
                                 <a class="fw-bold" data-bs-toggle="collapse" href="#collapseChapter" role="button"
-                                    aria-expanded="false" aria-controls="collapseChapter" id="btnaddChapper"><i
+                                    aria-expanded="false" aria-controls="collapseChapter" id="btn-add-chapter"><i
                                         class="fa fa-fw fa-plus"></i>Thêm chương</a>
                                 <div class="collapse" id="collapseChapter">
                                     <form method="post" class="mt-2">
                                         <div class="row mb-1">
                                             <div class="col-8">
-                                                <input type="text" class="form-control" name="name_chaper"
-                                                    id="name_chaper" placeholder="Nhập tên chương">
+                                                <input type="text" class="form-control" name="name_chapter"
+                                                    id="name_chapter" placeholder="Nhập tên chương">
                                             </div>
                                             <div class="col-4">
-                                                <button id="addchaper" type="submit" class="btn btn-alt-primary">Tạo
+                                                <input type="hidden" name="mamon_chuong" id="mamon_chuong">
+                                                <input type="hidden" name="machuong" id="machuong">
+                                                <button id="add-chapter" type="submit" class="btn btn-alt-primary">Tạo
                                                     chương</button>
-                                                <button id="editchaper" type="submit" class="btn btn-primary">Đổi
+                                                <button id="edit-chapter" type="submit" class="btn btn-primary">Đổi
                                                     tên</button>
                                                 <button type="button"
                                                     class="btn btn-alt-secondary close-chapter">Huỷ</button>

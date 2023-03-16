@@ -58,7 +58,7 @@ class Subject extends Controller{
 
     public function getData()
     {
-        $data = $this->monHocModel->getAllSl();
+        $data = $this->monHocModel->getAll();
         echo json_encode($data);
     }
 
@@ -70,27 +70,27 @@ class Subject extends Controller{
         }
     }
 
-    //Chapper
-    public function getAllChapper(){
+    //Chapter
+    public function getAllChapter(){
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);
     }
 
-    public function chaperDelete(){
+    public function chapterDelete(){
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $result = $this->chuongModel->delete($_POST['dataid']);
+            $result = $this->chuongModel->delete($_POST['machuong']);
             echo $result;
         }
     }
 
-    public function addChaper(){
+    public function addChapter(){
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = $this->chuongModel->insert($_POST['mamonhoc'],$_POST['tenchuong']);
             echo $result;
         }
     }
 
-    public function updateChaper()
+    public function updateChapter()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = $this->chuongModel->update($_POST['machuong'], $_POST['tenchuong']);

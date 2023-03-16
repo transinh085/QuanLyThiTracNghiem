@@ -38,20 +38,6 @@ class MonHocModel extends DB{
         return $rows;
     }
 
-    public function getAllSl()
-    {
-        $sql = "SELECT monhoc.*, COUNT(chuong.machuong) AS soluong
-        FROM monhoc LEFT JOIN chuong ON monhoc.mamonhoc = chuong.mamonhoc
-        WHERE monhoc.trangthai = 1
-        GROUP BY monhoc.mamonhoc";
-        $result = mysqli_query($this->con,$sql);
-        $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
     public function getById($id)
     {
         $sql = "SELECT * FROM `monhoc` WHERE `mamonhoc` = '$id'";

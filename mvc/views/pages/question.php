@@ -229,28 +229,18 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one..">
-                                            <option></option>
-                                            <option value="1">HTML</option>
-                                            <option value="2">CSS</option>
-                                            <option value="3">JavaScript</option>
-                                            <option value="4">PHP</option>
-                                            <option value="5">MySQL</option>
-                                            <option value="6">Ruby</option>
-                                            <option value="7">Angular</option>
-                                            <option value="8">React</option>
-                                            <option value="9">Vue.js</option>
+                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.." required>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option></option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Độ khó</label>
-                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;" data-placeholder="Choose one..">
+                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option></option>
                                             <option value="1">Cơ bản</option>
                                             <option value="2">Trung bình</option>
@@ -261,7 +251,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung câu hỏi</label>
-                                <textarea id="js-ckeditor" name="ckeditor"></textarea>
+                                <textarea id="js-ckeditor" name="ckeditor" required></textarea>
                             </div>
                             <div class="mb-4 row">
                                 <h6>Danh sách đáp án</h6>

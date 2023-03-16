@@ -22,4 +22,12 @@ if(!isset($_COOKIE['token'])){
     <?php include "inc/script.php" ?>
 </body>
 </html>
+<?php require_once "./mvc/models/NguoiDungModel.php"?>
+<?php
+$token = $_COOKIE['token'];
+$nguoidung = new NguoiDungModel();
+if($nguoidung->validateToken($token) == null){
+    echo "<script>window.location = './auth/signin'</script>";
+}
+?>
 

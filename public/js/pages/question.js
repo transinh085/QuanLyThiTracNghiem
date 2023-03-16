@@ -303,12 +303,17 @@ $(document).ready(function () {
   }
 
   $("#addquestionnew").click(function(){
-    $("#mon-hoc").attr("selected", null);
-    $("#mon-hoc").val(response.manhomquyen).trigger("change")
-    $("#chuong").val(null);
-    $("#dokho").val(null);
+    $("#mon-hoc").val("").trigger("change")
+    $("#chuong").val("").trigger("change")
+    $("#dokho").val("").trigger("change")
+    $("#monhocfile").val("").trigger("change")
+    $("#chuongfile").val("").trigger("change")
     CKEDITOR.instances["js-ckeditor"].setData(null);
     options = [];
+    $("#add_option").collapse("hide")
+    $("#list-options").html("");
+    $("#file-cau-hoi").val(null)
+    $('#btabs-alt-static-home-tab').tab('show')
   })
   
 

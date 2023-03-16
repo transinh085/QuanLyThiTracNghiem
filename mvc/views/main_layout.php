@@ -1,10 +1,4 @@
 <?php require "inc/head.php" ?>
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-if(!isset($_COOKIE['token'])){
-    echo "<script>window.location = './auth/signin'</script>";
-}
-?>
 <body>
     <!-- Page Container -->
     <div id="page-container" class="sidebar-o sidebar-light side-scroll page-header-fixed page-header-dark main-content-narrow remember-theme">
@@ -22,12 +16,4 @@ if(!isset($_COOKIE['token'])){
     <?php include "inc/script.php" ?>
 </body>
 </html>
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-$token = $_COOKIE['token'];
-$nguoidung = new NguoiDungModel();
-if($nguoidung->validateToken($token) == null){
-    echo "<script>window.location = './auth/signin'</script>";
-}
-?>
 

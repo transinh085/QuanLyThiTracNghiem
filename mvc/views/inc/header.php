@@ -87,9 +87,7 @@
 <!-- END Header -->
 <?php require_once "./mvc/models/NguoiDungModel.php"?>
 <?php
-$token = $_COOKIE['token'];
-$nguoidung = new NguoiDungModel();
-if($nguoidung->validateToken($token) == null){
+if(!isset($_COOKIE['token'])){
     echo "<script>window.location = './auth/signin'</script>";
 }
 ?>

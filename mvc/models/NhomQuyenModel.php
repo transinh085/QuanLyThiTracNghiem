@@ -80,11 +80,5 @@ class NhomQuyenModel extends DB {
         }
         return $result;
     }
-
-    public function getRoleUser($id)
-    {
-        $sql = "";
-        
-    }
 }
 ?>

@@ -132,7 +132,6 @@ $(document).ready(function () {
                 status: $("#user_status").prop("checked") ? 1 : 0
             },
             success: function (response) {
-                console.log(response);
                 $("#modal-add-user").modal("hide");
                 loadData();
             },
@@ -140,7 +139,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".user-delete", function () {
-        var trid = $(this).attr("dataid");
+        var trid = $(this).data("id");
         let e = Swal.mixin({
             buttonsStyling: !1,
             target: "#page-container",
@@ -150,7 +149,6 @@ $(document).ready(function () {
                 input: "form-control"
             }
         });
-
         e.fire({
             title: "Are you sure?",
             text: "Bạn có chắc chắn muốn xoá nhóm người dùng?",

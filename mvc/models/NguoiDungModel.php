@@ -22,10 +22,14 @@ class NguoiDungModel extends DB{
         return $check;
     }
 
-    public function update($email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
+    public function update($id,$email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
     {
-        $password = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "UPDATE `nguoidung` SET `email`='[value-1]',`id`='[value-2]',`googleid`='[value-3]',`hoten`='[value-4]',`gioitinh`='[value-5]',`ngaysinh`='[value-6]',`avatar`='[value-7]',`ngaythamgia`='[value-8]',`matkhau`='[value-9]',`trangthai`='[value-10]',`sodienthoai`='[value-11]',`token`='[value-12]',`otp`='[value-13]',`manhomquyen`='[value-14]' WHERE 1";
+        $querypass = '';
+        if($password != '') {
+            $password = password_hash($password,PASSWORD_DEFAULT);
+            $querypass = ", `matkhau`='$password'";
+        }
+        $sql = "UPDATE `nguoidung` SET `email`='$email', `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh',`trangthai`='$trangthai',`manhomquyen`='$role'$querypass WHERE `id`='$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if(!$result) {

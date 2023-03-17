@@ -87,9 +87,9 @@
                             <tr>
                                 <th>Tên quyền</th>
                                 <th class="text-center">Xem</th>
-                                <th class="text-center">Xoá</th>
                                 <th class="text-center">Thêm mới</th>
                                 <th class="text-center">Cập nhật</th>
+                                <th class="text-center">Xoá</th>
                             </tr>
                         </thead>
                         <tbody>

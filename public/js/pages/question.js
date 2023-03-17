@@ -1,5 +1,7 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
+CKEDITOR.replace("option-content-edit");
+CKEDITOR.replace("js-ckeditor-edit");
 
 $(document).ready(function () {
   let options = [];

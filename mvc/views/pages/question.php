@@ -260,14 +260,14 @@
                                     </table>
                                 </div>
                                 <p>
-                                    <button class="btn btn-hero btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#add_option" aria-expanded="false" aria-controls="add_option">
+                                    <button class="btn btn-hero btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#add_option-edit" aria-expanded="false" aria-controls="add_option">
                                         Thêm câu trả lời <i class="fa fa-fw fa-angle-down opacity-50"></i>
                                     </button>
                                 </p>
-                                <div class="collapse" id="add_option1-edit">
+                                <div class="collapse" id="add_option-edit">
                                     <div class="card card-body">
-                                        <label class="form-label" for="option-content1">Nội dung trả lời</label>
-                                        <textarea id="option-content1-edit" name="ckeditor"></textarea>
+                                        <label class="form-label" for="option-content-edit">Nội dung trả lời</label>
+                                        <textarea id="option-content-edit" name="ckeditor"></textarea>
                                         <div class="form-check mt-4">
                                             <input class="form-check-input" type="checkbox" value="" id="true-option-edit">
                                             <label class="form-check-label" for="true-option">

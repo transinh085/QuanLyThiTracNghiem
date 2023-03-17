@@ -219,7 +219,7 @@ $(document).ready(function () {
                         <strong>Cơ bản</strong>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#modal-add-subject"
+                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-edit-question"
                                     aria-label="Edit" data-bs-original-title="Edit" data-id="${question["macauhoi"]}">
                                     <i class="fa fa-fw fa-pencil" ></i>
                                 </a>

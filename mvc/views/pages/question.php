@@ -48,126 +48,6 @@
                         </tr>
                     </thead>
                     <tbody id="listQuestion">
-                        <!-- <tr>
-                            <td class="text-center fs-sm">
-                                <a class="fw-semibold" href="#">
-                                    <strong>0001</strong>
-                                </a>
-                            </td>
-                            <td>Lập trình hướng đối tượng là gì ?</td>
-                            <td class="d-none d-xl-table-cell fs-sm">
-                                <a class="fw-semibold">Lập trình hướng đối tượng</a>
-                            </td>
-                            <td class="d-none d-sm-table-cell fs-sm">
-                                <strong>Cơ bản</strong>
-                            </td>
-                            <td class="d-none d-xl-table-cell text-center fs-sm">
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample" aria-expanded="false"
-                                    aria-controls="collapseExample">Show all <i
-                                        class="fa fa-angle-down ms-1"></i></button>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary" href="#" data-bs-toggle="tooltip"
-                                    aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-fw fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="tbl-collapse">
-                            <td colspan="6">
-                                <div class="collapse" id="collapseExample">
-                                    <div class="p-3">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <p class="rounded p-2">Lập
-                                                    trình hướng đối tượng là phương pháp đặt trọng tâm vào các đối
-                                                    tượng, nó không cho phép dữ liệu chuyển động một cách tự do trong
-                                                    hệ
-                                                    thống</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-2">Lập
-                                                    trình hướng đối tượng là
-                                                    phương pháp lập trình cơ bản gần với mã máy</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-2">Lập trình hướng đối tượng là
-                                                    phương pháp mới của lập trình máy tính, chia chương trình thành các
-                                                    hàm;
-                                                    quan tâm đến chức năng của hệ thống.</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-2">
-                                                    Lập trình hướng đối tượng là
-                                                    phương pháp đặt trọng tâm vào các chức năng, cấu trúc chương trình
-                                                    được
-                                                    xây dựng theo cách tiếp cận hướng chức năng.
-                                            </div>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center fs-sm">
-                                <a class="fw-semibold" href="#">
-                                    <strong>0001</strong>
-                                </a>
-                            </td>
-                            <td>OOP là viết tắt của:</td>
-                            <td class="d-none d-xl-table-cell fs-sm">
-                                <a class="fw-semibold">Lập trình java</a>
-                            </td>
-                            <td class="d-none d-sm-table-cell fs-sm">
-                                <strong>Cơ bản</strong>
-                            </td>
-                            <td class="d-none d-xl-table-cell text-center fs-sm">
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample1" aria-expanded="false"
-                                    aria-controls="collapseExample1">Show all <i
-                                        class="fa fa-angle-down ms-1"></i></button>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary" href="#collapseExample1" data-bs-toggle="tooltip"
-                                    aria-label="View" data-bs-original-title="View">
-                                    <i class="fa fa-fw fa-eye"></i>
-                                </a>
-                                <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="tbl-collapse">
-                            <td colspan="6">
-                                <div class="collapse" id="collapseExample1">
-                                    <div class="p-3">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <p class="rounded p-1 m-0">A. Object Open Programming</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-1 m-0">B. Open Object Programming</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-1 m-0">C. Object Oriented Programming.</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="rounded p-1 m-0">
-                                                    D. Object Oriented Proccessing.
-                                            </div>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr> -->
 
                     </tbody>
                 </table>
@@ -329,9 +209,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-add-subject" tabindex="-1" role="dialog" aria-labelledby="modal-add-subject"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="modal-edit-question" tabindex="-1" role="dialog" aria-labelledby="modal-edit-question" aria-hidden="true">>
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
@@ -343,11 +222,75 @@
                     </div>
                 </div>
                 <div class="block-content fs-sm">
-
+                <form method="POST" onsubmit="return false;">
+                            <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Môn học</label>
+                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.." required>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Chương</label>
+                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Độ khó</label>
+                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;" data-placeholder="Choose one.." required>
+                                            <option></option>
+                                            <option value="1">Cơ bản</option>
+                                            <option value="2">Trung bình</option>
+                                            <option value="3">Nâng cao</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor1">Nội dung câu hỏi</label>
+                                <textarea id="js-ckeditor1" name="ckeditor" required></textarea>
+                            </div>
+                            <div class="mb-4 row">
+                                <h6>Danh sách đáp án</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter">
+                                        <tbody id="list-options">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>
+                                    <button class="btn btn-hero btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#add_option" aria-expanded="false" aria-controls="add_option">
+                                        Thêm câu trả lời <i class="fa fa-fw fa-angle-down opacity-50"></i>
+                                    </button>
+                                </p>
+                                <div class="collapse" id="add_option1">
+                                    <div class="card card-body">
+                                        <label class="form-label" for="option-content1">Nội dung trả lời</label>
+                                        <textarea id="option-content1" name="ckeditor"></textarea>
+                                        <div class="form-check mt-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="true-option">
+                                            <label class="form-check-label" for="true-option">
+                                                Đáp án đúng
+                                            </label>
+                                        </div>
+                                        <p>
+                                            <button type="button" class="btn btn-primary mt-3" id="save-option">Lưu câu
+                                                trả lời</button>
+                                            <button type="button" class="btn btn-primary mt-3" id="update-option">Cập
+                                                nhật câu trả lời</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu
+                                    câu hỏi</button>
+                            </div>
+                        </form>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-alt-secondary me-1"
-                        data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_subject" data-id="">Cập nhật</button>
                 </div>
             </div>

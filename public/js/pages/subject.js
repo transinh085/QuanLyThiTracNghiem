@@ -247,12 +247,11 @@ $(document).ready(function () {
     
     $("#add-chapter").on("click", function(e){
         e.preventDefault();
-        let mamon = $("#mamon_chuong").val();
         $.ajax({
             type: "post",
             url: "./subject/addChapter",
             data: {
-                mamonhoc: mamon,
+                mamonhoc: $("#mamon_chuong").val(),
                 tenchuong: $("#name_chapter").val()
             },
             success: function (response) {
@@ -272,7 +271,6 @@ $(document).ready(function () {
     
     $(document).on("click", ".chapter-delete", function(){
         let machuong = $(this).data("id");
-        console.log(machuong);
         $.ajax({
             type: "post",
             url: "./subject/chapterDelete",

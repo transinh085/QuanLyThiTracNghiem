@@ -227,18 +227,18 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <label for="" class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.." required>
+                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc-edit" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.." required>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
+                                        <select class="js-select2 form-select data-chuong" id="chuong-edit" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option></option>
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Độ khó</label>
-                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;" data-placeholder="Choose one.." required>
+                                        <select class="js-select2 form-select" id="dokho-edit" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option></option>
                                             <option value="1">Cơ bản</option>
                                             <option value="2">Trung bình</option>
@@ -248,14 +248,14 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="js-ckeditor1">Nội dung câu hỏi</label>
-                                <textarea id="js-ckeditor1" name="ckeditor" required></textarea>
+                                <label class="form-label" for="js-ckeditor-edit">Nội dung câu hỏi</label>
+                                <textarea id="js-ckeditor-edit" name="ckeditor" required></textarea>
                             </div>
                             <div class="mb-4 row">
                                 <h6>Danh sách đáp án</h6>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter">
-                                        <tbody id="list-options">
+                                        <tbody id="list-options-edit">
                                         </tbody>
                                     </table>
                                 </div>
@@ -264,34 +264,34 @@
                                         Thêm câu trả lời <i class="fa fa-fw fa-angle-down opacity-50"></i>
                                     </button>
                                 </p>
-                                <div class="collapse" id="add_option1">
+                                <div class="collapse" id="add_option1-edit">
                                     <div class="card card-body">
                                         <label class="form-label" for="option-content1">Nội dung trả lời</label>
-                                        <textarea id="option-content1" name="ckeditor"></textarea>
+                                        <textarea id="option-content1-edit" name="ckeditor"></textarea>
                                         <div class="form-check mt-4">
-                                            <input class="form-check-input" type="checkbox" value="" id="true-option">
+                                            <input class="form-check-input" type="checkbox" value="" id="true-option-edit">
                                             <label class="form-check-label" for="true-option">
                                                 Đáp án đúng
                                             </label>
                                         </div>
                                         <p>
-                                            <button type="button" class="btn btn-primary mt-3" id="save-option">Lưu câu
+                                            <button type="button" class="btn btn-primary mt-3" id="save-option-edit">Lưu câu
                                                 trả lời</button>
-                                            <button type="button" class="btn btn-primary mt-3" id="update-option">Cập
+                                            <button type="button" class="btn btn-primary mt-3" id="update-option-edit">Cập
                                                 nhật câu trả lời</button>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu
+                                <button type="submit" class="btn btn-alt-primary" id="add_question-edit"><i class="fa fa-fw fa-plus me-1"></i> Lưu
                                     câu hỏi</button>
                             </div>
                         </form>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_subject" data-id="">Cập nhật</button>
+                    <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_question-edit" data-id="">Cập nhật</button>
                 </div>
             </div>
         </div>

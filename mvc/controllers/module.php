@@ -13,7 +13,9 @@
                 "Title" => "Quản lý nhóm học phần",
                 "Script" => "module",
                 "Plugin" => [
-                    "sweetalert2" => 1
+                    "sweetalert2" => 1,
+                    "select" => 1,
+                    "notify" => 1
                 ]
             ]);
         }
@@ -37,5 +39,18 @@
             echo json_encode($result);
         }
 
+        public function add()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $tennhom = $_POST['tennhom'];
+                $ghichu = $_POST['ghichu'];
+                $monhoc = $_POST['monhoc'];
+                $namhoc = $_POST['namhoc'];
+                $hocky = $_POST['hocky'];
+                $giangvien = $_SESSION['user_id'];
+                $result = $this->nhomModel->create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$monhoc);
+                echo $result;
+            }
+        }
     }
 ?>

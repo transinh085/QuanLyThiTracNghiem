@@ -205,7 +205,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-edit-question" tabindex="-1" role="dialog" aria-labelledby="modal-edit-question" aria-hidden="true">>
+<div class="modal fade" id="modal-edit-question" tabindex="-1" role="dialog" aria-labelledby="modal-edit-question" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">

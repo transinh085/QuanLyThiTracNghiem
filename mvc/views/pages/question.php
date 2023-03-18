@@ -100,7 +100,7 @@
                 </li>
             </ul>
             <div class="modal-body block block-transparent bg-white mb-0 block-rounded">
-                <div class="block-content tab-content" >
+                <div class="block-content tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel" aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
@@ -163,8 +163,9 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu
-                                    câu hỏi</button>
+                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu câu hỏi</button>
+                                <button class="btn btn-alt-primary" id="edit_question"><i class="fa fa-fw fa-plus me-1"></i> Sửa câu hỏi</button>
+                                <input type="hidden" value="" id="question_id">
                             </div>
                         </form>
                     </div>

@@ -151,4 +151,22 @@ class Question extends Controller
             $this->cauHoiModel->delete($id);
         }
     }
+
+    public function getQuestionById()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id = $_POST['id'];
+            $result = $this->cauHoiModel->getById($id);
+            echo json_encode($result);
+        }
+    }
+
+    public function getAnswerById()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id = $_POST['id'];
+            $result = $this->cauTraLoiModel->getAll($id);
+            echo json_encode($result);
+        }
+    }
 }

@@ -304,6 +304,7 @@ $(document).ready(function () {
     $("#mon-hoc").val("").trigger("change")
     $("#chuong").val("").trigger("change")
     $("#dokho").val("").trigger("change")
+
     $("#monhocfile").val("").trigger("change")
     $("#chuongfile").val("").trigger("change")
     CKEDITOR.instances["js-ckeditor"].setData(null);
@@ -338,6 +339,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".btn-edit-question", function (){
     let id = $(this).data("id");
+    
   })
 
   $(document).on("click", ".btn-delete-question", function (){

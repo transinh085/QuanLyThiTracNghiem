@@ -44,7 +44,8 @@
         <div class="modal-content">
             <div class="block block-rounded block-themed block-transparent mb-0">
                 <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Thêm nhóm</h3>
+                    <h3 class="block-title add-group-element">Thêm nhóm</h3>
+                    <h3 class="block-title update-group-element">Cập nhật thông tin nhóm</h3>
                     <div class="block-options">
                         <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
                             <i class="fa fa-fw fa-times"></i>
@@ -87,7 +88,8 @@
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="add_class">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary add-group-element" id="add-group">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary update-group-element" id="update-group" data-id="">Cập nhật</button>
                 </div>
             </div>
         </div>

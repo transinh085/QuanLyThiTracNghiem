@@ -35,7 +35,7 @@
 
         public function loadData()
         {
-            $result = $this->nhomModel->getBySubject();
+            $result = $this->nhomModel->getBySubject(1);
             echo json_encode($result);
         }
 
@@ -50,6 +50,38 @@
                 $giangvien = $_SESSION['user_id'];
                 $result = $this->nhomModel->create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$monhoc);
                 echo $result;
+            }
+        }
+
+        public function delete()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->delete($manhom);
+                echo $result;
+            }
+        }
+
+        public function update()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $tennhom = $_POST['tennhom'];
+                $ghichu = $_POST['ghichu'];
+                $monhoc = $_POST['monhoc'];
+                $namhoc = $_POST['namhoc'];
+                $hocky = $_POST['hocky'];
+                $result = $this->nhomModel->update($manhom,$tennhom,$ghichu,$namhoc,$hocky,$monhoc);
+                echo $result;
+            }
+        }
+
+        public function getDetail()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->getById($manhom);
+                echo json_encode($result);
             }
         }
     }

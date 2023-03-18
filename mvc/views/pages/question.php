@@ -81,8 +81,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="modal fade" id="modal-add-question" tabindex="-1" role="dialog" aria-labelledby="modal-add-question" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">

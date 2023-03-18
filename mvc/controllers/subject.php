@@ -9,7 +9,7 @@ class Subject extends Controller{
         $this->chuongModel = $this->model("ChuongModel");
     }
 
-    public function default()
+    public function default() 
     {
         $this->view("main_layout",[
             "Page" => "subject",

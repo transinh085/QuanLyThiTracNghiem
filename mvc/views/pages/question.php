@@ -100,7 +100,7 @@
                 </li>
             </ul>
             <div class="modal-body block block-transparent bg-white mb-0 block-rounded">
-                <div class="block-content tab-content">
+                <div class="block-content tab-content" >
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel" aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
@@ -113,7 +113,6 @@
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
                                         <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
-                                            <option></option>
                                         </select>
                                     </div>
                                     <div class="col-4">
@@ -181,7 +180,6 @@
                                     <div class="col-6">
                                         <label class="form-label">Chương</label>
                                         <select id="chuongfile" class="js-select2 form-select data-chuong" data-tab="2" style="width: 100%;" data-placeholder="Choose one.." required>
-
                                         </select>
                                     </div>
                                 </div>
@@ -219,7 +217,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="block-content fs-sm">
+                <div class="block-content fs-sm" style="max-height: 800px; overflow-y: auto;">
                 <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="row">

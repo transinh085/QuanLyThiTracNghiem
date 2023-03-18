@@ -9,10 +9,10 @@ class NhomModel extends DB{
         return $valid;
     }
 
-    public function update($manhom, $tennhom, $mamoi, $siso, $ghichu, $namhoc, $hocky, $trangthai, $hienthi, $giangvien, $mamonhoc)
+    public function update($manhom, $tennhom, $ghichu, $namhoc, $hocky, $mamonhoc)
     {
         $valid = true;
-        $sql = "UPDATE `nhom` SET `tennhom`='$tennhom',`mamoi`='$mamoi',`siso`='$siso',`ghichu`='$ghichu',`namhoc`='$namhoc',`hocky`='$hocky',`trangthai`='$trangthai',`hienthi`='$hienthi',`giangvien`='$giangvien',`mamonhoc`='$mamonhoc' WHERE `manhom`='$manhom'";
+        $sql = "UPDATE `nhom` SET `tennhom`='$tennhom',`ghichu`='$ghichu',`namhoc`='$namhoc',`hocky`='$hocky',`mamonhoc`='$mamonhoc' WHERE `manhom`='$manhom'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
@@ -21,7 +21,7 @@ class NhomModel extends DB{
     public function delete($manhom)
     {
         $valid = true;
-        $sql = "DELETE FROM `nhom` WHERE `manhom`='$manhom'";
+        $sql = "UPDATE `nhom` SET `trangthai`='0' WHERE `manhom`='$manhom'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
@@ -40,16 +40,16 @@ class NhomModel extends DB{
 
     public function getById($manhom)
     {
-        $sql = "SELECT * FROM `nhom` WHERE `manhom` = '$manhom";
+        $sql = "SELECT * FROM `nhom` WHERE `manhom` = $manhom";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
 
-    public function getBySubject()
+    public function getBySubject($hienthi)
     {
         $sql = "SELECT monhoc.mamonhoc, monhoc.tenmonhoc, nhom.namhoc, nhom.hocky, nhom.manhom, nhom.tennhom, nhom.ghichu, nhom.siso
         FROM nhom, monhoc
-        WHERE nhom.mamonhoc = monhoc.mamonhoc AND nhom.giangvien = 1 AND nhom.trangthai = 1 AND nhom.hienthi = 1";
+        WHERE nhom.mamonhoc = monhoc.mamonhoc AND nhom.giangvien = 1 AND nhom.trangthai = 1 AND nhom.hienthi = $hienthi";
         $result = mysqli_query($this->con, $sql);
         $final_result = array();
         while($row = mysqli_fetch_assoc($result)) {

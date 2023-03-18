@@ -145,5 +145,11 @@ class NguoiDungModel extends DB{
         $result = mysqli_query($this->con,$sql);
         return $result;
     }
+
+    public function updateOpt($opt,$email){
+        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
+    }
 }
 ?>

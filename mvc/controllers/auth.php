@@ -119,7 +119,12 @@ class Auth extends Controller{
     
 
     public function sendOptAuth(){
-        $this->mailAuth->sendOpt();
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $opt = rand(111111,999999);
+            $email = $_POST['email'];
+            $this->mailAuth->sendOpt($email,$opt);
+            $this->userModel->updateOpt($email,$opt);
+        } 
     }
 
     public function logout()

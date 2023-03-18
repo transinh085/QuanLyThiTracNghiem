@@ -221,7 +221,7 @@ $(document).ready(function () {
                         <strong>Cơ bản</strong>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-edit-question"
+                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
                                     aria-label="Edit" data-bs-original-title="Edit" data-id="${question["macauhoi"]}">
                                     <i class="fa fa-fw fa-pencil" ></i>
                                 </a>
@@ -317,8 +317,6 @@ $(document).ready(function () {
   
 
   $("#nhap-file").click(function(){
-    console.log("monhoc:"+$("#monhocfile").val())
-    console.log("chuong:"+$("#chuongfile").val())
     $.ajax({
       type: "post",
       url: "./question/addQuesFile",
@@ -339,8 +337,54 @@ $(document).ready(function () {
 
   $(document).on("click", ".btn-edit-question", function (){
     let id = $(this).data("id");
-    
+    getQuestionById(id);
   })
+
+  function getQuestionById(id){
+    $.ajax({
+      type: "post",
+      url: "./question/getQuestionById",
+      data: {
+        id: id
+      },
+      dataType: "json",
+      success: function (response) {
+        let data = response;
+        console.log(data)
+        let monhoc = data['mamonhoc'];
+        let machuong = data['machuong'];
+        let dokho = data['dokho'];
+        let noidung = data['noidung'];
+        CKEDITOR.instances["js-ckeditor"].setData(noidung);
+        $("#mon-hoc").val(monhoc).trigger("change")
+        $("#dokho").val(dokho).trigger("change")
+        setTimeout(function(){
+          $("#chuong").val(machuong).trigger("change")
+        },20)
+      }
+    });
+
+    $.ajax({
+      type: "post",
+      url: "./question/getAnswerById",
+      data: {
+        id: id
+      },
+      dataType: "json",
+      success: function (response) {
+        options = [];
+        let data = response;
+        data.forEach((option_get) => {
+          let option = {
+            content: option_get['noidungtl'],
+            check: option_get['ladapan']
+          };
+          options.push(option);
+        })
+        showOptions(options)
+      }
+    });
+  }
 
   $(document).on("click", ".btn-delete-question", function (){
     let trid = $(this).data("id");

@@ -239,6 +239,15 @@ $(document).ready(function () {
         let html = "";
         let index = 1;
         data.forEach((question) => {
+          let dokho = '';
+          switch(question['dokho']){
+            case '1': dokho = "Cơ bản";
+            break;
+            case '2': dokho = "Trung bình";
+            break;
+            case '3': dokho = "Nâng cao";
+            break;
+          }
           html += `<tr>
                     <td class="text-center fs-sm">
                         <a class="fw-semibold" href="#">
@@ -250,7 +259,7 @@ $(document).ready(function () {
                         <a class="fw-semibold">${question["tenmonhoc"]}</a>
                     </td>
                     <td class="d-none d-sm-table-cell fs-sm">
-                        <strong>Cơ bản</strong>
+                        <strong>${dokho}</strong>
                     </td>
                     <td class="text-center">
                         <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
@@ -516,7 +525,7 @@ $(document).ready(function () {
         $("#dokho").val(dokho).trigger("change");
         setTimeout(function () {
           $("#chuong").val(machuong).trigger("change");
-        }, 20);
+        }, 100);
       },
     });
 

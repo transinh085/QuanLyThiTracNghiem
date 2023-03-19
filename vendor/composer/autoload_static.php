@@ -126,6 +126,16 @@ class ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
@@ -156,6 +166,7 @@ class ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitca2f02b5dac217dff8c23cbb8c430956::$classMap;
 
         }, null, ClassLoader::class);

@@ -187,4 +187,9 @@ class Question extends Controller
             }
         }
     }
+
+    public function getTotalPag(){
+        $content = $_POST['content'];
+        echo $this->cauHoiModel->getTotalPag($content);
+    }
 }

@@ -2,6 +2,7 @@
     "require": {
         "google/apiclient": "2.12.1",
         "phpoffice/phpword": "^1.0",
-        "phpmailer/phpmailer": "^6.7"
+        "phpmailer/phpmailer": "^6.7",
+        "phpoffice/phpexcel": "^1.8"
     }
 }

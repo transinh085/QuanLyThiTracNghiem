@@ -1,7 +1,5 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
-CKEDITOR.replace("option-content-edit");
-CKEDITOR.replace("js-ckeditor-edit");
 
 $(document).ready(function () {
   let options = [];
@@ -232,13 +230,15 @@ $(document).ready(function () {
   }
 
   // loadDataQuestion
+  var index;
   function loadQuestion() {
     $.get(
-      "./question/getQuestion",
+      "./question/getQuestion/",
       function (data) {
         let html = "";
         let index = 1;
         data.forEach((question) => {
+
           let dokho = '';
           switch(question['dokho']){
             case '1': dokho = "Cơ bản";
@@ -284,6 +284,26 @@ $(document).ready(function () {
   }
 
   loadQuestion();
+
+  function loadPagination(){
+    $.ajax({
+      url: "pagination.php",
+      type: "get",
+      data: {
+        content: $("#search_question").val().trim()
+      },
+      success:function(data){
+  
+          let pg = '';
+          for(i = 1;i<=data;i++){
+            pg += `<li id="${i}" class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+          }
+          $("#pagination").html("");
+          $("#pagination").html(pg);
+        
+      }
+    });
+  }
 
   //add question
   $("#add_question").click(function (e) {

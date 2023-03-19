@@ -73,5 +73,41 @@ class User extends Controller{
         }
     }
 
+    // 30 người total_rows = 30
+    // mỗi trang chứa 5 người limit = 5
+    // 30 / 5 => total_rows / limit
+    // $start_from = ($page - 1)*$record_per_page;
+    // $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $record_per_page";
+    // $result = mysqli_query($this->con, $query);
+    // -------
+    // $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    // $page_result = mysqli_query($this->con, $page_query);
+    // $total_records = mysqli_num_rows($page_result);
+    // $total_pages = ceil($total_records/$record_per_page);
+    // --------------------
+    // public function pagination() {
+    //     $limit = self::limit;
+    //     $page = 1;
+    //     // $start_from = ($page - 1)*$limit;
+    //     // $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $limit";
+    //     // $rows = mysqli_query($this->con, $query);
+    //     // $total_rows = count($rows);
+    //     $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    //     $page_result = mysqli_query($this->con, $page_query);
+    //     $total_rows = mysqli_num_rows($page_result);
+    //     $total_page = ceil($total_rows / $limit);
+    //     $start = ($page - 1)*$limit;
+    //     if ($total_rows > 0) {
+    //         $datas = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start, $limit";
+    //     }
+    //     $button_pagination = $this->NguoiDungModel->pagination($total_page, $page);
+    // }
+
+    public function pagination() {
+        $data = $this->NguoiDungModel->pagination();
+        // echo json_encode($data);
+        echo $data;
+    }
+
 }
 ?>

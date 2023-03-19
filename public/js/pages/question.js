@@ -293,13 +293,14 @@ $(document).ready(function () {
       },
       success:function(data){
           console.log(data)
-          // let pg = '';
-          // for(i = 1;i<=data;i++){
-          //   pg += `<li id="${i}" class="page-item"><a class="page-link" href="#">${i}</a></li>`;
-          // }
-          // $("#pagination").html("");
-          // $("#pagination").html(pg);
-        
+          let pg = '';
+          for(i = 1;i<=data;i++){
+            pg += `<li class="page-item" page-id='${i}'>
+            <a class="page-link" href="javascript:void(0)">${i}</a>
+          </li>`;
+          }
+          $("#pagination").html("");
+          $("#pagination").html(pg);
       }
     });
   }

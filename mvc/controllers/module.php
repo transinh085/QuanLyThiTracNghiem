@@ -76,6 +76,16 @@
             }
         }
 
+        public function hide()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $giatri =$_POST['giatri'];
+                $result = $this->nhomModel->hide($manhom,$giatri);
+                echo $result;
+            }
+        }
+
         public function getDetail()
         {
             if($_SERVER["REQUEST_METHOD"] == "POST") {

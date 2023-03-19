@@ -3,27 +3,8 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả người dùng</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
                     data-bs-target="#modal-add-user">Thêm người dùng</button>
-                <div class="dropdown">
-                    <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filters
-                        <i class="fa fa-angle-down ms-1"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters">
-                        <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="javascript:void(0)">
-                            Pending..
-                            <span class="badge bg-primary rounded-pill">78</span>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="javascript:void(0)">
-                            All
-                            <span class="badge bg-black-50 rounded-pill">19k</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="block-content bg-body-dark">

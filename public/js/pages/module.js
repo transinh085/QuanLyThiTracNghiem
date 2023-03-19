@@ -9,6 +9,7 @@ $(document).ready(function () {
     });
 
     let groups = [];
+    let mode = 1;
 
     function loadDataGroup(hienthi) {
         $.ajax({
@@ -25,7 +26,7 @@ $(document).ready(function () {
         });
     }
 
-    loadDataGroup(1);
+    loadDataGroup(mode);
 
     function showGroup(list) {
         let html = "";
@@ -135,7 +136,7 @@ $(document).ready(function () {
                 console.log(response);
                 if (response) {
                     $("#modal-add-group").modal("hide");
-                    loadDataGroup();
+                    loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm nhóm thành công!' });
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thêm nhóm không thành công!' });
@@ -169,7 +170,7 @@ $(document).ready(function () {
                                     "Nhóm đã được xoá thành công",
                                     "success"
                                 );
-                                loadDataGroup();
+                                loadDataGroup(mode);
                             }
                         },
                     });
@@ -269,7 +270,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     $("#modal-add-group").modal("hide");
-                    loadDataGroup();
+                    loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm thành công!' });
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật nhóm không thành công!' });
@@ -297,7 +298,8 @@ $(document).ready(function () {
     $(".filter-search").click(function (e) { 
         e.preventDefault();
         $(".btn-filter").text($(this).text());
-        loadDataGroup($(this).data("value"));
+        mode = $(this).data("value")
+        loadDataGroup(mode);
     });
 
     $("#form-search-group").on("input", function () {

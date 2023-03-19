@@ -248,17 +248,18 @@ $(document).ready(function () {
     
     $("#add-chapter").on("click", function(e){
         e.preventDefault();
+        let mamonhoc = $("#mamon_chuong").val()
         $.ajax({
             type: "post",
             url: "./subject/addChapter",
             data: {
-                mamonhoc: $("#mamon_chuong").val(),
+                mamonhoc: mamonhoc,
                 tenchuong: $("#name_chapter").val()
             },
             success: function (response) {
                 if(response) {
                     resetFormChapter();
-                    showChapter(mamon);
+                    showChapter(mamonhoc);
                     showData();
                 }
             }

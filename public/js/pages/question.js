@@ -283,7 +283,7 @@ $(document).ready(function () {
   }
   
   loadQuestion();
-
+  loadPagination();
   function loadPagination(){
     $.ajax({
       url: "./question/getTotalPag",
@@ -292,9 +292,11 @@ $(document).ready(function () {
         content: $("#one-ecom-orders-search").val().trim()
       },
       success:function(data){
-          console.log(data)
+          let sum = parseInt(data);
+          console.log(sum)
           let pg = '';
-          for(i = 1;i<=data;i++){
+          let i;
+          for(i = 1;i<=sum;i++){
             pg += `<li class="page-item" page-id='${i}'>
             <a class="page-link" href="javascript:void(0)">${i}</a>
           </li>`;

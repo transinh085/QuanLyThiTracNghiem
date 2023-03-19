@@ -37,7 +37,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-borderless table-striped table-vcenter">
+                <table class="table table-borderless table-vcenter">
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>

@@ -233,12 +233,11 @@ $(document).ready(function () {
   var index;
   function loadQuestion() {
     $.get(
-      "./question/getQuestion/",
+      "./question/getQuestion",
       function (data) {
         let html = "";
         let index = 1;
         data.forEach((question) => {
-
           let dokho = '';
           switch(question['dokho']){
             case '1': dokho = "Cơ bản";
@@ -282,28 +281,36 @@ $(document).ready(function () {
       "json"
     );
   }
-
+  
   loadQuestion();
 
   function loadPagination(){
     $.ajax({
-      url: "pagination.php",
-      type: "get",
+      url: "./question/getTotalPag",
+      type: "post",
       data: {
-        content: $("#search_question").val().trim()
+        content: $("#one-ecom-orders-search").val().trim()
       },
       success:function(data){
-  
+          console.log(data)
           let pg = '';
           for(i = 1;i<=data;i++){
-            pg += `<li id="${i}" class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+            pg += `<li class="page-item" page-id='${i}'>
+            <a class="page-link" href="javascript:void(0)">${i}</a>
+          </li>`;
           }
           $("#pagination").html("");
           $("#pagination").html(pg);
-        
       }
     });
   }
+
+  $("#one-ecom-orders-search").on("input", function(e){
+    e.preventDefault();
+    console.log($("#one-ecom-orders-search").val())
+    loadPagination()
+  })
+
 
   //add question
   $("#add_question").click(function (e) {

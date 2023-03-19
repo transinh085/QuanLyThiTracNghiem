@@ -189,7 +189,9 @@ class Question extends Controller
     }
 
     public function getTotalPag(){
-        $content = $_POST['content'];
-        echo $this->cauHoiModel->getTotalPag($content);
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $content = $_POST['content'];
+            echo $this->cauHoiModel->getTotalPag($content);
+        }
     }
 }

@@ -46,7 +46,7 @@ class CauHoiModel extends DB{
     public function getTotalPag($content){
         $sql = "SELECT * FROM cauhoi where noidung like '%$content%'";
         $result = mysqli_query($this->con,$sql);
-        $count =$result->fetch_row();
+        $count =mysqli_num_rows($result);
         $data = $count%5==0?$count/5:floor($count/5)+1;
         echo $data;
     }

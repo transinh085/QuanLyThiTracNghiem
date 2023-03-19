@@ -1,11 +1,3 @@
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-$token = $_COOKIE['token'];
-$nguoidung = new NguoiDungModel();
-if($nguoidung->validateToken($token) == null){
-    header("Location: ./auth/signin");
-}
-?>
 <?php require "inc/head.php" ?>
 <body>
     <!-- Page Container -->

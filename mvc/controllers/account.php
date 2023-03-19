@@ -16,7 +16,8 @@ class Account extends Controller{
                 "sweetalert2" => 1,
                 "datepicker" => 1,
                 "flatpickr" => 1,
-                "jquery-validate" => 1
+                "jquery-validate" => 1,
+                "notify" => 1,
             ],
             "Script" => "account_setting"
         ]);
@@ -28,8 +29,13 @@ class Account extends Controller{
             $matkhaucu = $_POST['matkhaucu'];
             $matkhaumoi = $_POST['matkhaumoi'];
             $email = $_SESSION['user_email'];
-            $this->nguoidung->checkPassword($email, $matkhaucu);
-            
+            $valid = $this->nguoidung->checkPassword($email, $matkhaucu);
+            if($valid) {
+                $result = $this->nguoidung->changePassword($email, $matkhaumoi);
+                if($result) echo json_encode(["message" => "Thay đổi mật khẩu thành công !", "valid" => "true"]);
+            } else {
+                echo json_encode(["message" => "Mật khẩu không đúng", "valid" => "false"]);
+            }
         }
     }
 

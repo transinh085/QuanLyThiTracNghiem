@@ -58,9 +58,9 @@ class NguoiDungModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function getByEmail($id)
+    public function getByEmail($email)
     {
-        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$id'";
+        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
@@ -71,19 +71,15 @@ class NguoiDungModel extends DB{
         $sql = "UPDATE `nguoidung` SET `matkhau`='$new_password' WHERE `email` = '$email'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) {
-            $check = false;
-        }
-        return json_encode($check);
+        if(!$result) $check = false;
+        return $check;
     }
 
     public function checkPassword($email, $password)
     {
-        $valid = true;
         $user = $this->getByEmail($email);
         $result = password_verify($password, $user['matkhau']);
-        if($result) $valid = false;
-        return $valid;
+        return $result;
     }
 
     public function checkLogin($email,$password){

@@ -45,13 +45,22 @@ $("#update-password").click(function (e) {
         let newPass = $("#new-password").val();
         $.ajax({
             type: "post",
-            url: "./",
+            url: "./account/changePassword",
             data: {
                 matkhaucu: currentPass,
                 matkhaumoi: newPass
             },
+            dataType: "json",
             success: function (response) {
-                
+                if(response.valid) {
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
+                    $("#current-password").val("");
+                    $("#new-password").val("");
+                    $("#password-new-confirm").val("");
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `${response.message}` });
+
+                }
             }
         });
     }

@@ -44,7 +44,7 @@ class GoogleAuth extends DB{
                 mysqli_query($this->con,$sql);
             }
             // Chuyển hướng đến trang chủ
-            header('Location: ../auth/signin');
+            header('Location: ../dashboard');
             exit;
         } catch (Exception $e) {
             echo $e->getMessage();

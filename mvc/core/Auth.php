@@ -1,7 +1,6 @@
-<?php require_once "./mvc/models/NguoiDungModel.php" ?>
 <?php
-class Auth
-{
+require_once "./mvc/models/NguoiDungModel.php";
+class Auth{
     public static function checkAuthentication()
     {
         $token = $_COOKIE['token'];

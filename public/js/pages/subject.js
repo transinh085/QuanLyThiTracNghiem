@@ -168,14 +168,15 @@ $(document).ready(function () {
                         mamon: trid
                     },
                     success: function (response) {
-                        e.fire("Deleted!", "Xóa môn học thành công!", "success")
-                        loadData();
+                        if(response) {
+                            e.fire("Deleted!", "Xóa môn học thành công!", "success")
+                            loadData();
+                        } else {
+                            e.fire("Lỗi !", "Xoá môn học không thành công !)", "error")
+                        }
                     }
                 });
-            } else {
-                e.fire("Cancelled", "Bạn đã không xóa môn học :)", "error")
             }
-        
         }))
     });
     

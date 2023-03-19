@@ -24,7 +24,7 @@
         {
             $this->view("main_layout", [
                 "Page" => "class_detail",
-                "Title" => "Quản lý lớp học",
+                "Title" => "Quản lý nhóm",
                 "Plugin" => [
                     "datepicker" => 1,
                     "flatpickr" => 1
@@ -35,8 +35,11 @@
 
         public function loadData()
         {
-            $result = $this->nhomModel->getBySubject(1);
-            echo json_encode($result);
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                $hienthi = $_POST['hienthi'];
+                $result = $this->nhomModel->getBySubject($hienthi);
+                echo json_encode($result);
+            }
         }
 
         public function add()

@@ -78,14 +78,15 @@ class NguoiDungModel extends DB{
     }
 
     public function checkLogin($email,$password){
-        $password = password_hash($password,PASSWORD_DEFAULT);
+        $password1 = password_hash($password,PASSWORD_DEFAULT);
         $user = $this->getByEmail($email);
-        if($user == ''){
+        if(count($user)==0){
             return "Tài khoản không tồn tại";
         } else {
-            $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email' && 'password'='$password'";
+            $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email' && 'password'='$password1'";
+            return $sql;
             $result = mysqli_query($this->con, $sql);
-            if($result){
+            if(mysqli_num_rows($result)>0){
                 $email = $user['email'];
                 $token = time().password_hash($email,PASSWORD_DEFAULT);
                 setcookie("token", $token, time() + 7*24*60*60, "/");

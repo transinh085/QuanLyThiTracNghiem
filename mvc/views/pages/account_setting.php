@@ -56,24 +56,45 @@
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-name">Họ và tên</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-name"
-                                    name="dm-profile-edit-name" placeholder="Enter your name.." value="<?php echo $data["User"]["hoten"]?>">
+                                    name="dm-profile-edit-name" placeholder="Enter your name.."
+                                    value="<?php echo $data["User"]["hoten"]?>">
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-email">Email Address</label>
+                                <label class="form-label" for="dm-profile-edit-email">Địa chỉ email</label>
                                 <input type="email" class="form-control" id="dm-profile-edit-email"
                                     name="dm-profile-edit-email" placeholder="Enter your email.."
                                     value="<?php echo $data["User"]["email"]?>">
                             </div>
+                            <div class="mb-3 d-flex gap-4">
+                                <label for="gender-male" class="form-label">Giới tính</label>
+                                <div class="space-x-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="gender-male" name="user_gender"
+                                            value="1" <?php echo $data["User"]["gioitinh"] == 1 ? "checked" : ""?>>
+                                        <label class="form-check-label" for="gender-male">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="gender-female"
+                                            name="user_gender" value="0" <?php echo $data["User"]["gioitinh"] == 0 ? "checked" : ""?>>
+                                        <label class="form-check-label" for="gender-female">Nữ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user_ngaysinh" class="form-label">Ngày sinh</label>
+                                <input type="text" class="js-flatpickr form-control form-control-alt" id="user_ngaysinh"
+                                    name="example-flatpickr-custom" placeholder="Ngày sinh" value="<?php echo $data["User"]["ngaysinh"]?>">
+                            </div>
                             <div class="mb-4">
-                                <label class="form-label">Your Avatar</label>
+                                <label class="form-label">Ảnh đại diện</label>
                                 <div class="push">
                                     <img class="img-avatar" src="./public/media/avatars/avatar0.jpg" alt="">
                                 </div>
-                                <label class="form-label" for="dm-profile-edit-avatar">Choose a new avatar</label>
+                                <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>
                                 <input class="form-control" type="file" id="dm-profile-edit-avatar">
                             </div>
                             <button type="submit" class="btn btn-alt-primary">
-                                <i class="fa fa-check-circle opacity-50 me-1"></i> Update Profile
+                                <i class="fa fa-check-circle opacity-50 me-1"></i> Cập nhật hồ sơ
                             </button>
                         </form>
                     </div>
@@ -88,30 +109,29 @@
                         </p>
                     </div>
                     <div class="col-xl-6 order-xl-0">
-                        <form action="be_pages_generic_profile_v2_edit.html" method="POST" onsubmit="return false;">
+                        <form onsubmit="return false;" class="form-change-password">
                             <div class="mb-4">
-                                <label class="form-label" for="dm-profile-edit-password">Current Password</label>
-                                <input type="password" class="form-control" id="dm-profile-edit-password"
-                                    name="dm-profile-edit-password">
+                                <label class="form-label" for="current-password">Mật khẩu hiện tại</label>
+                                <input type="password" class="form-control" id="current-password"
+                                    name="current-password">
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
-                                    <label class="form-label" for="dm-profile-edit-password-new">New Password</label>
-                                    <input type="password" class="form-control" id="dm-profile-edit-password-new"
-                                        name="dm-profile-edit-password-new">
+                                    <label class="form-label" for="new-password">Mật khẩu mới</label>
+                                    <input type="password" class="form-control" id="new-password"
+                                        name="new-password">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
-                                    <label class="form-label" for="dm-profile-edit-password-new-confirm">Confirm New
-                                        Password</label>
+                                    <label class="form-label" for="password-new-confirm">Xác nhận mật khẩu mới</label>
                                     <input type="password" class="form-control"
-                                        id="dm-profile-edit-password-new-confirm"
-                                        name="dm-profile-edit-password-new-confirm">
+                                        id="password-new-confirm"
+                                        name="password-new-confirm">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-alt-primary">
-                                <i class="fa fa-check-circle opacity-50 me-1"></i> Update Password
+                            <button type="submit" class="btn btn-alt-primary" id="update-password">
+                                <i class="fa fa-check-circle opacity-50 me-1"></i> Cập nhật mật khẩu
                             </button>
                         </form>
                     </div>

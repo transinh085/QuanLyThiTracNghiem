@@ -58,9 +58,9 @@ class NguoiDungModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function getByEmail($id)
+    public function getByEmail($email)
     {
-        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$id'";
+        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
@@ -71,10 +71,15 @@ class NguoiDungModel extends DB{
         $sql = "UPDATE `nguoidung` SET `matkhau`='$new_password' WHERE `email` = '$email'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) {
-            $check = false;
-        }
-        return json_encode($check);
+        if(!$result) $check = false;
+        return $check;
+    }
+
+    public function checkPassword($email, $password)
+    {
+        $user = $this->getByEmail($email);
+        $result = password_verify($password, $user['matkhau']);
+        return $result;
     }
 
     public function checkLogin($email,$password){
@@ -152,173 +157,5 @@ class NguoiDungModel extends DB{
         $result = mysqli_query($this->con,$sql);
         return $result;
     }
-
-    public function pagination() {
-        $record_per_page = 5;
-        $page = '';
-        $output = '';
-    
-        if (isset($_POST["page"])) {
-            $page = $_POST["page"];
-        } else {
-            $page = 1;
-        }
-        $start_from = ($page - 1)*$record_per_page;
-        $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $record_per_page";
-        $result = mysqli_query($this->con, $query);
-        $output .= '
-        <table class="table table-vcenter">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 100px;">ID</th>
-                    <th>Họ và tên</th>
-                    <th class="text-center">Giới tính</th>
-                    <th class="text-center">Ngày sinh</th>
-                    <th class="text-center">Nhóm quyền</th>
-                    <th class="text-center">Ngày tham gia</th>
-                    <th class="text-center">Trạng thái</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-        ';
-        while ($row = mysqli_fetch_array($result))
-        {
-            $output .= '
-            <tbody id="list-user"
-                <tr>
-                    <td class="text-center">
-                        <strong>'.$row["id"].'</strong>
-                    </td>
-                    <td class="fs-sm d-flex align-items-center">
-                        <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg" alt="">
-                        <div class="d-flex flex-column">
-                            <strong class="text-primary">'.$row["hoten"].'</strong>
-                            <span class="fw-normal fs-sm text-muted">'.$row["email"].'</span>
-                        </div>
-                    </td>
-                    <td class="text-center">'.$row["gioitinh"].'</td>
-                    <td class="text-center">2023-03-15</td>
-                    <td class="text-center">Giảng viên</td>
-                    <td class="text-center">2023-03-17</td>
-                    <td class="text-center">
-                        <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-danger-light text-danger bg-success-light text-success">Khoá</span>
-                    </td> 
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="20">
-                            <i class="fa fa-fw fa-pencil"></i>
-                        </a>
-                        <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="20">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>    
-            ';
-        }
-        $output .= '</table>';
-        $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
-        $page_result = mysqli_query($this->con, $page_query);
-        $total_records = mysqli_num_rows($page_result);
-        $total_pages = ceil($total_records/$record_per_page);
-        for($i=1; $i <= $total_pages; $i++)
-        {
-            $output .= '<a class="page-link" id="'.$i.'" href="javascript:void(0)">'.$i.'</a>
-            
-            ';
-        }
-            return $output;
-    
-        }
-    
-        // function pagination($total_page, $page) {
-        //     if ($total_page > 5) {
-        //         if ($page < 6) {
-        //             for ($i=1; $i <= 6 ; $i++) {
-        //             $page_array[] = $i;
-        //             }
-        //             $page_array[] = '...';
-        //             $page_array[] = $total_page;
-        //         } else {
-        //             $end_limit = $total_page - 5;
-        //             if ($page > $end_limit) {
-        //                 $page_array[] = 1;
-        //                 $page_array[] = '...';
-        //                 for ($i= $end_limit; $i <= $total_page ; $i++) { 
-        //                     $page_array[] = $i;
-        //                 }
-        //             } else {
-        //                 $page_array[] = 1;
-        //                 $page_array[] = '...';
-        //                 for ($i=$page - 1; $i <= $page + 1 ; $i++) { 
-        //                     $page_array[] = $i;
-        //                 }
-        //                 $page_array[] = '...';
-        //                 $page_array[] = $total_page;
-        //             }
-        //         }
-        //     } else {
-        //         for ($i = 1; $i <= $total_page; $i++) {
-        //             $page_array[] = $i;
-        //         }
-        //     }
-        //     $page_link = '';
-        //     $prev_link = '';
-        //     $next_link = '';
-        //     for ($i=0; $i < count($page_array) ; $i++) { 
-        //         if ($page == $page_array[$i]) {
-        //             $page_link .= '
-        //             <li class="page-item active disabled">
-        //                 <a class="page-link" href="javascript:void(0)" num-page="'.$page_array[$i].'">'.$page_array[$i].'</a>
-        //             </li>
-        //             ';
-        //             $prev_id = $page_array[$i] - 1;
-        //             if ($prev_id <= 0) {
-        //                 $page_link .= '
-        //                 <li class="page-item disabled">
-        //                     <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-        //                         Prev
-        //                     </a>
-        //                 </li>
-        //                 ';
-        //             } else {
-        //                 $prev_link .= '
-        //                 <li class="page-item">
-        //                     <a class="page-link" href="javascript:void(0)" num-page="'.$prev_id.'">Prev</a>
-        //                 </li>
-        //                 ';
-        //             }
-        //             $next_id = $page_array[$i] + 1;
-        //             if ($next_id >= $total_page) {
-        //                 $prev_link .= '
-        //                 <li class="page-item disabled">
-        //                     <a class="page-link" href="javascript:void(0)" aria-label="Next">
-        //                         Next
-        //                     </a>
-        //                 </li>
-        //                 ';
-        //             } else {
-        //                 $next_link .= '
-        //                 <li class="page-item">
-        //                     <a class="page-link" href="javascript:void(0)" num-page="'.$next_id.'">Next</a>
-        //                 </li>
-        //                 ';
-        //             }
-        //         } else {
-        //             if ($page_array[$i] == '...') {
-        //                 $page_link .= '
-        //             <li class="page-item">
-        //                 <a class="page-link" href="javascript:void(0)" >...</a>
-        //             </li>
-        //             ';
-        //             } else {
-        //                 $page_link .= '
-        //                 <li class="page-item">
-        //                     <a class="page-link" href="javascript:void(0)" num-page="'.$page_array[$i].'">'.$page_array[$i].'</a>
-        //                 </li>
-        //                 ';  
-        //             }
-        //         }
-        //     }
-        // }
 }
 ?>

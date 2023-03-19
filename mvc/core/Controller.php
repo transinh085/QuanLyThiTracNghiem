@@ -10,6 +10,7 @@ class Controller{
         require_once "./mvc/views/".$view.".php";
     }
 
+
     public function checkPer($chucnang, $hanhdong)
     {
         $valid = isset($_COOKIE['token']);

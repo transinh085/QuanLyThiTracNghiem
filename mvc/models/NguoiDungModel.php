@@ -32,9 +32,7 @@ class NguoiDungModel extends DB{
         $sql = "UPDATE `nguoidung` SET `email`='$email', `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh',`trangthai`='$trangthai',`manhomquyen`='$role'$querypass WHERE `id`='$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) {
-            $check = false;
-        }
+        if(!$result) $check = false;
         return $check;
     }
 
@@ -83,28 +81,40 @@ class NguoiDungModel extends DB{
     }
 
     public function checkLogin($email,$password){
-        $password = password_hash($password,PASSWORD_DEFAULT);
         $user = $this->getByEmail($email);
         if($user == ''){
-            return "Tài khoản không tồn tại";
+            return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
         } else {
-            $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email' && 'password'='$password'";
-            $result = mysqli_query($this->con, $sql);
+            $result = $this->checkPassword($email,$password);
             if($result){
                 $email = $user['email'];
                 $token = time().password_hash($email,PASSWORD_DEFAULT);
-                setcookie("token", $token, time() + 7*24*60*60, "/");
-                $sqlToken = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
-                $resultToken = mysqli_query($this->con,$sqlToken);
+                $resultToken = $this->updateToken($email, $token);
                 if($resultToken){
-                    return "Đăng nhập thành công";
+                    setcookie("token", $token, time() + 7*24*60*60, "/");
+                    return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
-                    return "Đăng nhập không thành công";
+                    return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);
                 }
             } else {
-                return "Mật khẩu không khớp";
+                return json_encode(["message" => "Sai mật khẩu !", "valid" => "false"]);
             }
         }
+    }
+
+    public function updateToken($email, $token)
+    {
+        $valid = true;
+        $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
+    public function updateOpt($opt,$email){
+        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
     }
 
     public function validateToken($token){
@@ -140,21 +150,6 @@ class NguoiDungModel extends DB{
             }
         }
         return $roles;
-    }
-
-    public function logout(){
-        setcookie("token","",time()-10,'/');
-        $id = $_SESSION['user_id'];
-        $sql = "UPDATE `nguoidung` SET `token`= NULL WHERE `id` = '$id'";
-        session_destroy();
-        $result = mysqli_query($this->con,$sql);
-        return $result;
-    }
-
-    public function updateOpt($opt,$email){
-        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
-        $result = mysqli_query($this->con,$sql);
-        return $result;
     }
 }
 ?>

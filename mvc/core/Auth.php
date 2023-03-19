@@ -12,12 +12,11 @@ class Auth
         }
     }
 
-    public static function checkPer($chucnang, $hanhdong)
+    public static function checkPermission($chucnang, $hanhdong)
     {
-        $valid = isset($_COOKIE['token']);
-        if($valid) $valid = in_array($hanhdong, $_SESSION["user_role"][$chucnang]);
-        if($valid) return true;
-        else return false;
+        self::checkAuthentication();
+        $valid = in_array($hanhdong, $_SESSION["user_role"][$chucnang]);
+        return $valid;
     }
 }
 

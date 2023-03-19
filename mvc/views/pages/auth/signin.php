@@ -84,15 +84,3 @@
         </div>
     </div>
 </div>
-<!-- END Page Content -->
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-if(isset($_COOKIE['token'])){
-    $token = $_COOKIE['token'];
-    $nguoidung = new NguoiDungModel();
-    $check = $nguoidung->validateToken($token);
-    if($check == true){
-        echo "<script>window.location = './dashboard'</script>";
-    }
-}
-?>

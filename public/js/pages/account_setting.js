@@ -59,7 +59,6 @@ $("#update-password").click(function (e) {
                     $("#password-new-confirm").val("");
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `${response.message}` });
-
                 }
             }
         });

@@ -83,7 +83,8 @@ class Auth extends Controller{
             "Title" => "Khôi phục tài khoản",
             "Script" => "recover",
             "Plugin" => [
-                "jquery-validate" => 1
+                "jquery-validate" => 1,
+                "notify" => 1
             ]
         ]);
     }
@@ -114,6 +115,14 @@ class Auth extends Controller{
             $password = $_POST['password'];
             $result = $this->userModel->checkLogin($email,$password);
             echo json_encode($result);
+        }
+    }
+
+    public function checkEmail(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $mail = $_POST['email'];
+            $check = $this->userModel->getByEmail($mail);
+            echo $check == '';
         }
     }
     

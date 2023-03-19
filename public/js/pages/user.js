@@ -185,39 +185,4 @@ $(document).ready(function () {
 
         }))
     });
-
-    // ajax pagination 
-    // function fetch_data(page) {
-    //     $.ajax({
-    //         url: ".NguoiDungModel/pagination",
-    //         method: "post",
-    //         data: {
-    //             page: page
-    //         },
-    //         success: function(data) {
-    //             $("#get_user").html(data);
-    //             loadData();
-    //         }
-    //     });
-    // }
-    // fetch_data();
-    
-    function load_data(page) {
-        $.ajax({
-            url: ".user/pagination",
-            method: "post",
-            data: {page:page},
-            success: function(data) {
-                $('#get_user').html(data);
-            }
-        })
-    }
-    load_data();
-    
-    $(document).on("click", ".page-link", function() {
-        var page = $(this).attr("id");
-        // fetch_data(page);
-        load_data(page);
-        // loadData();
-    })
 });

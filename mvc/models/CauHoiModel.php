@@ -27,7 +27,7 @@ class CauHoiModel extends DB{
 
     public function getAll()
     {
-        $sql = "SELECT * FROM cauhoi JOIN monhoc on  cauhoi.mamonhoc = monhoc.mamonhoc";
+        $sql = "SELECT * FROM cauhoi JOIN monhoc on  cauhoi.mamonhoc = monhoc.mamonhoc order by macauhoi DESC limit 5";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -41,6 +41,14 @@ class CauHoiModel extends DB{
         $sql = "SELECT * FROM `cauhoi` WHERE `macauhoi` = $macauhoi";
         $result = mysqli_query($this->con,$sql);
         return mysqli_fetch_assoc($result);
+    }
+
+    public function getTotalPag($content){
+        $sql = "SELECT * FROM cauhoi where noidung like '%$content%'";
+        $result = mysqli_query($this->con,$sql);
+        $count =$result->fetch_row();
+        $data = $count%5==0?$count/5:floor($count/5)+1;
+        echo $data;
     }
 }
 ?>

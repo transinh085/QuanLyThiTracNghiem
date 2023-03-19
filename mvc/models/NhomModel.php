@@ -27,6 +27,15 @@ class NhomModel extends DB{
         return $valid;
     }
 
+    public function hide($manhom, $giatri)
+    {
+        $valid = true;
+        $sql = "UPDATE `nhom` SET `hienthi`=' $giatri' WHERE `manhom`='$manhom'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
     public function getAll()
     {
         $sql = "SELECT * FROM `nhom` WHERE trangthai = 1";

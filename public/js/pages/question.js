@@ -175,7 +175,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#form-upload").submit(function (e) {
+  $("#file-cau-hoi").change(function (e) { 
     e.preventDefault();
     var file = $("#file-cau-hoi")[0].files[0];
     var formData = new FormData();
@@ -390,9 +390,10 @@ $(document).ready(function () {
     $("#list-options").html("");
     $("#file-cau-hoi").val(null);
     $("#btabs-alt-static-home-tab").tab("show");
+    $("#content-file").html('')
   });
 
-  $("#nhap-file").click(function () {
+  $("#form-upload").submit(function () {
     $.ajax({
       type: "post",
       url: "./question/addQuesFile",
@@ -410,7 +411,7 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Thêm câu hỏi từ file thành công!",
           });
-        }, 1);
+        }, 3);
       },
     });
   });

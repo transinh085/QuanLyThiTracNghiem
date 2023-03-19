@@ -194,7 +194,7 @@
                             </div>
                             <div class="mb-4 d-flex justify-content-between">
                                 <button type="submit" class="btn btn-alt-primary" id="xuly-file"><i class="fa fa-fw fa-eye me-1"></i> Phân tích file</button>
-                                <button type="button" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
+                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
                             </div>
                         </form>
                         <div id="content-file"></div>

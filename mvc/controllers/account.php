@@ -11,8 +11,26 @@ class Account extends Controller{
         $this->view("main_layout",[
             "Page" => "account_setting",
             "Title" => "Trang cá nhân",
-            "User" => $this->nguoidung->getById($_SESSION['user_id'])
+            "User" => $this->nguoidung->getById($_SESSION['user_id']),
+            "Plugin" => [
+                "sweetalert2" => 1,
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "jquery-validate" => 1
+            ],
+            "Script" => "account_setting"
         ]);
+    }
+
+    public function changePassword()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $matkhaucu = $_POST['matkhaucu'];
+            $matkhaumoi = $_POST['matkhaumoi'];
+            $email = $_SESSION['user_email'];
+            $this->nguoidung->checkPassword($email, $matkhaucu);
+            
+        }
     }
 
     public function check()

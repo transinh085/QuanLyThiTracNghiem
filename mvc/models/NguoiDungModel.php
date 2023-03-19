@@ -77,6 +77,15 @@ class NguoiDungModel extends DB{
         return json_encode($check);
     }
 
+    public function checkPassword($email, $password)
+    {
+        $valid = true;
+        $user = $this->getByEmail($email);
+        $result = password_verify($password, $user['matkhau']);
+        if($result) $valid = false;
+        return $valid;
+    }
+
     public function checkLogin($email,$password){
         $password = password_hash($password,PASSWORD_DEFAULT);
         $user = $this->getByEmail($email);

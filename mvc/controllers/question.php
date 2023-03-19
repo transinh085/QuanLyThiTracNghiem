@@ -169,4 +169,22 @@ class Question extends Controller
             echo json_encode($result);
         }
     }
+
+    public function editQuesion(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['id'];
+            $this->cauTraLoiModel->deletebyanswer($id);
+            $mamon = $_POST['mamon'];
+            $machuong = $_POST['machuong'];
+            $dokho = $_POST['dokho'];
+            $noidung = $_POST['noidung'];
+            $cautraloi = $_POST['cautraloi'];
+            $nguoitao = $_SESSION['user_id'];
+            $result = $this->cauHoiModel->update($id,$noidung, $dokho, $mamon, $machuong, $nguoitao);
+            $macauhoi = $id;
+            foreach ($cautraloi as $x) {
+                $this->cauTraLoiModel->create($macauhoi, $x['content'], $x['check'] == 'true' ? 1 : 0);
+            }
+        }
+    }
 }

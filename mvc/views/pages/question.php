@@ -37,7 +37,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-borderless table-striped table-vcenter">
+                <table class="table table-borderless table-vcenter">
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>
@@ -100,7 +100,7 @@
                 </li>
             </ul>
             <div class="modal-body block block-transparent bg-white mb-0 block-rounded">
-                <div class="block-content tab-content" >
+                <div class="block-content tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel" aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
@@ -163,8 +163,9 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu
-                                    câu hỏi</button>
+                                <button type="submit" class="btn btn-alt-primary" id="add_question"><i class="fa fa-fw fa-plus me-1"></i> Lưu câu hỏi</button>
+                                <button class="btn btn-alt-primary" id="edit_question"><i class="fa fa-fw fa-plus me-1"></i> Sửa câu hỏi</button>
+                                <input type="hidden" value="" id="question_id">
                             </div>
                         </form>
                     </div>
@@ -193,7 +194,7 @@
                             </div>
                             <div class="mb-4 d-flex justify-content-between">
                                 <button type="submit" class="btn btn-alt-primary" id="xuly-file"><i class="fa fa-fw fa-eye me-1"></i> Phân tích file</button>
-                                <button type="button" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
+                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
                             </div>
                         </form>
                         <div id="content-file"></div>

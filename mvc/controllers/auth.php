@@ -83,7 +83,8 @@ class Auth extends Controller{
             "Title" => "Khôi phục tài khoản",
             "Script" => "recover",
             "Plugin" => [
-                "jquery-validate" => 1
+                "jquery-validate" => 1,
+                "notify" => 1
             ]
         ]);
     }
@@ -116,10 +117,23 @@ class Auth extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function checkEmail(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $mail = $_POST['email'];
+            $check = $this->userModel->getByEmail($mail);
+            echo $check == '';
+        }
+    }
     
 
     public function sendOptAuth(){
-        $this->mailAuth->sendOpt();
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $opt = rand(111111,999999);
+            $email = $_POST['email'];
+            $this->mailAuth->sendOpt($email,$opt);
+            $this->userModel->updateOpt($email,$opt);
+        } 
     }
 
     public function logout()

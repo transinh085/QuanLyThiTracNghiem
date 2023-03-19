@@ -17,7 +17,7 @@
                     <!-- Reminder Form -->
                     <!-- jQuery Validation (.js-validation-reminder class is initialized in js/pages/op_auth_reminder.min.js which was auto compiled from _js/pages/op_auth_reminder.js) -->
                     <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                    <form class="js-validation-reminder" action="be_pages_auth_all.html" method="POST">
+                    <form class="js-validation-reminder" action="" method="">
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control" id="reminder-credential"
@@ -33,6 +33,7 @@
                             </button>
                         </div>
                     </form>
+                    <input type="hidden" value="" id="email_recover">
                     <!-- END Reminder Form -->
                 </div>
             </div>

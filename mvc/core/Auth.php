@@ -7,7 +7,6 @@ class Auth{
         $nguoidung = new NguoiDungModel();
         if ($nguoidung->validateToken($token) == null) {
             header("Location: ./auth/signin");
-            exit;
         }
     }
 

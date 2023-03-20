@@ -91,7 +91,7 @@ class NguoiDungModel extends DB{
                 $token = time().password_hash($email,PASSWORD_DEFAULT);
                 $resultToken = $this->updateToken($email, $token);
                 if($resultToken){
-                    setcookie("token", $token, time() + 7*3600, "/");
+                    setcookie("token", $token, time() + 7*24*3600, "/");
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
                     return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);

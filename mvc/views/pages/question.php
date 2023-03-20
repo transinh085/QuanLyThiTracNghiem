@@ -9,7 +9,7 @@
         <div class="block-content">
             <form onsubmit="return false;">
                 <div class="row mb-4 align-items-center">
-                    <div class="col-10">
+                    <div class="col-9">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-alt" id="one-ecom-orders-search" name="one-ecom-orders-search" placeholder="Search all questions..">
                             <span class="input-group-text bg-body border-0">
@@ -17,8 +17,21 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="dropdown d-flex justify-content-end">
+                    <div class="col-3">
+                        <div class="row d-flex flex-row">
+                        <div class="col-4">
+                        <label class="form-label text-center">Độ khó</label>
+                        </div>
+                        <div class="col-8">
+                        <select class="js-select2 form-select" id="dokho_search" style="width: 100%;" data-placeholder="Choose one..">
+                            <option></option>
+                            <option value="1">Cơ bản</option>
+                            <option value="2">Trung bình</option>
+                            <option value="3">Nâng cao</option>
+                        </select>
+                        </div>
+                        </div>
+                        <!-- <div class="dropdown d-flex justify-content-end">
                             <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Filters <i class="fa fa-angle-down ms-1"></i>
                             </button>
@@ -32,7 +45,8 @@
                                     <span class="badge bg-warning rounded-pill">15</span>
                                 </a>
                             </div>
-                        </div>
+                            
+                        </div> -->
                     </div>
                 </div>
             </form>

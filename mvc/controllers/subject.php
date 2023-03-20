@@ -70,7 +70,7 @@ class Subject extends Controller{
 
     public function getData()
     {
-        Auth::checkPermission('monhoc','view');
+        // Auth::checkPermission('monhoc','view');
         $data = $this->monHocModel->getAll();
         echo json_encode($data);
     }
@@ -86,7 +86,7 @@ class Subject extends Controller{
 
     //Chapter
     public function getAllChapter(){
-        Auth::checkPermission('monhoc','view');
+        // Auth::checkPermission('monhoc','view');
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);
     }

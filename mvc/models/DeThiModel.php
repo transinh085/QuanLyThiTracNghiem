@@ -18,7 +18,10 @@ class DeThiModel extends DB{
     public function delete($madethi)
     {
         $valid = true;
-        $sql = "UPDATE `dethi` `trangthai`= 0 WHERE 1";
+        $sql = "UPDATE `dethi` `trangthai`= 0 WHERE `madethi` = $madethi";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
     }
 }
 

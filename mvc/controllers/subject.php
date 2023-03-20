@@ -70,23 +70,24 @@ class Subject extends Controller{
 
     public function getData()
     {
-        AuthCore::checkPermission('monhoc','view');
-        $data = $this->monHocModel->getAll();
-        echo json_encode($data);
+        if(AuthCore::checkPermission('monhoc','view')) {
+            $data = $this->monHocModel->getAll();
+            echo json_encode($data);
+        }
+        echo false;
     }
 
     public function getDetail()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            AuthCore::checkPermission('monhoc','view');
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','view')) {
             $data = $this->monHocModel->getById($_POST['mamon']);
             echo json_encode($data);
         }
+        echo false;
     }
 
     //Chapter
     public function getAllChapter(){
-        AuthCore::checkPermission('monhoc','view');
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);
     }

@@ -68,7 +68,7 @@
 
 <div class="modal fade" id="modal-add-role" tabindex="-1" role="dialog" aria-labelledby="modal-add-role"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title add-role-element">Thêm nhóm quyền</h5>
@@ -155,6 +155,36 @@
                             </tr>
                             <tr>
                                 <td>Môn học</td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="monhoc" value="view">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="monhoc" value="create">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="monhoc" value="update">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="monhoc" value="delete">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Chương</td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="view">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="create">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="update">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="delete">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phân công</td>
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="monhoc" value="view">
                                 </td>

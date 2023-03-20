@@ -4,12 +4,10 @@
 
         function __construct() {
             $this->nhomModel = $this->model("NhomModel");
-            parent::__construct();
         }
 
         public function default()
         {
-            AuthCore::checkAuthentication();
             $this->view("main_layout", [
                 "Page" => "module",
                 "Title" => "Quản lý nhóm học phần",

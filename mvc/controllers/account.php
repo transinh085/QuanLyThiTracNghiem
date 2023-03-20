@@ -6,11 +6,9 @@ class Account extends Controller{
     public function __construct()
     {
         $this->nguoidung = $this->model("NguoiDungModel");
-        parent::__construct();
     }
 
     function default() {
-        AuthCore::checkAuthentication();
         $this->view("main_layout",[
             "Page" => "account_setting",
             "Title" => "Trang cá nhân",

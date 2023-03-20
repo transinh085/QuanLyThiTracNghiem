@@ -1,14 +1,7 @@
 <?php
 class Exam extends Controller{
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function default()
     {
-        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "taode",
             "Title" => "Tạo đề kiểm tra",
@@ -37,3 +30,5 @@ class Exam extends Controller{
         ]);
     }
 }
+
+?>

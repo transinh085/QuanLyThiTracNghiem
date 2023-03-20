@@ -12,12 +12,10 @@ class Question extends Controller
     {
         $this->cauHoiModel = $this->model("CauHoiModel");
         $this->cauTraLoiModel = $this->model("CauTraLoiModel");
-        parent::__construct();
     }
 
     function default()
     {
-        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "question",
             "Title" => "Câu hỏi",

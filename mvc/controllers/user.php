@@ -5,12 +5,10 @@ class User extends Controller{
     public function __construct()
     {
         $this->NguoiDungModel = $this->model("NguoiDungModel");
-        parent::__construct();
     }
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         $this->view("main_layout",[
             "Page" => "user",
             "Title" => "Quản lý người dùng",

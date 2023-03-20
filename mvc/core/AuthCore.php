@@ -11,7 +11,6 @@ class AuthCore{
         }
     }
 
-    
 
     public static function checkPermission($chucnang, $hanhdong)
     {

@@ -11,12 +11,10 @@ class Auth extends Controller{
         $this->userModel = $this->model("NguoiDungModel");
         $this->googleAuth = $this->model("GoogleAuth");
         $this->mailAuth = $this->model("MailAuth");
-        parent::__construct();
     }
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];
@@ -71,7 +69,6 @@ class Auth extends Controller{
 
 
     function signup(){
-        if(!AuthCore::checkAuthentication()) {
             $this->view("single_layout", [
                 "Page" => "auth/signup",
                 "Title" => "Đăng ký tài khoản",
@@ -80,9 +77,6 @@ class Auth extends Controller{
                     "jquery-validate" => 1
                 ]
             ]);
-        } else {
-            header("Location: ./dashboard");
-        }
     }
 
     function recover(){

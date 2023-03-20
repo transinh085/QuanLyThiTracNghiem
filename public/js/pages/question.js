@@ -543,7 +543,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         let data = response;
-        console.log(data);
         let monhoc = data["mamonhoc"];
         let machuong = data["machuong"];
         let dokho = data["dokho"];
@@ -626,9 +625,9 @@ $(document).ready(function () {
   });
 
   $(".filter-search").click(function (e) { 
-    e.preventDefault();
-    $(".btn-filter").text($(this).text());
-    mode = $(this).data("value")
-    loadDataGroup(mode);
-});
+        e.preventDefault();
+        $(".btn-filter").text($(this).text());
+        mode = $(this).data("value")
+        loadDataGroup(mode);
+    });
 });

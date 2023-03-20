@@ -88,8 +88,10 @@ class Subject extends Controller{
 
     //Chapter
     public function getAllChapter(){
-        $result = $this->chuongModel->getAll($_POST['mamonhoc']);
-        echo json_encode($result);
+        if(AuthCore::checkPermission('monhoc','view')){
+            $result = $this->chuongModel->getAll($_POST['mamonhoc']);
+            echo json_encode($result);
+        }
     }
 
     public function chapterDelete(){

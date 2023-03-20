@@ -3,7 +3,6 @@
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\IOFactory as WordIOFactory;
-require "./mvc/core/AuthCore.php";
 class Question extends Controller
 {
     public $cauHoiModel;
@@ -17,7 +16,6 @@ class Question extends Controller
 
     function default()
     {
-        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "question",
             "Title" => "Câu hỏi",

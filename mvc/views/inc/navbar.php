@@ -64,19 +64,6 @@ $page = $components[2];
                         <span class="nav-main-link-name">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-main-heading">Tham gia</li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'question') echo "active" ?>" href="./question">
-                        <i class="nav-main-link-icon fa fa-circle-question"></i>
-                        <span class="nav-main-link-name">Đề thi</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'user') echo "active" ?>" href="./user">
-                        <i class="nav-main-link-icon fa fa-user-friends"></i>
-                        <span class="nav-main-link-name">Học phần</span>
-                    </a>
-                </li>
                 <li class="nav-main-heading">Quản lý</li>
                 <li class="nav-main-item">
                     <a class="nav-main-link <?php if($page == 'question') echo "active" ?>" href="./question">
@@ -108,6 +95,7 @@ $page = $components[2];
                         <span class="nav-main-link-name">Nhóm học phần</span>
                     </a>
                 </li>
+                <li class="nav-main-heading">Quản trị</li>
                 <li class="nav-main-item">
                     <a class="nav-main-link <?php if($page == 'roles') echo "active" ?>" href="./roles">
                         <i class="nav-main-link-icon fa fa-users-gear"></i>

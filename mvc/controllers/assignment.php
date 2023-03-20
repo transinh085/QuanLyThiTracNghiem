@@ -6,10 +6,12 @@ class Assignment extends Controller
     function __construct()
     {
         $this->PhanCongModel = new PhanCongModel();
+        parent::__construct();
     }
 
     function default()
     {
+
         $this->view("main_layout", [
             "Page" => "question",
             "Title" => "Phân quyền",

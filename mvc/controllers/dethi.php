@@ -1,4 +1,6 @@
 <?php
+require "./mvc/core/AuthCore.php";
+
 class Dethi extends Controller{
     public function default()
     {

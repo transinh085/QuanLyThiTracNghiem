@@ -1,10 +1,12 @@
 <?php
+
 class Account extends Controller{
     public $nguoidung;
 
     public function __construct()
     {
         $this->nguoidung = $this->model("NguoiDungModel");
+        parent::__construct();
     }
 
     function default() {

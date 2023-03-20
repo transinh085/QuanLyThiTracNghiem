@@ -1,5 +1,4 @@
 <?php
-require_once "./mvc/core/AuthCore.php";
 
 class Auth extends Controller{
 
@@ -12,6 +11,7 @@ class Auth extends Controller{
         $this->userModel = $this->model("NguoiDungModel");
         $this->googleAuth = $this->model("GoogleAuth");
         $this->mailAuth = $this->model("MailAuth");
+        parent::__construct();
     }
 
     public function default()

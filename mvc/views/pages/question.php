@@ -10,22 +10,14 @@
             <form onsubmit="return false;">
                 <div class="row mb-4 align-items-center">
                     <div class="col-9">
-                        <div class="input-group">
-                            <input type="text" class="form-control form-control-alt" id="one-ecom-orders-search" name="one-ecom-orders-search" placeholder="Search all questions..">
-                            <span class="input-group-text bg-body border-0">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="dropdown d-flex justify-content-end">
+                    <div class="input-group">
                             <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                             <ul class="dropdown-menu mt-1">
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li>
-                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Cơ bản</a></li>
-                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Trung bình</a></li>
-                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="3">Nâng cao</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Môn học</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Câu hỏi</a></li>
                             </ul>
+                            <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="one-ecom-orders-search">
                         </div>
                     </div>
                 </div>
@@ -176,8 +168,7 @@
                             <div class="mb-4">
                                 <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
                             </div>
-                            <div class="mb-4 d-flex justify-content-between">
-                                <button type="submit" class="btn btn-alt-primary" id="xuly-file"><i class="fa fa-fw fa-eye me-1"></i> Phân tích file</button>
+                            <div class="mb-4 d-flex">
                                 <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
                             </div>
                         </form>

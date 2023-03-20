@@ -70,9 +70,10 @@ class Subject extends Controller{
 
     public function getData()
     {
-        AuthCore::checkPermission('monhoc','view');
-        $data = $this->monHocModel->getAll();
-        echo json_encode($data);
+        if(AuthCore::checkPermission('monhoc','view')){
+            $data = $this->monHocModel->getAll();
+            echo json_encode($data);
+        }
     }
 
     public function getDetail()
@@ -86,9 +87,10 @@ class Subject extends Controller{
 
     //Chapter
     public function getAllChapter(){
-        AuthCore::checkPermission('monhoc','view');
-        $result = $this->chuongModel->getAll($_POST['mamonhoc']);
-        echo json_encode($result);
+        if(AuthCore::checkPermission('monhoc','view')){
+            $result = $this->chuongModel->getAll($_POST['mamonhoc']);
+            echo json_encode($result);
+        }
     }
 
     public function chapterDelete(){

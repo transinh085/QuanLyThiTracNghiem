@@ -84,6 +84,12 @@ $page = $components[2];
                     </a>
                 </li>
                 <li class="nav-main-item">
+                    <a class="nav-main-link <?php if($page == 'assignment') echo "active" ?>" href="./assignment">
+                        <i class="nav-main-link-icon fa fa-person-harassing"></i>
+                        <span class="nav-main-link-name">Phân công</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
                     <a class="nav-main-link <?php if($page == 'exam') echo "active" ?>" href="./exam">
                         <i class="nav-main-link-icon fa fa-file"></i>
                         <span class="nav-main-link-name">Đề kiểm tra</span>
@@ -103,7 +109,7 @@ $page = $components[2];
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link" <?php if($page == 'setting') echo "active" ?>" href="./setting">
+                    <a class="nav-main-link <?php if($page == 'setting') echo "active" ?>" href="./setting">
                         <i class="nav-main-link-icon fa fa-gears"></i>
                         <span class="nav-main-link-name">Cài đặt</span>
                     </a>

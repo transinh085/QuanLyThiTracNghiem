@@ -4,9 +4,14 @@ class AuthCore{
     public static function checkAuthentication()
     {
         $token = $_COOKIE['token'];
+        if(!isset($_COOKIE['token'])){
+            header("Location: ./auth/signin");
+            exit;
+        }
         $nguoidung = new NguoiDungModel();
         if ($nguoidung->validateToken($token) == null) {
             header("Location: ./auth/signin");
+            exit;
         }
     }
 

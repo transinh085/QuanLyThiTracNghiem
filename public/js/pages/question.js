@@ -293,7 +293,6 @@ $(document).ready(function () {
       },
       success:function(data){
           let sum = parseInt(data);
-          console.log(sum)
           let pg = '';
           let i;
           for(i = 1;i<=sum;i++){

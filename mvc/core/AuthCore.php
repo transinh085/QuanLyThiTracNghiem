@@ -1,6 +1,6 @@
 <?php
 require_once "./mvc/models/NguoiDungModel.php";
-class Auth{
+class AuthCore{
     public static function checkAuthentication()
     {
         $token = $_COOKIE['token'];
@@ -9,6 +9,8 @@ class Auth{
             header("Location: ./auth/signin");
         }
     }
+
+    
 
     public static function checkPermission($chucnang, $hanhdong)
     {

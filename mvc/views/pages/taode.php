@@ -14,10 +14,6 @@
             </div>
             <div id="side-content" class="d-none d-md-block push">
                 <h3 class="fs-5">CẤU HÌNH</h3>
-                <div class="mb-3">
-                    <label for="" class="form-label">Mật khẩu khoá đề thi</label>
-                    <input type="text" class="form-control" name="" id="" placeholder="Nhập mật khẩu đề thi..">
-                </div>
                 <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="tudongsoande">
                     <label class="form-check-label" for="tudongsoande">Tự động soạn đề</label>

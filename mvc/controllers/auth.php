@@ -1,4 +1,6 @@
 <?php
+require_once "./mvc/core/AuthCore.php";
+
 class Auth extends Controller{
 
     public $userModel;
@@ -68,14 +70,18 @@ class Auth extends Controller{
 
 
     function signup(){
-        $this->view("single_layout", [
-            "Page" => "auth/signup",
-            "Title" => "Đăng ký tài khoản",
-            "Script" => "signup",
-            "Plugin" => [
-                "jquery-validate" => 1
-            ]
-        ]);
+        if(!AuthCore::checkAuthentication()) {
+            $this->view("single_layout", [
+                "Page" => "auth/signup",
+                "Title" => "Đăng ký tài khoản",
+                "Script" => "signup",
+                "Plugin" => [
+                    "jquery-validate" => 1
+                ]
+            ]);
+        } else {
+            header("Location: ./dashboard");
+        }
     }
 
     function recover(){

@@ -1,6 +1,5 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 $(document).ready(function () {
-
     let groups = [];
     function showGroup() {
         let html = "<option></option>";
@@ -76,5 +75,53 @@ $(document).ready(function () {
     $(document).on("click","#select-all-group",function () {
         let check = $(this).prop("checked");
         $(".select-group-item").prop("checked", check);
+    });
+
+    $("#tudongsoande").on("click", function () {
+        $(".show-chap").toggle();
+    });
+
+    $("#btn-add-test").click(function (e) { 
+        e.preventDefault();
+        let monhoc = $("#nhom-hp").val();
+        let tendethi = $("#name-exam").val();
+        let thoigianbatdau = $("#time-start").val();
+        let thoigianketthuc = $("#time-end").val();
+        let thoigianlambai = $("#exam-time").val();
+        let chuong = $("#chuong").val();
+        let socaude = $("#coban").val();
+        let socautb = $("#trungbinh").val();
+        let socaukho = $("#kho").val();
+        let tudongsoande = $("#tudongsoande").prop("checked");
+        let xemdiem = $("#xemdiem").prop("checked");
+        let xemdapan = $("#xemda").prop("checked");
+        let xembailam = $("#xembailam").prop("checked");
+        let daocauhoi = $("#daocauhoi").prop("checked");
+        let daodapan = $("#daodapan").prop("checked");
+        let tudongnop = $("#tudongnop").prop("checked");
+        $.ajax({
+            type: "post",
+            url: "./test/add",
+            data: {
+                tende: tendethi,
+                thoigianthi: thoigianlambai,
+                thoigianbatdau: thoigianbatdau,
+                thoigianketthuc: thoigianketthuc,
+                socaude: socaude,
+                socautb: socautb,
+                socaukho: socaukho,
+                chuong: chuong,
+                loaide: tudongsoande,
+                xemdiem: xemdiem,
+                xemdapan: xemdapan,
+                xembailam: xembailam,
+                daocauhoi: daocauhoi,
+                daodapan: daodapan,
+                tudongnop: tudongnop
+            },
+            success: function (response) {
+                
+            }
+        });
     });
 });

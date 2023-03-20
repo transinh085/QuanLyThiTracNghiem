@@ -1,6 +1,13 @@
 <?php
 require_once "./mvc/models/GiaoDeThiModel.php";
 class DeThiModel extends DB{
+    public $giaodethi;
+    
+    public function __construct()
+    {
+        $this->giaodethi = new GiaoDeThiModel();
+    }
+
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho)
     {
         $valid = true;

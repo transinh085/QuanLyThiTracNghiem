@@ -1,5 +1,5 @@
 <?php
-class Exam extends Controller{
+class Test extends Controller{
     public function default()
     {
         $this->view("main_layout", [
@@ -10,7 +10,7 @@ class Exam extends Controller{
                 "flatpickr" => 1,
                 "select" => 1
             ],
-            "Script" => "add_exam"
+            "Script" => "add_test"
         ]);
     }
 

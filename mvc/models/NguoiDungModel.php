@@ -111,12 +111,6 @@ class NguoiDungModel extends DB{
         return $valid;
     }
 
-    public function updateOpt($opt,$email){
-        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
-        $result = mysqli_query($this->con,$sql);
-        return $result;
-    }
-
     public function validateToken($token){
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);

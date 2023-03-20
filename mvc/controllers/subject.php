@@ -1,4 +1,6 @@
 <?php
+require_once "./mvc/core/AuthCore.php";
+
 class Subject extends Controller{
     public $monHocModel;
     public $chuongModel;
@@ -10,37 +12,40 @@ class Subject extends Controller{
     }
 
     public function default() 
-    {
-        $this->view("main_layout",[
-            "Page" => "subject",
-            "Title" => "Quản lý môn học",
-            "Script" => "subject",
-            "Plugin" => [
-                "sweetalert2" => 1,
-                "notify" => 1
-            ]
-        ]);
+    {    
+        if(AuthCore::checkPermission('monhoc','view')) {
+            $this->view("main_layout",[
+                "Page" => "subject",
+                "Title" => "Quản lý môn học",
+                "Script" => "subject",
+                "Plugin" => [
+                    "sweetalert2" => 1,
+                    "notify" => 1
+                ]
+            ]);
+        } else {
+            $this->view("single_layout", [
+                "Page" => "error/page_403",
+                "Title" => "Không có quyền truy cập "
+            ]);
+        }
     }
 
     public function add()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            if($this->checkPer('monhoc','create')) {
-                $mamon = $_POST['mamon'];
-                $tenmon = $_POST['tenmon'];
-                $sotinchi = $_POST['sotinchi'];
-                $sotietlythuyet = $_POST['sotietlythuyet'];
-                $sotietthuchanh = $_POST['sotietthuchanh'];
-                $result = $this->monHocModel->create($mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
-                echo $result;
-            } else {
-                return false;
-            }
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','create')) {
+            $mamon = $_POST['mamon'];
+            $tenmon = $_POST['tenmon'];
+            $sotinchi = $_POST['sotinchi'];
+            $sotietlythuyet = $_POST['sotietlythuyet'];
+            $sotietthuchanh = $_POST['sotietthuchanh'];
+            $result = $this->monHocModel->create($mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
+            echo $result;
         }
     }
 
     public function update(){
-        if(isset($_POST['mamon'])){
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','update')){
             $id = $_POST['id'];
             $mamon = $_POST['mamon'];
             $tenmon = $_POST['tenmon'];
@@ -50,34 +55,43 @@ class Subject extends Controller{
             $result = $this->monHocModel->update($id,$mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
             echo $result;
         }
+        
     }
 
     public function delete(){
-        if(isset($_POST['mamon'])){
+        if(isset($_POST['mamon']) && AuthCore::checkPermission('monhoc','delete')){
             $mamon = $_POST['mamon'];
             $result = $this->monHocModel->delete($mamon);
             echo $result;
+        } else {
+            echo false;
         }
     }
 
     public function getData()
     {
-        $data = $this->monHocModel->getAll();
-        echo json_encode($data);
+        if(AuthCore::checkPermission('monhoc','view')) {
+            $data = $this->monHocModel->getAll();
+            echo json_encode($data);
+        }
+        echo false;
     }
 
     public function getDetail()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','view')) {
             $data = $this->monHocModel->getById($_POST['mamon']);
             echo json_encode($data);
         }
+        echo false;
     }
 
     //Chapter
     public function getAllChapter(){
-        $result = $this->chuongModel->getAll($_POST['mamonhoc']);
-        echo json_encode($result);
+        if(AuthCore::checkPermission('monhoc','view')){
+            $result = $this->chuongModel->getAll($_POST['mamonhoc']);
+            echo json_encode($result);
+        }
     }
 
     public function chapterDelete(){

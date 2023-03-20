@@ -14,10 +14,6 @@
             </div>
             <div id="side-content" class="d-none d-md-block push">
                 <h3 class="fs-5">CẤU HÌNH</h3>
-                <div class="mb-3">
-                    <label for="" class="form-label">Mật khẩu khoá đề thi</label>
-                    <input type="text" class="form-control" name="" id="" placeholder="">
-                </div>
                 <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="tudongsoande">
                     <label class="form-check-label" for="tudongsoande">Tự động soạn đề</label>
@@ -56,47 +52,51 @@
                     <form onsubmit="return false;">
                         <div class="mb-4">
                             <label class="form-label" for="name-exam">Tên đề kiểm tra</label>
-                            <input type="text" class="form-control form-control-alt" id="name-exam" name="name-exam"
+                            <input type="text" class="form-control" id="name-exam" name="name-exam"
                                 placeholder="Nhập tên đề kiểm tra">
                         </div>
                         <div class="row mb-4">
                             <label class="form-label" for="time-start">Thời gian bắt
                                 đầu</label>
                             <div class="col-xl-6">
-                                <input type="text" class="js-flatpickr form-control form-control-alt" id="time-start"
-                                    name="time-start" data-enable-time="true" data-time_24hr="true"
-                                    placeholder="Từ">
+                                <input type="text" class="js-flatpickr form-control" id="time-start" name="time-start"
+                                    data-enable-time="true" data-time_24hr="true" placeholder="Từ">
                             </div>
                             <div class="col-xl-6">
-                                <input type="text" class="js-flatpickr form-control form-control-alt" id="time-end"
-                                    name="time-end" data-enable-time="true" data-time_24hr="true"
-                                    placeholder="Đến">
+                                <input type="text" class="js-flatpickr form-control" id="time-end" name="time-end"
+                                    data-enable-time="true" data-time_24hr="true" placeholder="Đến">
                             </div>
                         </div>
                         <div class="mb-4">
                             <div class="input-group">
                                 <span class="input-group-text">Thời gian làm bài</span>
-                                <input type="text" class="form-control text-center" id="exam-time"
-                                    name="exam-time" placeholder="00">
+                                <input type="number" class="form-control text-center" id="exam-time" name="exam-time"
+                                    placeholder="00">
                                 <span class="input-group-text">phút</span>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="" class="form-label">Môn học</label>
-                                    <select class="js-select2 form-select" id="mon-hoc" name="mon-hoc"
-                                        style="width: 100%;" data-placeholder="Choose one..">
-                                    </select>
+                            <div class="block block-rounded border">
+                                <div class="block-header block-header-default">
+                                    <h3 class="block-title">Giao cho</h3>
+                                    <div class="block-option">
+                                        <select class="js-select2 form-select" id="nhom-hp" name="nhom-hp"
+                                            style="width: 100%;" data-placeholder="Chọn nhóm học phần giảng dạy...">
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <label class="form-label">Chương</label>
-                                    <select class="js-select2 form-select" id="chuong"
-                                        name="chuong" style="width: 100%;"
-                                        data-placeholder="Choose many.." multiple>
-                                    </select>
+                                <div class="block-content pb-3">
+                                    <div class="row" id="list-group">
+                                    <div class="text-center fs-sm"><img style="width:100px" src="./public/media/svg/empty_data.png" alt=""></div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Chương</label>
+                            <select class="js-select2 form-select" id="chuong" name="chuong" style="width: 100%;"
+                                data-placeholder="Choose many.." multiple>
+                            </select>
                         </div>
                         <div class="mb-4">
                             <div class="row">
@@ -115,67 +115,7 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <div class="block block-rounded border">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">Giao cho</h3>
-                                </div>
-                                <div class="block-content pb-3">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1"
-                                                    checked="">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="example-checkbox-default1" name="example-checkbox-default1">
-                                                <label class="form-check-label" for="example-checkbox-default1">Option
-                                                    1</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <button type="submit" class="btn btn-alt-primary"><i class="fa fa-fw fa-plus me-1"></i> Tạo
+                            <button type="submit" class="btn btn-hero btn-primary"><i class="fa fa-fw fa-plus me-1"></i> Tạo
                                 đề</button>
                         </div>
                     </form>

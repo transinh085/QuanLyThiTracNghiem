@@ -1,8 +1,5 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
-CKEDITOR.replace("option-content-edit");
-CKEDITOR.replace("js-ckeditor-edit");
-
 $(document).ready(function () {
   let options = [];
 
@@ -232,6 +229,7 @@ $(document).ready(function () {
   }
 
   // loadDataQuestion
+  var index;
   function loadQuestion() {
     $.get(
       "./question/getQuestion",
@@ -282,8 +280,37 @@ $(document).ready(function () {
       "json"
     );
   }
-
+  
   loadQuestion();
+  loadPagination();
+  function loadPagination(){
+    $.ajax({
+      url: "./question/getTotalPag",
+      type: "post",
+      data: {
+        content: $("#one-ecom-orders-search").val().trim()
+      },
+      success:function(data){
+          let sum = parseInt(data);
+          let pg = '';
+          let i;
+          for(i = 1;i<=sum;i++){
+            pg += `<li class="page-item" page-id='${i}'>
+            <a class="page-link" href="javascript:void(0)">${i}</a>
+          </li>`;
+          }
+          $("#pagination").html("");
+          $("#pagination").html(pg);
+      }
+    });
+  }
+
+  $("#one-ecom-orders-search").on("input", function(e){
+    e.preventDefault();
+    console.log($("#one-ecom-orders-search").val())
+    loadPagination()
+  })
+
 
   //add question
   $("#add_question").click(function (e) {
@@ -516,7 +543,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         let data = response;
-        console.log(data);
         let monhoc = data["mamonhoc"];
         let machuong = data["machuong"];
         let dokho = data["dokho"];
@@ -594,9 +620,14 @@ $(document).ready(function () {
             loadQuestion();
           },
         });
-      } else {
-        e.fire("Cancelled", "Bạn đã không xóa môn học :)", "error");
       }
     });
   });
+
+  $(".filter-search").click(function (e) { 
+        e.preventDefault();
+        $(".btn-filter").text($(this).text());
+        mode = $(this).data("value")
+        loadDataGroup(mode);
+    });
 });

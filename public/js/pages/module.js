@@ -1,66 +1,96 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
 $(document).ready(function () {
-    function loadDataGroup() {
-        fetch("./module/loadData")
-            .then((response) => response.json())
-            .then((result) => {
-                showGroup(result);
-            })
-            .catch((error) => console.error(error));
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success me-2",
+            cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+    });
+
+    let groups = [];
+    let mode = 1;
+
+    function loadDataGroup(hienthi) {
+        $.ajax({
+            type: "post",
+            url: "./module/loadData",
+            data: {
+                hienthi: hienthi
+            },
+            dataType: "json",
+            success: function (response) {
+                showGroup(response);
+                groups = response;
+            }
+        });
     }
 
-    loadDataGroup();
+    loadDataGroup(mode);
 
     function showGroup(list) {
         let html = "";
-        list.forEach((item) => {
-            html += `<div>
-                <div class="heading-group d-flex align-items-center">
-                    <h2 class="content-heading">${item.mamonhoc + " - " + item.tenmonhoc + " - NH" + item.namhoc + " - HK" + item.hocky}</h2>
-                </div>
-                <div class="row">`;
-            item.nhom.forEach((element) => {
-                html += `
-            <div class="col-sm-6 col-lg-6 col-xl-3">
-            <!-- <a class="block block-rounded block-link-shadow" href="./module/detail/${element.manhom}"> </a> -->
-            <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                    <h3 class="block-title block-class-name">${element.tennhom}</h3>
-                    <div class="block-options">
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${element.manhom}">
-                        <i class="si si-settings"></i>
-                        </button>
-                        <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light" style="">
-                        <a class="nav-main-link dropdown-item" href="module/detail/${element.manhom}">
-                            <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
-                            <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
-                        </a>
-                        <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${element.manhom}">
-                            <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
-                            <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
-                        </a>
-                        <a class="nav-main-link dropdown-item btn-hide-group" href="javascript:void(0)" data-id="${element.manhom}">
+        if(list.length == 0) {
+            html += `<p class="text-center mt-5">Không có dữ liệu</p>`
+        } else {
+            list.forEach((item) => {
+                html += `<div>
+                    <div class="heading-group d-flex align-items-center">
+                        <h2 class="content-heading">${item.mamonhoc + " - " + item.tenmonhoc + " - NH" + item.namhoc + " - HK" + item.hocky}</h2>
+                    </div>
+                    <div class="row">`;
+                item.nhom.forEach((nhom_item) => {
+                    let btn_hide = "";
+                    if(nhom_item.hienthi == 1) {
+                        btn_hide = `<a class="nav-main-link dropdown-item btn-hide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
                             <i class="nav-main-link-icon si si-eye me-2 text-dark"></i>
                             <span class="nav-main-link-name fw-normal">Ẩn nhóm</span>
-                        </a>
-                        <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${element.manhom}">
-                            <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
-                            <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
-                        </a>
+                        </a>`
+                    } else {
+                        btn_hide = `<a class="nav-main-link dropdown-item btn-unhide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                            <i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Khôi phục</span>
+                        </a>`;
+                    }
+                    html += `
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                        <!-- <a class="block block-rounded block-link-shadow" href="./module/detail/${nhom_item.manhom}"> </a> -->
+                        <div class="block block-rounded">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title block-class-name">${nhom_item.tennhom}</h3>
+                                <div class="block-options">
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${nhom_item.manhom}">
+                                    <i class="si si-settings"></i>
+                                    </button>
+                                    <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light" style="">
+                                    <a class="nav-main-link dropdown-item" href="module/detail/${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
+                                    </a>
+                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
+                                    </a>
+                                    ${btn_hide}
+                                    <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
+                                        <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="block-content">
-                <p class="block-class-note">${element.ghichu}</p>
-                <p>Sỉ số: ${element.siso}</p>
-            </div>
-            </div>
-        </div>`;
+                        <div class="block-content">
+                            <p class="block-class-note">${nhom_item.ghichu}</p>
+                            <p>Sỉ số: ${nhom_item.siso}</p>
+                        </div>
+                        </div>
+                    </div>`;
+                });
+                html += `</div></div>`;
             });
-            html += `</div></div>`;
-        });
+        }
         $("#class-group").html(html);
     }
 
@@ -87,6 +117,7 @@ $(document).ready(function () {
         $("#nam-hoc").html(html);
         $("#nam-hoc").val(currentYear).trigger("change")
     }
+
     renderListYear();
 
     $("#add-group").click(function (e) {
@@ -105,21 +136,13 @@ $(document).ready(function () {
                 console.log(response);
                 if (response) {
                     $("#modal-add-group").modal("hide");
-                    loadDataGroup();
+                    loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm nhóm thành công!' });
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thêm nhóm không thành công!' });
                 }
             }
         });
-    });
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: "btn btn-success me-2",
-            cancelButton: "btn btn-danger",
-        },
-        buttonsStyling: false,
     });
 
     $(document).on("click", ".btn-delete-group", function () {
@@ -147,7 +170,7 @@ $(document).ready(function () {
                                     "Nhóm đã được xoá thành công",
                                     "success"
                                 );
-                                loadDataGroup();
+                                loadDataGroup(mode);
                             }
                         },
                     });
@@ -156,36 +179,55 @@ $(document).ready(function () {
     })
 
     $(document).on("click", ".btn-hide-group", function () {
-        swalWithBootstrapButtons
-            .fire({
-                title: "Are you sure?",
-                text: "Bạn có chắc chắn muốn ẩn nhóm!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Vâng, ẩn nó !",
-                cancelButtonText: "Huỷ!",
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "post",
-                        url: "./module/hide",
-                        data: {
-                            manhom: $(this).data("id"),
-                        },
-                        success: function (response) {
-                            if (response) {
-                                swalWithBootstrapButtons.fire(
-                                    "Ẩn thành công!",
-                                    "Nhóm đã được ẩn thành công",
-                                    "success"
-                                );
-                                loadDataGroup();
-                            }
-                        },
-                    });
+        let manhom = $(this).data("id");
+        $.ajax({
+            type: "post",
+            url: "./module/hide",
+            data: {
+                manhom: manhom,
+                giatri: 0
+            },
+            success: function (response) {
+                if (response) {
+                    for(let i = 0; i < groups.length; i++) {
+                        let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
+                        if(index != -1) {
+                            groups[i].nhom.splice(index, 1);
+                            if(groups[i].nhom.length == 0) groups.splice(i,1);
+                            break;
+                        }
+                    }
+                    showGroup(groups);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
                 }
-            });
+            },
+        });
+    });
+
+    $(document).on("click", ".btn-unhide-group", function () {
+        let manhom = $(this).data("id");
+        $.ajax({
+            type: "post",
+            url: "./module/hide",
+            data: {
+                manhom: manhom,
+                giatri: 1
+            },
+            success: function (response) {
+                if (response) {
+                    for(let i = 0; i < groups.length; i++) {
+                        let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
+                        if(index != -1) {
+                            groups[i].nhom.splice(index, 1);
+                            if(groups[i].nhom.length == 0) groups.splice(i,1);
+                            break;
+                        }
+                    }
+                    showGroup(groups);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Huỷ ẩn nhóm thành công!' });
+                }
+            },
+        });
     });
 
     $(document).on("click", ".btn-update-group", function () {
@@ -228,7 +270,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     $("#modal-add-group").modal("hide");
-                    loadDataGroup();
+                    loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm thành công!' });
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật nhóm không thành công!' });
@@ -243,12 +285,32 @@ $(document).ready(function () {
         $(".update-group-element").hide();
     });
 
-
+    // Reset form khi đóng modal
     $("#modal-add-group").on('hidden.bs.modal', function () {
         $("#ten-nhom").val(""),
         $("#ghi-chu").val(""),
         $("#mon-hoc").val("").trigger("change"),
         $("#nam-hoc").val("").trigger("change"),
         $("#hoc-ky").val("").trigger("change")
+    });
+
+    // Thay đổi text khi nhấn vào dropdown
+    $(".filter-search").click(function (e) { 
+        e.preventDefault();
+        $(".btn-filter").text($(this).text());
+        mode = $(this).data("value")
+        loadDataGroup(mode);
+    });
+
+    $("#form-search-group").on("input", function () {
+        let result = [];
+        let content = $(this).val().toLowerCase();
+        console.log(groups);
+        for(let i = 0; i < groups.length; i++) {
+            if(groups[i].mamonhoc.includes(content) || groups[i].tenmonhoc.toLowerCase().includes(content) || groups[i].namhoc.includes(content)) {
+                result.push(groups[i]);
+            }
+        }
+        showGroup(result);
     });
 });

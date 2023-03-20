@@ -1,4 +1,6 @@
 <?php
+require_once "./mvc/core/AuthCore.php";
+
 class Auth extends Controller{
 
     public $userModel;
@@ -58,7 +60,8 @@ class Auth extends Controller{
                 'authUrl' => $authUrl,
                 "Script" => "signin",
                 "Plugin" => [
-                    "jquery-validate" => 1
+                    "jquery-validate" => 1,
+                    "notify" => 1
                 ]
             ]);
         }
@@ -67,14 +70,18 @@ class Auth extends Controller{
 
 
     function signup(){
-        $this->view("single_layout", [
-            "Page" => "auth/signup",
-            "Title" => "Đăng ký tài khoản",
-            "Script" => "signup",
-            "Plugin" => [
-                "jquery-validate" => 1
-            ]
-        ]);
+        if(!AuthCore::checkAuthentication()) {
+            $this->view("single_layout", [
+                "Page" => "auth/signup",
+                "Title" => "Đăng ký tài khoản",
+                "Script" => "signup",
+                "Plugin" => [
+                    "jquery-validate" => 1
+                ]
+            ]);
+        } else {
+            header("Location: ./dashboard");
+        }
     }
 
     function recover(){
@@ -114,7 +121,7 @@ class Auth extends Controller{
             $email = $_POST['email'];
             $password = $_POST['password'];
             $result = $this->userModel->checkLogin($email,$password);
-            echo json_encode($result);
+            echo $result;
         }
     }
 
@@ -133,13 +140,22 @@ class Auth extends Controller{
             $email = $_POST['email'];
             $this->mailAuth->sendOpt($email,$opt);
             $this->userModel->updateOpt($email,$opt);
-        } 
+        }
     }
 
     public function logout()
     {
-        $result = $this->userModel->logout();
-        header("Location: ../auth/signin");
+        $email = $_SESSION['user_email'];
+        $result = $this->userModel->updateToken($email, NULL);
+        if($result){
+            setcookie("token","",time()-10,'/');
+            session_destroy();
+            header("Location: ../auth/signin");
+        }
+    }
+
+    public function role(){
+        var_dump($_SESSION);
     }
 }
 ?>

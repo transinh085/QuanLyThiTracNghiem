@@ -17,7 +17,7 @@
                     <!-- Sign Up Form -->
                     <!-- jQuery Validation (.js-validation-signup class is initialized in js/pages/op_auth_signup.min.js which was auto compiled from _js/pages/op_auth_signup.js) -->
                     <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                    <form class="js-validation-signup" action="be_pages_auth_all.html" method="POST">
+                    <form class="js-validation-signup" method="POST">
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control" id="signup-username" name="signup-username"

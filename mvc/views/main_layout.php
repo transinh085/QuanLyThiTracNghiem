@@ -1,15 +1,7 @@
-<?php require_once "./mvc/models/NguoiDungModel.php"?>
-<?php
-$token = $_COOKIE['token'];
-$nguoidung = new NguoiDungModel();
-if($nguoidung->validateToken($token) == null){
-    header("Location: ./auth/signin");
-}
-?>
 <?php require "inc/head.php" ?>
 <body>
     <!-- Page Container -->
-    <div id="page-container" class="sidebar-o sidebar-light side-scroll page-header-fixed page-header-dark main-content-narrow remember-theme">
+    <div id="page-container" class="sidebar-o sidebar-light side-scroll page-header-fixed main-content-narrow remember-theme">
         <?php include "inc/navbar.php" ?>
         <?php include "inc/header.php" ?>
         <!-- Main Container -->

@@ -42,5 +42,13 @@ class CauHoiModel extends DB{
         $result = mysqli_query($this->con,$sql);
         return mysqli_fetch_assoc($result);
     }
+
+    public function getTotalPag($content){
+        $sql = "SELECT * FROM cauhoi where noidung like '%$content%'";
+        $result = mysqli_query($this->con,$sql);
+        $count =mysqli_num_rows($result);
+        $data = $count%5==0?$count/5:floor($count/5)+1;
+        echo $data;
+    }
 }
 ?>

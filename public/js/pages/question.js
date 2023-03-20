@@ -1,6 +1,5 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
-
 $(document).ready(function () {
   let options = [];
 
@@ -622,9 +621,14 @@ $(document).ready(function () {
             loadQuestion();
           },
         });
-      } else {
-        e.fire("Cancelled", "Bạn đã không xóa môn học :)", "error");
       }
     });
   });
+
+  $(".filter-search").click(function (e) { 
+    e.preventDefault();
+    $(".btn-filter").text($(this).text());
+    mode = $(this).data("value")
+    loadDataGroup(mode);
+});
 });

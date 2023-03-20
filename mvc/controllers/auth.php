@@ -147,5 +147,9 @@ class Auth extends Controller{
             header("Location: ../auth/signin");
         }
     }
+
+    public function role(){
+        var_dump($_SESSION);
+    }
 }
 ?>

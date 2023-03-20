@@ -18,35 +18,15 @@
                         </div>
                     </div>
                     <div class="col-3">
-                        <div class="row d-flex flex-row">
-                        <div class="col-4">
-                        <label class="form-label text-center">Độ khó</label>
+                        <div class="dropdown d-flex justify-content-end">
+                            <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                            <ul class="dropdown-menu mt-1">
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Cơ bản</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Trung bình</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="3">Nâng cao</a></li>
+                            </ul>
                         </div>
-                        <div class="col-8">
-                        <select class="js-select2 form-select" id="dokho_search" style="width: 100%;" data-placeholder="Choose one..">
-                            <option></option>
-                            <option value="1">Cơ bản</option>
-                            <option value="2">Trung bình</option>
-                            <option value="3">Nâng cao</option>
-                        </select>
-                        </div>
-                        </div>
-                        <!-- <div class="dropdown d-flex justify-content-end">
-                            <button type="button" class="btn btn-alt-primary" id="dropdown-ecom-filters" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filters <i class="fa fa-angle-down ms-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdown-ecom-filters">
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                    Pending..
-                                    <span class="badge bg-black-50 rounded-pill">35</span>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                    Processing
-                                    <span class="badge bg-warning rounded-pill">15</span>
-                                </a>
-                            </div>
-                            
-                        </div> -->
                     </div>
                 </div>
             </form>

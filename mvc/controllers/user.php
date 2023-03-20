@@ -104,10 +104,30 @@ class User extends Controller{
     // }
 
     public function pagination() {
-        $data = $this->NguoiDungModel->pagination();
-        // echo json_encode($data);
-        echo $data;
+        $limit = 5;
+        $page = 0;
+        if (isset($_POST["page"])) {
+            $page = $_POST["page"];
+        } else {
+            $page = 1;
+        }
+        $start_from = ($page - 1)*$limit;
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->NguoiDungModel->pagination($limit, $start_from);
+            echo json_encode($result);
+        }
     }
+
+    public function getNumberPage() {
+        $limit = 5;
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->NguoiDungModel->getNumberPage($limit);
+            echo json_encode($result);
+            // echo $result;
+        }
+    }
+
+    
 
 }
 ?>

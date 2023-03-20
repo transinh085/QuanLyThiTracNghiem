@@ -152,82 +152,84 @@ class NguoiDungModel extends DB{
         return $result;
     }
 
-    public function pagination() {
-        $record_per_page = 5;
-        $page = '';
-        $output = '';
+    // public function pagination() {
+    //     $record_per_page = 5;
+    //     $page = 0;
+    //     $output = '';
     
-        if (isset($_POST["page"])) {
-            $page = $_POST["page"];
-        } else {
-            $page = 1;
-        }
-        $start_from = ($page - 1)*$record_per_page;
-        $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $record_per_page";
-        $result = mysqli_query($this->con, $query);
-        $output .= '
-        <table class="table table-vcenter">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 100px;">ID</th>
-                    <th>Họ và tên</th>
-                    <th class="text-center">Giới tính</th>
-                    <th class="text-center">Ngày sinh</th>
-                    <th class="text-center">Nhóm quyền</th>
-                    <th class="text-center">Ngày tham gia</th>
-                    <th class="text-center">Trạng thái</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-        ';
-        while ($row = mysqli_fetch_array($result))
-        {
-            $output .= '
-            <tbody id="list-user"
-                <tr>
-                    <td class="text-center">
-                        <strong>'.$row["id"].'</strong>
-                    </td>
-                    <td class="fs-sm d-flex align-items-center">
-                        <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg" alt="">
-                        <div class="d-flex flex-column">
-                            <strong class="text-primary">'.$row["hoten"].'</strong>
-                            <span class="fw-normal fs-sm text-muted">'.$row["email"].'</span>
-                        </div>
-                    </td>
-                    <td class="text-center">'.$row["gioitinh"].'</td>
-                    <td class="text-center">2023-03-15</td>
-                    <td class="text-center">Giảng viên</td>
-                    <td class="text-center">2023-03-17</td>
-                    <td class="text-center">
-                        <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-danger-light text-danger bg-success-light text-success">Khoá</span>
-                    </td> 
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="20">
-                            <i class="fa fa-fw fa-pencil"></i>
-                        </a>
-                        <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="20">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>    
-            ';
-        }
-        $output .= '</table>';
-        $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
-        $page_result = mysqli_query($this->con, $page_query);
-        $total_records = mysqli_num_rows($page_result);
-        $total_pages = ceil($total_records/$record_per_page);
-        for($i=1; $i <= $total_pages; $i++)
-        {
-            $output .= '<a class="page-link" id="'.$i.'" href="javascript:void(0)">'.$i.'</a>
-            
-            ';
-        }
-            return $output;
+    //     if (isset($_POST["page"])) {
+    //         $page = $_POST["page"];
+    //     } else {
+    //         $page = 1;
+    //     }
+    //     $start_from = ($page - 1)*$record_per_page; // vị trí bắt đầu 
+    //     $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $record_per_page";
+    //     $result = mysqli_query($this->con, $query);
+    //     $output .= '
+    //     <table class="table table-vcenter">
+    //         <thead>
+    //             <tr>
+    //                 <th class="text-center" style="width: 100px;">ID</th>
+    //                 <th>Họ và tên</th>
+    //                 <th class="text-center">Giới tính</th>
+    //                 <th class="text-center">Ngày sinh</th>
+    //                 <th class="text-center">Nhóm quyền</th>
+    //                 <th class="text-center">Ngày tham gia</th>
+    //                 <th class="text-center">Trạng thái</th>
+    //                 <th class="text-center">Actions</th>
+    //             </tr>
+    //         </thead>
+    //     ';
+        // while ($row = mysqli_fetch_array($result))
+        // {
+        //     $output .= '
+        //     <tbody id="list-user"
+        //         <tr>
+        //             <td class="text-center">
+        //                 <strong>'.$row["id"].'</strong>
+        //             </td>
+        //             <td class="fs-sm d-flex align-items-center">
+        //                 <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg" alt="">
+        //                 <div class="d-flex flex-column">
+        //                     <strong class="text-primary">'.$row["hoten"].'</strong>
+        //                     <span class="fw-normal fs-sm text-muted">'.$row["email"].'</span>
+        //                 </div>
+        //             </td>
+        //             <td class="text-center">'.$row["gioitinh"].'</td>
+        //             <td class="text-center">2023-03-15</td>
+        //             <td class="text-center">Giảng viên</td>
+        //             <td class="text-center">2023-03-17</td>
+        //             <td class="text-center">
+        //                 <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-danger-light text-danger bg-success-light text-success">Khoá</span>
+        //             </td> 
+        //             <td class="text-center">
+        //                 <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="20">
+        //                     <i class="fa fa-fw fa-pencil"></i>
+        //                 </a>
+        //                 <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="20">
+        //                     <i class="fa fa-fw fa-times"></i>
+        //                 </a>
+        //             </td>
+        //         </tr>
+        //     </tbody>    
+        //     ';
+    //     }
+    //     $output .= '</table>';
+    //     $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    //     $page_result = mysqli_query($this->con, $page_query);
+    //     $total_records = mysqli_num_rows($page_result);
+    //     $total_pages = ceil($total_records/$record_per_page);
+    //     for($i=1; $i <= $total_pages; $i++)
+    //     {
+    //         $output .= '<a class="page-link" id="'.$i.'" href="javascript:void(0)">'.$i.'</a>
+            // <li class="page-item">
+            //     <a class="page-link" href="javascript:void(0)">2</a>
+            // </li>
+    //         ';
+    //     }
+    //         return $output;
     
-        }
+    //     }
     
         // function pagination($total_page, $page) {
         //     if ($total_page > 5) {
@@ -319,5 +321,22 @@ class NguoiDungModel extends DB{
         //         }
         //     }
         // }
+        function pagination($limit, $start_from) {
+            $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $limit";
+            $result = mysqli_query($this->con,$query);
+            $rows = array();
+            while($row = mysqli_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+        
+        function getNumberPage($limit) {
+            $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+            $page_result = mysqli_query($this->con, $page_query);
+            $total_records = mysqli_num_rows($page_result);
+            $total_pages = ceil($total_records/$limit);
+            return $total_pages;
+        }
 }
 ?>

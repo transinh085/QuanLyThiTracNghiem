@@ -5,10 +5,12 @@ class Roles extends Controller{
     public function __construct()
     {
         $this->NhomQuyenModel = $this->model("NhomQuyenModel");
+        parent::__construct();
     }
 
     public function default()
     {
+        AuthCore::checkAuthentication();
         $this->view("main_layout",[
             "Page" => "roles",
             "Title" => "Phân quyền",

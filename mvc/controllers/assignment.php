@@ -11,7 +11,7 @@ class Assignment extends Controller
 
     function default()
     {
-
+        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "question",
             "Title" => "Phân quyền",

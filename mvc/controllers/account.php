@@ -10,6 +10,7 @@ class Account extends Controller{
     }
 
     function default() {
+        AuthCore::checkAuthentication();
         $this->view("main_layout",[
             "Page" => "account_setting",
             "Title" => "Trang cá nhân",

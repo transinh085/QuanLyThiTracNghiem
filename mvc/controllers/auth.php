@@ -16,6 +16,7 @@ class Auth extends Controller{
 
     public function default()
     {
+        AuthCore::checkAuthentication();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];

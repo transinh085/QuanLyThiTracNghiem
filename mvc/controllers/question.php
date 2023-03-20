@@ -3,7 +3,6 @@
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\IOFactory as WordIOFactory;
-require "./mvc/core/AuthCore.php";
 class Question extends Controller
 {
     public $cauHoiModel;
@@ -13,6 +12,7 @@ class Question extends Controller
     {
         $this->cauHoiModel = $this->model("CauHoiModel");
         $this->cauTraLoiModel = $this->model("CauTraLoiModel");
+        parent::__construct();
     }
 
     function default()

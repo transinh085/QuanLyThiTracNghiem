@@ -9,6 +9,7 @@ class Subject extends Controller{
     {
         $this->monHocModel = $this->model("MonHocModel");
         $this->chuongModel = $this->model("ChuongModel");
+        parent::__construct();
     }
 
     public function default() 

@@ -1,5 +1,5 @@
 <?php
-require_once "./mvc/core/Auth.php";
+require_once "./mvc/core/AuthCore.php";
 
 class Subject extends Controller{
     public $monHocModel;
@@ -13,7 +13,7 @@ class Subject extends Controller{
 
     public function default() 
     {    
-        if(Auth::checkPermission('monhoc','view')) {
+        if(AuthCore::checkPermission('monhoc','view')) {
             $this->view("main_layout",[
                 "Page" => "subject",
                 "Title" => "Quản lý môn học",
@@ -33,7 +33,7 @@ class Subject extends Controller{
 
     public function add()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && Auth::checkPermission('monhoc','create')) {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','create')) {
             $mamon = $_POST['mamon'];
             $tenmon = $_POST['tenmon'];
             $sotinchi = $_POST['sotinchi'];
@@ -45,7 +45,7 @@ class Subject extends Controller{
     }
 
     public function update(){
-        if($_SERVER["REQUEST_METHOD"] == "POST" && Auth::checkPermission('monhoc','update')){
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission('monhoc','update')){
             $id = $_POST['id'];
             $mamon = $_POST['mamon'];
             $tenmon = $_POST['tenmon'];
@@ -59,7 +59,7 @@ class Subject extends Controller{
     }
 
     public function delete(){
-        if(isset($_POST['mamon']) && Auth::checkPermission('monhoc','delete')){
+        if(isset($_POST['mamon']) && AuthCore::checkPermission('monhoc','delete')){
             $mamon = $_POST['mamon'];
             $result = $this->monHocModel->delete($mamon);
             echo $result;
@@ -70,7 +70,7 @@ class Subject extends Controller{
 
     public function getData()
     {
-        Auth::checkPermission('monhoc','view');
+        AuthCore::checkPermission('monhoc','view');
         $data = $this->monHocModel->getAll();
         echo json_encode($data);
     }
@@ -78,7 +78,7 @@ class Subject extends Controller{
     public function getDetail()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            Auth::checkPermission('monhoc','view');
+            AuthCore::checkPermission('monhoc','view');
             $data = $this->monHocModel->getById($_POST['mamon']);
             echo json_encode($data);
         }
@@ -86,7 +86,7 @@ class Subject extends Controller{
 
     //Chapter
     public function getAllChapter(){
-        Auth::checkPermission('monhoc','view');
+        AuthCore::checkPermission('monhoc','view');
         $result = $this->chuongModel->getAll($_POST['mamonhoc']);
         echo json_encode($result);
     }

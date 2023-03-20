@@ -73,5 +73,61 @@ class User extends Controller{
         }
     }
 
+    // 30 người total_rows = 30
+    // mỗi trang chứa 5 người limit = 5
+    // 30 / 5 => total_rows / limit
+    // $start_from = ($page - 1)*$record_per_page;
+    // $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $record_per_page";
+    // $result = mysqli_query($this->con, $query);
+    // -------
+    // $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    // $page_result = mysqli_query($this->con, $page_query);
+    // $total_records = mysqli_num_rows($page_result);
+    // $total_pages = ceil($total_records/$record_per_page);
+    // --------------------
+    // public function pagination() {
+    //     $limit = self::limit;
+    //     $page = 1;
+    //     // $start_from = ($page - 1)*$limit;
+    //     // $query = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start_from, $limit";
+    //     // $rows = mysqli_query($this->con, $query);
+    //     // $total_rows = count($rows);
+    //     $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    //     $page_result = mysqli_query($this->con, $page_query);
+    //     $total_rows = mysqli_num_rows($page_result);
+    //     $total_page = ceil($total_rows / $limit);
+    //     $start = ($page - 1)*$limit;
+    //     if ($total_rows > 0) {
+    //         $datas = "SELECT * from nguoidung ORDER BY id DESC LIMIT $start, $limit";
+    //     }
+    //     $button_pagination = $this->NguoiDungModel->pagination($total_page, $page);
+    // }
+
+    public function pagination() {
+        $limit = 5;
+        $page = 0;
+        if (isset($_POST["page"])) {
+            $page = $_POST["page"];
+        } else {
+            $page = 1;
+        }
+        $start_from = ($page - 1)*$limit;
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->NguoiDungModel->pagination($limit, $start_from);
+            echo json_encode($result);
+        }
+    }
+
+    public function getNumberPage() {
+        $limit = 5;
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->NguoiDungModel->getNumberPage($limit);
+            echo json_encode($result);
+            // echo $result;
+        }
+    }
+
+    
+
 }
 ?>

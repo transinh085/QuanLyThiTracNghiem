@@ -185,4 +185,87 @@ $(document).ready(function () {
 
         }))
     });
+
+    // ajax pagination 
+    // function fetch_data(page) {
+    //     $.ajax({
+    //         url: ".NguoiDungModel/pagination",
+    //         method: "post",
+    //         data: {
+    //             page: page
+    //         },
+    //         success: function(data) {
+    //             $("#get_user").html(data);
+    //             loadData();
+    //         }
+    //     });
+    // }
+    // fetch_data();
+    
+    function fetch_data(page) {
+        $.ajax({
+            url: "./user/pagination",
+            method: "post",
+            data: {
+                page: page,
+            },
+            success: function(data) {
+                // console.log(data)
+                // $('#get_user').html(data);
+                showData(JSON.parse(data));
+
+                // loadData();
+            }
+        })
+    }
+    fetch_data();
+    
+    // $(document).on("click", ".page-link", function() {
+    //     var page = $(this).attr("id");
+    //     fetch_data(1);
+    // })
+
+    function showNumberPage() {
+
+    }
+
+    function getNumberPage() {
+        let html = '';
+        $.ajax({
+            url: "./user/getNumberPage",
+            method: "post",
+            success: function(numberPages) {
+                console.log(numberPages)
+                html += `<li class="page-item active">
+                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                                Prev
+                            </a>
+                        </li>
+                `;
+                for(let i = 1; i <= numberPages; i++) {
+                    html += `
+                    <li class="page-item">
+                        <a class="page-link" id="${i}" href="javascript:void(0)">${i}</a>
+                    </li>
+                    `;
+                }
+                html += `
+                <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                        Next
+                    </a>
+                </li>
+                `;
+                $("#getNumberPage").html(html);
+            }
+        })
+    }
+    getNumberPage();
+
+    $(document).on("click", ".page-link", function() {
+
+        var page = $(this).attr("id");
+        // console.log(page);
+        fetch_data(page);
+    })
 });

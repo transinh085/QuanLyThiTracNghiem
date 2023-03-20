@@ -16,7 +16,7 @@
             </form>
         </div>
         <div class="block-content">
-            <div class="table-responsive">
+            <div class="table-responsive" id="get_user">
                 <table class="table table-vcenter">
                     <thead>
                         <tr>
@@ -35,7 +35,7 @@
                 </table>
             </div>
             <nav aria-label="Photos Search Navigation">
-                <ul class="pagination justify-content-end mt-2">
+                <ul class="pagination justify-content-end mt-2" id="getNumberPage">
                     <li class="page-item">
                         <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
                             Prev

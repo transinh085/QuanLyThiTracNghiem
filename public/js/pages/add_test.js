@@ -1,6 +1,5 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 $(document).ready(function () {
-
     let groups = [];
     function showGroup() {
         let html = "<option></option>";
@@ -77,4 +76,53 @@ $(document).ready(function () {
         let check = $(this).prop("checked");
         $(".select-group-item").prop("checked", check);
     });
+
+    $("#tudongsoande").on("click", function () {
+        $(".show-chap").toggle();
+    });
+
+    $("#btn-add-test").click(function (e) { 
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: "./test/addTest",
+            data: {
+                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                tende: $("#name-exam").val(),
+                thoigianthi: $("#exam-time").val(),
+                thoigianbatdau: $("#time-start").val(),
+                thoigianketthuc: $("#time-end").val(),
+                socaude: $("#coban").val(),
+                socautb: $("#trungbinh").val(),
+                socaukho: $("#kho").val(),
+                chuong: $("#chuong").val(),
+                loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                manhom: getGroupSelected()
+            },
+            success: function (response) {
+                console.log(response);
+                if(response) {
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo đề thi thành công!' });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+                }
+            }
+        });
+    });
+
+    function getGroupSelected() {
+        let result = [];
+        $(".select-group-item").each(function() {
+            if($(this).prop("checked") == true) {
+                result.push($(this).val());
+            }
+        });
+        return result;
+    }
 });

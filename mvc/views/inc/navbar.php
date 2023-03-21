@@ -90,7 +90,7 @@ $page = $components[2];
                     </a>
                 </li>
                 <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'exam') echo "active" ?>" href="./exam">
+                    <a class="nav-main-link <?php if($page == 'test') echo "active" ?>" href="./test">
                         <i class="nav-main-link-icon fa fa-file"></i>
                         <span class="nav-main-link-name">Đề kiểm tra</span>
                     </a>

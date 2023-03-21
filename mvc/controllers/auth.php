@@ -97,7 +97,7 @@ class Auth extends Controller{
 
     public function addUser()
     {   
-        if(AuthCore::checkPermission("nguoidung","view")){
+        if(AuthCore::checkPermission("nguoidung","create")){
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fullname = $_POST['fullname'];
                 $email = $_POST['email'];
@@ -110,10 +110,10 @@ class Auth extends Controller{
 
     public function getUser()
     {
-        if(isset($_POST['email'])) {
-            $user = $this->userModel->getById($_POST['email']);
-            echo json_encode($user);
-        }
+            if(isset($_POST['email'])) {
+                $user = $this->userModel->getById($_POST['email']);
+                echo json_encode($user);
+            }
     }
 
     public function checkLogin(){

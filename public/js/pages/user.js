@@ -84,7 +84,6 @@ $(document).ready(function () {
                 status: $("#user_status").prop("checked") ? 1 : 0
             },
             success: function (response) {
-                console.log(response);
                 $("#modal-add-user").modal("hide");
                 fetch_data();
             },
@@ -105,7 +104,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response)
                 $("#user_name").val(response.hoten),
                 $(`input[name="user_gender"][value="${response.gioitinh}"]`).prop("checked", true),
                 $("#user_ngaysinh").val(response.ngaysinh)
@@ -175,7 +173,6 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         e.fire("Deleted!", "Xóa người dùng thành công!", "success")
-                        // loadData();
                         fetch_data();
                     }
                 });
@@ -209,9 +206,8 @@ $(document).ready(function () {
             url: "./user/getNumberPage",
             method: "post",
             success: function(numberPages) {
-                console.log(numberPages)
                 html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
-                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                            <a class="page-link" href="javascript:void(0)" id="0" tabindex="-1" aria-label="Previous">
                                 Prev
                             </a>
                         </li>
@@ -225,7 +221,7 @@ $(document).ready(function () {
                 }
                 html += `
                 <li class="page-item ${page == numberPages ? "disabled" : "active"}">
-                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                    <a class="page-link" id="${parseInt(numberPages)+1}" href="javascript:void(0)" aria-label="Next">
                         Next
                     </a>
                 </li>
@@ -238,6 +234,19 @@ $(document).ready(function () {
 
     $(document).on("click", ".page-link", function() {
         var page = $(this).attr("id");
+        // console.log(typeof page);
+        console.log(page);
+        // // if (page === 0) {
+        // //     fetch_data(page - 1);
+        // // }
+        
+        // switch (page) {
+        //     case 0 : getNumberPage(parseInt(page) - 1);
+        //             fetch_data(parseInt(page) - 1);
+        //     break;
+        //     default: getNumberPage(page);
+        //              fetch_data(page);
+        // }
         getNumberPage(page);
         fetch_data(page);
     })

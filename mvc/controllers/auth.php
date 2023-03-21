@@ -1,5 +1,4 @@
 <?php
-require_once "./mvc/core/AuthCore.php";
 
 class Auth extends Controller{
 
@@ -12,6 +11,7 @@ class Auth extends Controller{
         $this->userModel = $this->model("NguoiDungModel");
         $this->googleAuth = $this->model("GoogleAuth");
         $this->mailAuth = $this->model("MailAuth");
+        parent::__construct();
     }
 
     public function default()
@@ -70,14 +70,14 @@ class Auth extends Controller{
 
 
     function signup(){
-        $this->view("single_layout", [
-            "Page" => "auth/signup",
-            "Title" => "Đăng ký tài khoản",
-            "Script" => "signup",
-            "Plugin" => [
-                "jquery-validate" => 1
-            ]
-        ]);
+            $this->view("single_layout", [
+                "Page" => "auth/signup",
+                "Title" => "Đăng ký tài khoản",
+                "Script" => "signup",
+                "Plugin" => [
+                    "jquery-validate" => 1
+                ]
+            ]);
     }
 
     function recover(){

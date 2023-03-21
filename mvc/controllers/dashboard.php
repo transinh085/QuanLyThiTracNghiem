@@ -1,7 +1,12 @@
 <?php
-require_once "./mvc/core/AuthCore.php";
 
 class Dashboard extends Controller{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     function default(){
         AuthCore::checkAuthentication();
         $this->view("main_layout", [

@@ -111,12 +111,6 @@ class NguoiDungModel extends DB{
         return $valid;
     }
 
-    public function updateOpt($opt,$email){
-        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
-        $result = mysqli_query($this->con,$sql);
-        return $result;
-    }
-
     public function validateToken($token){
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);
@@ -150,6 +144,42 @@ class NguoiDungModel extends DB{
             }
         }
         return $roles;
+    }
+
+    public function logout(){
+        setcookie("token","",time()-10,'/');
+        $id = $_SESSION['user_id'];
+        $sql = "UPDATE `nguoidung` SET `token`= NULL WHERE `id` = '$id'";
+        session_destroy();
+        $result = mysqli_query($this->con,$sql);
+        return $result;
+    }
+
+    public function updateOpt($opt,$email){
+        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
+    }
+
+    function pagination($limit, $start_from) {
+        $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
+        FROM nguoidung, nhomquyen
+        WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
+        ORDER BY id ASC LIMIT $start_from, $limit";
+        $result = mysqli_query($this->con,$query);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+        
+    function getNumberPage($limit) {
+        $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+        $page_result = mysqli_query($this->con, $page_query);
+        $total_records = mysqli_num_rows($page_result);
+        $total_pages = ceil($total_records/$limit);
+        return $total_pages;
     }
 }
 ?>

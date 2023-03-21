@@ -3,7 +3,6 @@
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\IOFactory as WordIOFactory;
-
 class Question extends Controller
 {
     public $cauHoiModel;

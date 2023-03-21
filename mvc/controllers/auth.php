@@ -97,13 +97,15 @@ class Auth extends Controller{
 
     public function addUser()
     {   
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $fullname = $_POST['fullname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
-            echo $result;
-        } 
+        if(AuthCore::checkPermission("nguoidung","view")){
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $fullname = $_POST['fullname'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
+                echo $result;
+            } 
+        }
     }
 
     public function getUser()

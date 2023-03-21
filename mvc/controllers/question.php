@@ -30,7 +30,7 @@ class Question extends Controller
                 "Script" => "question"
             ]);
         } else {
-            header("Location: ./dashoard");
+            header("Location: ./myerror/noRole");
         }
     }
 

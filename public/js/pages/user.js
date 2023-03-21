@@ -86,7 +86,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 $("#modal-add-user").modal("hide");
-                loadData();
+                fetch_data();
             },
         });
     });
@@ -133,7 +133,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $("#modal-add-user").modal("hide");
-                loadData();
+                fetch_data();
             },
         });
     });
@@ -175,7 +175,8 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         e.fire("Deleted!", "Xóa người dùng thành công!", "success")
-                        loadData();
+                        // loadData();
+                        fetch_data();
                     }
                 });
 
@@ -186,21 +187,6 @@ $(document).ready(function () {
         }))
     });
 
-    // ajax pagination 
-    // function fetch_data(page) {
-    //     $.ajax({
-    //         url: ".NguoiDungModel/pagination",
-    //         method: "post",
-    //         data: {
-    //             page: page
-    //         },
-    //         success: function(data) {
-    //             $("#get_user").html(data);
-    //             loadData();
-    //         }
-    //     });
-    // }
-    // fetch_data();
     
     function fetch_data(page) {
         $.ajax({
@@ -210,33 +196,21 @@ $(document).ready(function () {
                 page: page,
             },
             success: function(data) {
-                // console.log(data)
-                // $('#get_user').html(data);
                 showData(JSON.parse(data));
-
-                // loadData();
             }
         })
     }
-    fetch_data();
+    fetch_data(1);
     
-    // $(document).on("click", ".page-link", function() {
-    //     var page = $(this).attr("id");
-    //     fetch_data(1);
-    // })
 
-    function showNumberPage() {
-
-    }
-
-    function getNumberPage() {
+    function getNumberPage(page) {
         let html = '';
         $.ajax({
             url: "./user/getNumberPage",
             method: "post",
             success: function(numberPages) {
                 console.log(numberPages)
-                html += `<li class="page-item active">
+                html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
                             <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
                                 Prev
                             </a>
@@ -244,28 +218,27 @@ $(document).ready(function () {
                 `;
                 for(let i = 1; i <= numberPages; i++) {
                     html += `
-                    <li class="page-item">
+                    <li class="page-item ${i == page ? "active" : ""}">
                         <a class="page-link" id="${i}" href="javascript:void(0)">${i}</a>
                     </li>
                     `;
                 }
                 html += `
-                <li class="page-item active">
+                <li class="page-item ${page == numberPages ? "disabled" : "active"}">
                     <a class="page-link" href="javascript:void(0)" aria-label="Next">
                         Next
                     </a>
                 </li>
                 `;
                 $("#getNumberPage").html(html);
-            }
+            }    
         })
     }
-    getNumberPage();
+    getNumberPage(1);
 
     $(document).on("click", ".page-link", function() {
-
         var page = $(this).attr("id");
-        // console.log(page);
+        getNumberPage(page);
         fetch_data(page);
     })
 });

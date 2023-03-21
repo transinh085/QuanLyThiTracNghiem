@@ -36,7 +36,7 @@
             </div>
             <nav aria-label="Photos Search Navigation">
                 <ul class="pagination justify-content-end mt-2" id="getNumberPage">
-                    <li class="page-item">
+                    <!-- <li class="page-item">
                         <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
                             Prev
                         </a>
@@ -57,7 +57,7 @@
                         <a class="page-link" href="javascript:void(0)" aria-label="Next">
                             Next
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>

@@ -70,18 +70,14 @@ class Auth extends Controller{
 
 
     function signup(){
-        if(!AuthCore::checkAuthentication()) {
-            $this->view("single_layout", [
-                "Page" => "auth/signup",
-                "Title" => "Đăng ký tài khoản",
-                "Script" => "signup",
-                "Plugin" => [
-                    "jquery-validate" => 1
-                ]
-            ]);
-        } else {
-            header("Location: ./dashboard");
-        }
+        $this->view("single_layout", [
+            "Page" => "auth/signup",
+            "Title" => "Đăng ký tài khoản",
+            "Script" => "signup",
+            "Plugin" => [
+                "jquery-validate" => 1
+            ]
+        ]);
     }
 
     function recover(){
@@ -148,14 +144,10 @@ class Auth extends Controller{
         $email = $_SESSION['user_email'];
         $result = $this->userModel->updateToken($email, NULL);
         if($result){
-            setcookie("token","",time()-10,'/');
             session_destroy();
+            setcookie("token","",time()-10,'/');
             header("Location: ../auth/signin");
         }
-    }
-
-    public function role(){
-        var_dump($_SESSION);
     }
 }
 ?>

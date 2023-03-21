@@ -83,45 +83,46 @@ $(document).ready(function () {
 
     $("#btn-add-test").click(function (e) { 
         e.preventDefault();
-        let monhoc = $("#nhom-hp").val();
-        let tendethi = $("#name-exam").val();
-        let thoigianbatdau = $("#time-start").val();
-        let thoigianketthuc = $("#time-end").val();
-        let thoigianlambai = $("#exam-time").val();
-        let chuong = $("#chuong").val();
-        let socaude = $("#coban").val();
-        let socautb = $("#trungbinh").val();
-        let socaukho = $("#kho").val();
-        let tudongsoande = $("#tudongsoande").prop("checked");
-        let xemdiem = $("#xemdiem").prop("checked");
-        let xemdapan = $("#xemda").prop("checked");
-        let xembailam = $("#xembailam").prop("checked");
-        let daocauhoi = $("#daocauhoi").prop("checked");
-        let daodapan = $("#daodapan").prop("checked");
-        let tudongnop = $("#tudongnop").prop("checked");
         $.ajax({
             type: "post",
-            url: "./test/add",
+            url: "./test/addTest",
             data: {
-                tende: tendethi,
-                thoigianthi: thoigianlambai,
-                thoigianbatdau: thoigianbatdau,
-                thoigianketthuc: thoigianketthuc,
-                socaude: socaude,
-                socautb: socautb,
-                socaukho: socaukho,
-                chuong: chuong,
-                loaide: tudongsoande,
-                xemdiem: xemdiem,
-                xemdapan: xemdapan,
-                xembailam: xembailam,
-                daocauhoi: daocauhoi,
-                daodapan: daodapan,
-                tudongnop: tudongnop
+                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                tende: $("#name-exam").val(),
+                thoigianthi: $("#exam-time").val(),
+                thoigianbatdau: $("#time-start").val(),
+                thoigianketthuc: $("#time-end").val(),
+                socaude: $("#coban").val(),
+                socautb: $("#trungbinh").val(),
+                socaukho: $("#kho").val(),
+                chuong: $("#chuong").val(),
+                loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                manhom: getGroupSelected()
             },
             success: function (response) {
-                
+                console.log(response);
+                if(response) {
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo đề thi thành công!' });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+                }
             }
         });
     });
+
+    function getGroupSelected() {
+        let result = [];
+        $(".select-group-item").each(function() {
+            if($(this).prop("checked") == true) {
+                result.push($(this).val());
+            }
+        });
+        return result;
+    }
 });

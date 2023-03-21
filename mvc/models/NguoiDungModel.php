@@ -1,38 +1,39 @@
 <?php
-class NguoiDungModel extends DB{
-    
-    public function create($email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
+class NguoiDungModel extends DB
+{
+
+    public function create($email, $fullname, $password, $ngaysinh, $gioitinh, $role, $trangthai)
     {
-        $password = password_hash($password,PASSWORD_DEFAULT);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `nguoidung`(`email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$gioitinh','$ngaysinh','$password',$trangthai, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) {
+        if (!$result) {
             $check = false;
         }
         return json_encode($check);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $check = true;
         $sql = "DELETE FROM `nguoidung` WHERE `id`='$id'";
-        $result = mysqli_query($this->con,$sql);
-        if(!$result) $check = false;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
         return $check;
     }
 
-    public function update($id,$email,$fullname,$password,$ngaysinh,$gioitinh,$role,$trangthai)
+    public function update($id, $email, $fullname, $password, $ngaysinh, $gioitinh, $role, $trangthai)
     {
         $querypass = '';
-        if($password != '') {
-            $password = password_hash($password,PASSWORD_DEFAULT);
+        if ($password != '') {
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $querypass = ", `matkhau`='$password'";
         }
         $sql = "UPDATE `nguoidung` SET `email`='$email', `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh',`trangthai`='$trangthai',`manhomquyen`='$role'$querypass WHERE `id`='$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $check = false;
+        if (!$result) $check = false;
         return $check;
     }
 
@@ -43,7 +44,7 @@ class NguoiDungModel extends DB{
         WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
@@ -63,13 +64,13 @@ class NguoiDungModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function changePassword($email,$new_password)
+    public function changePassword($email, $new_password)
     {
-        $new_password = password_hash($new_password,PASSWORD_DEFAULT);
+        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
         $sql = "UPDATE `nguoidung` SET `matkhau`='$new_password' WHERE `email` = '$email'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $check = false;
+        if (!$result) $check = false;
         return $check;
     }
 
@@ -80,18 +81,21 @@ class NguoiDungModel extends DB{
         return $result;
     }
 
-    public function checkLogin($email,$password){
+    public function checkLogin($email, $password)
+    {
         $user = $this->getByEmail($email);
-        if($user == ''){
+        if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
+        } else if ($user['trangthai'] == 0) {
+            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
         } else {
-            $result = $this->checkPassword($email,$password);
-            if($result){
+            $result = $this->checkPassword($email, $password);
+            if ($result) {
                 $email = $user['email'];
-                $token = time().password_hash($email,PASSWORD_DEFAULT);
+                $token = time() . password_hash($email, PASSWORD_DEFAULT);
                 $resultToken = $this->updateToken($email, $token);
-                if($resultToken){
-                    setcookie("token", $token, time() + 7*24*3600, "/");
+                if ($resultToken) {
+                    setcookie("token", $token, time() + 7 * 24 * 3600, "/");
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
                     return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);
@@ -106,15 +110,16 @@ class NguoiDungModel extends DB{
     {
         $valid = true;
         $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
-        $result = mysqli_query($this->con,$sql);
-        if(!$result) $valid = false;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $valid = false;
         return $valid;
     }
 
-    public function validateToken($token){
+    public function validateToken($token)
+    {
         $sql = "SELECT * FROM `nguoidung` WHERE `token` = '$token'";
         $result = mysqli_query($this->con, $sql);
-        if(mysqli_num_rows($result) > 0){
+        if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
@@ -130,7 +135,7 @@ class NguoiDungModel extends DB{
         $sql = "SELECT chucnang, hanhdong FROM chitietquyen WHERE manhomquyen = $manhomquyen";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         $roles = array();
@@ -146,40 +151,43 @@ class NguoiDungModel extends DB{
         return $roles;
     }
 
-    public function logout(){
-        setcookie("token","",time()-10,'/');
+    public function logout()
+    {
+        setcookie("token", "", time() - 10, '/');
         $id = $_SESSION['user_id'];
         $sql = "UPDATE `nguoidung` SET `token`= NULL WHERE `id` = '$id'";
         session_destroy();
-        $result = mysqli_query($this->con,$sql);
+        $result = mysqli_query($this->con, $sql);
         return $result;
     }
 
-    public function updateOpt($opt,$email){
+    public function updateOpt($opt, $email)
+    {
         $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
-        $result = mysqli_query($this->con,$sql);
+        $result = mysqli_query($this->con, $sql);
         return $result;
     }
 
-    function pagination($limit, $start_from) {
+    function pagination($limit, $start_from)
+    {
         $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
         FROM nguoidung, nhomquyen
         WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
         ORDER BY id ASC LIMIT $start_from, $limit";
-        $result = mysqli_query($this->con,$query);
+        $result = mysqli_query($this->con, $query);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
-        
-    function getNumberPage($limit) {
+
+    function getNumberPage($limit)
+    {
         $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
         $page_result = mysqli_query($this->con, $page_query);
         $total_records = mysqli_num_rows($page_result);
-        $total_pages = ceil($total_records/$limit);
+        $total_pages = ceil($total_records / $limit);
         return $total_pages;
     }
 }
-?>

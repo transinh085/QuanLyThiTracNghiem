@@ -12,21 +12,26 @@ class Question extends Controller
     {
         $this->cauHoiModel = $this->model("CauHoiModel");
         $this->cauTraLoiModel = $this->model("CauTraLoiModel");
+        parent::__construct();
     }
 
     function default()
     {
-        $this->view("main_layout", [
-            "Page" => "question",
-            "Title" => "Câu hỏi",
-            "Plugin" => [
-                "ckeditor" => 1,
-                "select" => 1,
-                "notify" => 1,
-                "sweetalert2" => 1,
-            ],
-            "Script" => "question"
-        ]);
+        if(AuthCore::checkPermission("cauhoi","view")){
+            $this->view("main_layout", [
+                "Page" => "question",
+                "Title" => "Câu hỏi",
+                "Plugin" => [
+                    "ckeditor" => 1,
+                    "select" => 1,
+                    "notify" => 1,
+                    "sweetalert2" => 1,
+                ],
+                "Script" => "question"
+            ]);
+        } else {
+            header("Location: ./dashoard");
+        }
     }
 
 

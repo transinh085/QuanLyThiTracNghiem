@@ -40,7 +40,7 @@ class NhomQuyenModel extends DB {
                 }
             }
         }
-        return $valid;
+        return $result;
     }
 
     public function getAll()

@@ -6,22 +6,23 @@ class Account extends Controller{
     public function __construct()
     {
         $this->nguoidung = $this->model("NguoiDungModel");
+        parent::__construct();
     }
 
     function default() {
-        $this->view("main_layout",[
-            "Page" => "account_setting",
-            "Title" => "Trang cá nhân",
-            "User" => $this->nguoidung->getById($_SESSION['user_id']),
-            "Plugin" => [
-                "sweetalert2" => 1,
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "jquery-validate" => 1,
-                "notify" => 1,
-            ],
-            "Script" => "account_setting"
-        ]);
+            $this->view("main_layout",[
+                "Page" => "account_setting",
+                "Title" => "Trang cá nhân",
+                "User" => $this->nguoidung->getById($_SESSION['user_id']),
+                "Plugin" => [
+                    "sweetalert2" => 1,
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "jquery-validate" => 1,
+                    "notify" => 1,
+                ],
+                "Script" => "account_setting"
+            ]);
     }
 
     public function changePassword()

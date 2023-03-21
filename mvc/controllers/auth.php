@@ -16,6 +16,7 @@ class Auth extends Controller{
 
     public function default()
     {
+        AuthCore::onLogin();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];
@@ -42,6 +43,7 @@ class Auth extends Controller{
 
     function signin()
     {
+        AuthCore::onLogin();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];

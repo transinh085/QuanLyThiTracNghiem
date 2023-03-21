@@ -3,10 +3,10 @@ require_once "./mvc/models/NguoiDungModel.php";
 class AuthCore{
 
     public static function onLogin(){
-        $nguoidung = new NguoiDungModel();
         if(isset($_COOKIE['token'])){
+            $nguoidung = new NguoiDungModel();
             $token = $_COOKIE['token'];
-            if($nguoidung->validateToken($token) != null){
+            if($nguoidung->validateToken($token) == true){
                 header("Location: ./dashboard");
             }
         }
@@ -16,7 +16,7 @@ class AuthCore{
     {
         $token = $_COOKIE['token'];
         $nguoidung = new NguoiDungModel();
-        if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == null){
+        if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == false){
             header("Location: ./auth/signin");
             exit;
         }

@@ -93,6 +93,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <tr>
                             <tr>
                                 <td>Người dùng</td>
                                 <td class="text-center">

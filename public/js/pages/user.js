@@ -80,11 +80,13 @@ $(document).ready(function () {
                 ngaysinh: $("#user_ngaysinh").val(),
                 email: $("#user_email").val(),
                 role: $('#user_nhomquyen').val(),
-                password: $('#user_password').val()
+                password: $('#user_password').val(),
+                status: $("#user_status").prop("checked") ? 1 : 0
             },
             success: function (response) {
+                console.log(response);
                 $("#modal-add-user").modal("hide");
-                loadData();
+                fetch_data();
             },
         });
     });
@@ -109,12 +111,35 @@ $(document).ready(function () {
                 $("#user_ngaysinh").val(response.ngaysinh)
                 $("#user_email").val(response.email)
                 $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
+                $("#user_status").prop("checked", response.trangthai)
             }
         });
     });
 
+    $("#btn-update-user").click(function (e) { 
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: "./user/update",
+            data: {
+                id: $(this).data("id"),
+                hoten: $("#user_name").val(),
+                gioitinh: $('input[name="user_gender"]:checked').val(),
+                ngaysinh: $("#user_ngaysinh").val(),
+                email: $("#user_email").val(),
+                role: $('#user_nhomquyen').val(),
+                password: $('#user_password').val(),
+                status: $("#user_status").prop("checked") ? 1 : 0
+            },
+            success: function (response) {
+                $("#modal-add-user").modal("hide");
+                fetch_data();
+            },
+        });
+    });
+
     $(document).on("click", ".user-delete", function () {
-        var trid = $(this).attr("dataid");
+        var trid = $(this).data("id");
         let e = Swal.mixin({
             buttonsStyling: !1,
             target: "#page-container",
@@ -124,7 +149,6 @@ $(document).ready(function () {
                 input: "form-control"
             }
         });
-
         e.fire({
             title: "Are you sure?",
             text: "Bạn có chắc chắn muốn xoá nhóm người dùng?",
@@ -151,7 +175,8 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         e.fire("Deleted!", "Xóa người dùng thành công!", "success")
-                        loadData();
+                        // loadData();
+                        fetch_data();
                     }
                 });
 
@@ -161,4 +186,59 @@ $(document).ready(function () {
 
         }))
     });
+
+    
+    function fetch_data(page) {
+        $.ajax({
+            url: "./user/pagination",
+            method: "post",
+            data: {
+                page: page,
+            },
+            success: function(data) {
+                showData(JSON.parse(data));
+            }
+        })
+    }
+    fetch_data(1);
+    
+
+    function getNumberPage(page) {
+        let html = '';
+        $.ajax({
+            url: "./user/getNumberPage",
+            method: "post",
+            success: function(numberPages) {
+                console.log(numberPages)
+                html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
+                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                                Prev
+                            </a>
+                        </li>
+                `;
+                for(let i = 1; i <= numberPages; i++) {
+                    html += `
+                    <li class="page-item ${i == page ? "active" : ""}">
+                        <a class="page-link" id="${i}" href="javascript:void(0)">${i}</a>
+                    </li>
+                    `;
+                }
+                html += `
+                <li class="page-item ${page == numberPages ? "disabled" : "active"}">
+                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                        Next
+                    </a>
+                </li>
+                `;
+                $("#getNumberPage").html(html);
+            }    
+        })
+    }
+    getNumberPage(1);
+
+    $(document).on("click", ".page-link", function() {
+        var page = $(this).attr("id");
+        getNumberPage(page);
+        fetch_data(page);
+    })
 });

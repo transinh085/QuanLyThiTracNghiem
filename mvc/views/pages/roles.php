@@ -68,7 +68,7 @@
 
 <div class="modal fade" id="modal-add-role" tabindex="-1" role="dialog" aria-labelledby="modal-add-role"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title add-role-element">Thêm nhóm quyền</h5>
@@ -87,9 +87,9 @@
                             <tr>
                                 <th>Tên quyền</th>
                                 <th class="text-center">Xem</th>
-                                <th class="text-center">Xoá</th>
                                 <th class="text-center">Thêm mới</th>
                                 <th class="text-center">Cập nhật</th>
+                                <th class="text-center">Xoá</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,6 +166,36 @@
                                 </td>
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="monhoc" value="delete">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Chương</td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="view">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="create">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="update">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="chuong" value="delete">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phân công</td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="view">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="create">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="update">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="delete">
                                 </td>
                             </tr>
                             <tr>

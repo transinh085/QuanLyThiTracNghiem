@@ -20,17 +20,17 @@ class MailAuth extends DB
         $this->mail->isSMTP(); // gửi mail SMTP
         $this->mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
         $this->mail->SMTPAuth = true; // Enable SMTP authentication
-        $this->mail->Username = 'tsinh579@gmail.com'; // SMTP username
-        $this->mail->Password = ''; // SMTP password
+        $this->mail->Username = 'tsinh11111@gmail.com'; // SMTP username
+        $this->mail->Password = 'ojldjxeqzmdxznbh'; // SMTP password
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $this->mail->Port = 587; // TCP port to connect to
         $this->mail->setFrom('tsinh579@gmail.com', 'QA');
     }
 
-    public function sendOpt()
+    public function sendOpt($email,$opt)
     {
         try {
-            $this->mail->addAddress('transinh085@gmail.com'); // Name is optional
+            $this->mail->addAddress($email); // Name is optional
             $this->mail->isHTML(true);   // Set email format to HTML
             $this->mail->Subject = 'Code OPT';
             $this->mail->Body = '<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
@@ -40,7 +40,7 @@ class MailAuth extends DB
                 </div>
                 <p style="font-size:1.1em">Hi,</p>
                 <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
-                <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'.rand(111111,999999).'</h2>
+                <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'.$opt.'</h2>
                 <p style="font-size:0.9em;">Regards,<br />QA</p>
                 <hr style="border:none;border-top:1px solid #eee" />
                 <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">

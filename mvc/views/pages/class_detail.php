@@ -97,7 +97,7 @@
 
 <div class="modal fade" id="modal-block-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter"
     aria-hidden="true">
-    <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-popin" role="document">
+    <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="block block-rounded block-transparent bg-white mb-0">
                 <ul class="nav nav-tabs nav-tabs-alt" role="tablist">
@@ -105,7 +105,7 @@
                         <button class="nav-link active" id="btabs-alt-static-home-tab" data-bs-toggle="tab"
                             data-bs-target="#btabs-alt-static-home" role="tab" aria-controls="btabs-alt-static-home"
                             aria-selected="true">
-                            Thêm học sinh
+                            Thêm thủ công
                         </button>
                     </li>
                     <li class="nav-item">

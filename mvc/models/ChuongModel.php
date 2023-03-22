@@ -2,7 +2,7 @@
 class ChuongModel extends DB {
     public function getAll($mamonhoc)
     {
-        $sql = "SELECT * FROM `chuong` WHERE mamonhoc = '$mamonhoc'";
+        $sql = "SELECT * FROM `chuong` WHERE mamonhoc = '$mamonhoc' AND `trangthai` = 1";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -13,19 +13,28 @@ class ChuongModel extends DB {
     
     public function insert($mamonhoc,$tenchuong) 
     {
-        $sql = "INSERT INTO `chuong`(`mamonhoc`,`tenchuong`) VALUES ('$mamonhoc','$tenchuong')";
-        mysqli_query($this->con,$sql);
+        $valid = true;
+        $sql = "INSERT INTO `chuong`(`mamonhoc`,`tenchuong`,`trangthai`) VALUES ('$mamonhoc','$tenchuong',1)";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $valid = false;
+        return $valid;
     }   
 
     public function delete($machuong)
     {
-        $sql = "DELETE FROM `chuong` WHERE machuong = '$machuong'";
-        return mysqli_query($this->con, $sql);
+        $valid = true;
+        $sql = "UPDATE `chuong` SET `trangthai`= 0 WHERE `machuong` = '$machuong'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
     }
 
     public function update($machuong,$tenchuong) 
     {
-        $sql = "UPDATE `chuong` SET `tenchuong`='$tenchuong' WHERE `machuong` = '$machuong' ";
-        mysqli_query($this->con,$sql);
+        $valid = true;
+        $sql = "UPDATE `chuong` SET `tenchuong`='$tenchuong' WHERE `machuong` = '$machuong'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $valid = false;
+        return $valid;
     } 
 }

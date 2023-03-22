@@ -36,8 +36,8 @@
                         <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg"
                             alt="">
                         <div class="pt-2">
-                            <a class="fw-semibold" href="be_pages_generic_profile.html">
-                                Account Name
+                            <a class="fw-semibold">
+                                <?php echo $_SESSION['user_name'] ?>
                             </a>
                             <div class="fs-sm">Admin</div>
                         </div>
@@ -46,7 +46,7 @@
                         <a class="dropdown-item" href="./account">
                             <i class="si si-settings me-2 fa-fw icon-dropdown-item"></i> Tài khoản
                         </a>
-                        <a class="dropdown-item" href="op_auth_signin.html">
+                        <a class="dropdown-item" href="./auth/logout">
                             <i class="si si-logout me-2 fa-fw icon-dropdown-item"></i> Đăng xuất
                         </a>
                     </div>
@@ -84,4 +84,3 @@
         </div>
     </div>
 </header>
-<!-- END Header -->

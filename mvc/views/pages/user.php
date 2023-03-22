@@ -3,27 +3,8 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả người dùng</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
                     data-bs-target="#modal-add-user">Thêm người dùng</button>
-                <div class="dropdown">
-                    <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filters
-                        <i class="fa fa-angle-down ms-1"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters">
-                        <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="javascript:void(0)">
-                            Pending..
-                            <span class="badge bg-primary rounded-pill">78</span>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="javascript:void(0)">
-                            All
-                            <span class="badge bg-black-50 rounded-pill">19k</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="block-content bg-body-dark">
@@ -35,7 +16,7 @@
             </form>
         </div>
         <div class="block-content">
-            <div class="table-responsive">
+            <div class="table-responsive" id="get_user">
                 <table class="table table-vcenter">
                     <thead>
                         <tr>
@@ -54,8 +35,8 @@
                 </table>
             </div>
             <nav aria-label="Photos Search Navigation">
-                <ul class="pagination justify-content-end mt-2">
-                    <li class="page-item">
+                <ul class="pagination justify-content-end mt-2" id="getNumberPage">
+                    <!-- <li class="page-item">
                         <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
                             Prev
                         </a>
@@ -76,7 +57,7 @@
                         <a class="page-link" href="javascript:void(0)" aria-label="Next">
                             Next
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -130,21 +111,29 @@
                     </div>
                     <div class="mb-3">
                         <label for="user_nhomquyen" class="form-label">Nhóm quyền</label>
-                        <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen" name="user_nhomquyen"
-                            style="width: 100%;" data-placeholder="Choose one..">
+                        <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen"
+                            name="user_nhomquyen" style="width: 100%;" data-placeholder="Choose one..">
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="user_password" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control form-control-alt" name="user_password" id="user_password"
-                            placeholder="Nhập mật khẩu">
+                        <input type="password" class="form-control form-control-alt" name="user_password"
+                            id="user_password" placeholder="Nhập mật khẩu">
+                    </div>
+                    <div class="mb-3 d-flex align-items-center gap-5">
+                        <label for="user_status" class="form-label">Trạng thái</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="user_status">
+                            <label class="form-check-label" for="user_status"></label>
+                        </div>
                     </div>
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>
                     <button type="button" class="btn btn-sm btn-primary add-user-element" id="btn-add-user">Lưu</button>
-                    <button type="button" class="btn btn-sm btn-primary update-user-element" id="btn-upadte-user" data-id="">Cập nhật</button>
+                    <button type="button" class="btn btn-sm btn-primary update-user-element" id="btn-update-user"
+                        data-id="">Cập nhật</button>
                 </div>
             </div>
         </div>

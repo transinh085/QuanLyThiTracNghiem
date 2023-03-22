@@ -13,57 +13,126 @@ $(document).ready(function () {
     
     function showData(subjects) {
         let html = "";
-        console.log(subjects);
         subjects.forEach((subject) => {
             html += `<tr tid="${subject.mamonhoc}">
                 <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
                 <td>${subject.tenmonhoc}</td>
-                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.soluong}</td>
+                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
+                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
+                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
                 <td class="text-center">
-                    <a class="btn btn-sm btn-alt-secondary subject-infor" data-bs-toggle="modal" data-bs-target="#modal-block-vcenter" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" dataid="${subject.mamonhoc}">
+                    <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
+                        data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
                         <i class="fa fa-circle-info"></i>
                     </a>
-                    <a class="btn btn-sm btn-alt-secondary subject-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-chapter" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" dataid="${subject.mamonhoc}">
+                    <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
+                        data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
                         <i class="fa fa-fw fa-pencil"></i>
                     </a>
-                    <a class="btn btn-sm btn-alt-secondary delete_roles subject-delete" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" dataid="${subject.mamonhoc}">
+                    <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
+                        data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
                         <i class="fa fa-fw fa-times"></i>
                     </a>
                 </td>
             </tr>`;
         });
         $("#list-subject").html(html);
+        $('[data-bs-toggle="tooltip"]').tooltip();
     }
+
+    $("[data-bs-target='#modal-add-subject']").click(function (e) { 
+        e.preventDefault();
+        $(".update-subject-element").hide();
+        $(".add-subject-element").show();
+    });
     
-    
-    $("#add_class").on("click", function () {
+    $("#add_subject").on("click", function () {
         $.ajax({
             type: "post",
             url: "./subject/add",
             data: {
-                mamon: $("#subject_id").val(),
-                tenmon: $("#subject_name").val(),
+                mamon: $("#mamonhoc").val(),
+                tenmon: $("#tenmonhoc").val(),
+                sotinchi: $("#sotinchi").val(),
+                sotietlythuyet: $("#sotiet_lt").val(),
+                sotietthuchanh: $("#sotiet_th").val(),
             },
             success: function (response) {
+                if(response) {
                     $("#modal-add-subject").modal("hide");
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm môn học thành công!' });
                     loadData();
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thêm môn học không thành công!' });
+                }
             },
         });
     });
     
     
-    
-    $(document).on("click", ".subject-edit", function () {
-        var trid = $(this).attr("dataid");
-        $("#mamon").val(trid);
-        $('#tenmon').val($(this).closest("td").closest("tr").children().eq(1).text())
+    $(document).on("click", ".btn-edit-subject", function () {
+        $(".update-subject-element").show();
+        $(".add-subject-element").hide();
+        let mamon = $(this).data("id");
+        $.ajax({
+            type: "post",
+            url: "./subject/getDetail",
+            data: {
+                mamon: mamon,
+            },
+            dataType: "json",
+            success: function (response) {
+                if(response) {
+                    $("#mamonhoc").val(response.mamonhoc),
+                    $("#tenmonhoc").val(response.tenmonhoc),
+                    $("#sotinchi").val(response.sotinchi),
+                    $("#sotiet_lt").val(response.sotietlythuyet),
+                    $("#sotiet_th").val(response.sotietthuchanh),
+                    $("#modal-add-subject").modal("show"),
+                    $("#update_subject").data("id", response.mamonhoc)
+                }
+            },
+        });
+    });
+
+    // Đóng modal thì reset form
+    $("#modal-add-subject").on('hidden.bs.modal', function () {
+        $("#mamonhoc").val(""),
+        $("#tenmonhoc").val(""),
+        $("#sotinchi").val(""),
+        $("#sotiet_lt").val(""),
+        $("#sotiet_th").val(""),
+        $("#update_subject").data("id", "")
+    });
+
+    $("#update_subject").click(function (e) { 
+        e.preventDefault();
+        let mamon = $(this).data("id");
+        $.ajax({
+            type: "post",
+            url: "./subject/update",
+            data: {
+                id: mamon,
+                mamon: $("#mamonhoc").val(),
+                tenmon: $("#tenmonhoc").val(),
+                sotinchi: $("#sotinchi").val(),
+                sotietlythuyet: $("#sotiet_lt").val(),
+                sotietthuchanh: $("#sotiet_th").val(),
+            },
+            success: function (response) {
+                if(response) {
+                    $("#modal-add-subject").modal("hide");
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật môn học thành công!' });
+                    loadData();
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật môn học không thành công!' });
+                }
+            }
+        });
     });
     
-    $(document).on("click", ".subject-delete", function () {
-        var trid = $(this).attr("dataid");
+    $(document).on("click", ".btn-delete-subject", function () {
+        let trid = $(this).data("id");
         let e = Swal.mixin({
             buttonsStyling: !1,
             target: "#page-container",
@@ -94,70 +163,65 @@ $(document).ready(function () {
             if(t.value == true){
                 $.ajax({
                     type: "post",
-                    url: "./subject/deleteData",
+                    url: "./subject/delete",
                     data: {
                         mamon: trid
                     },
                     success: function (response) {
-                        e.fire("Deleted!", "Xóa môn học thành công!", "success")
-                        loadData();
+                        if(response) {
+                            e.fire("Deleted!", "Xóa môn học thành công!", "success")
+                            loadData();
+                        } else {
+                            e.fire("Lỗi !", "Xoá môn học không thành công !)", "error")
+                        }
                     }
                 });
-            } else {
-                e.fire("Cancelled", "Bạn đã không xóa môn học :)", "error")
             }
-        
         }))
     });
     
-    $("#edit_class").click(function(e){
-        $.ajax({
-            type: "post",
-            url: "./subject/update",
-            data: {
-                mamon: $("#mamon").val(),
-                tenmon: $("#tenmon").val()
-            },
-            success: function (response) {
-                loadData();
-                $('#modal-edit-chapter').modal('hide');
-            }
-        });
-    })
     
     //chapter
-    $(document).on("click", ".subject-infor", function () {
-        var trid = $(this).attr("dataid");
-        $("#mamonhoc").val(trid)
-        showChaper(trid)
-        $("#collapseChapter").collapse('hide')
-    
+    $(document).on("click", ".subject-info", function () {
+        var id = $(this).data("id");
+        $("#mamon_chuong").val(id)
+        showChapter(id);
     });
     
-    function showChaper(id){
+
+    function resetFormChapter() {
+        $("#collapseChapter").collapse('hide');
+        $("#name_chapter").val("");
+    }
+
+    $("#modal-chapter").on('hidden.bs.modal', function () {
+        resetFormChapter()
+    });
+
+
+    function showChapter(mamonhoc){
         $.ajax({
             type: "post",
-            url: "./subject/getAllChapper",
+            url: "./subject/getAllChapter",
             data: {
-                mamonhoc: id
+                mamonhoc: mamonhoc
             },
             dataType: "json",
             success: function (response) {
                 let html = '';
                 if(response.length > 0) {
-                    let index = 1;
-                    response.forEach((chapper) =>{
+                    response.forEach((chapter, index) =>{
                         html += `<tr>
-                        <td class="text-center fs-sm"><strong>${index++}</strong></td>
-                        <td>${chapper['tenchuong']}</td>
+                        <td class="text-center fs-sm"><strong>${index+1}</strong></td>
+                        <td>${chapter['tenchuong']}</td>
                         <td class="text-center">
-                            <a class="btn btn-sm btn-alt-secondary chaper-edit"
-                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" dataid="${chapper['machuong']}">
+                            <a class="btn btn-sm btn-alt-secondary chapter-edit"
+                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${chapter['machuong']}">
                                 <i class="fa fa-fw fa-pencil"></i>
                             </a>
-                            <a class="btn btn-sm btn-alt-secondary delete_roles chaper-delete" href="javascript:void(0)"
+                            <a class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
                                 data-bs-toggle="tooltip" aria-label="Delete"
-                                data-bs-original-title="Delete" dataid="${chapper['machuong']}">
+                                data-bs-original-title="Delete" data-id="${chapter['machuong']}">
                                 <i class="fa fa-fw fa-times"></i>
                             </a>
                         </td>
@@ -175,25 +239,29 @@ $(document).ready(function () {
         });
     }
     
-    $("#btnaddChapper").click(function(){
-        $("#addchaper").show();
-        $("#editchaper").hide();
-        $("#name_chaper").val("")
+    $("#btn-add-chapter").click(function(){
+        $("#add-chapter").show();
+        $("#edit-chapter").hide();
+        $("#name_chapter").val("")
     })
+
     
-    $("#addchaper").on("click", function(e){
+    $("#add-chapter").on("click", function(e){
         e.preventDefault();
+        let mamonhoc = $("#mamon_chuong").val()
         $.ajax({
             type: "post",
-            url: "./subject/addChaper",
+            url: "./subject/addChapter",
             data: {
-                mamonhoc: $("#mamonhoc").val(),
-                tenchuong: $("#name_chaper").val()
+                mamonhoc: mamonhoc,
+                tenchuong: $("#name_chapter").val()
             },
             success: function (response) {
-                showChaper($("#mamonhoc").val());
-                $("#name_chaper").val("")
-                $("#collapseChapter").collapse('hide')
+                if(response) {
+                    resetFormChapter();
+                    showChapter(mamonhoc);
+                    showData();
+                }
             }
         });
     })
@@ -203,47 +271,53 @@ $(document).ready(function () {
         $("#collapseChapter").collapse('hide')
     });
     
-    $(document).on("click", ".chaper-delete", function(){
-        let idMH = $(this).attr("dataid");
-        deleteChaper(idMH);
-    })
-    
-    function deleteChaper(id){
+    $(document).on("click", ".chapter-delete", function(){
+        let machuong = $(this).data("id");
         $.ajax({
             type: "post",
-            url: "./subject/chaperDelete",
+            url: "./subject/chapterDelete",
             data: {
-                dataid: id
+                machuong: machuong
             },
             success: function (response) {
-                showChaper($("#mamonhoc").val())
+                if(response) {
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Xoá chương thành công!' });
+                    showChapter($("#mamon_chuong").val());
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Xoá chương không thành công!' });
+                }
             }
         });
-    }
-    
-    $(document).on("click", ".chaper-edit", function(){
-        let id = $(this).attr("dataid");
-        $("#machuong").val(id)
-        $("#addchaper").hide();
-        $("#editchaper").show();
-        $("#collapseChapter").collapse('show');
-        let name = $(this).closest("td").closest("tr").children().eq(1).text()
-        $("#name_chaper").val(name);
     })
     
-    $("#editchaper").on("click", function(e){
+    
+    $(document).on("click", ".chapter-edit", function(){
+        $("#add-chapter").hide();
+        $("#edit-chapter").show();
+        let id = $(this).data("id");
+        $("#machuong").val(id);
+        $("#collapseChapter").collapse('show');
+        let name = $(this).closest("td").closest("tr").children().eq(1).text()
+        $("#name_chapter").val(name);
+    })
+    
+    $("#edit-chapter").on("click", function(e){
         e.preventDefault();
         $.ajax({
             type: "post",
-            url: "./subject/updateChaper",
+            url: "./subject/updateChapter",
             data: {
                 machuong: $("#machuong").val(),
-                tenchuong: $("#name_chaper").val()
+                tenchuong: $("#name_chapter").val()
             },
             success: function (response) {
-                showChaper($("#mamonhoc").val());
-                $("#name_chaper").val("")
-                $("#collapseChapter").collapse('hide')
+                if(response) {
+                    showChapter($("#mamon_chuong").val());
+                    resetFormChapter();
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật chương thành công!' });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật chương không thành công!' });
+                }
             }
         });
     })    

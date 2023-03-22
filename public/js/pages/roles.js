@@ -84,6 +84,17 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".delete_roles", function () {
+        let id = $(this).data('id');
+        $.ajax({
+            type: "post",
+            url: "./roles/delete",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                alert(response)
+            }
+        });
         e.fire({
             title: "Are you sure?",
             text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
@@ -123,9 +134,10 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 $("#ten-nhom-quyen").val(response.name);
                 $.each(response.detail, function (index, item) {
-                    $(`[name="${item.loaiquyen}"][value="${item.hanhdong}"]`).prop('checked', true)
+                    $(`[name="${item.chucnang}"][value="${item.hanhdong}"]`).prop('checked', true)
                 });
                 $("#modal-add-role").modal("show");
             }
@@ -135,6 +147,7 @@ $(document).ready(function () {
     $("#update-role-btn").click(function (e) {
         e.preventDefault();
         let roles = getDataForm();
+        console.log(roles);
         $.ajax({
             type: "post",
             url: "./roles/edit",
@@ -153,6 +166,7 @@ $(document).ready(function () {
             }
         });
     });
+
     loadDataTable()
 });
 

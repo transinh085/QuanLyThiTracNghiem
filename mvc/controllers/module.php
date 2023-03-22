@@ -1,10 +1,8 @@
 <?php
     class Module extends Controller {
-        public $lopModel;
         public $nhomModel;
 
         function __construct() {
-            $this->lopModel = $this->model("LopModel");
             $this->nhomModel = $this->model("NhomModel");
         }
 
@@ -15,7 +13,9 @@
                 "Title" => "Quản lý nhóm học phần",
                 "Script" => "module",
                 "Plugin" => [
-                    "sweetalert2" => 1
+                    "sweetalert2" => 1,
+                    "select" => 1,
+                    "notify" => 1
                 ]
             ]);
         }
@@ -24,7 +24,7 @@
         {
             $this->view("main_layout", [
                 "Page" => "class_detail",
-                "Title" => "Quản lý lớp học",
+                "Title" => "Quản lý nhóm",
                 "Plugin" => [
                     "datepicker" => 1,
                     "flatpickr" => 1
@@ -33,86 +33,68 @@
             ]);
         }
 
-        public function addGroup()
+        public function loadData()
         {
-            if(isset($_POST['name'])) {
-                $gr = $this->model("NhomModel");
-                $gr->insert($_POST['name']);
-            }
-        }
-
-        public function addClass()
-        {
-            if($_SERVER["REQUEST_METHOD"] == "POST") {
-                $name = $_POST['name'];
-                $note = $_POST['note'];
-                $group = $_POST['group'];
-                $result = $this->lopModel->create($name,$note,$group);
-                echo $result;
-            }
-        }
-
-        public function loadDataGroup()
-        {
-            $arr = $this->nhomModel->getAll();
-            $result = array();
-            while($row = mysqli_fetch_assoc($arr)) {
-                array_push($result,$row);
-            }
-            echo json_encode($result);
-        }
-
-        public function loadDataClass()
-        {
-            $arr = $this->nhomModel->getAll();
-            $result = array();
-            while($row = mysqli_fetch_assoc($arr)) {
-                $row['class'] = array();
-                $cl = $this->nhomModel->getClass($row['manhomhocphan']);
-                while($row_cl = mysqli_fetch_assoc($cl)) {
-                    array_push($row['class'],$row_cl);
-                }
-                array_push($result,$row);
-            }
-            echo json_encode($result);
-        }
-
-        public function deleteGroup()
-        {
-            if(isset($_POST['id'])) {
-                $result = $this->nhomModel->delete($_POST['id']);
-                echo $result;
-            }
-        }
-
-        public function deleteClass()
-        {
-            if(isset($_POST['id'])) {
-                $result = $this->lopModel->delete($_POST['id']);
-                echo $result;
-            }
-        }
-
-        public function updateGroup()
-        {
-            if(isset($_POST['id']) && isset($_POST['name'])) {
-                $result = $this->nhomModel->update($_POST['id'], $_POST['name']);
-                echo $result;
-            }
-        }
-
-        public function getClass()
-        {
-            if(isset($_POST['id'])) {
-                $result = $this->lopModel->getInfo($_POST['id']);
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                $hienthi = $_POST['hienthi'];
+                $result = $this->nhomModel->getBySubject($hienthi);
                 echo json_encode($result);
             }
         }
 
-        public function updateClass()
+        public function add()
         {
-            if (isset($_POST['id'], $_POST['name'], $_POST['note'])) {
-                $this->lopModel->update($_POST['id'], $_POST['name'], $_POST['note']);
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $tennhom = $_POST['tennhom'];
+                $ghichu = $_POST['ghichu'];
+                $monhoc = $_POST['monhoc'];
+                $namhoc = $_POST['namhoc'];
+                $hocky = $_POST['hocky'];
+                $giangvien = $_SESSION['user_id'];
+                $result = $this->nhomModel->create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$monhoc);
+                echo $result;
+            }
+        }
+
+        public function delete()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->delete($manhom);
+                echo $result;
+            }
+        }
+
+        public function update()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $tennhom = $_POST['tennhom'];
+                $ghichu = $_POST['ghichu'];
+                $monhoc = $_POST['monhoc'];
+                $namhoc = $_POST['namhoc'];
+                $hocky = $_POST['hocky'];
+                $result = $this->nhomModel->update($manhom,$tennhom,$ghichu,$namhoc,$hocky,$monhoc);
+                echo $result;
+            }
+        }
+
+        public function hide()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $giatri =$_POST['giatri'];
+                $result = $this->nhomModel->hide($manhom,$giatri);
+                echo $result;
+            }
+        }
+
+        public function getDetail()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->getById($manhom);
+                echo json_encode($result);
             }
         }
     }

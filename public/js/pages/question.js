@@ -121,12 +121,6 @@ $(document).ready(function () {
         e.fire("Deleted!", "Xóa câu trả lời thành công!", "success");
         options.splice(index, 1);
         showOptions(options);
-      } else {
-        e.fire(
-          "Cancelled",
-          "Bạn đã không xóa câu trả lời của môn học :)",
-          "error"
-        );
       }
     });
   });
@@ -420,7 +414,7 @@ $(document).ready(function () {
     $("#content-file").html('')
   });
 
-  $("#form-upload").submit(function () {
+  $("#nhap-file").click(function () {
     $.ajax({
       type: "post",
       url: "./question/addQuesFile",
@@ -438,7 +432,7 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Thêm câu hỏi từ file thành công!",
           });
-        }, 3);
+        }, 10);
       },
     });
   });

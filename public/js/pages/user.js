@@ -202,12 +202,13 @@ $(document).ready(function () {
 
     function getNumberPage(page) {
         let html = '';
+        let previous, next;
         $.ajax({
             url: "./user/getNumberPage",
             method: "post",
             success: function(numberPages) {
                 html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
-                            <a class="page-link" href="javascript:void(0)" id="0" tabindex="-1" aria-label="Previous">
+                            <a class="page-link" href="javascript:void(0)" id="${previous = page > 1 ? page-1:null}" tabindex="-1" aria-label="Previous">
                                 Prev
                             </a>
                         </li>
@@ -221,7 +222,7 @@ $(document).ready(function () {
                 }
                 html += `
                 <li class="page-item ${page == numberPages ? "disabled" : "active"}">
-                    <a class="page-link" id="${parseInt(numberPages)+1}" href="javascript:void(0)" aria-label="Next">
+                    <a class="page-link" id="${next = page < numberPages ? page++:null}" href="javascript:void(0)" aria-label="Next">
                         Next
                     </a>
                 </li>
@@ -234,20 +235,19 @@ $(document).ready(function () {
 
     $(document).on("click", ".page-link", function() {
         var page = $(this).attr("id");
-        // console.log(typeof page);
-        console.log(page);
+        // console.log(page);
         // // if (page === 0) {
         // //     fetch_data(page - 1);
         // // }
         
         // switch (page) {
-        //     case 0 : getNumberPage(parseInt(page) - 1);
+        //     case '0' : getNumberPage(parseInt(page) - 1);
         //             fetch_data(parseInt(page) - 1);
         //     break;
         //     default: getNumberPage(page);
         //              fetch_data(page);
         // }
-        getNumberPage(page);
+        getNumberPage(page); 
         fetch_data(page);
     })
 });

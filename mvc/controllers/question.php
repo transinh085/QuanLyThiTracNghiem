@@ -97,9 +97,17 @@ class Question extends Controller
                 echo json_encode($arrques);
             }
 
-            if($_SERVER["REQUEST_METHOD"] == "GET"){
-                
-            }
+
+        }
+    }
+
+    public function addExcel(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            require_once 'vendor/autoload.php';
+            $filename = $_FILES["fileToUpload"]["tmp_name"];
+            $objFile = PHPExcel_IOFactory::identify($filename);
+            $objData = PHPExcel_IOFactory::createReader($objFile);
+            echo json_encode($objData);
         }
     }
 

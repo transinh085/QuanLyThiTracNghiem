@@ -12,14 +12,11 @@ class Test extends Controller{
     {
         $this->view("main_layout", [
             "Page" => "test",
-            "Title" => "Tạo đề kiểm tra",
+            "Title" => "Đề kiểm tra",
             "Plugin" => [
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "select" => 1,
                 "notify" => 1
             ],
-            "Script" => "add_test"
+            "Script" => "test"
         ]);
     }
 
@@ -46,7 +43,7 @@ class Test extends Controller{
         ]);
     }
 
-    public function detail()
+    public function detail($made)
     {
         $this->view("main_layout",[
             "Page" => "exam_detail",
@@ -77,6 +74,14 @@ class Test extends Controller{
             $manhom = $_POST['manhom'];
             $result = $this->dethimodel->create($mamonhoc,$nguoitao,$tende,$thoigianthi,$thoigianbatdau,$thoigianketthuc,$xembailam,$xemdiem,$xemdapan,$daocauhoi,$daodapan, $tudongnop,$loaide,$socaude,$socautb,$socaukho,$chuong,$manhom);
             echo $result;
+        }
+    }
+
+    public function getData()
+    {
+        $result = $this->dethimodel->getAll();
+        echo json_encode($result);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }

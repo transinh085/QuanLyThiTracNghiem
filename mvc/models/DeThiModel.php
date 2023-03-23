@@ -77,6 +77,35 @@ class DeThiModel extends DB{
         if(!$result) $valid = false;
         return $valid;
     }
+
+    public function getAll()
+    {
+        $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
+        FROM dethi, monhoc, giaodethi, nhom
+        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $made = $row['made'];
+            $index = array_search($made, array_column($rows, 'made'));
+            if($index === false) {
+                $item = [
+                    "made" => $made,
+                    "tende" => $row['tende'],
+                    "thoigianbatdau" => date_format(date_create($row['thoigianbatdau']),"H:i d/m/Y"),
+                    "thoigianketthuc" => date_format(date_create($row['thoigianketthuc']),"H:i d/m/Y"),
+                    "tenmonhoc" => $row['tenmonhoc'],
+                    "namhoc" => $row['namhoc'],
+                    "hocky" => $row['hocky'],
+                    "nhom" => [$row['tennhom']]
+                ];
+                array_push($rows, $item);
+            } else {
+                array_push($rows[$index]["nhom"], $row['tennhom']);
+            }
+        }
+        return $rows;
+    }
 }
 
 ?>

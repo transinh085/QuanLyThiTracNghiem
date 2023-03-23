@@ -48,6 +48,9 @@
     <div class="col-md-8 col-lg-7 col-xl-9 order-md-0">
         <div class="content content-full">
             <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">Tạo mới đề thi</h3>
+                </div>
                 <div class="block-content">
                     <div class="mb-4">
                         <label class="form-label" for="name-exam">Tên đề kiểm tra</label>
@@ -86,7 +89,8 @@
                             </div>
                             <div class="block-content pb-3">
                                 <div class="row" id="list-group">
-                                <div class="text-center fs-sm"><img style="width:100px" src="./public/media/svg/empty_data.png" alt=""></div>
+                                    <div class="text-center fs-sm"><img style="width:100px"
+                                            src="./public/media/svg/empty_data.png" alt=""></div>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +118,8 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i class="fa fa-fw fa-plus me-1"></i> Tạo
+                        <button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i
+                                class="fa fa-fw fa-plus me-1"></i> Tạo
                             đề</button>
                     </div>
                 </div>

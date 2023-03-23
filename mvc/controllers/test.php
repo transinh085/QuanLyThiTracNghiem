@@ -11,7 +11,22 @@ class Test extends Controller{
     public function default()
     {
         $this->view("main_layout", [
-            "Page" => "taode",
+            "Page" => "test",
+            "Title" => "Tạo đề kiểm tra",
+            "Plugin" => [
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "select" => 1,
+                "notify" => 1
+            ],
+            "Script" => "add_test"
+        ]);
+    }
+
+    public function add()
+    {
+        $this->view("main_layout", [
+            "Page" => "add_test",
             "Title" => "Tạo đề kiểm tra",
             "Plugin" => [
                 "datepicker" => 1,

@@ -192,6 +192,10 @@ $(document).ready(function () {
     });
   });
 
+  $("#btnAddExcel").click(function(e){
+    e.preventDefault();
+  })
+
   function loadDataQuestion(questions) {
     let data = ``;
     questions.forEach((item, index) => {

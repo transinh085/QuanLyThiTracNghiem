@@ -126,7 +126,7 @@
                 </li>
                 </ul>
                 <div class="block-content tab-content">
-                    <div class="tab-pane active" id="them-thu-cong" role="tabpanel"
+                    <div class="tab-pane fade fade-up show active" id="them-thu-cong" role="tabpanel"
                         aria-labelledby="them-thu-cong-tab" tabindex="0">
                         <form action="" method="post">
                             <div class="mb-3">
@@ -158,7 +158,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane" id="ma-moi" role="tabpanel"
+                    <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel"
                         aria-labelledby="ma-moi-tab" tabindex="0">
                         <h2 class="display-1 text-center py-6">yzhr5sy</h2>
                         <div class="d-flex align-items-center justify-content-between mb-2">
@@ -166,7 +166,7 @@
                             <button type="button" class="btn btn-alt-primary btn-sm"><i class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
                     </div>
-                    <div class="tab-pane" id="them-file-excel" role="tabpanel"
+                    <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"
                         aria-labelledby="them-file-excel-tab" tabindex="0">
                         <h4 class="fw-normal">Profile Content</h4>
                         <p>...</p>

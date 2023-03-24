@@ -12,6 +12,16 @@ class AuthCore{
         }
     }
 
+    public static function onLoginS(){
+        if(isset($_COOKIE['token'])){
+            $nguoidung = new NguoiDungModel();
+            $token = $_COOKIE['token'];
+            if($nguoidung->validateToken($token) == true){
+                header("Location: ../dashboard");
+            }
+        }
+    }
+
     public static function checkAuthentication()
     {
         $token = $_COOKIE['token'];

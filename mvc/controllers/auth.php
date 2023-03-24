@@ -22,7 +22,7 @@ class Auth extends Controller{
 
     function signin()
     {
-        AuthCore::onLogin();
+        AuthCore::onLoginS();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];

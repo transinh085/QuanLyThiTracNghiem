@@ -364,7 +364,6 @@ $(document).ready(function () {
         input: $("#search-input").val(),
       },
       success: function (response) {
-        console.log(JSON.parse(response));
         showData(JSON.parse(response));
       },
       error: function (err) {

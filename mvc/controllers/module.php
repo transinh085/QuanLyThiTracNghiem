@@ -97,5 +97,14 @@
                 echo json_encode($result);
             }
         }
+
+        public function updateInvitedCode()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->updateMaMoi($manhom);
+                echo json_encode($result);
+            }
+        }
     }
 ?>

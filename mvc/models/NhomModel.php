@@ -107,11 +107,30 @@ class NhomModel extends DB
     public function updateMaMoi($manhom) 
     {
         $valid = true;
-        $mamoi = substr(md5(mt_rand()), 0, 7);
+        do {
+            $mamoi = substr(md5(mt_rand()), 0, 7);
+            $check = $this->getIdFromInvitedCode($mamoi);
+        } while($check != null);
         $sql = "UPDATE `nhom` SET `mamoi`='$mamoi' WHERE `manhom` = '$manhom'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
+    }
+
+    public function addUserGroup($manhom, $manguoidung)
+    {
+        $valid = true;
+        $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
+    public function getIdFromInvitedCode($mamoi)
+    {
+        $sql = "SELECT `manhom` FROM `nhom` WHERE `mamoi` = '$mamoi'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
     }
 }
 ?>

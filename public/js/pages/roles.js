@@ -84,6 +84,17 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".delete_roles", function () {
+        let id = $(this).data('id');
+        $.ajax({
+            type: "post",
+            url: "./roles/delete",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                alert(response)
+            }
+        });
         e.fire({
             title: "Are you sure?",
             text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
@@ -136,6 +147,7 @@ $(document).ready(function () {
     $("#update-role-btn").click(function (e) {
         e.preventDefault();
         let roles = getDataForm();
+        console.log(roles);
         $.ajax({
             type: "post",
             url: "./roles/edit",
@@ -154,6 +166,7 @@ $(document).ready(function () {
             }
         });
     });
+
     loadDataTable()
 });
 

@@ -93,6 +93,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <tr>
                             <tr>
                                 <td>Người dùng</td>
                                 <td class="text-center">
@@ -186,16 +187,16 @@
                             <tr>
                                 <td>Phân công</td>
                                 <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="monhoc" value="view">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="view">
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="monhoc" value="create">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="create">
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="monhoc" value="update">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="update">
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="monhoc" value="delete">
+                                    <input class="form-check-input" type="checkbox" name="phancong" value="delete">
                                 </td>
                             </tr>
                             <tr>

@@ -1,16 +1,10 @@
 <?php
 class NhomModel extends DB
 {
-    public function create(
-        $tennhom,
-        $ghichu,
-        $namhoc,
-        $hocky,
-        $giangvien,
-        $mamonhoc
-    ) {
+    public function create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$mamonhoc) {
         $valid = true;
-        $sql = "INSERT INTO `nhom`(`tennhom`, `ghichu`, `namhoc`, `hocky`, `giangvien`, `mamonhoc`) VALUES ('$tennhom','$ghichu','$namhoc','$hocky','$giangvien','$mamonhoc')";
+        $mamoi = substr(md5(mt_rand()), 0, 7);
+        $sql = "INSERT INTO `nhom`(`tennhom`, `ghichu`, `mamoi`,`namhoc`, `hocky`, `giangvien`, `mamonhoc`) VALUES ('$tennhom','$ghichu','$mamoi','$namhoc','$hocky','$giangvien','$mamonhoc')";
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
             $valid = false;
@@ -18,14 +12,7 @@ class NhomModel extends DB
         return $valid;
     }
 
-    public function update(
-        $manhom,
-        $tennhom,
-        $ghichu,
-        $namhoc,
-        $hocky,
-        $mamonhoc
-    ) {
+    public function update($manhom,$tennhom,$ghichu,$namhoc,$hocky,$mamonhoc) {
         $valid = true;
         $sql = "UPDATE `nhom` SET `tennhom`='$tennhom',`ghichu`='$ghichu',`namhoc`='$namhoc',`hocky`='$hocky',`mamonhoc`='$mamonhoc' WHERE `manhom`='$manhom'";
         $result = mysqli_query($this->con, $sql);
@@ -86,50 +73,45 @@ class NhomModel extends DB
         while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
-
         $newArray = [];
         foreach ($rows as $item) {
             $foundIndex = -1;
-
             foreach ($newArray as $key => $newItem) {
-                if (
-                    $newItem["mamonhoc"] == $item["mamonhoc"] &&
-                    $newItem["namhoc"] == $item["namhoc"] &&
-                    $newItem["hocky"] == $item["hocky"]
-                ) {
+                if ($newItem["mamonhoc"] == $item["mamonhoc"] && $newItem["namhoc"] == $item["namhoc"] && $newItem["hocky"] == $item["hocky"]) {
                     $foundIndex = $key;
                     break;
                 }
             }
-
+            $detail_group = [
+                "manhom" => $item["manhom"],
+                "tennhom" => $item["tennhom"],
+                "ghichu" => $item["ghichu"],
+                "siso" => $item["siso"],
+                "hienthi" => $item["hienthi"]
+            ];
             if ($foundIndex == -1) {
                 $newArray[] = [
                     "mamonhoc" => $item["mamonhoc"],
                     "tenmonhoc" => $item["tenmonhoc"],
                     "namhoc" => $item["namhoc"],
                     "hocky" => $item["hocky"],
-                    "nhom" => [
-                        [
-                            "manhom" => $item["manhom"],
-                            "tennhom" => $item["tennhom"],
-                            "ghichu" => $item["ghichu"],
-                            "siso" => $item["siso"],
-                            "hienthi" => $item["hienthi"]
-                        ],
-                    ],
+                    "nhom" => [$detail_group],
                 ];
             } else {
-                $newArray[$foundIndex]['nhom'][] = [
-                    "manhom" => $item["manhom"],
-                    "tennhom" => $item["tennhom"],
-                    "ghichu" => $item["ghichu"],
-                    "siso" => $item["siso"],
-                    "hienthi" => $item["hienthi"]
-                ];
+                $newArray[$foundIndex]['nhom'][] = $detail_group;
             }
         }
-
         return $newArray;
+    }
+
+    public function updateMaMoi($manhom) 
+    {
+        $valid = true;
+        $mamoi = substr(md5(mt_rand()), 0, 7);
+        $sql = "UPDATE `nhom` SET `mamoi`='$mamoi' WHERE `manhom` = '$manhom'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
     }
 }
 ?>

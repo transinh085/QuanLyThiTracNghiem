@@ -40,7 +40,7 @@ class NhomQuyenModel extends DB {
                 }
             }
         }
-        return $valid;
+        return $result;
     }
 
     public function getAll()
@@ -80,5 +80,10 @@ class NhomQuyenModel extends DB {
         }
         return $result;
     }
+
+    public function getRole(){
+        
+    }
+
 }
 ?>

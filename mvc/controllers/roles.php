@@ -60,5 +60,12 @@ class Roles extends Controller{
             echo $result;
         }
     }
+
+    public function delete(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id = $_POST['id'];
+            echo $id;
+        }
+    }
 }
 ?>

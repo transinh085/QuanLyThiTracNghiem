@@ -11,36 +11,18 @@ class Auth extends Controller{
         $this->userModel = $this->model("NguoiDungModel");
         $this->googleAuth = $this->model("GoogleAuth");
         $this->mailAuth = $this->model("MailAuth");
+        parent::__construct();
     }
 
     public function default()
     {
-        $p = parse_url($_SERVER['REQUEST_URI']);
-        if(isset($p['query'])) {
-            $query = $p['query'];
-            $queryitem = explode('&', $query);
-            $get = array();
-            foreach($queryitem as $key => $qi) {
-                $r = explode('=', $qi);
-                $get[$r[0]] = $r[1];
-            }
-            $this->googleAuth->handleCallback(urldecode($get['code']));
-        } else {
-            $authUrl = $this->googleAuth->getAuthUrl();
-            $this->view("single_layout", [
-                "Page" => "auth/signin",
-                "Title" => "Đăng nhập",
-                'authUrl' => $authUrl,
-                "Script" => "signin",
-                "Plugin" => [
-                    "jquery-validate" => 1
-                ]
-            ]);
-        }
+        AuthCore::onLogin();
+        header("Location: ./auth/signin");
     }
 
     function signin()
     {
+        AuthCore::onLogin();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];
@@ -94,21 +76,23 @@ class Auth extends Controller{
 
     public function addUser()
     {   
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $fullname = $_POST['fullname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
-            echo $result;
-        } 
+        if(AuthCore::checkPermission("nguoidung","create")){
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $fullname = $_POST['fullname'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
+                echo $result;
+            } 
+        }
     }
 
     public function getUser()
     {
-        if(isset($_POST['email'])) {
-            $user = $this->userModel->getById($_POST['email']);
-            echo json_encode($user);
-        }
+            if(isset($_POST['email'])) {
+                $user = $this->userModel->getById($_POST['email']);
+                echo json_encode($user);
+            }
     }
 
     public function checkLogin(){
@@ -143,14 +127,10 @@ class Auth extends Controller{
         $email = $_SESSION['user_email'];
         $result = $this->userModel->updateToken($email, NULL);
         if($result){
-            setcookie("token","",time()-10,'/');
             session_destroy();
+            setcookie("token","",time()-10,'/');
             header("Location: ../auth/signin");
         }
-    }
-
-    public function role(){
-        var_dump($_SESSION);
     }
 }
 ?>

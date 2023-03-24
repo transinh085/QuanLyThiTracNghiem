@@ -1,14 +1,7 @@
 <?php
 class NhomModel extends DB
 {
-    public function create(
-        $tennhom,
-        $ghichu,
-        $namhoc,
-        $hocky,
-        $giangvien,
-        $mamonhoc
-    ) {
+    public function create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$mamonhoc) {
         $valid = true;
         $sql = "INSERT INTO `nhom`(`tennhom`, `ghichu`, `namhoc`, `hocky`, `giangvien`, `mamonhoc`) VALUES ('$tennhom','$ghichu','$namhoc','$hocky','$giangvien','$mamonhoc')";
         $result = mysqli_query($this->con, $sql);
@@ -18,14 +11,7 @@ class NhomModel extends DB
         return $valid;
     }
 
-    public function update(
-        $manhom,
-        $tennhom,
-        $ghichu,
-        $namhoc,
-        $hocky,
-        $mamonhoc
-    ) {
+    public function update($manhom,$tennhom,$ghichu,$namhoc,$hocky,$mamonhoc) {
         $valid = true;
         $sql = "UPDATE `nhom` SET `tennhom`='$tennhom',`ghichu`='$ghichu',`namhoc`='$namhoc',`hocky`='$hocky',`mamonhoc`='$mamonhoc' WHERE `manhom`='$manhom'";
         $result = mysqli_query($this->con, $sql);

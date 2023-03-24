@@ -2,12 +2,7 @@
     <div
         class="d-md-flex justify-content-md-between align-items-md-center py-3 pt-md-3 pb-md-0 text-center text-md-start">
         <div>
-            <h1 class="h3 mb-1">
-                Dashboard
-            </h1>
-            <p class="fw-medium mb-0 text-muted">
-                Welcome, admin! You have <a class="fw-medium" href="javascript:void(0)">8 new notifications</a>.
-            </p>
+            <h1 class="h3 mb-1">Tổng quan</h1>
         </div>
         <div class="mt-4 mt-md-0">
             <a class="btn btn-sm btn-alt-primary" href="javascript:void(0)">
@@ -32,88 +27,64 @@
 <div class="content">
     <div class="row items-push">
         <div class="col-sm-6 col-xl-3">
-            <div class="block block-rounded text-center d-flex flex-column h-100 mb-0">
-                <div class="block-content block-content-full flex-grow-1">
-                    <div class="item rounded-3 bg-body mx-auto my-3">
-                        <i class="fa fa-users fa-lg text-primary"></i>
-                    </div>
-                    <div class="fs-1 fw-bold">2,388</div>
-                    <div class="text-muted mb-3">Registered Users</div>
-                    <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
-                        <i class="fa fa-caret-up me-1"></i>
-                        19.2%
-                    </div>
-                </div>
-                <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
-                    <a class="fw-medium" href="javascript:void(0)">
-                        View all users
-                        <i class="fa fa-arrow-right ms-1 opacity-25"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="block block-rounded text-center d-flex flex-column h-100 mb-0">
-                <div class="block-content block-content-full flex-grow-1">
-                    <div class="item rounded-3 bg-body mx-auto my-3">
-                        <i class="fa fa-level-up-alt fa-lg text-primary"></i>
-                    </div>
-                    <div class="fs-1 fw-bold">14.6%</div>
-                    <div class="text-muted mb-3">Bounce Rate</div>
-                    <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
-                        <i class="fa fa-caret-down me-1"></i>
-                        2.3%
-                    </div>
-                </div>
-                <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
-                    <a class="fw-medium" href="javascript:void(0)">
-                        Explore analytics
-                        <i class="fa fa-arrow-right ms-1 opacity-25"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="block block-rounded text-center d-flex flex-column h-100 mb-0">
-                <div class="block-content block-content-full flex-grow-1">
-                    <div class="item rounded-3 bg-body mx-auto my-3">
-                        <i class="fa fa-chart-line fa-lg text-primary"></i>
-                    </div>
-                    <div class="fs-1 fw-bold">386</div>
-                    <div class="text-muted mb-3">Confirmed Sales</div>
-                    <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
-                        <i class="fa fa-caret-up me-1"></i>
-                        7.9%
-                    </div>
-                </div>
-                <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
-                    <a class="fw-medium" href="javascript:void(0)">
-                        View all sales
-                        <i class="fa fa-arrow-right ms-1 opacity-25"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="block block-rounded text-center d-flex flex-column h-100 mb-0">
+            <a class="block block-rounded block-fx-pop text-center h-100 mb-0" href="javascript:void(0)">
                 <div class="block-content block-content-full">
-                    <div class="item rounded-3 bg-body mx-auto my-3">
-                        <i class="fa fa-wallet fa-lg text-primary"></i>
+                    <div class="item item-circle bg-primary-lighter mx-auto my-3">
+                        <i class="fa fa-users text-primary"></i>
                     </div>
-                    <div class="fs-1 fw-bold">$4,920</div>
-                    <div class="text-muted mb-3">Total Earnings</div>
-                    <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
+                    <div class="display-4 fw-bold">35.8k</div>
+                    <div class="text-muted mt-1">Visitors</div>
+                    <div class="py-3 fs-4 fw-bold text-success">
+                        <i class="fa fa-caret-up me-1"></i>
+                        15.7%
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a class="block block-rounded block-fx-pop text-center h-100 mb-0" href="javascript:void(0)">
+                <div class="block-content block-content-full">
+                    <div class="item item-circle bg-xinspire-lighter mx-auto my-3">
+                        <i class="fa fa-eye text-xinspire-dark"></i>
+                    </div>
+                    <div class="display-4 fw-bold">98.5k</div>
+                    <div class="text-muted mt-1">Page views</div>
+                    <div class="py-3 fs-4 fw-bold text-danger">
                         <i class="fa fa-caret-down me-1"></i>
-                        0.3%
+                        2.4%
                     </div>
                 </div>
-                <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
-                    <a class="fw-medium" href="javascript:void(0)">
-                        Withdrawal options
-                        <i class="fa fa-arrow-right ms-1 opacity-25"></i>
-                    </a>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a class="block block-rounded block-fx-pop text-center h-100 mb-0" href="javascript:void(0)">
+                <div class="block-content block-content-full">
+                    <div class="item item-circle bg-xsmooth-lighter mx-auto my-3">
+                        <i class="fa fa-columns text-xsmooth"></i>
+                    </div>
+                    <div class="display-4 fw-bold">25</div>
+                    <div class="text-muted mt-1">Pages per visit</div>
+                    <div class="py-3 fs-4 fw-bold text-success">
+                        <i class="fa fa-caret-up me-1"></i>
+                        52.5%
+                    </div>
                 </div>
-            </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a class="block block-rounded block-fx-pop text-center h-100 mb-0" href="javascript:void(0)">
+                <div class="block-content block-content-full">
+                    <div class="item item-circle bg-xplay-lighter mx-auto my-3">
+                        <i class="fa fa-level-up-alt text-xplay"></i>
+                    </div>
+                    <div class="display-4 fw-bold">12.5%</div>
+                    <div class="text-muted mt-1">Bounce Rate</div>
+                    <div class="py-3 fs-4 fw-bold text-danger">
+                        <i class="fa fa-caret-down me-1"></i>
+                        5.7%
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
     <div class="block block-rounded">

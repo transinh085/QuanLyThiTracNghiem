@@ -23,11 +23,11 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-borderless table-vcenter">
+                <table class="table table-vcenter">
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>
-                            <th>Nội dung câu hỏi</th>
+                            <th style="width: 700px;">Nội dung câu hỏi</th>
                             <th class="d-none d-sm-table-cell">Môn học</th>
                             <th class="d-none d-xl-table-cell">Độ khó</th>
                             <th class="text-center">Action</th>
@@ -176,7 +176,6 @@
                         <div id="content-file"></div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -113,22 +113,41 @@ class Question extends Controller
                 die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
             }
 
-            $sheet = $objPHPExcel->getSheet(0);
+            $sheet = $objPHPExcel->setActiveSheetIndex(0);
 
-            // Lấy tổng số dòng của file, trong trường hợp này là 6 dòng
-            $highestRow = $sheet->getHighestRow();
+            //Lấy ra số dòng cuối cùng
+            $Totalrow = $sheet->getHighestRow();
+            //Lấy ra tên cột cuối cùng
+            $LastColumn = $sheet->getHighestColumn();
 
-            // Lấy tổng số cột của file, trong trường hợp này là 4 dòng
-            $highestColumn = $sheet->getHighestColumn();
+            //Chuyển đổi tên cột đó về vị trí thứ, VD: C là 3,D là 4
+            $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
 
-            for ($row = 1; $row <= $highestRow; $row++) {
-                // Lấy dữ liệu từng dòng và đưa vào mảng $rowData
-                $rowData[] = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+            $data = [];
+
+            //Tiến hành lặp qua từng ô dữ liệu
+            //----Lặp dòng, Vì dòng đầu là tiêu đề cột nên chúng ta sẽ lặp giá trị từ dòng 2
+            for ($i = 2; $i <= $Totalrow; $i++) {
+                //----Lặp cột
+                for ($j = 0; $j < $TotalCol; $j++) {
+                    // Tiến hành lấy giá trị của từng ô đổ vào mảng
+                    $check = '';
+                    if($j == 0){
+                        $check = "level";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == 1){
+                        $check = "question";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == $TotalCol-1){
+                        $check = "answer";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else {
+                        $check = "option";
+                        $data[$i - 2][$check][] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    }
+                }
             }
-
-            echo "<pre>";
-            print_r($rowData);
-            echo "</pre>";
+            echo json_encode($data);
         }
     }
 

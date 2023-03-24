@@ -37,7 +37,8 @@
         {
             if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $hienthi = $_POST['hienthi'];
-                $result = $this->nhomModel->getBySubject($hienthi);
+                $user_id = $_SESSION['user_id'];
+                $result = $this->nhomModel->getBySubject($user_id,$hienthi);
                 echo json_encode($result);
             }
         }
@@ -97,6 +98,7 @@
                 echo json_encode($result);
             }
         }
+
 
         public function updateInvitedCode()
         {

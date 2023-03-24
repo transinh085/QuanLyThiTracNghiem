@@ -61,9 +61,9 @@ $(".js-validation-signup").submit(function (e) {
             dataType: "json",
             success: function (response) {
                 if(response) {
-                    window.location = "./"
+                    window.location = "./auth/signin"
                 } else {
-                    alert("Tạo không thành công")
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "Tạo tài khoản không thành công"});
                 }
             }
         });

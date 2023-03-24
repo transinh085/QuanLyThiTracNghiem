@@ -38,6 +38,13 @@ class Assignment extends Controller
         }
     }
 
+    function getAssignment(){
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            $result = $this->PhanCongModel->getAssignment();
+            echo json_encode($result);
+        }
+    }
+
     function addAssignment(){
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $magiangvien = $_POST['magiangvien'];

@@ -1,10 +1,6 @@
 <?php
 class PhanCongModel extends DB{
 
-    public function create(){
-        
-    }
-
     public function getGiangVien(){
         $sql = "SELECT ng.id,nq.manhomquyen,ng.hoten FROM nhomquyen AS nq,nguoidung AS ng WHERE nq.manhomquyen = ng.manhomquyen  AND nq.tennhomquyen='Giảng Viên'";
         $result = mysqli_query($this->con,$sql);
@@ -37,6 +33,16 @@ class PhanCongModel extends DB{
             }
         }
         return $check;
+    }
+
+    public function getAssignment(){
+        $sql = "SELECT pc.mamonhoc, pc.manguoidung, ng.hoten, mh.tenmonhoc FROM phancong as pc JOIN monhoc as mh on pc.mamonhoc=mh.mamonhoc JOIN nguoidung as ng on pc.manguoidung=ng.id";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }
 ?>

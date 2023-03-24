@@ -32,7 +32,7 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="listQuestion">
+                    <tbody id="listAssignment">
                         <tr>
                             <td class="text-center fs-sm">
                                 <a class="fw-semibold" href="#">

@@ -51,14 +51,14 @@ class Auth extends Controller{
 
 
     function signup(){
-            $this->view("single_layout", [
-                "Page" => "auth/signup",
-                "Title" => "Đăng ký tài khoản",
-                "Script" => "signup",
-                "Plugin" => [
-                    "jquery-validate" => 1
-                ]
-            ]);
+        $this->view("single_layout", [
+            "Page" => "auth/signup",
+            "Title" => "Đăng ký tài khoản",
+            "Script" => "signup",
+            "Plugin" => [
+                "jquery-validate" => 1
+            ]
+        ]);
     }
 
     function recover(){

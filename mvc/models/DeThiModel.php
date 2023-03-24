@@ -78,11 +78,11 @@ class DeThiModel extends DB{
         return $valid;
     }
 
-    public function getAll()
+    public function getAll($nguoitao)
     {
         $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
         FROM dethi, monhoc, giaodethi, nhom
-        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom";
+        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -105,6 +105,27 @@ class DeThiModel extends DB{
             }
         }
         return $rows;
+    }
+
+    public function getById($made)
+    {
+        $sql_dethi = "SELECT * FROM dethi WHERE made = $made";
+        $sql_giaodethi = "SELECT manhom FROM giaodethi WHERE made = $made";
+        $sql_dethitudong = "SELECT machuong FROM dethitudong WHERE made = $made";
+        $result_dethi = mysqli_query($this->con, $sql_dethi);
+        $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
+        $result_dethitudong = mysqli_query($this->con, $sql_dethitudong);
+        $dethi = mysqli_fetch_assoc($result_dethi);
+
+        $dethi['chuong'] = array();
+        while($row = mysqli_fetch_assoc($result_dethitudong)) {
+            $dethi['chuong'][] = $row['machuong'];
+        }
+        $dethi['nhom'] = array();
+        while($row = mysqli_fetch_assoc($result_giaodethi)) {
+            $dethi['nhom'][] = $row['manhom'];
+        }
+        return $dethi;
     }
 }
 

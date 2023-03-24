@@ -23,7 +23,7 @@ class Test extends Controller{
     public function add()
     {
         $this->view("main_layout", [
-            "Page" => "add_test",
+            "Page" => "add_update_test",
             "Title" => "Tạo đề kiểm tra",
             "Plugin" => [
                 "datepicker" => 1,
@@ -31,7 +31,24 @@ class Test extends Controller{
                 "select" => 1,
                 "notify" => 1
             ],
-            "Script" => "add_test"
+            "Script" => "action_test",
+            "Action" => "create"
+        ]);
+    }
+
+    public function update($made)
+    {
+        $this->view("main_layout", [
+            "Page" => "add_update_test",
+            "Title" => "Cập nhật đề kiểm tra",
+            "Plugin" => [
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "select" => 1,
+                "notify" => 1
+            ],
+            "Script" => "action_test",
+            "Action" => "update"
         ]);
     }
 
@@ -46,7 +63,7 @@ class Test extends Controller{
     public function detail($made)
     {
         $this->view("main_layout",[
-            "Page" => "exam_detail",
+            "Page" => "test_detail",
             "Title" => "Danh sách đã thi"
         ]);
     }
@@ -79,9 +96,19 @@ class Test extends Controller{
 
     public function getData()
     {
-        $result = $this->dethimodel->getAll();
-        echo json_encode($result);
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user_id = $_SESSION['user_id'];
+            $result = $this->dethimodel->getAll($user_id);
+            echo json_encode($result);
+        }
+    }
+
+    public function getDetail()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $result = $this->dethimodel->getById($made);
+            echo json_encode($result);
         }
     }
 }

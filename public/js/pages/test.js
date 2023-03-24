@@ -35,7 +35,7 @@ $(document).ready(function () {
                             <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="./test/detail/${test.made}">
                                 <i class="fa fa-eye opacity-50 me-1"></i> Xem chi tiết
                             </a>
-                            <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/edit/${test.made}">
+                            <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/${test.made}">
                                 <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
                             </a>
                             <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1" href="javascript:void(0)">

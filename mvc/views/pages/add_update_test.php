@@ -49,7 +49,12 @@
         <div class="content content-full">
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">Tạo mới đề thi</h3>
+                    <?php 
+                    $title = "";
+                    if($data["Action"] == "create") $title = "Tạo mới đề thi" ;
+                    else if($data["Action"] == "update") $title = "Cập nhật đề thi";
+                    ?>
+                    <h3 class="block-title"><?php echo $title ?></h3>
                 </div>
                 <div class="block-content">
                     <div class="mb-4">
@@ -83,7 +88,7 @@
                                 <h3 class="block-title">Giao cho</h3>
                                 <div class="block-option">
                                     <select class="js-select2 form-select" id="nhom-hp" name="nhom-hp"
-                                        style="width: 100%;" data-placeholder="Chọn nhóm học phần giảng dạy...">
+                                        style="width: 100%;" data-placeholder="Chọn nhóm học phần giảng dạy..." <?php if($data["Action"] == "update") echo "disabled"?>>
                                     </select>
                                 </div>
                             </div>
@@ -118,9 +123,10 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i
-                                class="fa fa-fw fa-plus me-1"></i> Tạo
-                            đề</button>
+                        <?php 
+                        if($data["Action"] == "create") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề</button>';
+                        else if($data["Action"] == "update") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-update-test"><i class="fa fa-fw fa-plus me-1"></i> Cập nhật đề</button>';
+                        ?>                      
                     </div>
                 </div>
             </div>

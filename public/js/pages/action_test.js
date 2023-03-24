@@ -1,17 +1,24 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 $(document).ready(function () {
+    let url = location.href.split("/");
+    let param = 0
+    if(url[url.length - 2] == "update") {
+        param = url[url.length - 1]
+        getDetail(param);
+    }
+
     let groups = [];
     function showGroup() {
         let html = "<option></option>";
         $.ajax({
             type: "post",
+            async: false,
             url: "./module/loadData",
             data: {
                 hienthi: 1
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 groups = response;
                 response.forEach((item,index) => {
                     html += `<option value="${index}">${item.mamonhoc + " - " + item.tenmonhoc + " - NH"+ item.namhoc + " - HK"+ item.hocky}</option>`;
@@ -77,6 +84,16 @@ $(document).ready(function () {
         $(".select-group-item").prop("checked", check);
     });
 
+    function getGroupSelected() {
+        let result = [];
+        $(".select-group-item").each(function() {
+            if($(this).prop("checked") == true) {
+                result.push($(this).val());
+            }
+        });
+        return result;
+    }
+
     $("#tudongsoande").on("click", function () {
         $(".show-chap").toggle();
     });
@@ -106,7 +123,6 @@ $(document).ready(function () {
                 manhom: getGroupSelected()
             },
             success: function (response) {
-                console.log(response);
                 if(response) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo đề thi thành công!' });
                 } else {
@@ -116,13 +132,69 @@ $(document).ready(function () {
         });
     });
 
-    function getGroupSelected() {
-        let result = [];
-        $(".select-group-item").each(function() {
-            if($(this).prop("checked") == true) {
-                result.push($(this).val());
+    function getDetail(made) {
+        return $.ajax({
+            type: "post",
+            url: "./test/getDetail",
+            data: {
+                made: made
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                showInfo(response)
             }
         });
-        return result;
+    }
+
+    function showInfo(dethi) {
+        $("#name-exam").val(dethi.tende),
+        $("#exam-time").val(dethi.thoigianthi),
+        $("#time-start").flatpickr({
+            enableTime: true,
+            altInput: true,
+            allowInput: true,
+            defaultDate: dethi.thoigianbatdau
+        });
+        $("#time-end").flatpickr({
+            enableTime: true,
+            altInput: true,
+            allowInput: true,
+            defaultDate: dethi.thoigianketthuc
+        });
+        $("#coban").val(dethi.socaude),
+        $("#trungbinh").val(dethi.socautb),
+        $("#kho").val(dethi.socaukho),
+        $("#tudongsoande").prop("checked",dethi.loaide == "1" ? true : false)
+        $("#xemdiem").prop("checked",dethi.xemdiemthi == "1" ? true : false)
+        $("#xemda").prop("checked",dethi.xemdapan == "1" ? true : false)
+        $("#xembailam").prop("checked",dethi.xemdapan == "1" ? true : false)
+        $("#daocauhoi").prop("checked",dethi.troncauhoi == "1" ? true : false)
+        $("#daodapan").prop("checked",dethi.trondapan == "1" ? true : false)
+        $("#tudongnop").prop("checked",dethi.nopbaichuyentab == "1" ? true : false)
+
+        $.when(showGroup()).done(function(){
+            $("#nhom-hp").val(findIndexGroup(dethi.nhom[0])).trigger("change");
+            setGroup(dethi.nhom)
+            $(document).ajaxStop(function () {
+                $('#chuong').val(dethi.chuong).trigger("change");
+            });
+        });
+    }
+
+    function findIndexGroup(manhom) {
+        let i = 0;
+        let index = -1;
+        while(i <= groups.length && index == -1) {
+            index = groups[i].nhom.findIndex(item => item.manhom == manhom);
+            if(index == -1) i++; 
+        }
+        return i;
+    }
+
+    function setGroup(list) {
+        list.forEach(item => {
+            $(`.select-group-item[value='${item}']`).prop("checked", true);
+        });
     }
 });

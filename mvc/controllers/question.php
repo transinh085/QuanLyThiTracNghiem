@@ -112,21 +112,11 @@ class Question extends Controller
             } catch (Exception $e) {
                 die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
             }
-
             $sheet = $objPHPExcel->setActiveSheetIndex(0);
-
-            //Lấy ra số dòng cuối cùng
             $Totalrow = $sheet->getHighestRow();
-            //Lấy ra tên cột cuối cùng
             $LastColumn = $sheet->getHighestColumn();
-
-            //Chuyển đổi tên cột đó về vị trí thứ, VD: C là 3,D là 4
             $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
-
             $data = [];
-
-            //Tiến hành lặp qua từng ô dữ liệu
-            //----Lặp dòng, Vì dòng đầu là tiêu đề cột nên chúng ta sẽ lặp giá trị từ dòng 2
             for ($i = 2; $i <= $Totalrow; $i++) {
                 //----Lặp cột
                 for ($j = 0; $j < $TotalCol; $j++) {

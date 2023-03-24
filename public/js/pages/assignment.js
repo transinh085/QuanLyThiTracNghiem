@@ -24,13 +24,16 @@ $(document).ready(function(){
                         ${element['hoten']}
                     </td>
                     <td class="text-center">
+                        ${element['mamonhoc']}
+                    </td>
+                    <td class="text-center">
                         <a class="fw-semibold">${element['tenmonhoc']}</a>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-assignment" aria-label="Edit" data-bs-original-title="Edit" data-id="3">
+                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-default-vcenter" aria-label="Edit" data-bs-original-title="Edit" data-id="${element['manguoidung']}">
                             <i class="fa fa-fw fa-pencil"></i>
                         </a>
-                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="3">
+                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
                             <i class="fa fa-fw fa-times"></i>
                         </a>
                     </td>

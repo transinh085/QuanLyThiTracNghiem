@@ -35,7 +35,8 @@ class Auth extends Controller{
                 'authUrl' => $authUrl,
                 "Script" => "signin",
                 "Plugin" => [
-                    "jquery-validate" => 1
+                    "jquery-validate" => 1,
+                    "notify" => 1
                 ]
             ]);
         }

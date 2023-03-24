@@ -89,13 +89,11 @@
                                         </div>
                                         <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien" name="giang-vien" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option value=""></option>
-                                            <option value="id">Trần Nhật Sinh</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4 row">
-                                <h5 class="text-primary">Danh sách môn học</h5>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter">
                                         <thead>

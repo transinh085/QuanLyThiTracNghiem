@@ -3,6 +3,7 @@
 use PhpOffice\PhpWord\Element\AbstractContainer;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\IOFactory as WordIOFactory;
+
 class Question extends Controller
 {
     public $cauHoiModel;
@@ -17,7 +18,7 @@ class Question extends Controller
 
     function default()
     {
-        if(AuthCore::checkPermission("cauhoi","view")){
+        if (AuthCore::checkPermission("cauhoi", "view")) {
             $this->view("main_layout", [
                 "Page" => "question",
                 "Title" => "Câu hỏi",
@@ -37,7 +38,7 @@ class Question extends Controller
 
     function edit($id)
     {
-        if(AuthCore::checkPermission("cauhoi","update")){
+        if (AuthCore::checkPermission("cauhoi", "update")) {
             $this->view("main_layout", [
                 "Page" => "add_question",
                 "Title" => "Sửa câu hỏi",
@@ -52,7 +53,7 @@ class Question extends Controller
 
     public function xulyDocx()
     {
-        if(AuthCore::checkPermission("cauhoi","create")){
+        if (AuthCore::checkPermission("cauhoi", "create")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 require_once 'vendor/autoload.php';
                 $filename = $_FILES["fileToUpload"]["tmp_name"];
@@ -72,14 +73,14 @@ class Question extends Controller
                     }
                     return $result;
                 }
-    
+
                 foreach ($phpWord->getSections() as $section) {
                     foreach ($section->getElements() as $element) {
                         $text .= trim(getWordText($element));
                         $text .= "\\n";
                     }
                 }
-    
+
                 $text = rtrim($text, "\\n");
                 substr($text, -1);
                 $questions = explode("\\n\\n", $text);
@@ -96,24 +97,29 @@ class Question extends Controller
                 }
                 echo json_encode($arrques);
             }
-
-
         }
     }
 
-    public function addExcel(){
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
+    public function addExcel()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             require_once 'vendor/autoload.php';
-            $filename = $_FILES["fileToUpload"]["tmp_name"];
-            $objFile = PHPExcel_IOFactory::identify($filename);
-            $objData = PHPExcel_IOFactory::createReader($objFile);
-            echo json_encode($objData);
+            $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
+            try {
+                $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objPHPExcel = $objReader->load($inputFileName);
+            } catch(Exception $e) {
+                die('Lỗi không thể đọc file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+
+            echo $inputFileName;
         }
     }
 
     public function addQues()
     {
-        if(AuthCore::checkPermission("cauhoi","create")){
+        if (AuthCore::checkPermission("cauhoi", "create")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mamon = $_POST['mamon'];
                 $machuong = $_POST['machuong'];
@@ -134,7 +140,7 @@ class Question extends Controller
 
     public function addQuesFile()
     {
-        if(AuthCore::checkPermission("cauhoi","create")){
+        if (AuthCore::checkPermission("cauhoi", "create")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $nguoitao = $_SESSION['user_id'];
                 $monhoc = $_POST['monhoc'];
@@ -153,7 +159,7 @@ class Question extends Controller
                         if ($index == $answer) {
                             $check = 1;
                         }
-                        $this->cauTraLoiModel->create($macauhoi, $option,$check);
+                        $this->cauTraLoiModel->create($macauhoi, $option, $check);
                         $index++;
                     }
                 }
@@ -164,15 +170,16 @@ class Question extends Controller
 
     public function getQuestion()
     {
-        if(AuthCore::checkPermission("cauhoi","view")){
+        if (AuthCore::checkPermission("cauhoi", "view")) {
             $result = $this->cauHoiModel->getAll();
             echo json_encode($result);
         }
     }
 
-    public function delete(){
-        if(AuthCore::checkPermission("cauhoi","delete")){
-            if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    public function delete()
+    {
+        if (AuthCore::checkPermission("cauhoi", "delete")) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['macauhoi'];
                 $this->cauTraLoiModel->deletebyanswer($id);
                 $this->cauHoiModel->delete($id);
@@ -182,8 +189,8 @@ class Question extends Controller
 
     public function getQuestionById()
     {
-        if(AuthCore::checkPermission("cauhoi","view")){
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (AuthCore::checkPermission("cauhoi", "view")) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['id'];
                 $result = $this->cauHoiModel->getById($id);
                 echo json_encode($result);
@@ -193,8 +200,8 @@ class Question extends Controller
 
     public function getAnswerById()
     {
-        if(AuthCore::checkPermission("cauhoi","view")){
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (AuthCore::checkPermission("cauhoi", "view")) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['id'];
                 $result = $this->cauTraLoiModel->getAll($id);
                 echo json_encode($result);
@@ -202,8 +209,9 @@ class Question extends Controller
         }
     }
 
-    public function editQuesion(){
-        if(AuthCore::checkPermission("cauhoi","update")){
+    public function editQuesion()
+    {
+        if (AuthCore::checkPermission("cauhoi", "update")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['id'];
                 $this->cauTraLoiModel->deletebyanswer($id);
@@ -213,7 +221,7 @@ class Question extends Controller
                 $noidung = $_POST['noidung'];
                 $cautraloi = $_POST['cautraloi'];
                 $nguoitao = $_SESSION['user_id'];
-                $result = $this->cauHoiModel->update($id,$noidung, $dokho, $mamon, $machuong, $nguoitao);
+                $result = $this->cauHoiModel->update($id, $noidung, $dokho, $mamon, $machuong, $nguoitao);
                 $macauhoi = $id;
                 foreach ($cautraloi as $x) {
                     $this->cauTraLoiModel->create($macauhoi, $x['content'], $x['check'] == 'true' ? 1 : 0);
@@ -222,8 +230,9 @@ class Question extends Controller
         }
     }
 
-    public function getTotalPag(){
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
+    public function getTotalPag()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
             echo $this->cauHoiModel->getTotalPag($content);
         }

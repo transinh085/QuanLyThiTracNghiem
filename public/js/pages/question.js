@@ -203,7 +203,7 @@ $(document).ready(function () {
       data: formData,
       contentType: false,
       processData: false,
-      dataType: "json",
+      // dataType: "json",
       beforeSend: function () {
         Dashmix.layout("header_loader_on");
       },

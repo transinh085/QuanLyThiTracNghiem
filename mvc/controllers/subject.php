@@ -95,5 +95,12 @@ class Subject extends Controller{
             echo $result;
         }
     }
+
+    public function search() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->monHocModel->search($_POST['input']);
+            echo json_encode($result);
+        }
+    }
 }
 ?>

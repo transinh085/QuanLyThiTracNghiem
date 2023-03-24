@@ -28,32 +28,13 @@
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>
                             <th class="text-center">Tên giảng viên</th>
+                            <th class="text-center">Mã môn</th>
                             <th class="text-center">Môn học</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody id="listAssignment">
-                        <tr>
-                            <td class="text-center fs-sm">
-                                <a class="fw-semibold" href="#">
-                                    <strong>1</strong>
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                Hoàng Gia Bảo
-                            </td>
-                            <td class="text-center">
-                                <a class="fw-semibold">Hệ điều hành mã nguồn mở</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-assignment" aria-label="Edit" data-bs-original-title="Edit" data-id="3">
-                                    <i class="fa fa-fw fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-sm btn-alt-secondary btn-delete-question" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="3">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -175,3 +156,21 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-default-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-default-fadein" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Chỉnh sửa phân công</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pb-1">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

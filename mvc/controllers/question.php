@@ -109,11 +109,26 @@ class Question extends Controller
                 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
                 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
                 $objPHPExcel = $objReader->load($inputFileName);
-            } catch(Exception $e) {
-                die('Lỗi không thể đọc file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+            } catch (Exception $e) {
+                die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
             }
 
-            echo $inputFileName;
+            $sheet = $objPHPExcel->getSheet(0);
+
+            // Lấy tổng số dòng của file, trong trường hợp này là 6 dòng
+            $highestRow = $sheet->getHighestRow();
+
+            // Lấy tổng số cột của file, trong trường hợp này là 4 dòng
+            $highestColumn = $sheet->getHighestColumn();
+
+            for ($row = 1; $row <= $highestRow; $row++) {
+                // Lấy dữ liệu từng dòng và đưa vào mảng $rowData
+                $rowData[] = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+            }
+
+            echo "<pre>";
+            print_r($rowData);
+            echo "</pre>";
         }
     }
 

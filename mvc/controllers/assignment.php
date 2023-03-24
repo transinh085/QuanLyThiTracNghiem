@@ -12,7 +12,7 @@ class Assignment extends Controller
     {
 
         $this->view("main_layout", [
-            "Page" => "question",
+            "Page" => "assignment",
             "Title" => "Phân quyền",
             "Plugin" => [
                 "ckeditor" => 1,
@@ -20,7 +20,7 @@ class Assignment extends Controller
                 "notify" => 1,
                 "sweetalert2" => 1,
             ],
-            "Script" => "question"
+            "Script" => "assignment"
         ]);
     }
 }

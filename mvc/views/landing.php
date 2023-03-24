@@ -25,7 +25,7 @@
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="btn btn-primary" href="auth">
+                            <a class="btn btn-primary" href="auth/signin">
                                 Đăng nhập
                             </a>
                         </li>

@@ -222,7 +222,7 @@ $(document).ready(function () {
                 }
                 html += `
                 <li class="page-item ${page == numberPages ? "disabled" : "active"}">
-                    <a class="page-link" id="${next = page < numberPages ? page++:null}" href="javascript:void(0)" aria-label="Next">
+                    <a class="page-link" id="${next = page < numberPages ? parseInt(page)+1:null}" href="javascript:void(0)" aria-label="Next">
                         Next
                     </a>
                 </li>
@@ -235,18 +235,6 @@ $(document).ready(function () {
 
     $(document).on("click", ".page-link", function() {
         var page = $(this).attr("id");
-        // console.log(page);
-        // // if (page === 0) {
-        // //     fetch_data(page - 1);
-        // // }
-        
-        // switch (page) {
-        //     case '0' : getNumberPage(parseInt(page) - 1);
-        //             fetch_data(parseInt(page) - 1);
-        //     break;
-        //     default: getNumberPage(page);
-        //              fetch_data(page);
-        // }
         getNumberPage(page); 
         fetch_data(page);
     })

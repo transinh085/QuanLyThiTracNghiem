@@ -3,7 +3,8 @@ class NhomModel extends DB
 {
     public function create($tennhom,$ghichu,$namhoc,$hocky,$giangvien,$mamonhoc) {
         $valid = true;
-        $sql = "INSERT INTO `nhom`(`tennhom`, `ghichu`, `namhoc`, `hocky`, `giangvien`, `mamonhoc`) VALUES ('$tennhom','$ghichu','$namhoc','$hocky','$giangvien','$mamonhoc')";
+        $mamoi = substr(md5(mt_rand()), 0, 7);
+        $sql = "INSERT INTO `nhom`(`tennhom`, `ghichu`, `mamoi`,`namhoc`, `hocky`, `giangvien`, `mamonhoc`) VALUES ('$tennhom','$ghichu','$mamoi','$namhoc','$hocky','$giangvien','$mamonhoc')";
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
             $valid = false;
@@ -103,9 +104,10 @@ class NhomModel extends DB
         return $newArray;
     }
 
-    public function updateMaMoi($manhom, $mamoi) 
+    public function updateMaMoi($manhom) 
     {
         $valid = true;
+        $mamoi = substr(md5(mt_rand()), 0, 7);
         $sql = "UPDATE `nhom` SET `mamoi`='$mamoi' WHERE `manhom` = '$manhom'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;

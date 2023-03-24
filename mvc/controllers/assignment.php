@@ -23,4 +23,18 @@ class Assignment extends Controller
             "Script" => "assignment"
         ]);
     }
+
+    function getGiangVien(){
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            $result = $this->PhanCongModel->getGiangVien();
+            echo json_encode($result);
+        }
+    }
+
+    function getMonHoc(){
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            $result = $this->PhanCongModel->getMonHoc();
+            echo json_encode($result);
+        }
+    }
 }

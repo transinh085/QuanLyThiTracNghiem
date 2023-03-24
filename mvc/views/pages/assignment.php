@@ -100,29 +100,21 @@
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="row">
-                                    <div class="col-4">
-                                        <label for="" class="form-label">Giảng viên</label>
-                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien" name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.." required>
+                                    <div class="col-6 d-flex flex-row">
+                                        <div class="d-flex align-items-center">
+                                        <label for="giang-vien" class="form-label" style="width: 100px">
+                                            Giảng viên
+                                        </label>
+                                        </div>
+                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien" name="giang-vien" style="width: 100%;" data-placeholder="Choose one.." required>
+                                            <option value=""></option>
+                                            <option value="id">Trần Nhật Sinh</option>
                                         </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <!-- <label class="form-label">Môn học</label>
-                                        <select class="js-select2 form-select data-chuong" id="mon-hoc" data-tab="1" style="width: 100%;" data-placeholder="Choose one.." required>
-                                        </select> -->
-                                    </div>
-                                    <div class="col-4">
-                                        <!-- <label class="form-label">Độ khó</label>
-                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;" data-placeholder="Choose one.." required>
-                                            <option></option>
-                                            <option value="1">Cơ bản</option>
-                                            <option value="2">Trung bình</option>
-                                            <option value="3">Nâng cao</option>
-                                        </select> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4 row">
-                                <h6>Danh sách môn học</h6>
+                                <h5 class="text-primary">Danh sách môn học</h5>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter">
                                         <thead>
@@ -148,9 +140,9 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="mb-4 d-flex flex-end">
+                            <div class="mb-4 d-flex flex-row-reverse">
                                 <button type="submit" class="btn btn-alt-primary" id="add_assignment"><i class="fa fa-fw fa-plus me-1"></i> Lưu phân công</button>
-                                <button class="btn btn-alt-primary" id="edit_assignment"><i class="fa fa-fw fa-plus me-1"></i> Sửa phân công</button>
+                                <!-- <button class="btn btn-alt-primary" id="edit_assignment"><i class="fa fa-fw fa-plus me-1"></i> Sửa phân công</button> -->
                                 <input type="hidden" value="" id="question_id">
                             </div>
                         </form>

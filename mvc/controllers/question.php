@@ -112,23 +112,32 @@ class Question extends Controller
             } catch (Exception $e) {
                 die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
             }
-
-            $sheet = $objPHPExcel->getSheet(0);
-
-            // Lấy tổng số dòng của file, trong trường hợp này là 6 dòng
-            $highestRow = $sheet->getHighestRow();
-
-            // Lấy tổng số cột của file, trong trường hợp này là 4 dòng
-            $highestColumn = $sheet->getHighestColumn();
-
-            for ($row = 1; $row <= $highestRow; $row++) {
-                // Lấy dữ liệu từng dòng và đưa vào mảng $rowData
-                $rowData[] = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+            $sheet = $objPHPExcel->setActiveSheetIndex(0);
+            $Totalrow = $sheet->getHighestRow();
+            $LastColumn = $sheet->getHighestColumn();
+            $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
+            $data = [];
+            for ($i = 2; $i <= $Totalrow; $i++) {
+                //----Lặp cột
+                for ($j = 0; $j < $TotalCol; $j++) {
+                    // Tiến hành lấy giá trị của từng ô đổ vào mảng
+                    $check = '';
+                    if($j == 0){
+                        $check = "level";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == 1){
+                        $check = "question";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == $TotalCol-1){
+                        $check = "answer";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else {
+                        $check = "option";
+                        $data[$i - 2][$check][] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    }
+                }
             }
-
-            echo "<pre>";
-            print_r($rowData);
-            echo "</pre>";
+            echo json_encode($data);
         }
     }
 

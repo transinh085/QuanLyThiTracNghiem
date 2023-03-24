@@ -18,11 +18,65 @@ $(document).ready(function(){
         "json"
     );
 
-    $.get("url", data,
-        function (data, textStatus, jqXHR) {
-            
+    $("#add_assignment").click(function(){
+        $("#giang-vien").val("").trigger("change");
+        $.get("./assignment/getMonHoc",
+        function (data) {
+            console.log(data)
+            let html = "";
+            data.forEach(element => {
+                html += `<tr>
+                <td class="text-center">
+                    <input class="form-check-input" type="checkbox" name="selectSubject" value="${element['mamonhoc']}">
+                </td>
+                <td class="text-center">${element['mamonhoc']}</td>
+                <td class="text-center">${element['tenmonhoc']}</td>
+                <td class="text-center">${element['sotinchi']}</td>
+                <td class="text-center">${element['sotietlythuyet']}</td>
+                <td class="text-center">${element['sotietthuchanh']}</td>
+            </tr>`
+            });
+            $("#list-subject").html(html);
         },
-        "dataType"
+        "json"
     );
+    })
+
+    $("#btn_assignment").click(function(){
+        
+        let listQuestions = [];
+        $("input:checkbox[name=selectSubject]:checked").each(function(){
+            let subject = {
+                mamonhoc: $(this).val()
+            }
+            listQuestions.push(subject);
+        });
+        let giangvien = $("#giang-vien").val();
+        addAssignment(giangvien,listQuestions);
+    })
+
+
+    function addAssignment(giangvien,listSubject){
+        $.ajax({
+            type: "post",
+            url: "./assignment/addAssignment",
+            data: {
+                magiangvien: giangvien,
+                listSubject: listSubject
+            },
+            dataType: "json",
+            success: function (response) {
+                if(response){
+                    $("#modal-add-assignment").modal("hide");
+                    Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
+                } else {
+                    $("#modal-add-assignment").modal("hide");
+                    setTimeout(function(){
+                        Dashmix.helpers('jq-notify', {type: 'danger', icon: 'fa fa-times me-1', message: 'Phân công chưa thành công!'});
+                    },10)
+                }
+            }
+        });
+    }
 })
 

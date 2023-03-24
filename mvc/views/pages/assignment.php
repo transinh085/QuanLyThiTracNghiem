@@ -3,7 +3,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả phân công</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-assignment" id="addquestionnew"><i class="fa-regular fa-plus"></i> Thêm phân công mới</button>
+                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-assignment" id="add_assignment"><i class="fa-regular fa-plus"></i> Thêm phân công mới</button>
             </div>
         </div>
         <div class="block-content">
@@ -17,7 +17,7 @@
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Giảng viên</a></li>
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Môn học</a></li>
                             </ul>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="one-ecom-orders-search">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm phân công..." id="one-ecom-orders-search">
                         </div>
                     </div>
                 </div>
@@ -120,28 +120,21 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 100px;">Chọn</th>
+                                                <th class="text-center">Mã môn học</th>
                                                 <th class="text-center">Tên môn học</th>
                                                 <th class="text-center">Số tín chỉ</th>
                                                 <th class="text-center">Số tiết lý thuyết</th>
                                                 <th class="text-center">Số tiết thực hành</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="list-options">
-                                            <tr>
-                                                <td class="text-center">
-                                                    <input class="form-check-input" type="checkbox" name="nguoidung" value="view">
-                                                </td>
-                                                <td class="text-center">Phân tích thiết kế hệ thống</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-center">15</td>
-                                                <td class="text-center">20</td>
-                                            </tr>
+                                        <tbody id="list-subject">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="mb-4 d-flex flex-row-reverse">
-                                <button type="submit" class="btn btn-alt-primary" id="add_assignment"><i class="fa fa-fw fa-plus me-1"></i> Lưu phân công</button>
+                                <button type="submit" class="btn btn-alt-primary" id="btn_assignment"><i class="fa fa-fw fa-plus me-1"></i> Lưu phân công</button>
                                 <!-- <button class="btn btn-alt-primary" id="edit_assignment"><i class="fa fa-fw fa-plus me-1"></i> Sửa phân công</button> -->
                                 <input type="hidden" value="" id="question_id">
                             </div>

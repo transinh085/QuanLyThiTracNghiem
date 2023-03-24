@@ -24,5 +24,19 @@ class PhanCongModel extends DB{
         }
         return $rows;
     }
+
+    public function addAssignment($giangvien,$listSubject){
+        $check = true;
+        foreach($listSubject as $subject){
+            $mamonhoc = $subject['mamonhoc'];
+            $sql = "INSERT INTO `phancong`(`mamonhoc`, `manguoidung`) VALUES ('$mamonhoc','$giangvien')";
+            $result = mysqli_query($this->con,$sql);
+            if($result){
+            } else {
+                $check = false;
+            }
+        }
+        return $check;
+    }
 }
 ?>

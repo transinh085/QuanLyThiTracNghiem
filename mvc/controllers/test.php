@@ -94,6 +94,32 @@ class Test extends Controller{
         }
     }
 
+    public function updateTest()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $mamonhoc = $_POST['mamonhoc'];
+            $tende = $_POST['tende'];
+            $thoigianthi = $_POST['thoigianthi'];
+            $thoigianbatdau = $_POST['thoigianbatdau'];
+            $thoigianketthuc = $_POST['thoigianketthuc'];
+            $socaude = $_POST['socaude'];
+            $socautb = $_POST['socautb'];
+            $socaukho = $_POST['socaukho'];
+            $chuong = $_POST['chuong'];
+            $loaide = $_POST['loaide'];
+            $xemdiem = $_POST['xemdiem'];
+            $xemdapan = $_POST['xemdapan'];
+            $xembailam = $_POST['xembailam'];
+            $daocauhoi = $_POST['daocauhoi'];
+            $daodapan = $_POST['daodapan'];
+            $tudongnop = $_POST['tudongnop'];
+            $manhom = $_POST['manhom'];
+            $result = $this->dethimodel->update($made,$mamonhoc,$tende,$thoigianthi,$thoigianbatdau,$thoigianketthuc,$xembailam,$xemdiem,$xemdapan,$daocauhoi,$daodapan, $tudongnop,$loaide,$socaude,$socautb,$socaukho,$chuong,$manhom);
+            echo $result;
+        }
+    }
+
     public function getData()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {

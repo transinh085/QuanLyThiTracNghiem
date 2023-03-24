@@ -10,63 +10,66 @@ class DeThiModel extends DB{
         if($result) {
             $madethi = mysqli_insert_id($this->con);
             // Một đề thi giao cho nhiều nhóm
-            foreach ($nhom as $manhom) {
-                $result = $this->create_giaodethi($madethi,$manhom);
-                if(!$result) {
-                    $valid = false;
-                    break;
-                }
-            }
+            $result = $this->create_giaodethi($madethi,$nhom);
             // Một đề thi thì có nhiều chương
-            foreach ($chuong as $machuong) {
-                $result = $this->create_chuongdethi($madethi,$machuong);
-                if(!$result) {
-                    $valid = false;
-                    break;
-                }
-            }
+            $result = $this->create_chuongdethi($madethi,$chuong);
         } else $valid = false;
         return $valid;
     }
 
-    public function create_chuongdethi($made, $machuong)
+    public function create_chuongdethi($made, $chuong)
     {
         $valid = true;
-        $sql = "INSERT INTO `dethitudong`(`made`, `machuong`) VALUES ('$made','$machuong')";
-        $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        foreach ($chuong as $machuong) {
+            $sql = "INSERT INTO `dethitudong`(`made`, `machuong`) VALUES ('$made','$machuong')";
+            $result = mysqli_query($this->con, $sql);
+            if(!$result) $valid = false;
+        }
         return $valid;
     }
 
-    public function delete_chuongdethi($made, $machuong)
-    {
+    public function update_chuongdethi($made, $chuong) {
         $valid = true;
-        $sql = "DELETE FROM `dethitudong` WHERE `made`='$made',`machuong`='$machuong'";
-        $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        $sql = "DELETE FROM `dethitudong` WHERE `made`='$made'";
+        $result_del = mysqli_query($this->con, $sql);
+        if($result_del) $result_update = $this->create_chuongdethi($made, $chuong);
+        else $valid = false;
         return $valid;
     }
 
-    public function create_giaodethi($made,$manhom)
+    public function create_giaodethi($made,$nhom)
     {
         $valid = true;
-        $sql = "INSERT INTO `giaodethi`(`made`, `manhom`) VALUES ('$made','$manhom')";
-        $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        foreach ($nhom as $manhom) {
+            $sql = "INSERT INTO `giaodethi`(`made`, `manhom`) VALUES ('$made','$manhom')";
+            $result = mysqli_query($this->con, $sql);
+            if(!$result) $valid = false;
+        }
         return $valid;
     }
 
-    public function delete_giaodethi($made, $manhom) {
+    public function update_giaodethi($made,$nhom)
+    {
         $valid = true;
-        $sql = "DELETE FROM `giaodethi` WHERE `made`='$made',`manhom`='$manhom'";
-        $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        $sql = "DELETE FROM `giaodethi` WHERE `made`='$made'";
+        $result_del = mysqli_query($this->con, $sql);
+        if($result_del) $result_update = $this->create_giaodethi($made, $nhom);
+        else $valid = false;
         return $valid;
     }
 
-    public function update()
+    public function update($made, $monthi, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)
     {
-        
+        $valid = true;
+        $sql = "UPDATE `dethi` SET `monthi`='$monthi',`tende`='$tende',`thoigianthi`='$thoigianthi',`thoigianbatdau`='$thoigianbatdau',`thoigianketthuc`='$thoigianketthuc',`hienthibailam`='$hienthibailam',`xemdiemthi`='$xemdiemthi',`xemdapan`='$xemdapan',`troncauhoi`='$troncauhoi',`trondapan`='$trondapan',`nopbaichuyentab`='$nopbaichuyentab',`loaide`='$loaide',`socaude`='$socaude',`socautb`='$socautb',`socaukho`='$socaukho' WHERE `made`='$made'";
+        $result = mysqli_query($this->con, $sql);
+        if($result) {
+            // Một đề thi giao cho nhiều nhóm
+            $result = $this->update_giaodethi($made,$nhom);
+            // Một đề thi thì có nhiều chương
+            $result = $this->update_chuongdethi($made,$chuong);
+        } else $valid = false;
+        return $valid;
     }
 
     public function delete($madethi)

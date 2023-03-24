@@ -41,33 +41,33 @@ class Auth extends Controller{
         }
     }
 
-    // function signin()
-    // {
-    //     AuthCore::onLogin();
-    //     $p = parse_url($_SERVER['REQUEST_URI']);
-    //     if(isset($p['query'])) {
-    //         $query = $p['query'];
-    //         $queryitem = explode('&', $query);
-    //         $get = array();
-    //         foreach($queryitem as $key => $qi) {
-    //             $r = explode('=', $qi);
-    //             $get[$r[0]] = $r[1];
-    //         }
-    //         $this->googleAuth->handleCallback(urldecode($get['code']));
-    //     } else {
-    //         $authUrl = $this->googleAuth->getAuthUrl();
-    //         $this->view("single_layout", [
-    //             "Page" => "auth/signin",
-    //             "Title" => "Đăng nhập",
-    //             'authUrl' => $authUrl,
-    //             "Script" => "signin",
-    //             "Plugin" => [
-    //                 "jquery-validate" => 1,
-    //                 "notify" => 1
-    //             ]
-    //         ]);
-    //     }
-    // }
+    function signin()
+    {
+        AuthCore::onLogin();
+        $p = parse_url($_SERVER['REQUEST_URI']);
+        if(isset($p['query'])) {
+            $query = $p['query'];
+            $queryitem = explode('&', $query);
+            $get = array();
+            foreach($queryitem as $key => $qi) {
+                $r = explode('=', $qi);
+                $get[$r[0]] = $r[1];
+            }
+            $this->googleAuth->handleCallback(urldecode($get['code']));
+        } else {
+            $authUrl = $this->googleAuth->getAuthUrl();
+            $this->view("single_layout", [
+                "Page" => "auth/signin",
+                "Title" => "Đăng nhập",
+                'authUrl' => $authUrl,
+                "Script" => "signin",
+                "Plugin" => [
+                    "jquery-validate" => 1,
+                    "notify" => 1
+                ]
+            ]);
+        }
+    }
     
 
 

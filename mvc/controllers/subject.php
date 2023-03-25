@@ -51,7 +51,6 @@ class Subject extends Controller{
             $mamon = $_POST['mamon'];
             $result = $this->monHocModel->delete($mamon);
             echo $result;
-       
     }
 
     public function getData()

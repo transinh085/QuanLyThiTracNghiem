@@ -121,12 +121,6 @@ $(document).ready(function () {
         e.fire("Deleted!", "Xóa câu trả lời thành công!", "success");
         options.splice(index, 1);
         showOptions(options);
-      } else {
-        e.fire(
-          "Cancelled",
-          "Bạn đã không xóa câu trả lời của môn học :)",
-          "error"
-        );
       }
     });
   });
@@ -197,6 +191,32 @@ $(document).ready(function () {
       },
     });
   });
+
+  $("#btnAddExcel").click(function(e){
+    e.preventDefault();
+    var file = $("#file-cau-hoi")[0].files[0];
+    var formData = new FormData();
+    formData.append("fileToUpload", file);
+    $.ajax({
+      type: "post",
+      url: "./question/addExcel",
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      beforeSend: function () {
+        Dashmix.layout("header_loader_on");
+      },
+      success: function (response) {
+        console.log(response)
+        questions = response;
+        loadDataQuestion(response);
+      },
+      complete: function () {
+        Dashmix.layout("header_loader_off");
+      },
+    });
+  })
 
   function loadDataQuestion(questions) {
     let data = ``;
@@ -420,7 +440,7 @@ $(document).ready(function () {
     $("#content-file").html('')
   });
 
-  $("#form-upload").submit(function () {
+  $("#nhap-file").click(function () {
     $.ajax({
       type: "post",
       url: "./question/addQuesFile",
@@ -438,7 +458,7 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Thêm câu hỏi từ file thành công!",
           });
-        }, 3);
+        }, 10);
       },
     });
   });

@@ -11,7 +11,7 @@ class NguoiDungModel extends DB
         if (!$result) {
             $check = false;
         }
-        return json_encode($check);
+        return $check;
     }
 
     public function delete($id)

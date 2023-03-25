@@ -130,6 +130,19 @@ class DeThiModel extends DB{
         }
         return $dethi;
     }
+
+    public function getListTestGroup($manhom)
+    {
+        $sql = "SELECT dethi.made, dethi.tende, dethi.thoigianbatdau, dethi.thoigianketthuc
+        FROM giaodethi, dethi
+        WHERE manhom = '$manhom' AND giaodethi.made = dethi.made";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }
 
 ?>

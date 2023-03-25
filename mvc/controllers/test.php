@@ -52,7 +52,7 @@ class Test extends Controller{
         ]);
     }
 
-    public function vaothi()
+    public function start($made)
     {
         $this->view("main_layout",[
             "Page" => "vao_thi",

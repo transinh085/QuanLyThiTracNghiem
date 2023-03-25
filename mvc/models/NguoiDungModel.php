@@ -168,26 +168,26 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    function pagination($limit, $start_from)
-    {
-        $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
-        FROM nguoidung, nhomquyen
-        WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
-        ORDER BY id ASC LIMIT $start_from, $limit";
-        $result = mysqli_query($this->con, $query);
-        $rows = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
+    // function pagination($limit, $start_from)
+    // {
+    //     $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
+    //     FROM nguoidung, nhomquyen
+    //     WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
+    //     ORDER BY id ASC LIMIT $start_from, $limit";
+    //     $result = mysqli_query($this->con, $query);
+    //     $rows = array();
+    //     while ($row = mysqli_fetch_assoc($result)) {
+    //         $rows[] = $row;
+    //     }
+    //     return $rows;
+    // }
 
-    function getNumberPage($limit)
-    {
-        $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
-        $page_result = mysqli_query($this->con, $page_query);
-        $total_records = mysqli_num_rows($page_result);
-        $total_pages = ceil($total_records / $limit);
-        return $total_pages;
-    }
+    // function getNumberPage($limit)
+    // {
+    //     $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
+    //     $page_result = mysqli_query($this->con, $page_query);
+    //     $total_records = mysqli_num_rows($page_result);
+    //     $total_pages = ceil($total_records / $limit);
+    //     return $total_pages;
+    // }
 }

@@ -119,10 +119,20 @@ class User extends Controller{
             $data = [];
             for ($i = 2; $i <= $Totalrow; $i++) {
                 //----Lặp cột
+                $fullname = "";
+                $email = "";
+                $mssv = "";
                 for ($j = 0; $j < $TotalCol; $j++) {
                     // Tiến hành lấy giá trị của từng ô đổ vào mảng
-                    $data[$i][$j] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==1) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==2) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==3) $fullname.=" ".$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==7) $email = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    
                 }
+                $data[$i]['fullname'] = $fullname;
+                $data[$i]['email'] = $email;
+                $data[$i]['mssv'] = $mssv;
             }
             echo json_encode($data);
         }
@@ -130,4 +140,3 @@ class User extends Controller{
     
 
 }
-?>

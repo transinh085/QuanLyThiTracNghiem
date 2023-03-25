@@ -206,8 +206,18 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="btabs-static-profile" role="tabpanel" aria-labelledby="btabs-static-profile-tab" tabindex="0">
-                        <h4 class="fw-normal">Profile Content</h4>
-                        <p>...</p>
+                    <form id="form-upload" method="POST" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor">Nội dung</label>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
+                            </div>
+                            <div class="mb-4">
+                                <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
+                            </div>
+                            <div class="mb-4 d-flex justify-content-between">
+                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

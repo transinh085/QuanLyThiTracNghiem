@@ -241,4 +241,30 @@ $(document).ready(function () {
         getNumberPage(page);
         fetch_data(page);
     })
+
+    $("#nhap-file").click(function(e){
+        e.preventDefault();
+        var file = $("#file-cau-hoi")[0].files[0];
+        var formData = new FormData();
+        formData.append("fileToUpload", file);
+        $.ajax({
+          type: "post",
+          url: "./user/addExcel",
+          data: formData,
+          contentType: false,
+          processData: false,
+        //   dataType: "json",
+          beforeSend: function () {
+            Dashmix.layout("header_loader_on");
+          },
+          success: function (response) {
+            console.log(response)
+            questions = response;
+            loadDataQuestion(response);
+          },
+          complete: function () {
+            Dashmix.layout("header_loader_off");
+          },
+        });
+      })
 });

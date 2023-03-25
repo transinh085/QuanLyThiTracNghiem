@@ -99,6 +99,34 @@ class User extends Controller{
         }
     }
 
+
+    public function addExcel()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            require_once 'vendor/autoload.php';
+            $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
+            try {
+                $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objPHPExcel = $objReader->load($inputFileName);
+            } catch (Exception $e) {
+                die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+            }
+            $sheet = $objPHPExcel->setActiveSheetIndex(0);
+            $Totalrow = $sheet->getHighestRow();
+            $LastColumn = $sheet->getHighestColumn();
+            $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
+            $data = [];
+            for ($i = 2; $i <= $Totalrow; $i++) {
+                //----Lặp cột
+                for ($j = 0; $j < $TotalCol; $j++) {
+                    // Tiến hành lấy giá trị của từng ô đổ vào mảng
+                    $data[$i][$j] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                }
+            }
+            echo json_encode($data);
+        }
+    }
     
 
 }

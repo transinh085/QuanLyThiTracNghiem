@@ -67,7 +67,7 @@ $(document).ready(function(){
                     <input class="form-check-input" type="checkbox" name="selectSubject" value="${element['mamonhoc']}">
                 </td>
                 <td class="text-center">${element['mamonhoc']}</td>
-                <td class="text-center">${element['tenmonhoc']}</td>
+                <td>${element['tenmonhoc']}</td>
                 <td class="text-center">${element['sotinchi']}</td>
                 <td class="text-center">${element['sotietlythuyet']}</td>
                 <td class="text-center">${element['sotietthuchanh']}</td>

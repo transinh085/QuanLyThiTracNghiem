@@ -112,7 +112,7 @@ class DeThiModel extends DB{
 
     public function getById($made)
     {
-        $sql_dethi = "SELECT * FROM dethi WHERE made = $made";
+        $sql_dethi = "SELECT dethi.*, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
         $sql_giaodethi = "SELECT manhom FROM giaodethi WHERE made = $made";
         $sql_dethitudong = "SELECT machuong FROM dethitudong WHERE made = $made";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
@@ -129,6 +129,21 @@ class DeThiModel extends DB{
             $dethi['nhom'][] = $row['manhom'];
         }
         return $dethi;
+    }
+
+    public function getListTestGroup($manhom)
+    {
+        $sql = "SELECT dethi.made, dethi.tende, dethi.thoigianbatdau, dethi.thoigianketthuc
+        FROM giaodethi, dethi
+        WHERE manhom = '$manhom' AND giaodethi.made = dethi.made";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $row['thoigianbatdau'] = date_format(date_create($row['thoigianbatdau']),"H:i d/m/Y");
+            $row['thoigianketthuc'] = date_format(date_create($row['thoigianketthuc']),"H:i d/m/Y");
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }
 

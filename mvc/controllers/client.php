@@ -43,5 +43,23 @@ class Client extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function getFriendList()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manguoidung = $_SESSION['user_id'];
+            $manhom = $_POST['manhom'];
+            $result = $this->nhommodel->getFriendList($manhom);
+            $index = -1;
+            $i = 0;
+            while($i <= count($result) && $index == -1) {
+                if($result[$i]['id'] == $manguoidung) {
+                    $index = $i;
+                } else $i++;
+            }
+            array_splice($result, $index, 1);
+            echo json_encode($result);
+        }
+    }
 }
 ?>

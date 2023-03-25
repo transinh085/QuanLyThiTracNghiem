@@ -36,6 +36,7 @@ $(document).ready(function(){
                 </tr>`
                 });
                 $("#listAssignment").html(html);
+                $('[data-bs-toggle="tooltip"]').tooltip();
             },
             "json"
         );

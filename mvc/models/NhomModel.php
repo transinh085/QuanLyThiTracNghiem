@@ -152,7 +152,7 @@ class NhomModel extends DB
     // Lấy danh sách bạn học chung nhóm
     public function getFriendList($manhom)
     {
-        $sql = "SELECT avatar, hoten FROM chitietnhom, nguoidung WHERE manhom = $manhom AND manguoidung = id";
+        $sql = "SELECT id, avatar, hoten FROM chitietnhom, nguoidung WHERE manhom = $manhom AND manguoidung = id";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

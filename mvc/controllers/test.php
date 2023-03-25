@@ -56,7 +56,8 @@ class Test extends Controller{
     {
         $this->view("main_layout",[
             "Page" => "vao_thi",
-            "Title" => "Bắt đầu thi"
+            "Title" => "Bắt đầu thi",
+            "Test" => $this->dethimodel->getById($made)
         ]);
     }
 
@@ -134,6 +135,15 @@ class Test extends Controller{
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $result = $this->dethimodel->getById($made);
+            echo json_encode($result);
+        }
+    }
+
+    public function getTestGroup()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $result = $this->dethimodel->getListTestGroup($manhom);
             echo json_encode($result);
         }
     }

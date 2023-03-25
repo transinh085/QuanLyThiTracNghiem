@@ -91,7 +91,7 @@
             <div class="block-content tab-content overflow-hidden">
                 <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
                     aria-labelledby="so-settings-tab" tabindex="0">
-                    <div class="px-2">
+                    <div class="list-test px-2">
                         <div class="block block-rounded block-fx-pop mb-2">
                             <div class="block-content block-content-full border-start border-3 border-primary">
                                 <div class="d-md-flex justify-content-md-between align-items-md-center">
@@ -112,7 +112,7 @@
                 </div>
                 <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
                     aria-labelledby="so-profile-tab" tabindex="0">
-                    <!-- content  -->
+                    <p class="text-center">Không có thông báo</p>
                 </div>
                 <div class="tab-pane pull-x fade fade-up" id="so-people" role="tabpanel" aria-labelledby="so-people-tab"
                     tabindex="0">
@@ -121,34 +121,7 @@
                             <span class="text-uppercase fs-sm fw-bold">Bạn cùng nhóm</span>
                         </div>
                         <div class="block-content">
-                            <ul class="nav-items">
-                                <li>
-                                    <div class="d-flex py-2 align-items-center">
-                                        <div class="flex-shrink-0 mx-3 overlay-container">
-                                            <img class="img-avatar img-avatar48"
-                                                src="./public/media/avatars/avatar0.jpg" alt="">
-                                        </div>
-                                        <div class="fw-semibold">Trần Nhật Sinh</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex py-2 align-items-center">
-                                        <div class="flex-shrink-0 mx-3 overlay-container">
-                                            <img class="img-avatar img-avatar48"
-                                                src="./public/media/avatars/avatar0.jpg" alt="">
-                                        </div>
-                                        <div class="fw-semibold">Hoàng Gia Bảo</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex py-2 align-items-center">
-                                        <div class="flex-shrink-0 mx-3 overlay-container">
-                                            <img class="img-avatar img-avatar48"
-                                                src="./public/media/avatars/avatar0.jpg" alt="">
-                                        </div>
-                                        <div class="fw-semibold">Âu Hạo Nhiên</div>
-                                    </div>
-                                </li>
+                            <ul class="nav-items list-friends">
                             </ul>
                         </div>
                     </div>

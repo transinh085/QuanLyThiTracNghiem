@@ -64,3 +64,28 @@ $("#update-password").click(function (e) {
         });
     }
 });
+
+$("#update-profile").click(function (e) {
+    e.preventDefault();
+    if ($(".form-update-profile").valid()) {
+        $.ajax({
+            type: "post",
+            url: "./account/changeProfile",
+            data: { 
+                hoten: $("#dm-profile-edit-name").val(),
+                email: $("#dm-profile-edit-email").val(),
+                ngaysinh: $("#user_ngaysinh").val(),
+                gioitinh: $('input[name="user_gender"]:checked').val(),
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response.valid );
+                if (response.valid) {
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `${response.message}` })
+                }
+            }
+        })
+    }
+})

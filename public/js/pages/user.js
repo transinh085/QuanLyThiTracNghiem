@@ -130,6 +130,7 @@ $(document).ready(function () {
                 status: $("#user_status").prop("checked") ? 1 : 0
             },
             success: function (response) {
+                console.log(response.valid);
                 $("#modal-add-user").modal("hide");
                 fetch_data();
             },
@@ -169,7 +170,7 @@ $(document).ready(function () {
                     type: "post",
                     url: "./user/deleteData",
                     data: {
-                        id: trid
+                        id: trid 
                     },
                     success: function (response) {
                         e.fire("Deleted!", "Xóa người dùng thành công!", "success")
@@ -202,13 +203,13 @@ $(document).ready(function () {
 
     function getNumberPage(page) {
         let html = '';
-        let previous, next;
+        // let previous, next;
         $.ajax({
             url: "./user/getNumberPage",
             method: "post",
             success: function(numberPages) {
                 html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
-                            <a class="page-link" href="javascript:void(0)" id="${previous = page > 1 ? page-1:null}" tabindex="-1" aria-label="Previous">
+                            <a class="page-link" href="javascript:void(0)" id="${page > 1 ? page-1:null}" tabindex="-1" aria-label="Previous">
                                 Prev
                             </a>
                         </li>
@@ -222,7 +223,7 @@ $(document).ready(function () {
                 }
                 html += `
                 <li class="page-item ${page == numberPages ? "disabled" : "active"}">
-                    <a class="page-link" id="${next = page < numberPages ? parseInt(page)+1:null}" href="javascript:void(0)" aria-label="Next">
+                    <a class="page-link" id="${page < numberPages ? parseInt(page)+1:null}" href="javascript:void(0)" aria-label="Next">
                         Next
                     </a>
                 </li>

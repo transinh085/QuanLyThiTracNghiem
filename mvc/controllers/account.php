@@ -41,6 +41,22 @@ class Account extends Controller{
         }
     }
 
+    public function changeProfile()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $hoten = $_POST['hoten'];
+            $email = $_POST['email'];
+            $ngaysinh = $_POST['ngaysinh'];
+            $gioitinh = $_POST['gioitinh'];
+            $result = $this->nguoidung->updateProfile($hoten,$gioitinh,$ngaysinh, $email);
+            if ($result) {
+                echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
+            } else {
+            echo json_encode(["message" => "Phải thay đổi ít nhất 1 thông tin", "valid" => "false"]);
+            }
+        }
+    }
+
     public function check()
     {
         echo "<pre>";

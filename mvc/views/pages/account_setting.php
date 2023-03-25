@@ -51,7 +51,7 @@
                         </p>
                     </div>
                     <div class="col-xl-6 order-xl-0">
-                        <form action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data"
+                        <form class="form-update-profile" action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data"
                             onsubmit="return false;">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-name">Họ và tên</label>
@@ -93,7 +93,7 @@
                                 <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>
                                 <input class="form-control" type="file" id="dm-profile-edit-avatar">
                             </div>
-                            <button type="submit" class="btn btn-alt-primary">
+                            <button type="submit" class="btn btn-alt-primary" id="update-profile">
                                 <i class="fa fa-check-circle opacity-50 me-1"></i> Cập nhật hồ sơ
                             </button>
                         </form>

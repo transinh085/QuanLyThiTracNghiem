@@ -37,6 +37,15 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
+    {
+        $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
+        return $check;
+    }
+
     public function getAll()
     {
         $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`

@@ -20,20 +20,17 @@ $(document).ready(function(){
                             <strong>${index++}</strong>
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td>
                         ${element['hoten']}
                     </td>
                     <td class="text-center">
                         ${element['mamonhoc']}
                     </td>
-                    <td class="text-center">
+                    <td>
                         <a class="fw-semibold">${element['tenmonhoc']}</a>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-default-vcenter" aria-label="Edit" data-bs-original-title="Edit" data-id="${element['manguoidung']}">
-                            <i class="fa fa-fw fa-pencil"></i>
-                        </a>
-                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
+                        <a class="btn btn-sm btn-alt-secondary btn-delete-assignment" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
                             <i class="fa fa-fw fa-times"></i>
                         </a>
                     </td>
@@ -120,5 +117,56 @@ $(document).ready(function(){
             }
         });
     }
+
+    $(document).on("click", ".btn-delete-assignment", function () {
+        let id = $(this).data("id");
+        let mamon = $(this).closest("td").closest("tr").children().eq(2).text();
+        let e = Swal.mixin({
+            buttonsStyling: !1,
+            target: "#page-container",
+            customClass: {
+                confirmButton: "btn btn-success m-1",
+                cancelButton: "btn btn-danger m-1",
+                input: "form-control"
+            }
+        });
+    
+        e.fire({
+            title: "Are you sure?",
+            text: "Bạn có chắc chắn muốn xoá phân công?",
+            icon: "warning",
+            showCancelButton: !0,
+            customClass: {
+                confirmButton: "btn btn-danger m-1",
+                cancelButton: "btn btn-secondary m-1"
+            },
+            confirmButtonText: "Vâng, tôi chắc chắn!",
+            html: !1,
+            preConfirm: e => new Promise((e => {
+                setTimeout((() => {
+                    e()
+                }), 50)
+            }))
+        }).then((t => {
+            if(t.value == true){
+                $.ajax({
+                    type: "post",
+                    url: "./assignment/delete",
+                    data: {
+                        id: id,
+                        mamon: mamon
+                    },
+                    success: function (response) {
+                        if(response) {
+                            e.fire("Deleted!", "Xóa phân công thành công!", "success")
+                            loadAssignment();
+                        } else {
+                            e.fire("Lỗi !", "Xoá phân công thành công !)", "error")
+                        }
+                    }
+                });
+            }
+        }))
+      });
 })
 

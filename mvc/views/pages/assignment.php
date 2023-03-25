@@ -27,9 +27,9 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>
-                            <th class="text-center">Tên giảng viên</th>
+                            <th>Tên giảng viên</th>
                             <th class="text-center">Mã môn</th>
-                            <th class="text-center">Môn học</th>
+                            <th>Môn học</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>

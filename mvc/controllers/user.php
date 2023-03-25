@@ -118,12 +118,10 @@ class User extends Controller{
             $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
             $data = [];
             for ($i = 2; $i <= $Totalrow; $i++) {
-                //----Lặp cột
                 $fullname = "";
                 $email = "";
                 $mssv = "";
                 for ($j = 0; $j < $TotalCol; $j++) {
-                    // Tiến hành lấy giá trị của từng ô đổ vào mảng
                     if($j==1) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
                     if($j==2) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
                     if($j==3) $fullname.=" ".$sheet->getCellByColumnAndRow($j, $i)->getValue();
@@ -133,10 +131,16 @@ class User extends Controller{
                 $data[$i]['fullname'] = $fullname;
                 $data[$i]['email'] = $email;
                 $data[$i]['mssv'] = $mssv;
+                $data[$i]['nhomquyen'] = 1;
+                $data[$i]['tranghtai'] = 1;
             }
             echo json_encode($data);
         }
     }
-    
 
+    public function addFileExcel(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $listUser = $_POST['listuser'];
+        }
+    }
 }

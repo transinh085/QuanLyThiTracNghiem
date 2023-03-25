@@ -258,12 +258,25 @@ $(document).ready(function () {
             Dashmix.layout("header_loader_on");
           },
           success: function (response) {
-            console.log(response)
-
+            addExcel(response)
           },
           complete: function () {
             Dashmix.layout("header_loader_off");
           },
         });
       })
+
+
+      function addExcel(data){
+        $.ajax({
+            type: "post",
+            url: "./user/addFileExcel",
+            data: {
+                listuser: data
+            },
+            success: function (response) {
+                getNumberPage(1);
+            }
+        });
+      }
 });

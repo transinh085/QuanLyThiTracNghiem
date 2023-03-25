@@ -2,7 +2,7 @@
 class PhanCongModel extends DB{
 
     public function getGiangVien(){
-        $sql = "SELECT ng.id,nq.manhomquyen,ng.hoten FROM nhomquyen AS nq,nguoidung AS ng WHERE nq.manhomquyen = ng.manhomquyen  AND nq.tennhomquyen='Giảng Viên'";
+        $sql = "SELECT ng.id,ng.manhomquyen,ng.hoten FROM nguoidung ng join chitietquyen ctq on ng.manhomquyen = ctq.manhomquyen where ctq.chucnang = 'cauhoi' OR ctq.chucnang = 'monhoc' OR ctq.chucnang='hocphan' OR ctq.chucnang = 'chuong' GROUP BY ng.id";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
@@ -43,6 +43,12 @@ class PhanCongModel extends DB{
             $rows[] = $row;
         }
         return $rows;
+    }
+
+    public function delete($mamon,$id){
+        $sql = "DELETE FROM `phancong` WHERE mamonhoc = '$mamon' and manguoidung = '$id'";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
     }
 }
 ?>

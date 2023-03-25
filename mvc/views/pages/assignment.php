@@ -100,7 +100,7 @@
                                             <tr>
                                                 <th class="text-center" style="width: 100px;">Chọn</th>
                                                 <th class="text-center">Mã môn học</th>
-                                                <th class="text-center">Tên môn học</th>
+                                                <th>Tên môn học</th>
                                                 <th class="text-center">Số tín chỉ</th>
                                                 <th class="text-center">Số tiết lý thuyết</th>
                                                 <th class="text-center">Số tiết thực hành</th>

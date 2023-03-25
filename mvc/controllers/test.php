@@ -69,6 +69,14 @@ class Test extends Controller{
         ]);
     }
 
+    public function select($made)
+    {
+        $this->view('main_layout',[
+            "Page" => "select_question",
+            "Title" => "Chọn câu hỏi"
+        ]);
+    }
+
     public function addTest()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {

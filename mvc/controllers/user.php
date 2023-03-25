@@ -132,7 +132,7 @@ class User extends Controller{
                 $data[$i]['email'] = $email;
                 $data[$i]['mssv'] = $mssv;
                 $data[$i]['nhomquyen'] = 1;
-                $data[$i]['tranghtai'] = 1;
+                $data[$i]['trangthai'] = 1;
             }
             echo json_encode($data);
         }
@@ -141,6 +141,8 @@ class User extends Controller{
     public function addFileExcel(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $listUser = $_POST['listuser'];
+            $result = $this->NguoiDungModel->addFile($listUser);
+            echo $result;
         }
     }
 }

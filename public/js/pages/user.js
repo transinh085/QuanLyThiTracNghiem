@@ -275,7 +275,9 @@ $(document).ready(function () {
                 listuser: data
             },
             success: function (response) {
-                getNumberPage(1);
+                console.log(response)
+                $("#modal-add-user").modal("hide");
+                fetch_data();
             }
         });
       }

@@ -9,7 +9,7 @@
         <div class="block-content">
             <form onsubmit="return false;">
                 <div class="row mb-4 align-items-center">
-                    <div class="col-9">
+                    <div class="col-12">
                         <div class="input-group">
                             <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                             <ul class="dropdown-menu mt-1">
@@ -17,7 +17,7 @@
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Giảng viên</a></li>
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Môn học</a></li>
                             </ul>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm phân công..." id="one-ecom-orders-search">
+                            <input type="text" class="form-control form-control-alt" placeholder="Tìm kiếm phân công..." id="one-ecom-orders-search">
                         </div>
                     </div>
                 </div>
@@ -89,13 +89,11 @@
                                         </div>
                                         <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien" name="giang-vien" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option value=""></option>
-                                            <option value="id">Trần Nhật Sinh</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4 row">
-                                <h5 class="text-primary">Danh sách môn học</h5>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter">
                                         <thead>

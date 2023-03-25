@@ -79,15 +79,11 @@ $(document).ready(function () {
                     </div>
                     <div class="block-content block-content-full">
                         <div class="row g-sm">
-                            <div class="col-6">
-                                <a class="btn w-100 btn-alt-secondary" href="javascript:void(0)">
-                                    <i class="fa fa-eye me-1 opacity-50"></i> View
-                                </a>
-                            </div>
-                            <div class="col-6">
-                                <a class="btn w-100 btn-alt-secondary" href="javascript:void(0)">
-                                    <i class="fa fa-archive me-1 opacity-50"></i> Archive
-                                </a>
+                            <div class="col-12">
+                                <button class="btn w-100 btn-alt-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                                aria-controls="offcanvasExample">
+                                    <i class="fa fa-eye me-1 opacity-50"></i> Xem nhóm
+                                </button>
                             </div>
                         </div>
                     </div>

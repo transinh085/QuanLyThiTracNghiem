@@ -67,19 +67,21 @@ $("#update-password").click(function (e) {
 
 $("#update-profile").click(function (e) {
     e.preventDefault();
+    let fullName = $("#dm-profile-edit-name").val();
+    console.log(fullName);
     if ($(".form-update-profile").valid()) {
         $.ajax({
             type: "post",
             url: "./account/changeProfile",
             data: { 
-                hoten: $("#dm-profile-edit-name").val(),
+                // hoten: $("#dm-profile-edit-name").val(),
                 email: $("#dm-profile-edit-email").val(),
                 ngaysinh: $("#user_ngaysinh").val(),
                 gioitinh: $('input[name="user_gender"]:checked').val(),
             },
             dataType: "json",
             success: function(response) {
-                console.log(response.valid );
+                // console.log(response.valid );
                 if (response.valid) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
                 } else {

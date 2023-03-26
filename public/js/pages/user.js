@@ -268,8 +268,9 @@ $(document).ready(function () {
             data: {
                 page: page,
             },
+            dataType: "json",
             success: function(data) {
-                showData(JSON.parse(data));
+                showData(data);
             }
         })
     }

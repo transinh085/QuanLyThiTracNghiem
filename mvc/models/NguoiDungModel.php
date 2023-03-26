@@ -190,4 +190,22 @@ class NguoiDungModel extends DB
         $total_pages = ceil($total_records / $limit);
         return $total_pages;
     }
+
+    function addFile($data){
+        $check = true;
+        foreach($data as $user){
+            $fullname = $user['fullname'];
+            $email = $user['email'];
+            $mssv = $user['mssv'];
+            $trangthai = $user['trangthai'];
+            $nhomquyen = $user['nhomquyen'];
+            $sql = "INSERT INTO `nguoidung`(`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$mssv','$trangthai','$nhomquyen')";
+            $result = mysqli_query($this->con,$sql);
+            if($result){
+            } else {
+                $check = false;
+            }
+        }
+        return $check;
+    }
 }

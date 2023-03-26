@@ -48,7 +48,6 @@
                                 <th>Họ tên</th>
                                 <th class="text-center">Giới tính</th>
                                 <th class="text-center">Ngày sinh</th>
-                                <th class="text-center">Trạng thái</th>
                                 <th class="text-center">Đề thi đã làm</th>
                                 <th class="text-center" style="width: 150px;">Hành động</th>
                             </tr>
@@ -66,12 +65,6 @@
                                 </td>
                                 <td class="text-center fs-sm">Nam</td>
                                 <td class="text-center fs-sm">20/12/2003</td>
-                                <td>
-                                    <div class="form-check form-switch d-flex justify-content-center">
-                                        <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode"
-                                            value="yes" checked>
-                                    </div>
-                                </td>
                                 <td class="text-center">1</td>
                                 <td class="text-center">
                                     <div class="btn-group">

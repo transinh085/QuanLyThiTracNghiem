@@ -97,6 +97,7 @@ $(document).ready(function () {
 
     $("#tudongsoande").on("click", function () {
         $(".show-chap").toggle();
+        $('#chuong').val('').trigger("change");
     });
 
     $("#btn-add-test").click(function (e) { 

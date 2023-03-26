@@ -22,7 +22,7 @@ class Auth extends Controller{
 
     function signin()
     {
-        AuthCore::onLogin();
+        AuthCore::onLoginS();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];
@@ -51,14 +51,15 @@ class Auth extends Controller{
 
 
     function signup(){
-            $this->view("single_layout", [
-                "Page" => "auth/signup",
-                "Title" => "Đăng ký tài khoản",
-                "Script" => "signup",
-                "Plugin" => [
-                    "jquery-validate" => 1
-                ]
-            ]);
+        $this->view("single_layout", [
+            "Page" => "auth/signup",
+            "Title" => "Đăng ký tài khoản",
+            "Script" => "signup",
+            "Plugin" => [
+                "jquery-validate" => 1,
+                "notify" => 1
+            ]
+        ]);
     }
 
     function recover(){
@@ -76,15 +77,13 @@ class Auth extends Controller{
 
     public function addUser()
     {   
-        if(AuthCore::checkPermission("nguoidung","create")){
-            if($_SERVER["REQUEST_METHOD"] == "POST") {
-                $fullname = $_POST['fullname'];
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
-                echo $result;
-            } 
-        }
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $fullname = $_POST['fullname'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
+            echo $result;
+        } 
     }
 
     public function getUser()

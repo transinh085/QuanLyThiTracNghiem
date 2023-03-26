@@ -730,7 +730,7 @@ class PHPExcel_Worksheet_AutoFilter
 							);
 						} else {
 							//	Date based
-							if ($dynamicRuleType{0} == 'M' || $dynamicRuleType{0} == 'Q') {
+							if ($dynamicRuleType[0] == 'M' || $dynamicRuleType[0] == 'Q') {
 								//	Month or Quarter
 								sscanf($dynamicRuleType,'%[A-Z]%d', $periodType, $period);
 								if ($periodType == 'M') {
@@ -739,7 +739,7 @@ class PHPExcel_Worksheet_AutoFilter
 									--$period;
 									$periodEnd = (1+$period)*3;
 									$periodStart = 1+$period*3;
-									$ruleValues = range($periodStart,periodEnd);
+									$ruleValues = range($periodStart,$periodEnd);
 								}
 								$columnFilterTests[$columnID] = array(
 									'method' => '_filterTestInPeriodDateSet',

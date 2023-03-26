@@ -52,11 +52,12 @@ class Test extends Controller{
         ]);
     }
 
-    public function vaothi()
+    public function start($made)
     {
         $this->view("main_layout",[
             "Page" => "vao_thi",
-            "Title" => "Bắt đầu thi"
+            "Title" => "Bắt đầu thi",
+            "Test" => $this->dethimodel->getById($made)
         ]);
     }
 
@@ -65,6 +66,14 @@ class Test extends Controller{
         $this->view("main_layout",[
             "Page" => "test_detail",
             "Title" => "Danh sách đã thi"
+        ]);
+    }
+
+    public function select($made)
+    {
+        $this->view('main_layout',[
+            "Page" => "select_question",
+            "Title" => "Chọn câu hỏi"
         ]);
     }
 
@@ -134,6 +143,15 @@ class Test extends Controller{
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $result = $this->dethimodel->getById($made);
+            echo json_encode($result);
+        }
+    }
+
+    public function getTestGroup()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $result = $this->dethimodel->getListTestGroup($manhom);
             echo json_encode($result);
         }
     }

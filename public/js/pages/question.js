@@ -208,10 +208,9 @@ $(document).ready(function () {
         Dashmix.layout("header_loader_on");
       },
       success: function (response) {
-        alert(response)
         console.log(response)
-        // questions = response;
-        // loadDataQuestion(response);
+        questions = response;
+        loadDataQuestion(response);
       },
       complete: function () {
         Dashmix.layout("header_loader_off");

@@ -1,7 +1,7 @@
 <div class="content content-full content-boxed">
     <!-- Hero -->
     <div class="rounded border overflow-hidden push">
-        <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo19@2x.jpg');"></div>
+        <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo24@2x.jpg');"></div>
         <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
             <a class="d-block img-link mt-n5" href="javascript:void(0)">
                 <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg" alt="">

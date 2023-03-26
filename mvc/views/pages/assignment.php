@@ -9,7 +9,7 @@
         <div class="block-content">
             <form onsubmit="return false;">
                 <div class="row mb-4 align-items-center">
-                    <div class="col-9">
+                    <div class="col-12">
                         <div class="input-group">
                             <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                             <ul class="dropdown-menu mt-1">
@@ -17,7 +17,7 @@
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Giảng viên</a></li>
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Môn học</a></li>
                             </ul>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm phân công..." id="one-ecom-orders-search">
+                            <input type="text" class="form-control form-control-alt" placeholder="Tìm kiếm phân công..." id="one-ecom-orders-search">
                         </div>
                     </div>
                 </div>
@@ -27,33 +27,14 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 100px;">ID</th>
-                            <th class="text-center">Tên giảng viên</th>
-                            <th class="text-center">Môn học</th>
+                            <th>Tên giảng viên</th>
+                            <th class="text-center">Mã môn</th>
+                            <th>Môn học</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody id="listAssignment">
-                        <tr>
-                            <td class="text-center fs-sm">
-                                <a class="fw-semibold" href="#">
-                                    <strong>1</strong>
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                Hoàng Gia Bảo
-                            </td>
-                            <td class="text-center">
-                                <a class="fw-semibold">Hệ điều hành mã nguồn mở</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-assignment" aria-label="Edit" data-bs-original-title="Edit" data-id="3">
-                                    <i class="fa fa-fw fa-pencil"></i>
-                                </a>
-                                <a class="btn btn-sm btn-alt-secondary btn-delete-question" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="3">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -108,20 +89,18 @@
                                         </div>
                                         <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien" name="giang-vien" style="width: 100%;" data-placeholder="Choose one.." required>
                                             <option value=""></option>
-                                            <option value="id">Trần Nhật Sinh</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-4 row">
-                                <h5 class="text-primary">Danh sách môn học</h5>
                                 <div class="table-responsive">
                                     <table class="table table-vcenter">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 100px;">Chọn</th>
                                                 <th class="text-center">Mã môn học</th>
-                                                <th class="text-center">Tên môn học</th>
+                                                <th>Tên môn học</th>
                                                 <th class="text-center">Số tín chỉ</th>
                                                 <th class="text-center">Số tiết lý thuyết</th>
                                                 <th class="text-center">Số tiết thực hành</th>
@@ -175,3 +154,21 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-default-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-default-fadein" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Chỉnh sửa phân công</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pb-1">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,3 +1,4 @@
+<?php include "inc/config.php" ?>
 <?php require "inc/head.php" ?>
 <body>
     <!-- Page Container -->

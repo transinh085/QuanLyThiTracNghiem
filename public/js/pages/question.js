@@ -305,10 +305,10 @@ $(document).ready(function () {
   loadPagination();
   function loadPagination(){
     $.ajax({
-      url: "./question/getTotalPag",
+      url: "./question/getTotalPage",
       type: "post",
       data: {
-        content: $("#one-ecom-orders-search").val().trim()
+        content: $("#question-search").val().trim()
       },
       success:function(data){
           let sum = parseInt(data);
@@ -325,9 +325,9 @@ $(document).ready(function () {
     });
   }
 
-  $("#one-ecom-orders-search").on("input", function(e){
+  $("#question-search").on("input", function(e){
     e.preventDefault();
-    console.log($("#one-ecom-orders-search").val())
+    console.log($("#question-search").val())
     loadPagination()
   })
 

@@ -31,7 +31,10 @@ class Question extends Controller
                 "Script" => "question"
             ]);
         } else {
-            header("Location: ./myerror/noRole");
+            $this->view("single_layout", [
+                "Page" => "error/page_403",
+                "Title" => "Lỗi !"
+            ]);
         }
     }
 
@@ -254,11 +257,13 @@ class Question extends Controller
         }
     }
 
-    public function getTotalPag()
+    public function getTotalPage()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
-            echo $this->cauHoiModel->getTotalPag($content);
+            echo $this->cauHoiModel->getTotalPage($content);
         }
     }
+
+
 }

@@ -1,11 +1,4 @@
-<?php
-$directoryURI = $_SERVER['REQUEST_URI'];
-$path = parse_url($directoryURI, PHP_URL_PATH);
-$components = explode('/',$path);
-$page = $components[2];
-?>
-
-
+<?php require_once "config.php" ?>
 <!-- Sidebar -->
 <nav id="sidebar" aria-label="Main Navigation">
     <!-- Side Header -->
@@ -57,63 +50,13 @@ $page = $components[2];
         <!-- Side Navigation -->
         <div class="content-side">
             <ul class="nav-main">
-                
                 <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'dashboard') echo "active" ?>" href="./dashboard">
+                    <a class="nav-main-link <?php if(getActiveNav() == 'dashboard') echo "active" ?>" href="./dashboard">
                         <i class="nav-main-link-icon fa fa-rocket"></i>
                         <span class="nav-main-link-name">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-main-heading">Quản lý</li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'question') echo "active" ?>" href="./question">
-                        <i class="nav-main-link-icon fa fa-circle-question"></i>
-                        <span class="nav-main-link-name">Câu hỏi</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'user') echo "active" ?>" href="./user">
-                        <i class="nav-main-link-icon fa fa-user-friends"></i>
-                        <span class="nav-main-link-name">Người dùng</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'subject') echo "active" ?>" href="./subject">
-                        <i class="nav-main-link-icon fa fa-folder"></i>
-                        <span class="nav-main-link-name">Môn học</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'assignment') echo "active" ?>" href="./assignment">
-                        <i class="nav-main-link-icon fa fa-person-harassing"></i>
-                        <span class="nav-main-link-name">Phân công</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'test') echo "active" ?>" href="./test">
-                        <i class="nav-main-link-icon fa fa-file"></i>
-                        <span class="nav-main-link-name">Đề kiểm tra</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'module') echo "active" ?>" href="./module">
-                        <i class="nav-main-link-icon fa fa-layer-group"></i>
-                        <span class="nav-main-link-name">Nhóm học phần</span>
-                    </a>
-                </li>
-                <li class="nav-main-heading">Quản trị</li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'roles') echo "active" ?>" href="./roles">
-                        <i class="nav-main-link-icon fa fa-users-gear"></i>
-                        <span class="nav-main-link-name">Nhóm quyền</span>
-                    </a>
-                </li>
-                <li class="nav-main-item">
-                    <a class="nav-main-link <?php if($page == 'setting') echo "active" ?>" href="./setting">
-                        <i class="nav-main-link-icon fa fa-gears"></i>
-                        <span class="nav-main-link-name">Cài đặt</span>
-                    </a>
-                </li>
+                <?php build_navbar() ?>
             </ul>
         </div>
         <!-- END Side Navigation -->

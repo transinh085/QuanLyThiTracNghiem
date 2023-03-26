@@ -8,14 +8,14 @@
             </div>
         </div>
         <div class="block-content">
-            <form action="be_pages_ecom_orders.html" method="POST" onsubmit="return false;">
+            <form action="#" id="search-form">
                 <div class="mb-4">
                     <div class="input-group">
-                        <input type="text" class="form-control form-control-alt" id="one-ecom-orders-search"
-                            name="one-ecom-orders-search" placeholder="Tìm kiếm môn học..">
-                        <span class="input-group-text bg-body border-0">
+                        <input type="text" class="form-control form-control-alt" id="search-input"
+                            name="search-input" placeholder="Tìm kiếm môn học...">
+                        <button class="input-group-text bg-body border-0 btn-search">
                             <i class="fa fa-search"></i>
-                        </span>
+                        </button>
                     </div>
                 </div>
             </form>

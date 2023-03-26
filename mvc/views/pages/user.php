@@ -7,9 +7,10 @@
             </div>
         </div>
         <div class="block-content bg-body-dark">
-            <form action="be_pages_ecom_orders.html" method="POST" onsubmit="return false;">
+            <form action="#" id="search-form">
                 <div class="mb-4">
-                    <input type="text" class="form-control form-control-alt" id="dm-ecom-orders-search" name="dm-ecom-orders-search" placeholder="Tìm kiếm người dùng...">
+                    <input type="text" class="form-control form-control-alt" id="search-input"
+                        name="search-input" placeholder="Tìm kiếm người dùng...">
                 </div>
             </form>
         </div>

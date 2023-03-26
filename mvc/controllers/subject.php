@@ -44,7 +44,6 @@ class Subject extends Controller{
             $sotietthuchanh = $_POST['sotietthuchanh'];
             $result = $this->monHocModel->update($id,$mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
             echo $result;
-        
     }
 
     public function delete(){

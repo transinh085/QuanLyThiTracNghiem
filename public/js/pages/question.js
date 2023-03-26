@@ -203,15 +203,14 @@ $(document).ready(function () {
       data: formData,
       contentType: false,
       processData: false,
-      // dataType: "json",
+      dataType: "json",
       beforeSend: function () {
         Dashmix.layout("header_loader_on");
       },
       success: function (response) {
-        alert(response)
         console.log(response)
-        // questions = response;
-        // loadDataQuestion(response);
+        questions = response;
+        loadDataQuestion(response);
       },
       complete: function () {
         Dashmix.layout("header_loader_off");
@@ -306,10 +305,10 @@ $(document).ready(function () {
   loadPagination();
   function loadPagination(){
     $.ajax({
-      url: "./question/getTotalPag",
+      url: "./question/getTotalPage",
       type: "post",
       data: {
-        content: $("#one-ecom-orders-search").val().trim()
+        content: $("#question-search").val().trim()
       },
       success:function(data){
           let sum = parseInt(data);
@@ -326,9 +325,9 @@ $(document).ready(function () {
     });
   }
 
-  $("#one-ecom-orders-search").on("input", function(e){
+  $("#question-search").on("input", function(e){
     e.preventDefault();
-    console.log($("#one-ecom-orders-search").val())
+    console.log($("#question-search").val())
     loadPagination()
   })
 

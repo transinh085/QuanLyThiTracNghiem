@@ -336,6 +336,45 @@ $(document).ready(function () {
     fetch_data(currentQuery, 1);
   });
 
+  $("#nhap-file").click(function (e) {
+    e.preventDefault();
+    var file = $("#file-cau-hoi")[0].files[0];
+    var formData = new FormData();
+    formData.append("fileToUpload", file);
+    $.ajax({
+      type: "post",
+      url: "./user/addExcel",
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      beforeSend: function () {
+        Dashmix.layout("header_loader_on");
+      },
+      success: function (response) {
+        addExcel(response);
+      },
+      complete: function () {
+        Dashmix.layout("header_loader_off");
+      },
+    });
+  });
+
+  function addExcel(data) {
+    $.ajax({
+      type: "post",
+      url: "./user/addFileExcel",
+      data: {
+        listuser: data,
+      },
+      success: function (response) {
+        console.log(response);
+        $("#modal-add-user").modal("hide");
+        fetch_data();
+      },
+    });
+  }
+
   const defaultQuery =
     "SELECT nguoidung.*, nhomquyen.`tennhomquyen` FROM nguoidung, nhomquyen WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen` ORDER BY id";
   let currentQuery = defaultQuery;

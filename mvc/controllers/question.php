@@ -31,7 +31,10 @@ class Question extends Controller
                 "Script" => "question"
             ]);
         } else {
-            header("Location: ./myerror/noRole");
+            $this->view("single_layout", [
+                "Page" => "error/page_403",
+                "Title" => "Lỗi !"
+            ]);
         }
     }
 
@@ -109,11 +112,35 @@ class Question extends Controller
                 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
                 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
                 $objPHPExcel = $objReader->load($inputFileName);
-            } catch(Exception $e) {
-                die('Lỗi không thể đọc file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+            } catch (Exception $e) {
+                die('Lỗi không thể đọc file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
             }
-
-            echo $inputFileName;
+            $sheet = $objPHPExcel->setActiveSheetIndex(0);
+            $Totalrow = $sheet->getHighestRow();
+            $LastColumn = $sheet->getHighestColumn();
+            $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
+            $data = [];
+            for ($i = 2; $i <= $Totalrow; $i++) {
+                //----Lặp cột
+                for ($j = 0; $j < $TotalCol; $j++) {
+                    // Tiến hành lấy giá trị của từng ô đổ vào mảng
+                    $check = '';
+                    if($j == 0){
+                        $check = "level";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == 1){
+                        $check = "question";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else if($j == $TotalCol-1){
+                        $check = "answer";
+                        $data[$i - 2][$check] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    } else {
+                        $check = "option";
+                        $data[$i - 2][$check][] = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    }
+                }
+            }
+            echo json_encode($data);
         }
     }
 
@@ -230,11 +257,13 @@ class Question extends Controller
         }
     }
 
-    public function getTotalPag()
+    public function getTotalPage()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
-            echo $this->cauHoiModel->getTotalPag($content);
+            echo $this->cauHoiModel->getTotalPage($content);
         }
     }
+
+
 }

@@ -10,9 +10,7 @@ $(document).ready(function () {
             }
         });
     }
-
     getData()
-
     function showListTest(tests) {
         html = ``;
         tests.forEach(test => {

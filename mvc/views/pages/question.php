@@ -17,7 +17,7 @@
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Môn học</a></li>
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Câu hỏi</a></li>
                             </ul>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="one-ecom-orders-search">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="question-search">
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,15 @@ class App{
         }
         // Params
         $this->params = $arr?array_values($arr):[];
-        call_user_func_array([$this->controller, $this->action], $this->params );
+        try {
+            call_user_func_array([$this->controller, $this->action], $this->params );
+        } catch (ArgumentCountError $e) {
+            $this->controller = 'myerror';
+            require_once "./mvc/controllers/". $this->controller .".php";
+            $this->controller = new $this->controller;
+            $this->action = 'default';
+            call_user_func_array([$this->controller, $this->action], []);
+        }
 
     }
 

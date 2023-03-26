@@ -11,7 +11,7 @@ class NguoiDungModel extends DB
         if (!$result) {
             $check = false;
         }
-        return json_encode($check);
+        return $check;
     }
 
     public function delete($id)
@@ -168,26 +168,21 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    // function pagination($limit, $start_from)
-    // {
-    //     $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
-    //     FROM nguoidung, nhomquyen
-    //     WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
-    //     ORDER BY id ASC LIMIT $start_from, $limit";
-    //     $result = mysqli_query($this->con, $query);
-    //     $rows = array();
-    //     while ($row = mysqli_fetch_assoc($result)) {
-    //         $rows[] = $row;
-    //     }
-    //     return $rows;
-    // }
-
-    // function getNumberPage($limit)
-    // {
-    //     $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
-    //     $page_result = mysqli_query($this->con, $page_query);
-    //     $total_records = mysqli_num_rows($page_result);
-    //     $total_pages = ceil($total_records / $limit);
-    //     return $total_pages;
-    // }
+    function addFile($data){
+        $check = true;
+        foreach($data as $user){
+            $fullname = $user['fullname'];
+            $email = $user['email'];
+            $mssv = $user['mssv'];
+            $trangthai = $user['trangthai'];
+            $nhomquyen = $user['nhomquyen'];
+            $sql = "INSERT INTO `nguoidung`(`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$mssv','$trangthai','$nhomquyen')";
+            $result = mysqli_query($this->con,$sql);
+            if($result){
+            } else {
+                $check = false;
+            }
+        }
+        return $check;
+    }
 }

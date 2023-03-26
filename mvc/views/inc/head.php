@@ -13,8 +13,6 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-
-    <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
     <base href="/Quanlythitracnghiem/">
     <link rel="shortcut icon" href="./public/media/favicons/favicon.png">

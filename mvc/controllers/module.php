@@ -4,6 +4,7 @@
 
         function __construct() {
             $this->nhomModel = $this->model("NhomModel");
+            parent::__construct();
         }
 
         public function default()
@@ -37,7 +38,8 @@
         {
             if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $hienthi = $_POST['hienthi'];
-                $result = $this->nhomModel->getBySubject($hienthi);
+                $user_id = $_SESSION['user_id'];
+                $result = $this->nhomModel->getBySubject($user_id,$hienthi);
                 echo json_encode($result);
             }
         }
@@ -94,6 +96,16 @@
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $manhom = $_POST['manhom'];
                 $result = $this->nhomModel->getById($manhom);
+                echo json_encode($result);
+            }
+        }
+
+
+        public function updateInvitedCode()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->updateMaMoi($manhom);
                 echo json_encode($result);
             }
         }

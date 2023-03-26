@@ -33,6 +33,7 @@ class NhomModel extends DB
         return $valid;
     }
 
+    // Ẩn || Hiện nhóm
     public function hide($manhom, $giatri)
     {
         $valid = true;
@@ -44,17 +45,6 @@ class NhomModel extends DB
         return $valid;
     }
 
-    public function getAll()
-    {
-        $sql = "SELECT * FROM `nhom` WHERE trangthai = 1";
-        $result = mysqli_query($this->con, $sql);
-        $rows = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
     public function getById($manhom)
     {
         $sql = "SELECT * FROM `nhom` WHERE `manhom` = $manhom";
@@ -62,12 +52,13 @@ class NhomModel extends DB
         return mysqli_fetch_assoc($result);
     }
 
-    public function getBySubject($hienthi)
+    // Lấy tất cả nhóm của người tạo và gom lại theo mã môn học, năm học, học kỳ
+    public function getBySubject($nguoitao,$hienthi)
     {
         $sht = $hienthi == 2 ? "" : "AND nhom.hienthi = $hienthi";
         $sql = "SELECT monhoc.mamonhoc, monhoc.tenmonhoc, nhom.namhoc, nhom.hocky, nhom.manhom, nhom.tennhom, nhom.ghichu, nhom.siso, nhom.hienthi
         FROM nhom, monhoc
-        WHERE nhom.mamonhoc = monhoc.mamonhoc AND nhom.giangvien = 1 AND nhom.trangthai = 1 $sht";
+        WHERE nhom.mamonhoc = monhoc.mamonhoc AND nhom.giangvien = '$nguoitao' AND nhom.trangthai = 1 $sht";
         $result = mysqli_query($this->con, $sql);
         $rows = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -104,14 +95,70 @@ class NhomModel extends DB
         return $newArray;
     }
 
+    // Cập nhật mã mời
     public function updateMaMoi($manhom) 
     {
         $valid = true;
-        $mamoi = substr(md5(mt_rand()), 0, 7);
+        do {
+            $mamoi = substr(md5(mt_rand()), 0, 7);
+            $check = $this->getIdFromInvitedCode($mamoi);
+        } while($check != null);
         $sql = "UPDATE `nhom` SET `mamoi`='$mamoi' WHERE `manhom` = '$manhom'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
+    }
+
+    // Lấy mã nhóm từ mã mời
+    public function getIdFromInvitedCode($mamoi)
+    {
+        $sql = "SELECT `manhom` FROM `nhom` WHERE `mamoi` = '$mamoi'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
+    // Thêm sinh viên vào nhóm
+    public function join($manhom, $manguoidung) {
+        $valid = true;
+        $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
+    // Lấy các nhóm mà sinh viên tham gia
+    public function getAllGroup_User($user_id) {
+        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten
+        FROM chitietnhom, nhom, nguoidung, monhoc
+        WHERE chitietnhom.manhom = nhom.manhom AND nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND chitietnhom.manguoidung = $user_id";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // Lấy chi tiết một nhóm mà sinh viên tham gia
+    public function getDetailGroup($manhom)
+    {
+        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten
+        FROM nhom, nguoidung, monhoc
+        WHERE nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND nhom.manhom = $manhom";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
+    // Lấy danh sách bạn học chung nhóm
+    public function getFriendList($manhom)
+    {
+        $sql = "SELECT id, avatar, hoten FROM chitietnhom, nguoidung WHERE manhom = $manhom AND manguoidung = id";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }
 ?>

@@ -42,6 +42,7 @@ $("#update-password").click(function (e) {
     e.preventDefault();
     if($(".form-change-password").valid()) {
         let currentPass = $("#current-password").val();
+        console.log(currentPass);
         let newPass = $("#new-password").val();
         $.ajax({
             type: "post",
@@ -65,11 +66,15 @@ $("#update-password").click(function (e) {
     }
 });
 
+    let fullName = $("#dm-profile-edit-name").val();
+    let email = $("#dm-profile-edit-email").val();
+    let birthDay = $("#user_ngaysinh").val();
+    let gender = $('input[name="user_gender"]:checked').val();
+    console.log(fullName);
+
 $("#update-profile").click(function (e) {
     e.preventDefault();
     if ($(".form-update-profile").valid()) {
-    let fullName = $("#dm-profile-edit-name").val();
-    console.log(fullName);
         $.ajax({
             type: "post",
             url: "./account/changeProfile",
@@ -82,6 +87,7 @@ $("#update-profile").click(function (e) {
             dataType: "json",
             success: function(response) {
                 // console.log(response.valid );
+                console.log(response.valid.birthDay);
                 if (response.valid) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
                 } else {

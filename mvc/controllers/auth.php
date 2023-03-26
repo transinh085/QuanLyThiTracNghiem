@@ -16,13 +16,12 @@ class Auth extends Controller{
 
     public function default()
     {
-        AuthCore::onLogin();
         header("Location: ./auth/signin");
     }
 
     function signin()
     {
-        AuthCore::onLoginS();
+        AuthCore::onLogin();
         $p = parse_url($_SERVER['REQUEST_URI']);
         if(isset($p['query'])) {
             $query = $p['query'];
@@ -51,6 +50,7 @@ class Auth extends Controller{
 
 
     function signup(){
+        AuthCore::onLogin();
         $this->view("single_layout", [
             "Page" => "auth/signup",
             "Title" => "Đăng ký tài khoản",
@@ -63,6 +63,7 @@ class Auth extends Controller{
     }
 
     function recover(){
+        AuthCore::onLogin();
         $this->view("single_layout", [
             "Page" => "auth/recover",
             "Title" => "Khôi phục tài khoản",
@@ -88,10 +89,10 @@ class Auth extends Controller{
 
     public function getUser()
     {
-            if(isset($_POST['email'])) {
-                $user = $this->userModel->getById($_POST['email']);
-                echo json_encode($user);
-            }
+        if(isset($_POST['email'])) {
+            $user = $this->userModel->getById($_POST['email']);
+            echo json_encode($user);
+        }
     }
 
     public function checkLogin(){

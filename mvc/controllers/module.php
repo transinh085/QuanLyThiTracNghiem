@@ -4,6 +4,7 @@
 
         function __construct() {
             $this->nhomModel = $this->model("NhomModel");
+            parent::__construct();
         }
 
         public function default()

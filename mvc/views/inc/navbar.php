@@ -53,7 +53,7 @@
                 <li class="nav-main-item">
                     <a class="nav-main-link <?php if(getActiveNav() == 'dashboard') echo "active" ?>" href="./dashboard">
                         <i class="nav-main-link-icon fa fa-rocket"></i>
-                        <span class="nav-main-link-name">Dashboard</span>
+                        <span class="nav-main-link-name">Tổng quan</span>
                     </a>
                 </li>
                 <?php build_navbar() ?>

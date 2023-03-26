@@ -7,16 +7,6 @@ class AuthCore{
             $nguoidung = new NguoiDungModel();
             $token = $_COOKIE['token'];
             if($nguoidung->validateToken($token) == true){
-                header("Location: ./dashboard");
-            }
-        }
-    }
-
-    public static function onLoginS(){
-        if(isset($_COOKIE['token'])){
-            $nguoidung = new NguoiDungModel();
-            $token = $_COOKIE['token'];
-            if($nguoidung->validateToken($token) == true){
                 header("Location: ../dashboard");
             }
         }
@@ -27,7 +17,7 @@ class AuthCore{
         $token = $_COOKIE['token'];
         $nguoidung = new NguoiDungModel();
         if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == false){
-            header("Location: ./auth");
+            header("Location: ./auth/signin");
             exit;
         }
     }

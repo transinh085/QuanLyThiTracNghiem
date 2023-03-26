@@ -46,6 +46,28 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    public function uploadFile($tmpName,$imageExtension, $validImageExtension, $name) 
+    {
+            $check = true;
+
+            if(!in_array($imageExtension, $validImageExtension)) {
+                // echo "Invalid";
+                $check = false;
+                // exit;
+            } else {
+                $newImageName = $name . "-" . uniqid();
+                $newImageName .= '.' . $imageExtension;
+
+                move_uploaded_file($tmpName, './mvc/models/' . $newImageName);
+                $query = "INSERT INTO nguoidung VALUES('', '', '', '', '', '','$newImageName')";
+                mysqli_query($this->con, $query);
+                // echo "Success";
+                $check = true;
+                // exit;
+            }
+            return $check;
+    }
+
     public function getAll()
     {
         $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`

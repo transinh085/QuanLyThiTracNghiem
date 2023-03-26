@@ -87,7 +87,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Ảnh đại diện</label>
-                                <div class="push">
+                                <div class="push up-avatar">
                                     <img class="img-avatar" src="./public/media/avatars/avatar0.jpg" alt="">
                                 </div>
                                 <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>

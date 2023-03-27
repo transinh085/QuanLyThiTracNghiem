@@ -41,6 +41,61 @@ class Account extends Controller{
         }
     }
 
+    public function changeProfile()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $hoten = $_POST['hoten'];
+            $email = $_POST['email'];
+            $ngaysinh = $_POST['ngaysinh'];
+            $gioitinh = $_POST['gioitinh'];
+            $result = $this->nguoidung->updateProfile($hoten,$gioitinh,$ngaysinh, $email);
+            if ($result) {
+                echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
+            }
+        }
+    }
+
+    // public function uploadFile()
+    // {
+    //     if ($_FILES['file']['name']!='') {
+    //         $extension = explode(".", $_FILES['file']['name']);
+    //         $file_extension = end($extension);
+    //         $allowed_type = array("jpg", "jpeg", "png", "gif");
+    //         if (in_array($file_extension, $allowed_type)) {
+    //             $new_name = rand().".".$file_extension;
+    //             $path = "controllers/".$new_name;
+    //             if (move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
+    //                 echo '<img class="img-avatar" src="'.$path.'" alt="${file.name}">'
+    //             }
+    //         } else {
+    //             echo '<script>alert("File ảnh không hiệu lực")</script>';
+    //         }
+
+    //     } else {
+    //         echo '<script>alert("Chọn ảnh đê")</script>';
+    //     }
+    // }
+
+    public function uploadFile()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_FILES['file-img']['name'])) {
+                $id = $_SESSION['user_id'];
+                $imageName = $_FILES['file-img']['name'];
+                $tmpName = $_FILES['file-img']['tmp_name'];
+
+                // Image extension validation
+                $validImageExtension = ['jpg', 'jpeg', 'png'];
+                $imageExtension = explode('.', $imageName);
+
+                $name = $imageExtension[0];
+                $imageExtension = strtolower(end($imageExtension));
+                $result = $this->nguoidung->uploadFile($id,$tmpName,$imageExtension, $validImageExtension,$name);
+                echo json_encode($result);
+            }
+        }
+    }
+
     public function check()
     {
         echo "<pre>";

@@ -35,6 +35,7 @@
                         <div class="dropdown-menu fs-sm" aria-labelledby="inbox-msg-sort">
                             <a class="dropdown-item" href="javascript:void(0)">1</a>
                             <a class="dropdown-item" href="javascript:void(0)">2</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Tất cả</a>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -50,8 +51,9 @@
                         </div>
                     </div>
                 </div>
-                <ul class="list-group fs-sm">
+                <ul class="list-group fs-sm" id="list-question">
                     <li class="list-group-item">
+                        <span class="badge rounded-pill bg-dark m-1 float-end">Dễ</span>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="ques_1">
                             <label class="form-check-label text-muted" for="ques_1">Lập trình hướng đối tượng là gì ?</label>
@@ -78,10 +80,12 @@
                         <div class="flex-grow-1">
                             <div class="row">
                                 <div class="col-sm-8">
-                                    <button type="button" class="btn btn-alt-primary">Dễ <span
-                                            class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
-                                    <button type="button" class="btn btn-alt-primary">Trung bình <span
-                                            class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
+                                    <button type="button" class="btn btn-alt-primary">Dễ 
+                                        <span class="badge rounded-pill bg-xwork ms-1">
+                                            <span id="slcaude">1</span>/<span id="ttcaude">3</span>
+                                        </span></button>
+                                    <button type="button" class="btn btn-alt-primary">Trung bình 
+                                        <span class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
                                     <button type="button" class="btn btn-alt-primary">Khó <span
                                             class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
                                 </div>

@@ -73,7 +73,8 @@ class Test extends Controller{
     {
         $this->view('main_layout',[
             "Page" => "select_question",
-            "Title" => "Chọn câu hỏi"
+            "Title" => "Chọn câu hỏi",
+            "Script" => "select_question"
         ]);
     }
 

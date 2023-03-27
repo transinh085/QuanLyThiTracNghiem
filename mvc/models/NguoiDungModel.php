@@ -37,6 +37,36 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    // Update Profile
+    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
+    {
+        $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
+        return $check;
+    }
+
+    // Up avatar
+    public function uploadFile($id,$tmpName,$imageExtension, $validImageExtension, $name) 
+    {
+            $check = true;
+
+            if(!in_array($imageExtension, $validImageExtension)) {
+                $check = false;
+            } else {
+                $newImageName = $name . "-" . uniqid(); // Generate new name image
+                $newImageName .= '.' . $imageExtension;
+
+                move_uploaded_file($tmpName, './public/media/avatars/' . $newImageName);
+                $sql = "UPDATE `nguoidung` SET `avatar`='$newImageName' WHERE `id`='$id'";
+                mysqli_query($this->con, $sql);
+                $check = true;
+            }
+            return $check;
+    }
+
+
     public function getAll()
     {
         $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
@@ -124,6 +154,7 @@ class NguoiDungModel extends DB
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['hoten'];
+            $_SESSION['avatar'] = $row['avatar'];
             $_SESSION['user_role'] = $this->getRole($row['manhomquyen']);
             return true;
         }

@@ -4,7 +4,7 @@
         <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo24@2x.jpg');"></div>
         <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
             <a class="d-block img-link mt-n5" href="javascript:void(0)">
-                <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg" alt="">
+                <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/<?php echo $data["User"]["avatar"]?>" alt="">
             </a>
             <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0">
                 <h1 class="fs-4 fw-bold mb-1"><?php echo $_SESSION['user_name'] ?></h1>
@@ -51,7 +51,7 @@
                         </p>
                     </div>
                     <div class="col-xl-6 order-xl-0">
-                        <form action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data"
+                        <form class="form-update-profile" method="POST" enctype="multipart/form-data"
                             onsubmit="return false;">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-name">Họ và tên</label>
@@ -83,17 +83,17 @@
                             <div class="mb-3">
                                 <label for="user_ngaysinh" class="form-label">Ngày sinh</label>
                                 <input type="text" class="js-flatpickr form-control form-control-alt" id="user_ngaysinh"
-                                    name="example-flatpickr-custom" placeholder="Ngày sinh" value="<?php echo $data["User"]["ngaysinh"]?>">
+                                    name="user_ngaysinh" placeholder="Ngày sinh" value="<?php echo $data["User"]["ngaysinh"]?>">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Ảnh đại diện</label>
-                                <div class="push">
-                                    <img class="img-avatar" src="./public/media/avatars/avatar0.jpg" alt="">
+                                <div class="push up-avatar">
+                                    <img class="img-avatar" src="./public/media/avatars/<?php echo $data["User"]["avatar"]?>" alt="">
                                 </div>
                                 <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>
-                                <input class="form-control" type="file" id="dm-profile-edit-avatar">
+                                <input class="form-control" type="file" id="dm-profile-edit-avatar" name="file-img">
                             </div>
-                            <button type="submit" class="btn btn-alt-primary">
+                            <button type="submit" class="btn btn-alt-primary" id="update-profile">
                                 <i class="fa fa-check-circle opacity-50 me-1"></i> Cập nhật hồ sơ
                             </button>
                         </form>

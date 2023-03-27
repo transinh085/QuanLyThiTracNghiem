@@ -357,7 +357,7 @@ $(document).ready(function () {
 
   const defaultQuery =
     "SELECT nguoidung.*, nhomquyen.`tennhomquyen` FROM nguoidung, nhomquyen WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen` ORDER BY id";
-  let currentQuery = defaultQuery;
+    let currentQuery = defaultQuery;
   getNumberPage(defaultQuery, 1);
   fetch_data(defaultQuery, 1);
 });

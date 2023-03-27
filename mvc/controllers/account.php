@@ -79,9 +79,10 @@ class Account extends Controller{
     public function uploadFile()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_FILES['dm-profile-edit-avatar']['name'])) {
-                $imageName = $_FILES['dm-profile-edit-avatar']['name'];
-                $tmpName = $_FILES['dm-profile-edit-avatar']['tmp_name'];
+            if (isset($_FILES['file-img']['name'])) {
+                $id = $_SESSION['user_id'];
+                $imageName = $_FILES['file-img']['name'];
+                $tmpName = $_FILES['file-img']['tmp_name'];
 
                 // Image extension validation
                 $validImageExtension = ['jpg', 'jpeg', 'png'];
@@ -89,7 +90,7 @@ class Account extends Controller{
 
                 $name = $imageExtension[0];
                 $imageExtension = strtolower(end($imageExtension));
-                $result = $this->nguoidung->uploadFile($tmpName,$imageExtension, $validImageExtension, $name);
+                $result = $this->nguoidung->uploadFile($id,$tmpName,$imageExtension, $validImageExtension,$name);
                 echo json_encode($result);
             }
         }

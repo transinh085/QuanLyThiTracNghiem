@@ -218,7 +218,7 @@ $(document).ready(function () {
     fetch_data("user", currentPage);
   });
 
-  $("#search-form").on("submit", function (e) {
+  $("#search-form").on("input", function (e) {
     e.preventDefault();
     getNumberPage("user", 1);
     fetch_data("user", 1);

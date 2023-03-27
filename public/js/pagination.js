@@ -38,6 +38,7 @@ const fetch_data = function (query, page) {
 };
 
 function getNumberPage(query, page = 0) {
+  console.log(query);
   page = Number.parseInt(page);
   let html = "";
   $.ajax({
@@ -47,6 +48,8 @@ function getNumberPage(query, page = 0) {
       query: query,
     },
     success: function (numberPages) {
+  console.log(query);
+
       if (numberPages == 0) return;
       let prev = page > 1 ? page - 1 : 1;
       let next = page < numberPages ? page + 1 : numberPages;

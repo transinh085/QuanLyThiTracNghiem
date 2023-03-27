@@ -33,6 +33,27 @@ Dashmix.onLoad((() => class {
             }
         })
 
+        Dashmix.helpers("jq-validation"), jQuery(".form-update-profile").validate({
+            rules: {
+                "dm-profile-edit-name": {
+                    required: !0,
+                },
+                "dm-profile-edit-email": {
+                    required: !0,
+                    emailWithDot: !0
+                },
+            },
+            messages: {
+                "dm-profile-edit-name": {
+                    required: "Cannot be left blank"
+                },
+                "dm-profile-edit-email": {
+                    required: "Cannot be left blank",
+                    emailWithDot: "Please enter correct email format"
+                },
+            }
+        })
+
     }
     static init() {
         this.initValidation()
@@ -72,7 +93,6 @@ $("#update-password").click(function (e) {
     let oldBirthDay = $("#user_ngaysinh").val();
     let oldGender = $('input[name="user_gender"]:checked').val();
     let resultElement = $(".up-avatar");
-    // let oldAvatar = $("#dm-profile-edit-avatar");
 
     $("#dm-profile-edit-avatar").change(function (e) { 
         const files = e.target.files
@@ -133,8 +153,9 @@ $("#update-profile").click(function (e) {
     let newName = $("#dm-profile-edit-name").val();
     let newBirthDay = $("#user_ngaysinh").val();
     let newGender = $('input[name="user_gender"]:checked').val(); 
+    let newAvatar = $('input[name="file-img"]').val();
     let check;
-    if (newName != oldName || newGender != oldGender || newBirthDay != oldBirthDay) {
+    if (newName != oldName || newGender != oldGender || newBirthDay != oldBirthDay || newAvatar != '') {
         check = true;
     } else {
         check = false;
@@ -164,34 +185,24 @@ $("#update-profile").click(function (e) {
 
 function saveFileAvatar() {
     $(document).ready(function() {
-        // $("#dm-profile-edit-avatar").change(function (e) {
-            
-            // const files = e.target.files
-            // const file = files[0]
-            // const type = file.type
-            // console.log(type)
-        
-            // const match = ["image/gif", "image/png", "image/jpg",];
-        
-            // if (type == match[0] || type == match[1] || type == match[2]) {
                 const form_data = new FormData();
                 const file_data = $('#dm-profile-edit-avatar')[0].files;
-                form_data.append('dm-profile-edit-avatar', file_data[0]);
+                console.log(file_data)
+                const dk = form_data.append('file-img', file_data[0]);
+                console.log(dk)
+                console.log($("#dm-profile-edit-email").val())
                 $.ajax({
                     type: "post",
                     url: "./account/uploadFile",
-                    data: form_data,
+                    data: 
+                        form_data,
                     contentType: false,
                     processData:false,
-                    // dataType: "json",
+                    dataType: "json",
                     success: function(response) {
                         console.log(response)
-                        // $(".up-avatar").html(response)
-                        // $("#dm-profile-edit-avatar").val("")
                     }
                 })
-            // }
-        // })
     })
 }
 

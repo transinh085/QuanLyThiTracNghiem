@@ -1,51 +1,36 @@
-// let ajaxResult;
-// function mySuccessCallback(response) {
-//   ajaxResult = response;
-// }
+function optionArgument(page) {
+  var input = $("#search-input").val();
+  const option = {
+    page: page,
+  };
+  if (input != "") option.input = input;
+  return option;
+}
 
-// function fetch_data(query, page) {
-//   $.ajax({
-//     url: `./home/pagination`,
-//     method: "post",
-//     data: {
-//       query: query,
-//       page: page,
-//     },
-//     dataType: "json",
-//     success: mySuccessCallback,
-//     error: function (err) {
-//       console.error(err);
-//     },
-//   });
-// }
-
-const fetch_data = function (query, page) {
+function fetch_data(controller, page) {
+  const option = optionArgument(page);
   $.ajax({
-    url: `./home/pagination`,
+    url: `./${controller}/pagination`,
     method: "post",
-    data: {
-      query: query,
-      page: page,
-    },
+    data: option,
     dataType: "json",
     success: function (data) {
       showData(data);
     },
     error: function (err) {
-      console.error(err);
+      console.error(err.responseText);
     },
   });
-};
+}
 
-function getNumberPage(query, page = 0) {
+function getNumberPage(controller, page = 0) {
   page = Number.parseInt(page);
+  const option = optionArgument(page);
   let html = "";
   $.ajax({
-    url: `./home/getNumberPage`,
+    url: `./${controller}/getNumberPage`,
     method: "post",
-    data: {
-      query: query,
-    },
+    data: option,
     success: function (numberPages) {
       if (numberPages == 0) return;
       let prev = page > 1 ? page - 1 : 1;
@@ -73,6 +58,9 @@ function getNumberPage(query, page = 0) {
                 </li>
                 `;
       $("#getNumberPage").html(html);
+    },
+    error: function (error) {
+      console.error(error.responseText);
     },
   });
 }

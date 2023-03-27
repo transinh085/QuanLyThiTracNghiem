@@ -185,4 +185,13 @@ class NguoiDungModel extends DB
         }
         return $check;
     }
+
+    public function getQuery($filter, $input) {
+        $query = "SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen";
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY id ASC";
+        return $query;
+    }
 }

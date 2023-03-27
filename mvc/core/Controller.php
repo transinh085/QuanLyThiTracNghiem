@@ -17,13 +17,21 @@ class Controller{
     }
 
     public function pagination() {
-        $query = $_POST["query"];
         $limit = 5;
         $page = 1;
+        $input = null;
+        $filter = null;
         if (isset($_POST["page"])) {
             $page = $_POST["page"];
         }
-        $start_from = ($page - 1)*$limit;
+        $start_from = ($page - 1) * $limit;
+        if (isset($_POST["input"])) {
+            $input = $_POST["input"];
+        }
+        if (isset($_POST["filter"])) {
+            $filter = $_POST["filter"];
+        }
+        $query = $this->getQuery($filter, $input);
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $DB = new DB();
             $result = $DB->pagination($query, $limit, $start_from);
@@ -34,7 +42,15 @@ class Controller{
 
     public function getNumberPage() {
         $limit = 5;
-        $query = $_POST["query"];
+        $input = null;
+        $filter = null;
+        if (isset($_POST["input"])) {
+            $input = $_POST["input"];
+        }
+        if (isset($_POST["filter"])) {
+            $filter = $_POST["filter"];
+        }
+        $query = $this->getQuery($filter, $input);
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $DB = new DB();
             $result = $DB->getNumberPage($query, $limit);

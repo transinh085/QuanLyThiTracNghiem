@@ -83,60 +83,6 @@ $(document).ready(function () {
 
   loadData();
 
-  // const showData = function (users) {
-  //   let html = "";
-  //   users.forEach((user) => {
-  //     html += `<tr>
-  //                           <td class="text-center">
-  //                               <strong>${user.id}</strong>
-  //                           </td>
-  //                           <td class="fs-sm d-flex align-items-center">
-  //                               <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg" alt="">
-  //                               <div class="d-flex flex-column">
-  //                                   <strong class="text-primary">${
-  //                                     user.hoten
-  //                                   }</strong>
-  //                                   <span class="fw-normal fs-sm text-muted">${
-  //                                     user.email
-  //                                   }</span>
-  //                               </div>
-  //                           </td>
-  //                           <td class="text-center">${
-  //                             user.gioitinh == 1 ? "Nam" : "Nữ"
-  //                           }</td>
-  //                           <td class="text-center">${user.ngaysinh}</td>
-  //                           <td class="text-center">${user.tennhomquyen}</td>
-  //                           <td class="text-center">${user.ngaythamgia}</td>
-  //                           <td class="text-center">
-  //                               <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill ${
-  //                                 user.trangthai == 1
-  //                                   ? "bg-success-light text-success"
-  //                                   : "bg-danger-light text-danger"
-  //                               } bg-success-light text-success">${
-  //       user.trangthai == 1 ? "Hoạt động" : "Khoá"
-  //     }</span>
-  //                           </td>
-  //                           <td class="text-center">
-  //                               <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
-  //                               data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${
-  //                                 user.id
-  //                               }">
-  //                                   <i class="fa fa-fw fa-pencil"></i>
-  //                               </a>
-  //                               <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
-  //                                   aria-label="Delete" data-bs-original-title="Delete" data-id="${
-  //                                     user.id
-  //                                   }">
-  //                                   <i class="fa fa-fw fa-times"></i>
-  //                               </a>
-  //                           </td>
-  //                       </tr>
-  //       `;
-  //   });
-  //   $("#list-user").html(html);
-  //   $('[data-bs-toggle="tooltip"]').tooltip();
-  // };
-
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
     $(".add-user-element").show();
@@ -159,8 +105,8 @@ $(document).ready(function () {
       success: function (response) {
         console.log(response);
         $("#modal-add-user").modal("hide");
-        getNumberPage(currentQuery, 1);
-        fetch_data(currentQuery, 1);
+        getNumberPage("user", currentPage);
+        fetch_data("user", currentPage);
       },
     });
   });
@@ -210,8 +156,8 @@ $(document).ready(function () {
       },
       success: function (response) {
         $("#modal-add-user").modal("hide");
-        getNumberPage(defaultQuery, 1);
-        fetch_data(currentQuery, 1);
+        getNumberPage("user", currentPage);
+        fetch_data("user", currentPage);
       },
     });
   });
@@ -255,8 +201,8 @@ $(document).ready(function () {
           success: function (response) {
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
             // loadData();
-            getNumberPage(currentQuery, 1);
-            fetch_data(currentQuery, 1);
+            getNumberPage("user", 1);
+            fetch_data("user", 1);
           },
         });
       } else {
@@ -265,75 +211,17 @@ $(document).ready(function () {
     });
   });
 
-  // function fetch_data(query, page) {
-  //   $.ajax({
-  //     url: "./user/pagination",
-  //     method: "post",
-  //     data: {
-  //       query: query,
-  //       page: page,
-  //     },
-  //     success: function (data) {
-  //       showData(JSON.parse(data));
-  //     },
-  //     error: function (err) {
-  //       console.error(err);
-  //     },
-  //   });
-  // }
-
-  // function getNumberPage(query, page = 0) {
-  //   page = Number.parseInt(page);
-  //   let html = "";
-  //   $.ajax({
-  //     url: "./user/getNumberPage",
-  //     method: "post",
-  //     data: {
-  //       query: query,
-  //     },
-  //     success: function (numberPages) {
-  //       if (numberPages == 0) return;
-  //       let prev = page > 1 ? page - 1 : 1;
-  //       let next = page < numberPages ? page + 1 : numberPages;
-  //       html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
-  //                           <a class="page-link" id="${prev}" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-  //                               Prev
-  //                           </a>
-  //                       </li>
-  //               `;
-  //       for (let i = 1; i <= numberPages; i++) {
-  //         html += `
-  //                   <li class="page-item ${i == page ? "active" : ""}">
-  //                       <a class="page-link" id="${i}" href="javascript:void(0)">${i}</a>
-  //                   </li>
-  //                   `;
-  //       }
-  //       html += `
-  //               <li class="page-item ${
-  //                 page == numberPages ? "disabled" : "active"
-  //               }">
-  //                   <a class="page-link" id="${next}" href="javascript:void(0)" aria-label="Next">
-  //                       Next
-  //                   </a>
-  //               </li>
-  //               `;
-  //       $("#getNumberPage").html(html);
-  //     },
-  //   });
-  // }
-
   $(document).on("click", ".page-link", function () {
     var page = $(this).attr("id");
-    getNumberPage(currentQuery, page);
-    fetch_data(currentQuery, page);
+    currentPage = page;
+    getNumberPage("user", currentPage);
+    fetch_data("user", currentPage);
   });
 
   $("#search-form").on("submit", function (e) {
     e.preventDefault();
-    var input = $("#search-input").val();
-    currentQuery = `SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%') ORDER BY id`;
-    getNumberPage(currentQuery, 1);
-    fetch_data(currentQuery, 1);
+    getNumberPage("user", 1);
+    fetch_data("user", 1);
   });
 
   $("#nhap-file").click(function (e) {
@@ -370,14 +258,13 @@ $(document).ready(function () {
       success: function (response) {
         console.log(response);
         $("#modal-add-user").modal("hide");
-        fetch_data();
+        getNumberPage("user", currentPage);
+        fetch_data("user", currentPage);
       },
     });
   }
 
-  const defaultQuery =
-    "SELECT nguoidung.*, nhomquyen.`tennhomquyen` FROM nguoidung, nhomquyen WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen` ORDER BY id";
-  let currentQuery = defaultQuery;
-  getNumberPage(defaultQuery, 1);
-  fetch_data(defaultQuery, 1);
+  let currentPage = 1;
+  getNumberPage("user", currentPage);
+  fetch_data("user", currentPage);
 });

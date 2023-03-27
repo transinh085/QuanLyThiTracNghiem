@@ -265,5 +265,15 @@ class Question extends Controller
         }
     }
 
-
+    public function getQuestionBySubject()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $mamonhoc = $_POST['mamonhoc'];
+            $machuong = $_POST['machuong'];
+            $dokho = $_POST['dokho'];
+            $content = $_POST['content'];
+            $result = $this->cauHoiModel->getQuestionBySubject($mamonhoc, $machuong, $dokho, $content);
+            echo json_encode($result);
+        }
+    }
 }

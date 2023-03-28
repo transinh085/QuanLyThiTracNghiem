@@ -10,7 +10,7 @@ class DeThiModel extends DB
         $result = mysqli_query($this->con, $sql);
         if ($result) {
             $madethi = mysqli_insert_id($this->con);
-            return $result = $this->create_dethi_auto($madethi, $monthi, $chuong, $socaude, $socautb, $socaukho);
+            $result = $this->create_dethi_auto($madethi, $monthi, $chuong, $socaude, $socautb, $socaukho);
             // Một đề thi giao cho nhiều nhóm
             $result = $this->create_giaodethi($madethi, $nhom);
             // Một đề thi thì có nhiều chương
@@ -23,9 +23,9 @@ class DeThiModel extends DB
     {
         $valid = true;
         // Get câu dễ
-        $sql_caude = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
-        $sql_cautb = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
-        $sql_caukho = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
+        $sql_caude = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
+        $sql_cautb = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
+        $sql_caukho = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
         $countChuong = count($chuong)-1;
         $detailChuong = "(";
         $i = 0;
@@ -48,10 +48,28 @@ class DeThiModel extends DB
         $data_ck = array();
 
 
-        
+        while ($row = mysqli_fetch_assoc($result_cd)) {
+            $data_cd[] = $row['macauhoi'];
+        }
+        while ($row = mysqli_fetch_assoc($result_tb)) {
+            $data_ct[] = $row['macauhoi'];
+        }
+        while ($row = mysqli_fetch_assoc($result_ck)) {
+            $data_ck[] = $row['macauhoi'];
+        }
 
-        // Get câu trung bình 
-        // Get câu khó 
+        array_merge($data_cd,$data_ct);
+        array_merge($data_cd,$data_ck);
+        shuffle($data_cd);
+
+        $index = 1;
+        foreach($data_cd as $macauhoi){
+            $sql = "INSERT INTO `chitietdethi`(`made`, `macauhoi`, `thutu`) VALUES ('$made','$macauhoi','$index')";
+            $result = mysqli_query($this->con,$sql);
+            if(!$result) $valid = false;
+            $index++;
+        }
+        return $valid;
     }
 
     public function create_chuongdethi($made, $chuong)

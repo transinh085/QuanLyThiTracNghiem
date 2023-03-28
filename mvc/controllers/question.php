@@ -32,7 +32,7 @@ class Question extends Controller
             ]);
         } else {
             $this->view("single_layout", [
-                "Page" => "error/page_403",
+                "Page" => "error/page_404",
                 "Title" => "Lỗi !"
             ]);
         }
@@ -227,12 +227,10 @@ class Question extends Controller
 
     public function getAnswerById()
     {
-        if (AuthCore::checkPermission("cauhoi", "view")) {
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $id = $_POST['id'];
-                $result = $this->cauTraLoiModel->getAll($id);
-                echo json_encode($result);
-            }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['id'];
+            $result = $this->cauTraLoiModel->getAll($id);
+            echo json_encode($result);
         }
     }
 

@@ -71,11 +71,22 @@ class Test extends Controller{
 
     public function select($made)
     {
-        $this->view('main_layout',[
-            "Page" => "select_question",
-            "Title" => "Chọn câu hỏi",
-            "Script" => "select_question"
-        ]);
+        $check = $this->dethimodel->getById($made);
+        if($check) {
+            $this->view('main_layout',[
+                "Page" => "select_question",
+                "Title" => "Chọn câu hỏi",
+                "Script" => "select_question",
+                "Plugin" => [
+                    "notify" => 1
+                ],
+            ]);
+        } else {
+            $this->view("single_layout", [
+                "Page" => "error/page_404",
+                "Title" => "Lỗi !"
+            ]);
+        }
     }
 
     public function addTest()

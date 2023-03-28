@@ -52,19 +52,7 @@
                     </div>
                 </div>
                 <ul class="list-group fs-sm" id="list-question">
-                    <li class="list-group-item">
-                        <span class="badge rounded-pill bg-dark m-1 float-end">Dễ</span>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="ques_1">
-                            <label class="form-check-label text-muted" for="ques_1">Lập trình hướng đối tượng là gì ?</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="ques_2">
-                            <label class="form-check-label text-muted" for="ques_2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime magnam voluptatibus eos harum expedita facere. Velit iusto ipsum quis quasi!</label>
-                        </div>
-                    </li>
+                    <!-- Danh sách câu hỏi -->
                 </ul>
             </div>
         </div>
@@ -78,19 +66,26 @@
                             <p class="mb-0">Số lượng: </p>
                         </div>
                         <div class="flex-grow-1">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <button type="button" class="btn btn-alt-primary">Dễ 
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <button type="button" class="btn btn-alt-primary">Dễ
                                         <span class="badge rounded-pill bg-xwork ms-1">
-                                            <span id="slcaude">1</span>/<span id="ttcaude">3</span>
-                                        </span></button>
-                                    <button type="button" class="btn btn-alt-primary">Trung bình 
-                                        <span class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
-                                    <button type="button" class="btn btn-alt-primary">Khó <span
-                                            class="badge rounded-pill bg-xwork ms-1">1/3</span></button>
+                                            <span id="slcaude">0</span>/<span id="ttcaude">0</span>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-alt-primary">Trung bình
+                                        <span class="badge rounded-pill bg-xwork ms-1">
+                                            <span id="slcautb">0</span>/<span id="ttcautb">0</span>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-alt-primary">Khó
+                                        <span class="badge rounded-pill bg-xwork ms-1">
+                                            <span id="slcaukho">0</span>/<span id="ttcaukho">0</span>
+                                        </span>
+                                    </button>
                                 </div>
-                                <div class="col-sm-4 d-sm-flex align-items-sm-center">
-                                    <button type="button" class="btn btn-hero btn-danger"><i
+                                <div>
+                                    <button type="button" class="btn btn-hero btn-danger" id="save-test"><i
                                             class="fa-solid fa-floppy-disk"></i> Tạo đề thi</button>
                                 </div>
                             </div>
@@ -98,40 +93,23 @@
                     </div>
                 </div>
                 <div class="block-content">
-                    <h4 class="text-center mb-2">Đề kiểm tra giữa kì Lập trình Java</h4>
-                    <p class="text-center text-muted">Thời gian: 60 phút</p>
-                    <div class="question mb-3" id="c1">
-                <div class="question-top p-3">
-                    <p class="question-content fw-bold mb-3">1. Đặc điểm cơ bản của lập trình hướng đối tượng
-                        thể hiện ở: </p>
-                    <div class="row">
-                        <div class="col-12 mb-1">
-                            <p class="mb-1"><b>A.</b> Tính đóng gói, tính kế thừa, tính đa hình, tính đặc biệt
-                                hoá.</p>
-                        </div>
-                        <div class="col-12 mb-1">
-                            <p class="mb-1"><b>B.</b> Tính đóng gói, tính kế thừa, tính đa hình, tính đặc biệt
-                                hoá.</p>
-                        </div>
-                        <div class="col-12 mb-1">
-                            <p class="mb-1">
-                                <b>C.</b> Tính đóng gói, tính kế thừa, tính đa hình, tính đặc biệt hoá.
-                            </p>
-                        </div>
-                        <div class="col-12 mb-1">
-                            <p class="mb-1">
-                                <b>D.</b> Tính đóng gói, tính kế thừa, tính đa hình, tính đặc biệt hoá.
-                            </p>
-                        </div>
+                    <h4 class="text-center mb-2" id="name-test"></h4>
+                    <p class="text-center text-muted">Thời gian: <span id="test-time"></span> phút</p>
+                    <div id="list-question-of-test">
+                        <!-- Danh sách câu hỏi của đề thi  -->
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <style>
-    header,footer{display:none!important}
-    #page-container.page-header-fixed #main-container{padding-top: 0!important}
+header,
+footer {
+    display: none !important
+}
+
+#page-container.page-header-fixed #main-container {
+    padding-top: 0 !important
+}
 </style>

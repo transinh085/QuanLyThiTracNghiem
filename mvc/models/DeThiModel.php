@@ -1,20 +1,57 @@
 <?php
 
-class DeThiModel extends DB{
+class DeThiModel extends DB
+{
 
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)
     {
         $valid = true;
         $sql = "INSERT INTO `dethi`(`monthi`, `nguoitao`, `tende`, `thoigianthi`, `thoigianbatdau`, `thoigianketthuc`, `hienthibailam`, `xemdiemthi`, `xemdapan`, `troncauhoi`, `trondapan`, `nopbaichuyentab`, `loaide`, `socaude`, `socautb`, `socaukho`) VALUES ('$monthi','$nguoitao','$tende','$thoigianthi','$thoigianbatdau','$thoigianketthuc','$hienthibailam','$xemdiemthi','$xemdapan','$troncauhoi','$trondapan','$nopbaichuyentab','$loaide','$socaude','$socautb','$socaukho')";
         $result = mysqli_query($this->con, $sql);
-        if($result) {
+        if ($result) {
             $madethi = mysqli_insert_id($this->con);
+            return $result = $this->create_dethi_auto($madethi, $monthi, $chuong, $socaude, $socautb, $socaukho);
             // Một đề thi giao cho nhiều nhóm
-            $result = $this->create_giaodethi($madethi,$nhom);
+            $result = $this->create_giaodethi($madethi, $nhom);
             // Một đề thi thì có nhiều chương
-            $result = $this->create_chuongdethi($madethi,$chuong);
+            $result = $this->create_chuongdethi($madethi, $chuong);
         } else $valid = false;
         return $valid;
+    }
+
+    public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
+    {
+        $valid = true;
+        // Get câu dễ
+        $sql_caude = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
+        $sql_cautb = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
+        $sql_caukho = "SELECT * ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
+        $countChuong = count($chuong)-1;
+        $detailChuong = "(";
+        $i = 0;
+        while ($i < $countChuong) {
+            $detailChuong.="ch.machuong='$chuong[$i]' or ";
+            $i++;
+        }
+        $detailChuong.="ch.machuong=$chuong[$countChuong])";
+
+        $sql_caude = $sql_caude.$detailChuong." order by rand() limit $socaude";
+        $sql_cautb = $sql_cautb.$detailChuong." order by rand() limit $socautb";
+        $sql_caukho = $sql_caukho.$detailChuong." order by rand() limit $socaukho";
+        
+        $result_cd = mysqli_query($this->con,$sql_caude);
+        $result_tb = mysqli_query($this->con,$sql_cautb);
+        $result_ck = mysqli_query($this->con,$sql_caukho);
+
+        $data_cd = array();
+        $data_ct = array();
+        $data_ck = array();
+
+
+        
+
+        // Get câu trung bình 
+        // Get câu khó 
     }
 
     public function create_chuongdethi($made, $chuong)
@@ -23,37 +60,38 @@ class DeThiModel extends DB{
         foreach ($chuong as $machuong) {
             $sql = "INSERT INTO `dethitudong`(`made`, `machuong`) VALUES ('$made','$machuong')";
             $result = mysqli_query($this->con, $sql);
-            if(!$result) $valid = false;
+            if (!$result) $valid = false;
         }
         return $valid;
     }
 
-    public function update_chuongdethi($made, $chuong) {
+    public function update_chuongdethi($made, $chuong)
+    {
         $valid = true;
         $sql = "DELETE FROM `dethitudong` WHERE `made`='$made'";
         $result_del = mysqli_query($this->con, $sql);
-        if($result_del) $result_update = $this->create_chuongdethi($made, $chuong);
+        if ($result_del) $result_update = $this->create_chuongdethi($made, $chuong);
         else $valid = false;
         return $valid;
     }
 
-    public function create_giaodethi($made,$nhom)
+    public function create_giaodethi($made, $nhom)
     {
         $valid = true;
         foreach ($nhom as $manhom) {
             $sql = "INSERT INTO `giaodethi`(`made`, `manhom`) VALUES ('$made','$manhom')";
             $result = mysqli_query($this->con, $sql);
-            if(!$result) $valid = false;
+            if (!$result) $valid = false;
         }
         return $valid;
     }
 
-    public function update_giaodethi($made,$nhom)
+    public function update_giaodethi($made, $nhom)
     {
         $valid = true;
         $sql = "DELETE FROM `giaodethi` WHERE `made`='$made'";
         $result_del = mysqli_query($this->con, $sql);
-        if($result_del) $result_update = $this->create_giaodethi($made, $nhom);
+        if ($result_del) $result_update = $this->create_giaodethi($made, $nhom);
         else $valid = false;
         return $valid;
     }
@@ -63,11 +101,11 @@ class DeThiModel extends DB{
         $valid = true;
         $sql = "UPDATE `dethi` SET `monthi`='$monthi',`tende`='$tende',`thoigianthi`='$thoigianthi',`thoigianbatdau`='$thoigianbatdau',`thoigianketthuc`='$thoigianketthuc',`hienthibailam`='$hienthibailam',`xemdiemthi`='$xemdiemthi',`xemdapan`='$xemdapan',`troncauhoi`='$troncauhoi',`trondapan`='$trondapan',`nopbaichuyentab`='$nopbaichuyentab',`loaide`='$loaide',`socaude`='$socaude',`socautb`='$socautb',`socaukho`='$socaukho' WHERE `made`='$made'";
         $result = mysqli_query($this->con, $sql);
-        if($result) {
+        if ($result) {
             // Một đề thi giao cho nhiều nhóm
-            $result = $this->update_giaodethi($made,$nhom);
+            $result = $this->update_giaodethi($made, $nhom);
             // Một đề thi thì có nhiều chương
-            $result = $this->update_chuongdethi($made,$chuong);
+            $result = $this->update_chuongdethi($made, $chuong);
         } else $valid = false;
         return $valid;
     }
@@ -77,7 +115,7 @@ class DeThiModel extends DB{
         $valid = true;
         $sql = "UPDATE `dethi` `trangthai`= 0 WHERE `madethi` = $madethi";
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        if (!$result) $valid = false;
         return $valid;
     }
 
@@ -89,15 +127,15 @@ class DeThiModel extends DB{
         WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $made = $row['made'];
             $index = array_search($made, array_column($rows, 'made'));
-            if($index === false) {
+            if ($index === false) {
                 $item = [
                     "made" => $made,
                     "tende" => $row['tende'],
-                    "thoigianbatdau" => date_format(date_create($row['thoigianbatdau']),"H:i d/m/Y"),
-                    "thoigianketthuc" => date_format(date_create($row['thoigianketthuc']),"H:i d/m/Y"),
+                    "thoigianbatdau" => date_format(date_create($row['thoigianbatdau']), "H:i d/m/Y"),
+                    "thoigianketthuc" => date_format(date_create($row['thoigianketthuc']), "H:i d/m/Y"),
                     "tenmonhoc" => $row['tenmonhoc'],
                     "namhoc" => $row['namhoc'],
                     "hocky" => $row['hocky'],
@@ -123,11 +161,11 @@ class DeThiModel extends DB{
         $dethi = mysqli_fetch_assoc($result_dethi);
 
         $dethi['chuong'] = array();
-        while($row = mysqli_fetch_assoc($result_dethitudong)) {
+        while ($row = mysqli_fetch_assoc($result_dethitudong)) {
             $dethi['chuong'][] = $row['machuong'];
         }
         $dethi['nhom'] = array();
-        while($row = mysqli_fetch_assoc($result_giaodethi)) {
+        while ($row = mysqli_fetch_assoc($result_giaodethi)) {
             $dethi['nhom'][] = $row['manhom'];
         }
         return $dethi;
@@ -140,13 +178,11 @@ class DeThiModel extends DB{
         WHERE manhom = '$manhom' AND giaodethi.made = dethi.made";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $row['thoigianbatdau'] = date_format(date_create($row['thoigianbatdau']),"H:i d/m/Y");
-            $row['thoigianketthuc'] = date_format(date_create($row['thoigianketthuc']),"H:i d/m/Y");
+        while ($row = mysqli_fetch_assoc($result)) {
+            $row['thoigianbatdau'] = date_format(date_create($row['thoigianbatdau']), "H:i d/m/Y");
+            $row['thoigianketthuc'] = date_format(date_create($row['thoigianketthuc']), "H:i d/m/Y");
             $rows[] = $row;
         }
         return $rows;
     }
 }
-
-?>

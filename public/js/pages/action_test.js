@@ -125,6 +125,7 @@ $(document).ready(function () {
                 manhom: getGroupSelected()
             },
             success: function (response) {
+                console.log(response)
                 if(response) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo đề thi thành công!' });
                 } else {

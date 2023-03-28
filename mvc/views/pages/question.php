@@ -36,7 +36,7 @@
                         </select>
                     </div>
                     <div class="col-4">
-                        <input type="text" class="form-control" name="" id="" placeholder="Nhập nội dung tìm kiếm">
+                        <input type="text" class="form-control" name="question-search" id="question-search" placeholder="Nhập nội dung tìm kiếm">
                     </div>
                 </div>
             </form>

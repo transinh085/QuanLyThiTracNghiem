@@ -21,7 +21,6 @@ class DeThiModel extends DB
     public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
     {
         $valid = true;
-        // Get câu dễ
         $sql_caude = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
         $sql_cautb = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
         $sql_caukho = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
@@ -54,9 +53,7 @@ class DeThiModel extends DB
         while ($row = mysqli_fetch_assoc($result_ck)) {
             $data_cd[] = $row;
         }
-
         shuffle($data_cd);
-
         return $data_cd;
     }
 

@@ -199,9 +199,6 @@ class Question extends Controller
     {
         if (AuthCore::checkPermission("cauhoi", "view")) {
             if($_SERVER['REQUEST_METHOD'] == 'GET'){
-                $page = $_GET['page'];
-                $select = $_GET['selected'];
-                $content = $_GET['content'];
                 $result = $this->cauHoiModel->getAll();
                 echo json_encode($result);    
             }

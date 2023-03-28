@@ -22,9 +22,9 @@ class DeThiModel extends DB
     {
         $valid = true;
         // Get câu dễ
-        $sql_caude = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
-        $sql_cautb = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
-        $sql_caukho = "SELECT ch.macauhoi FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
+        $sql_caude = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
+        $sql_cautb = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
+        $sql_caukho = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
         $countChuong = count($chuong)-1;
         $detailChuong = "(";
         $i = 0;
@@ -43,32 +43,21 @@ class DeThiModel extends DB
         $result_ck = mysqli_query($this->con,$sql_caukho);
 
         $data_cd = array();
-        $data_ct = array();
-        $data_ck = array();
 
 
         while ($row = mysqli_fetch_assoc($result_cd)) {
-            $data_cd[] = $row['macauhoi'];
+            $data_cd[] = $row;
         }
         while ($row = mysqli_fetch_assoc($result_tb)) {
-            $data_ct[] = $row['macauhoi'];
+            $data_cd[] = $row;
         }
         while ($row = mysqli_fetch_assoc($result_ck)) {
-            $data_ck[] = $row['macauhoi'];
+            $data_cd[] = $row;
         }
 
-        array_merge($data_cd,$data_ct);
-        array_merge($data_cd,$data_ck);
         shuffle($data_cd);
 
-        $index = 1;
-        foreach($data_cd as $macauhoi){
-            $sql = "INSERT INTO `chitietdethi`(`made`, `macauhoi`, `thutu`) VALUES ('$made','$macauhoi','$index')";
-            $result = mysqli_query($this->con,$sql);
-            if(!$result) $valid = false;
-            $index++;
-        }
-        return $valid;
+        return $data_cd;
     }
 
     public function create_chuongdethi($made, $chuong)

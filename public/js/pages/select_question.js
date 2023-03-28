@@ -155,6 +155,7 @@ $.when(getInfoTest()).done(function(){
         let a = arrQuestion[index];
         arrQuestion[index] = arrQuestion[index - 1];
         arrQuestion[index - 1] = a;
+        $(this).tooltip('hide');
         showListQuesOfTest(arrQuestion);
     });
 
@@ -163,12 +164,15 @@ $.when(getInfoTest()).done(function(){
         let a = arrQuestion[index];
         arrQuestion[index] = arrQuestion[index + 1];
         arrQuestion[index + 1] = a;
+        $(this).tooltip('hide');
         showListQuesOfTest(arrQuestion);
     });
 
     $(document).on("click", ".btn-delete",function () {
         let index = $(this).data("index");
-        arr_slch[`${questions[index].dokho}`]--
+        arr_slch[`${arrQuestion[index].dokho}`]--
+        $(`#q-${arrQuestion[index].macauhoi}`).prop("checked",false);
+        $(this).tooltip('hide');
         arrQuestion.splice(index,1);
         showListQuesOfTest(arrQuestion);
         displayQuantityQueston()
@@ -177,7 +181,24 @@ $.when(getInfoTest()).done(function(){
     $("#save-test").click(function (e) { 
         e.preventDefault();
         if(arr_slch[1] == slgioihan[1] && arr_slch[2] == slgioihan[2] && arr_slch[3] == slgioihan[3]) {
-            alert("ok")
+            console.log(arrQuestion)
+            $.ajax({
+                type: "post",
+                url: "./test/addDetail",
+                data: {
+                    made: infoTest.made,
+                    cauhoi: arrQuestion
+                },
+                // dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if(response) {
+                        location.href = "./test";
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề không thành công!' });
+                    }
+                }
+            });
         } else {
             Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi chưa đủ!' });
         }

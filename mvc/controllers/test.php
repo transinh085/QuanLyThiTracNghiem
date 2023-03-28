@@ -2,10 +2,12 @@
 class Test extends Controller{
 
     public $dethimodel;
+    public $chitietde;
 
     public function __construct()
     {
         $this->dethimodel = $this->model("DeThiModel");
+        $this->chitietde = $this->model("ChiTietDeThiModel");
     }
 
     public function default()
@@ -164,6 +166,16 @@ class Test extends Controller{
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $result = $this->dethimodel->getListTestGroup($manhom);
+            echo json_encode($result);
+        }
+    }
+
+    public function addDetail()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $cauhoi = $_POST['cauhoi'];
+            $result = $this->chitietde->createMultiple($made,$cauhoi);
             echo json_encode($result);
         }
     }

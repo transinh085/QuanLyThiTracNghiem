@@ -5,7 +5,6 @@ class DeThiModel extends DB
 
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)
     {
-        $valid = true;
         $sql = "INSERT INTO `dethi`(`monthi`, `nguoitao`, `tende`, `thoigianthi`, `thoigianbatdau`, `thoigianketthuc`, `hienthibailam`, `xemdiemthi`, `xemdapan`, `troncauhoi`, `trondapan`, `nopbaichuyentab`, `loaide`, `socaude`, `socautb`, `socaukho`) VALUES ('$monthi','$nguoitao','$tende','$thoigianthi','$thoigianbatdau','$thoigianketthuc','$hienthibailam','$xemdiemthi','$xemdapan','$troncauhoi','$trondapan','$nopbaichuyentab','$loaide','$socaude','$socautb','$socaukho')";
         $result = mysqli_query($this->con, $sql);
         if ($result) {
@@ -14,9 +13,9 @@ class DeThiModel extends DB
             // Một đề thi giao cho nhiều nhóm
             $result = $this->create_giaodethi($madethi, $nhom);
             // Một đề thi thì có nhiều chương
-            $result = $this->create_chuongdethi($madethi, $chuong);
-        } else $valid = false;
-        return $valid;
+            $result = $this->create_chuongdethi($madethi,$chuong);
+            return $madethi;
+        } else return false;
     }
 
     public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
@@ -142,7 +141,8 @@ class DeThiModel extends DB
     {
         $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
         FROM dethi, monhoc, giaodethi, nhom
-        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao";
+        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao
+        ORDER BY dethi.made DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -171,20 +171,21 @@ class DeThiModel extends DB
     public function getById($made)
     {
         $sql_dethi = "SELECT dethi.*, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
-        $sql_giaodethi = "SELECT manhom FROM giaodethi WHERE made = $made";
-        $sql_dethitudong = "SELECT machuong FROM dethitudong WHERE made = $made";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
-        $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
-        $result_dethitudong = mysqli_query($this->con, $sql_dethitudong);
         $dethi = mysqli_fetch_assoc($result_dethi);
-
-        $dethi['chuong'] = array();
-        while ($row = mysqli_fetch_assoc($result_dethitudong)) {
-            $dethi['chuong'][] = $row['machuong'];
-        }
-        $dethi['nhom'] = array();
-        while ($row = mysqli_fetch_assoc($result_giaodethi)) {
-            $dethi['nhom'][] = $row['manhom'];
+        if($dethi != null) {
+            $sql_giaodethi = "SELECT manhom FROM giaodethi WHERE made = $made";
+            $sql_dethitudong = "SELECT machuong FROM dethitudong WHERE made = $made";
+            $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
+            $result_dethitudong = mysqli_query($this->con, $sql_dethitudong);
+            $dethi['chuong'] = array();
+            while($row = mysqli_fetch_assoc($result_dethitudong)) {
+                $dethi['chuong'][] = $row['machuong'];
+            }
+            $dethi['nhom'] = array();
+            while($row = mysqli_fetch_assoc($result_giaodethi)) {
+                $dethi['nhom'][] = $row['manhom'];
+            }
         }
         return $dethi;
     }

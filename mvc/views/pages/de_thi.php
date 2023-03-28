@@ -3,14 +3,13 @@
         <a id="" class="btn btn-hero btn-danger" href="#" role="button"><i class="fa fa-power-off"></i>
             Thoát</a>
         <div class="nav-center">
-            <span class="fw-bold fs-5">Thí sinh: Trần Nhật Sinh</span>
+            <span class="fw-bold fs-5">Thí sinh: <?php echo $_SESSION['user_name'] ?></span>
         </div>
         <div class="nav-right d-flex align-items-center">
             <div class="nav-time me-4">
                 <span class="fw-bold"><i class="far fa-clock mx-2"></i>00:45:00</span>
             </div>
-            <a id="" class="btn btn-hero btn-primary" href="#" role="button"><i class="far fa-file-lines me-1"></i> Nộp
-                bài</a>
+            <button id="" class="btn btn-hero btn-primary" role="button"><i class="far fa-file-lines me-1"></i> Nộp bài</button>
         </div>
     </div>
 </nav>

@@ -198,8 +198,13 @@ class Question extends Controller
     public function getQuestion()
     {
         if (AuthCore::checkPermission("cauhoi", "view")) {
-            $result = $this->cauHoiModel->getAll();
-            echo json_encode($result);
+            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                $page = $_GET['page'];
+                $select = $_GET['selected'];
+                $content = $_GET['content'];
+                $result = $this->cauHoiModel->getAll();
+                echo json_encode($result);    
+            }
         }
     }
 
@@ -259,6 +264,7 @@ class Question extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
+            $select = $_POST['selected'];
             echo $this->cauHoiModel->getTotalPage($content);
         }
     }

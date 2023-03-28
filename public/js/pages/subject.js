@@ -9,7 +9,7 @@ function showData(subjects) {
               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
               <td class="text-center">
                   <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
-                      data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
+                      data-bs-toggles="tooltip" aria-label="Thêm chương" data-bs-original-title="Chi tiết chương" data-id="${subject.mamonhoc}">
                       <i class="fa fa-circle-info"></i>
                   </a>
                   <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
@@ -25,6 +25,8 @@ function showData(subjects) {
   });
   $("#list-subject").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
+  $('[data-bs-toggles="tooltip"]').tooltip();
+
 }
 
 $(document).ready(function () {

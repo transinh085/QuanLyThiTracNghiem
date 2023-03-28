@@ -96,6 +96,7 @@ $.when(getInfoTest()).done(function(){
             displayQuantityQueston();
             showListQuesOfTest(arrQuestion);
         } else {
+            $(this).prop("checked",false);
             Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
         }
         console.log(slgioihan[`${questions[index].dokho}`]);

@@ -126,7 +126,8 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if(response) {
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo đề thi thành công!' });
+                    if($("#tudongsoande").prop("checked")) location.href = "./test";
+                    else location.href = `./test/select/${response}`;
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
                 }
@@ -175,10 +176,13 @@ $(document).ready(function () {
         $("#daodapan").prop("checked",dethi.trondapan == "1" ? true : false)
         $("#tudongnop").prop("checked",dethi.nopbaichuyentab == "1" ? true : false)
         $("#btn-update-test").data("id", dethi.made);
+
         $.when(showGroup(),showChapter(dethi.monthi)).done(function(){
             $("#nhom-hp").val(findIndexGroup(dethi.nhom[0])).trigger("change");
             setGroup(dethi.nhom)
-            $('#chuong').val(dethi.chuong).trigger("change");
+            if(dethi.loaide == "1") {
+                $('#chuong').val(dethi.chuong).trigger("change");
+            } else $(".show-chap").hide();
         });
     }
 

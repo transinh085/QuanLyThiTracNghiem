@@ -4,7 +4,6 @@ class DeThiModel extends DB{
 
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)
     {
-        $valid = true;
         $sql = "INSERT INTO `dethi`(`monthi`, `nguoitao`, `tende`, `thoigianthi`, `thoigianbatdau`, `thoigianketthuc`, `hienthibailam`, `xemdiemthi`, `xemdapan`, `troncauhoi`, `trondapan`, `nopbaichuyentab`, `loaide`, `socaude`, `socautb`, `socaukho`) VALUES ('$monthi','$nguoitao','$tende','$thoigianthi','$thoigianbatdau','$thoigianketthuc','$hienthibailam','$xemdiemthi','$xemdapan','$troncauhoi','$trondapan','$nopbaichuyentab','$loaide','$socaude','$socautb','$socaukho')";
         $result = mysqli_query($this->con, $sql);
         if($result) {
@@ -13,8 +12,8 @@ class DeThiModel extends DB{
             $result = $this->create_giaodethi($madethi,$nhom);
             // Một đề thi thì có nhiều chương
             $result = $this->create_chuongdethi($madethi,$chuong);
-        } else $valid = false;
-        return $valid;
+            return $madethi;
+        } else return false;
     }
 
     public function create_chuongdethi($made, $chuong)
@@ -86,7 +85,8 @@ class DeThiModel extends DB{
     {
         $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
         FROM dethi, monhoc, giaodethi, nhom
-        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao";
+        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao
+        ORDER BY dethi.made DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

@@ -1,44 +1,75 @@
+function showData(subjects) {
+  let html = "";
+  subjects.forEach((subject) => {
+    html += `<tr tid="${subject.mamonhoc}">
+              <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
+              <td>${subject.tenmonhoc}</td>
+              <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
+              <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
+              <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
+              <td class="text-center">
+                  <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
+                      data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
+                      <i class="fa fa-circle-info"></i>
+                  </a>
+                  <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
+                      data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
+                      <i class="fa fa-fw fa-pencil"></i>
+                  </a>
+                  <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
+                      data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
+                      <i class="fa fa-fw fa-times"></i>
+                  </a>
+              </td>
+          </tr>`;
+  });
+  $("#list-subject").html(html);
+  $('[data-bs-toggle="tooltip"]').tooltip();
+}
+
 $(document).ready(function () {
   function loadData() {
-    $.get(
-      "./subject/getData",
-      function (data, textStatus) {
-        showData(data);
-      },
-      "json"
-    );
+    // $.get(
+    //   "./subject/getData",
+    //   function (data, textStatus) {
+    //     showData(data);
+    //   },
+    //   "json"
+    // );
+    fetch_data("subject", 1);
+    getNumberPage("subject", 1);
   }
 
   loadData();
 
-  function showData(subjects) {
-    let html = "";
-    subjects.forEach((subject) => {
-      html += `<tr tid="${subject.mamonhoc}">
-                <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
-                <td>${subject.tenmonhoc}</td>
-                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
-                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
-                <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
-                <td class="text-center">
-                    <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
-                        <i class="fa fa-circle-info"></i>
-                    </a>
-                    <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
-                        <i class="fa fa-fw fa-pencil"></i>
-                    </a>
-                    <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
-                        data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
-                        <i class="fa fa-fw fa-times"></i>
-                    </a>
-                </td>
-            </tr>`;
-    });
-    $("#list-subject").html(html);
-    $('[data-bs-toggle="tooltip"]').tooltip();
-  }
+  // function showData(subjects) {
+  //   let html = "";
+  //   subjects.forEach((subject) => {
+  //     html += `<tr tid="${subject.mamonhoc}">
+  //               <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
+  //               <td>${subject.tenmonhoc}</td>
+  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
+  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
+  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
+  //               <td class="text-center">
+  //                   <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
+  //                       data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
+  //                       <i class="fa fa-circle-info"></i>
+  //                   </a>
+  //                   <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
+  //                       data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
+  //                       <i class="fa fa-fw fa-pencil"></i>
+  //                   </a>
+  //                   <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
+  //                       data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
+  //                       <i class="fa fa-fw fa-times"></i>
+  //                   </a>
+  //               </td>
+  //           </tr>`;
+  //   });
+  //   $("#list-subject").html(html);
+  //   $('[data-bs-toggle="tooltip"]').tooltip();
+  // }
 
   $("[data-bs-target='#modal-add-subject']").click(function (e) {
     e.preventDefault();
@@ -355,20 +386,18 @@ $(document).ready(function () {
     });
   });
 
-  $("#search-form").on("submit", function (e) {
+  $("#search-form").on("input", function (e) {
     e.preventDefault();
-    $.ajax({
-      type: "post",
-      url: "./subject/search",
-      data: {
-        input: $("#search-input").val(),
-      },
-      success: function (response) {
-        showData(JSON.parse(response));
-      },
-      error: function (err) {
-        console.error(err);
-      },
-    });
+    loadData();
   });
+
+  $(document).on("click", ".page-link", function () {
+    var page = $(this).attr("id");
+    currentPage = page;
+    fetch_data("subject", currentPage);
+    getNumberPage("subject", currentPage);
+  });
+
+  var currentPage = 1;
+  loadData();
 });

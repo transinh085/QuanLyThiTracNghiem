@@ -7,6 +7,8 @@ $(document).ready(function () {
     dropdownParent: $("#modal-add-question"),
   });
 
+  $(".js-select2").select2();
+
   $("[data-bs-target='#add_option']").on("click", function () {
     $("#update-option").hide();
     $("#save-option").show();

@@ -34,7 +34,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Photos Search Navigation">
+            <nav>
                 <ul class="pagination justify-content-end mt-2" id="getNumberPage">
                     <!-- <li class="page-item">
                         <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">

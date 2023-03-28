@@ -81,6 +81,7 @@ class DeThiModel extends DB{
         return $valid;
     }
 
+    // Lấy đề thi mà người dùng tạo
     public function getAll($nguoitao)
     {
         $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
@@ -110,6 +111,7 @@ class DeThiModel extends DB{
         return $rows;
     }
 
+    // Lấy chi tiết đề thi
     public function getById($made)
     {
         $sql_dethi = "SELECT dethi.*, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";

@@ -101,5 +101,10 @@ class Subject extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function getQuery($filter, $input) {
+        $result = $this->monHocModel->getQuery($filter, $input);
+        return $result;
+    }
 }
 ?>

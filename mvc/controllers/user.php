@@ -121,4 +121,9 @@ class User extends Controller{
             echo $result;
         }
     }
+
+    public function getQuery($filter, $input) {
+        $query = $this->NguoiDungModel->getQuery($filter, $input);
+        return $query;
+    }
 }

@@ -37,6 +37,7 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    // Update Profile
     public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
     {
         $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
@@ -46,27 +47,25 @@ class NguoiDungModel extends DB
         return $check;
     }
 
-    public function uploadFile($tmpName,$imageExtension, $validImageExtension, $name) 
+    // Up avatar
+    public function uploadFile($id,$tmpName,$imageExtension, $validImageExtension, $name) 
     {
             $check = true;
 
             if(!in_array($imageExtension, $validImageExtension)) {
-                // echo "Invalid";
                 $check = false;
-                // exit;
             } else {
-                $newImageName = $name . "-" . uniqid();
+                $newImageName = $name . "-" . uniqid(); // Generate new name image
                 $newImageName .= '.' . $imageExtension;
 
-                move_uploaded_file($tmpName, './mvc/models/' . $newImageName);
-                $query = "INSERT INTO nguoidung VALUES('', '', '', '', '', '','$newImageName')";
-                mysqli_query($this->con, $query);
-                // echo "Success";
+                move_uploaded_file($tmpName, './public/media/avatars/' . $newImageName);
+                $sql = "UPDATE `nguoidung` SET `avatar`='$newImageName' WHERE `id`='$id'";
+                mysqli_query($this->con, $sql);
                 $check = true;
-                // exit;
             }
             return $check;
     }
+
 
     public function getAll()
     {
@@ -155,6 +154,7 @@ class NguoiDungModel extends DB
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['hoten'];
+            $_SESSION['avatar'] = $row['avatar'];
             $_SESSION['user_role'] = $this->getRole($row['manhomquyen']);
             return true;
         }
@@ -215,5 +215,14 @@ class NguoiDungModel extends DB
             }
         }
         return $check;
+    }
+
+    public function getQuery($filter, $input) {
+        $query = "SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen";
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY id ASC";
+        return $query;
     }
 }

@@ -15,7 +15,7 @@ class DB{
 
     public function pagination($query, $limit, $start_from)
     {
-        $sql = "$query ASC LIMIT $start_from, $limit";
+        $sql = "$query LIMIT $start_from, $limit";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -32,5 +32,4 @@ class DB{
         return $total_pages;
     }
 }
-
 ?>

@@ -50,8 +50,15 @@ class CauHoiModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function getTotalPage($content){
-        $sql = "SELECT * FROM cauhoi where noidung like '%$content%'";
+    public function getTotalPage($content,$selected){
+        switch($selected){
+            case "Tất cả": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+            case "Môn học": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+            case "Mức độ": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+        }
         $result = mysqli_query($this->con,$sql);
         $count =mysqli_num_rows($result);
         $data = $count%5==0?$count/5:floor($count/5)+1;

@@ -15,7 +15,7 @@
                             <ul class="dropdown-menu mt-1">
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li>
                                 <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Môn học</a></li>
-                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Câu hỏi</a></li>
+                                <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Độ khó</a></li>
                             </ul>
                             <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="question-search">
                         </div>

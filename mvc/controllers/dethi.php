@@ -13,6 +13,7 @@ class Dethi extends Controller{
         $this->view("single_layout",[
             "Page" => "de_thi",
             "Title" => "Làm bài kiểm tra",
+            "Made" => 7,
             "Script" => "de_thi"
         ]);
     }

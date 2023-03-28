@@ -179,6 +179,15 @@ class Test extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function getQuestion()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];;
+            $result = $this->dethimodel->getQuestionOfTest($made);
+            echo json_encode($result);
+        }
+    }
 }
 
 ?>

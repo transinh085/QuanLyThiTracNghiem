@@ -1,8 +1,6 @@
 <?php
-
 class DeThiModel extends DB
 {
-
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)
     {
         $sql = "INSERT INTO `dethi`(`monthi`, `nguoitao`, `tende`, `thoigianthi`, `thoigianbatdau`, `thoigianketthuc`, `hienthibailam`, `xemdiemthi`, `xemdapan`, `troncauhoi`, `trondapan`, `nopbaichuyentab`, `loaide`, `socaude`, `socautb`, `socaukho`) VALUES ('$monthi','$nguoitao','$tende','$thoigianthi','$thoigianbatdau','$thoigianketthuc','$hienthibailam','$xemdiemthi','$xemdapan','$troncauhoi','$trondapan','$nopbaichuyentab','$loaide','$socaude','$socautb','$socaukho')";
@@ -18,6 +16,7 @@ class DeThiModel extends DB
         } else return false;
     }
 
+    // Đầu vào như này là đéo ổn 
     public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
     {
         $valid = true;
@@ -42,7 +41,6 @@ class DeThiModel extends DB
         $result_ck = mysqli_query($this->con,$sql_caukho);
 
         $data_cd = array();
-
 
         while ($row = mysqli_fetch_assoc($result_cd)) {
             $data_cd[] = $row;
@@ -186,6 +184,24 @@ class DeThiModel extends DB
         while ($row = mysqli_fetch_assoc($result)) {
             $row['thoigianbatdau'] = date_format(date_create($row['thoigianbatdau']), "H:i d/m/Y");
             $row['thoigianketthuc'] = date_format(date_create($row['thoigianketthuc']), "H:i d/m/Y");
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function getQuestionOfTest($made)
+    {
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $row['cautraloi'] = array();
+            $macauhoi = $row['macauhoi'];
+            $sql = "SELECT macautl,noidungtl FROM `cautraloi` WHERE `macauhoi` = '$macauhoi'";
+            $result_ctl = mysqli_query($this->con,$sql);
+            while($row_ctl = mysqli_fetch_assoc($result_ctl)) {
+                $row['cautraloi'][] = $row_ctl;
+            }
             $rows[] = $row;
         }
         return $rows;

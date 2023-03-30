@@ -8,14 +8,14 @@
             </div>
         </div>
         <div class="block-content">
-            <form action="be_pages_ecom_orders.html" method="POST" onsubmit="return false;">
+            <form action="#" id="search-form">
                 <div class="mb-4">
                     <div class="input-group">
-                        <input type="text" class="form-control form-control-alt" id="one-ecom-orders-search"
-                            name="one-ecom-orders-search" placeholder="Tìm kiếm môn học..">
-                        <span class="input-group-text bg-body border-0">
+                        <input type="text" class="form-control form-control-alt" id="search-input"
+                            name="search-input" placeholder="Tìm kiếm môn học...">
+                        <button class="input-group-text bg-body border-0 btn-search">
                             <i class="fa fa-search"></i>
-                        </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -36,8 +36,8 @@
                 </table>
             </div>
             <nav aria-label="Photos Search Navigation">
-                <ul class="pagination pagination-sm justify-content-end mt-2">
-                    <li class="page-item">
+                <ul class="pagination pagination-sm justify-content-end mt-2" id="getNumberPage">
+                    <!-- <li class="page-item">
                         <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
                             Prev
                         </a>
@@ -58,7 +58,7 @@
                         <a class="page-link" href="javascript:void(0)" aria-label="Next">
                             Next
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>

@@ -50,12 +50,38 @@ class CauHoiModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function getTotalPage($content){
-        $sql = "SELECT * FROM cauhoi where noidung like '%$content%'";
+    public function getTotalPage($content,$selected){
+        switch($selected){
+            case "Tất cả": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+            case "Môn học": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+            case "Mức độ": $sql = "SELECT * FROM cauhoi where noidung like '%$content%'"; 
+            break;
+        }
         $result = mysqli_query($this->con,$sql);
         $count =mysqli_num_rows($result);
         $data = $count%5==0?$count/5:floor($count/5)+1;
         echo $data;
+    }
+
+    public function getQuestionBySubject($mamonhoc, $machuong, $dokho, $content)
+    {
+        // $limit = 10;
+        // $offset = ($page - 1) * $limit;
+        $sql = "SELECT macauhoi, noidung, dokho, machuong FROM cauhoi WHERE mamonhoc = '$mamonhoc'";
+        $sql .= $machuong == 0 ? "" : " AND machuong = $machuong";
+        $sql .= $dokho == 0 ? "" : " AND dokho = $dokho";
+        $sql .= $content == '' ? "" : " AND noidung LIKE '%$content%'";
+        // $sql .= " ORDER BY macauhoi DESC limit $offset,$limit";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+            if(str_contains(strip_tags($row['noidung']),$content)) {
+            }
+        }
+        return $rows;
     }
 }
 ?>

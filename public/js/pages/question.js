@@ -7,6 +7,8 @@ $(document).ready(function () {
     dropdownParent: $("#modal-add-question"),
   });
 
+  $(".js-select2").select2();
+
   $("[data-bs-target='#add_option']").on("click", function () {
     $("#update-option").hide();
     $("#save-option").show();
@@ -166,7 +168,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#file-cau-hoi").change(function (e) { 
+  $("#file-cau-hoi").change(function (e) {
     e.preventDefault();
     var file = $("#file-cau-hoi")[0].files[0];
     var formData = new FormData();
@@ -192,7 +194,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#btnAddExcel").click(function(e){
+  $("#btnAddExcel").click(function (e) {
     e.preventDefault();
     var file = $("#file-cau-hoi")[0].files[0];
     var formData = new FormData();
@@ -208,7 +210,7 @@ $(document).ready(function () {
         Dashmix.layout("header_loader_on");
       },
       success: function (response) {
-        console.log(response)
+        console.log(response);
         questions = response;
         loadDataQuestion(response);
       },
@@ -216,7 +218,7 @@ $(document).ready(function () {
         Dashmix.layout("header_loader_off");
       },
     });
-  })
+  });
 
   function loadDataQuestion(questions) {
     let data = ``;
@@ -248,89 +250,7 @@ $(document).ready(function () {
     $("#content-file").html(data);
   }
 
-  // loadDataQuestion
-  var index;
-  function loadQuestion() {
-    $.get(
-      "./question/getQuestion",
-      function (data) {
-        let html = "";
-        let index = 1;
-        data.forEach((question) => {
-          let dokho = '';
-          switch(question['dokho']){
-            case '1': dokho = "Cơ bản";
-            break;
-            case '2': dokho = "Trung bình";
-            break;
-            case '3': dokho = "Nâng cao";
-            break;
-          }
-          html += `<tr>
-                    <td class="text-center fs-sm">
-                        <a class="fw-semibold" href="#">
-                            <strong>${index++}</strong>
-                        </a>
-                    </td>
-                    <td>${question["noidung"]}</td>
-                    <td class="d-none d-xl-table-cell fs-sm">
-                        <a class="fw-semibold">${question["tenmonhoc"]}</a>
-                    </td>
-                    <td class="d-none d-sm-table-cell fs-sm">
-                        <strong>${dokho}</strong>
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
-                                    aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                      question["macauhoi"]
-                                    }">
-                                    <i class="fa fa-fw fa-pencil" ></i>
-                                </a>
-                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
-                            data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
-                              question["macauhoi"]
-                            }">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
-                    </td>
-                </tr>`;
-        });
-        $("#listQuestion").html(html);
-      },
-      "json"
-    );
-  }
-  
   loadQuestion();
-  loadPagination();
-  function loadPagination(){
-    $.ajax({
-      url: "./question/getTotalPage",
-      type: "post",
-      data: {
-        content: $("#question-search").val().trim()
-      },
-      success:function(data){
-          let sum = parseInt(data);
-          let pg = '';
-          let i;
-          for(i = 1;i<=sum;i++){
-            pg += `<li class="page-item" page-id='${i}'>
-            <a class="page-link" href="javascript:void(0)">${i}</a>
-          </li>`;
-          }
-          $("#pagination").html("");
-          $("#pagination").html(pg);
-      }
-    });
-  }
-
-  $("#question-search").on("input", function(e){
-    e.preventDefault();
-    console.log($("#question-search").val())
-    loadPagination()
-  })
-
 
   //add question
   $("#add_question").click(function (e) {
@@ -437,7 +357,7 @@ $(document).ready(function () {
     $("#list-options").html("");
     $("#file-cau-hoi").val(null);
     $("#btabs-alt-static-home-tab").tab("show");
-    $("#content-file").html('')
+    $("#content-file").html("");
   });
 
   $("#nhap-file").click(function () {
@@ -644,10 +564,115 @@ $(document).ready(function () {
     });
   });
 
-  $(".filter-search").click(function (e) { 
-        e.preventDefault();
-        $(".btn-filter").text($(this).text());
-        mode = $(this).data("value")
-        loadDataGroup(mode);
+  $(".filter-search").click(function (e) {
+    e.preventDefault();
+    $(".btn-filter").text($(this).text());
+    console.log($(".btn-filter").text())
+  });
+
+  // loadDataQuestion
+  var page = 1;
+  var select = "Tất cả";
+  function loadQuestion() {
+    $.get(
+      "./question/getQuestion",
+      {
+        page: page,
+        selected: $(".btn-filter").text(),
+        content: $("#question-search").val().trim()
+      },
+      function (data) {
+        let html = "";
+        let index = 1;
+        data.forEach((question) => {
+          let dokho = "";
+          switch (question["dokho"]) {
+            case "1":
+              dokho = "Cơ bản";
+              break;
+            case "2":
+              dokho = "Trung bình";
+              break;
+            case "3":
+              dokho = "Nâng cao";
+              break;
+          }
+          html += `<tr>
+                    <td class="text-center fs-sm">
+                        <a class="fw-semibold" href="#">
+                            <strong>${index++}</strong>
+                        </a>
+                    </td>
+                    <td>${question["noidung"]}</td>
+                    <td class="d-none d-xl-table-cell fs-sm">
+                        <a class="fw-semibold">${question["tenmonhoc"]}</a>
+                    </td>
+                    <td class="d-none d-sm-table-cell fs-sm">
+                        <strong>${dokho}</strong>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
+                                    aria-label="Edit" data-bs-original-title="Edit" data-id="${
+                                      question["macauhoi"]
+                                    }">
+                                    <i class="fa fa-fw fa-pencil" ></i>
+                                </a>
+                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
+                            data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
+                              question["macauhoi"]
+                            }">
+                            <i class="fa fa-fw fa-times"></i>
+                        </a>
+                    </td>
+                </tr>`;
+        });
+        $("#listQuestion").html(html);
+      },
+      "json"
+    );
+  }
+
+  loadPagination();
+  function loadPagination() {
+    $.ajax({
+      url: "./question/getTotalPage",
+      type: "post",
+      data: {
+        selected: $(".btn-filter").text(),
+        content: $("#question-search").val().trim()
+      },
+      success: function (data) {
+        let sum = parseInt(data);
+        let pg = "";
+        let i;
+        for (i = 1; i <= sum; i++) {
+          pg += `<li class="page-item" page-id='${i}'>
+              <a class="page-link" href="javascript:void(0)">${i}</a>
+            </li>`;
+        }
+        $("#pagination").html("");
+        $("#pagination").html(pg);
+      },
     });
+  }
+
+  $("#question-search").on("input", function (e) {
+    e.preventDefault();
+    console.log($("#question-search").val());
+    loadPagination();
+  });
+
+  function loadSearchQuestion(content) {
+    $.ajax({
+      url: "search.php",
+      type: "get",
+      data: {
+        page: page,
+        select: $(".filter-search").val(),
+        content: content,
+      },
+      success: function (data) {},
+    });
+    loadPagination();
+  }
 });

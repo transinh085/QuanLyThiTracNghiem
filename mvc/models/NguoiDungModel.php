@@ -37,6 +37,36 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    // Update Profile
+    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
+    {
+        $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
+        return $check;
+    }
+
+    // Up avatar
+    public function uploadFile($id,$tmpName,$imageExtension, $validImageExtension, $name) 
+    {
+            $check = true;
+
+            if(!in_array($imageExtension, $validImageExtension)) {
+                $check = false;
+            } else {
+                $newImageName = $name . "-" . uniqid(); // Generate new name image
+                $newImageName .= '.' . $imageExtension;
+
+                move_uploaded_file($tmpName, './public/media/avatars/' . $newImageName);
+                $sql = "UPDATE `nguoidung` SET `avatar`='$newImageName' WHERE `id`='$id'";
+                mysqli_query($this->con, $sql);
+                $check = true;
+            }
+            return $check;
+    }
+
+
     public function getAll()
     {
         $sql = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
@@ -124,6 +154,7 @@ class NguoiDungModel extends DB
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_name'] = $row['hoten'];
+            $_SESSION['avatar'] = $row['avatar'];
             $_SESSION['user_role'] = $this->getRole($row['manhomquyen']);
             return true;
         }
@@ -168,29 +199,6 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    function pagination($limit, $start_from)
-    {
-        $query = "SELECT nguoidung.*, nhomquyen.`tennhomquyen`
-        FROM nguoidung, nhomquyen
-        WHERE nguoidung.`manhomquyen` = nhomquyen.`manhomquyen`
-        ORDER BY id ASC LIMIT $start_from, $limit";
-        $result = mysqli_query($this->con, $query);
-        $rows = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
-    function getNumberPage($limit)
-    {
-        $page_query = "SELECT * FROM nguoidung ORDER BY id DESC";
-        $page_result = mysqli_query($this->con, $page_query);
-        $total_records = mysqli_num_rows($page_result);
-        $total_pages = ceil($total_records / $limit);
-        return $total_pages;
-    }
-
     function addFile($data){
         $check = true;
         foreach($data as $user){
@@ -207,5 +215,14 @@ class NguoiDungModel extends DB
             }
         }
         return $check;
+    }
+
+    public function getQuery($filter, $input) {
+        $query = "SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen";
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY id ASC";
+        return $query;
     }
 }

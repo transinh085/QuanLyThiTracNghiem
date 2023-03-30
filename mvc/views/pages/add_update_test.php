@@ -16,7 +16,7 @@
                 <h3 class="fs-5">CẤU HÌNH</h3>
                 <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="tudongsoande" name="tudongsoande" checked>
-                    <label class="form-check-label" for="tudongsoande">Tự động soạn đề</label>
+                    <label class="form-check-label" for="tudongsoande">Tự động lấy từ ngân hàng đề</label>
                 </div>
                 <div class="form-check form-switch mb-2">
                     <input class="form-check-input" type="checkbox" id="xemdiem" name="xemdiem">
@@ -126,7 +126,8 @@
                         <?php 
                         if($data["Action"] == "create") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề</button>';
                         else if($data["Action"] == "update") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-update-test"><i class="fa fa-fw fa-plus me-1"></i> Cập nhật đề</button>';
-                        ?>                      
+                        ?>
+                        <a class="btn btn-hero btn-success" id="btn-update-quesoftest"><i class="fa fa-fw fa-pencil me-1"></i> Chỉnh sửa danh sách câu hỏi</a>
                     </div>
                 </div>
             </div>

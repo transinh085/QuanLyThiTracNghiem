@@ -32,7 +32,7 @@ class Question extends Controller
             ]);
         } else {
             $this->view("single_layout", [
-                "Page" => "error/page_403",
+                "Page" => "error/page_404",
                 "Title" => "Lỗi !"
             ]);
         }
@@ -198,8 +198,10 @@ class Question extends Controller
     public function getQuestion()
     {
         if (AuthCore::checkPermission("cauhoi", "view")) {
-            $result = $this->cauHoiModel->getAll();
-            echo json_encode($result);
+            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                $result = $this->cauHoiModel->getAll();
+                echo json_encode($result);    
+            }
         }
     }
 
@@ -227,12 +229,10 @@ class Question extends Controller
 
     public function getAnswerById()
     {
-        if (AuthCore::checkPermission("cauhoi", "view")) {
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $id = $_POST['id'];
-                $result = $this->cauTraLoiModel->getAll($id);
-                echo json_encode($result);
-            }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['id'];
+            $result = $this->cauTraLoiModel->getAll($id);
+            echo json_encode($result);
         }
     }
 
@@ -261,9 +261,20 @@ class Question extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
+            $select = $_POST['selected'];
             echo $this->cauHoiModel->getTotalPage($content);
         }
     }
 
-
+    public function getQuestionBySubject()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $mamonhoc = $_POST['mamonhoc'];
+            $machuong = $_POST['machuong'];
+            $dokho = $_POST['dokho'];
+            $content = $_POST['content'];
+            $result = $this->cauHoiModel->getQuestionBySubject($mamonhoc, $machuong, $dokho, $content);
+            echo json_encode($result);
+        }
+    }
 }

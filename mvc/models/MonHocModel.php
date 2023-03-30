@@ -44,6 +44,25 @@ class MonHocModel extends DB{
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+
+    public function search($input)
+    {
+        $sql = "SELECT * FROM `monhoc` WHERE `mamonhoc` LIKE '%$input%' OR `tenmonhoc` LIKE N'%$input%';";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function getQuery($filter, $input) {
+        $query = "SELECT * FROM `monhoc` WHERE `trangthai` = 1";
+        if ($input) {
+            $query = $query . " AND (`monhoc`.`tenmonhoc` LIKE N'%${input}%' OR `monhoc`.`mamonhoc` LIKE '%${input}%')";
+        }
+        return $query;
+    }
 }
 
 ?>

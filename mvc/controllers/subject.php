@@ -44,7 +44,6 @@ class Subject extends Controller{
             $sotietthuchanh = $_POST['sotietthuchanh'];
             $result = $this->monHocModel->update($id,$mamon,$tenmon,$sotinchi,$sotietlythuyet,$sotietthuchanh);
             echo $result;
-        
     }
 
     public function delete(){
@@ -94,6 +93,18 @@ class Subject extends Controller{
             $result = $this->chuongModel->update($_POST['machuong'], $_POST['tenchuong']);
             echo $result;
         }
+    }
+
+    public function search() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = $this->monHocModel->search($_POST['input']);
+            echo json_encode($result);
+        }
+    }
+
+    public function getQuery($filter, $input) {
+        $result = $this->monHocModel->getQuery($filter, $input);
+        return $result;
     }
 }
 ?>

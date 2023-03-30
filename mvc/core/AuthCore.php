@@ -1,7 +1,6 @@
 <?php
 require_once "./mvc/models/NguoiDungModel.php";
 class AuthCore{
-
     public static function onLogin(){
         if(isset($_COOKIE['token'])){
             $nguoidung = new NguoiDungModel();

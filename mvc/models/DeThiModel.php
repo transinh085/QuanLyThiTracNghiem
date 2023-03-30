@@ -178,7 +178,7 @@ class DeThiModel extends DB
     {
         $sql = "SELECT dethi.made, dethi.tende, dethi.thoigianbatdau, dethi.thoigianketthuc
         FROM giaodethi, dethi
-        WHERE manhom = '$manhom' AND giaodethi.made = dethi.made";
+        WHERE manhom = '$manhom' AND giaodethi.made = dethi.made ORDER BY dethi.made DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {

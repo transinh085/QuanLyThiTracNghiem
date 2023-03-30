@@ -1,15 +1,15 @@
 <nav class="nav border-bottom bg-white position-fixed top-0 w-100">
     <div class="container d-flex justify-content-between align-items-center py-2">
-        <a id="" class="btn btn-hero btn-danger" href="#" role="button"><i class="fa fa-power-off"></i>
-            Thoát</a>
+        <button id="btn-thoat" class="btn btn-hero btn-danger" role="button"><i class="fa fa-power-off"></i>
+            Thoát</button>
         <div class="nav-center">
             <span class="fw-bold fs-5">Thí sinh: <?php echo $_SESSION['user_name'] ?></span>
         </div>
         <div class="nav-right d-flex align-items-center">
             <div class="nav-time me-4">
-                <span class="fw-bold"><i class="far fa-clock mx-2"></i>00:45:00</span>
+                <span class="fw-bold"><i class="far fa-clock mx-2"></i><span id="timer">00:45:00</span></span>
             </div>
-            <button id="" class="btn btn-hero btn-primary" role="button"><i class="far fa-file-lines me-1"></i> Nộp bài</button>
+            <button id="btn-nop-bai" class="btn btn-hero btn-primary" role="button"><i class="far fa-file-lines me-1"></i> Nộp bài</button>
         </div>
     </div>
 </nav>

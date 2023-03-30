@@ -21,5 +21,27 @@ class ChiTietDeThiModel extends DB{
         }
         return $valid;
     }
+
+    public function delete($made, $macauhoi)
+    {
+        $valid = true;
+        $sql = "DELETE FROM `chitietdethi` WHERE `made` = '$made' AND `macauhoi` = '$macauhoi'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
+    public function deleteMultiple($made, $cauhoi)
+    {
+        $valid = true;
+        foreach($cauhoi as $macauhoi) {
+            $result = $this->delete($made,$macauhoi['macauhoi']);
+            if(!$result) {
+                $valid = false;
+                break;
+            }
+        }
+        return $valid;
+    }
 }
 ?>

@@ -3,11 +3,14 @@ class Test extends Controller{
 
     public $dethimodel;
     public $chitietde;
+    public $ketquamodel;
 
     public function __construct()
     {
         $this->dethimodel = $this->model("DeThiModel");
         $this->chitietde = $this->model("ChiTietDeThiModel");
+        $this->ketquamodel = $this->model("KetQuaModel");
+        parent::__construct();
     }
 
     public function default()
@@ -59,7 +62,8 @@ class Test extends Controller{
         $this->view("main_layout",[
             "Page" => "vao_thi",
             "Title" => "Bắt đầu thi",
-            "Test" => $this->dethimodel->getById($made)
+            "Test" => $this->dethimodel->getById($made),
+            "Script" => "vaothi"
         ]);
     }
 
@@ -88,6 +92,30 @@ class Test extends Controller{
                 "Page" => "error/page_404",
                 "Title" => "Lỗi !"
             ]);
+        }
+    }
+
+    public function taketest($made)
+    {
+        AuthCore::checkAuthentication();
+        $user_id = $_SESSION['user_id'];
+        $check = $this->ketquamodel->getMaKQ($made,$user_id);
+        $infoTest = $this->dethimodel->getById($made);
+        $now = new DateTime();
+        $timestart = new DateTime($infoTest['thoigianbatdau']);
+        $timeend = new DateTime($infoTest['thoigianketthuc']);
+        if($check != '' && $now >= $timestart && $now <= $timeend) {
+            $this->view("single_layout",[
+                "Page" => "de_thi",
+                "Title" => "Làm bài kiểm tra",
+                "Made" => $made,
+                "Script" => "de_thi",
+                "Plugin" => [
+                    "sweetalert2" => 1
+                ]
+            ]);
+        } else {
+            header("Location: ../start/$made");
         }
     }
 

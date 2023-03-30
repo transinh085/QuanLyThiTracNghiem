@@ -43,6 +43,14 @@
                 </div>
             </div>
         </div>
-        <button name="start-test" id="start-test" class="btn btn-hero btn-info w-100" role="button">Bắt đầu thi <i class="fa fa-angle-right" data-id="<?php echo $data["Test"]["made"]?>"></i></button>
+        <?php 
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = new DateTime();
+            $start = new DateTime($data["Test"]["thoigianbatdau"]);
+            $end = new DateTime($data["Test"]["thoigianketthuc"]);
+            if($end < $now) echo "<button class='btn btn-hero btn-danger w-100' role='button'>Đã quá thời gian làm bài</button>";
+            else if($start > $now) echo "<button class='btn btn-hero btn-light w-100' role='button'>Chưa tới thời gian mở đề</button>";
+            else echo "<button name='start-test' id='start-test' class='btn btn-hero btn-info w-100' role='button'>Bắt đầu thi <i class='fa fa-angle-right'></i></button>";
+        ?>
     </div>
 </div>

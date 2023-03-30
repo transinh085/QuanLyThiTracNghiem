@@ -7,7 +7,10 @@ $(document).ready(function () {
         getDetail(param);
     }
 
+    $("#btn-update-quesoftest").hide();
     let groups = [];
+
+
     function showGroup() {
         let html = "<option></option>";
         $.ajax({
@@ -37,6 +40,7 @@ $(document).ready(function () {
         showChapter(mamonhoc);
     });
 
+    // Hiển thị chương
     function showChapter(mamonhoc) {
         let html = "<option value=''></option>";
         $("#chuong").val("").trigger("change");
@@ -57,6 +61,7 @@ $(document).ready(function () {
         });
     }
 
+    // Hiển thị danh sách nhóm học phần
     function showListGroup(index) {
         let html = ``;
         if(groups[index].nhom.length > 0) {
@@ -97,6 +102,7 @@ $(document).ready(function () {
 
     $("#tudongsoande").on("click", function () {
         $(".show-chap").toggle();
+        $("#btn-update-quesoftest").toggle();
         $('#chuong').val('').trigger("change");
     });
 
@@ -136,6 +142,7 @@ $(document).ready(function () {
         });
     });
 
+    let infodethi
     function getDetail(made) {
         return $.ajax({
             type: "post",
@@ -145,11 +152,16 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                if(response.loaide == 0) {
+                    $("#btn-update-quesoftest").show();
+                    $("#btn-update-quesoftest").attr("href",`./test/select/${response.made}`)
+                }
+                infodethi = response
                 showInfo(response)
             }
         });
     }
+
 
     function showInfo(dethi) {
         $("#name-exam").val(dethi.tende),
@@ -203,7 +215,8 @@ $(document).ready(function () {
         });
     }
 
-    $("#btn-update-test").click(function (e) { 
+    $("#btn-update-test").click(function (e) {
+        console.log(infodethi)
         e.preventDefault();
         $.ajax({
             type: "post",

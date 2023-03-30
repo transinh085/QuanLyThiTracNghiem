@@ -105,6 +105,7 @@ class Test extends Controller{
         $user_id = $_SESSION['user_id'];
         $check = $this->ketquamodel->getMaKQ($made,$user_id);
         $infoTest = $this->dethimodel->getById($made);
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $now = new DateTime();
         $timestart = new DateTime($infoTest['thoigianbatdau']);
         $timeend = new DateTime($infoTest['thoigianketthuc']);

@@ -125,10 +125,10 @@ $("#btn-thoat").click(function (e) {
     });
 });
 
-$(window).blur(function() {
-    Swal.fire(
-        'Thằng choá này!',
-        'Học hành cho đàng hoàng vào con trai!',
-        'warning'
-    )
-});
+// $(window).blur(function() {
+//     Swal.fire(
+//         'Thằng choá này!',
+//         'Học hành cho đàng hoàng vào con trai!',
+//         'warning'
+//     )
+// });

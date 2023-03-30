@@ -63,7 +63,10 @@ class Test extends Controller{
             "Page" => "vao_thi",
             "Title" => "Bắt đầu thi",
             "Test" => $this->dethimodel->getById($made),
-            "Script" => "vaothi"
+            "Script" => "vaothi",
+            "Plugin" => [
+                "notify" => 1
+            ]
         ]);
     }
 
@@ -95,6 +98,7 @@ class Test extends Controller{
         }
     }
 
+    // Tham gia thi
     public function taketest($made)
     {
         AuthCore::checkAuthentication();
@@ -213,6 +217,15 @@ class Test extends Controller{
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];;
             $result = $this->dethimodel->getQuestionOfTest($made);
+            echo json_encode($result);
+        }
+    }
+
+    public function startTest() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $user_id = $_SESSION['user_id'];
+            $result = $this->ketquamodel->start($made,$user_id);
             echo json_encode($result);
         }
     }

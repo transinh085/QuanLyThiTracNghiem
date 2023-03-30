@@ -206,4 +206,14 @@ class DeThiModel extends DB
         }
         return $rows;
     }
+
+    public function getTimeTest($dethi){
+        $sql = "Select thoigianthi from dethi where made = '$dethi'";
+        $result = mysqli_query($this->con,$sql);
+        if($result){
+            $data = mysqli_fetch_assoc($result);
+            return $data['thoigianthi'];
+        }
+        return false;
+    }
 }

@@ -230,6 +230,21 @@ class Test extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function getTimeTest(){
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $dethi = $_POST['dethi'];
+            $result = $this->dethimodel->getTimeTest($dethi);
+            echo $result;
+        }
+    }
+
+    public function submit(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $listtr = $_POST['listCauTraLoi'];
+            
+        }
+    }
 }
 
 ?>

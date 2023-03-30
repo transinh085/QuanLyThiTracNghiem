@@ -80,6 +80,9 @@ $(document).ready(function () {
                 JSON.stringify(initListAnswer(questions))
             );
         }
+        if(localStorage.getItem("solanchuyentad") == null){
+            localStorage.setItem("solanchuyentad", 0);
+        }
         let listQues = JSON.parse(localStorage.getItem("dethi"));
         let listAns = JSON.parse(localStorage.getItem("cautraloi"));
         showListQuestion(listQues, listAns);
@@ -209,13 +212,15 @@ $(document).ready(function () {
         if (thoigian !== null) countDown(thoigian)
     })
 
-    // $(window).blur(function() {
-    //     Swal.fire(
-    //         'Thằng choá này!',
-    //         'Học hành cho đàng hoàng vào con trai!',
-    //         'warning'
-    //     )
-    // });
 
 
+
+});
+
+$(window).blur(function() {
+    if(localStorage.getItem("solanchuyentad")!==null){
+        let sl = localStorage.getItem("solanchuyentad");
+        sl++
+        localStorage.setItem("solanchuyentad", sl)
+    }
 });

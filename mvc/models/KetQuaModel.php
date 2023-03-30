@@ -49,11 +49,15 @@ class KetQuaModel extends DB{
         return $socaudung;
     }
 
-    public function submit($list,$thoigian,$slct){
+    public function submit($made,$nguoidung,$list,$thoigian,$slct){
+        $valid = true;
         $socaudung = $this->socaudung($list);
         $socau = count($list);
         $diem = 10/$socau * $socaudung;
-        
+        $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigian',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $valid = false;
+        return $valid;
     }
 }
 ?>

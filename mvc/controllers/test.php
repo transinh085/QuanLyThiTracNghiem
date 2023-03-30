@@ -244,9 +244,10 @@ class Test extends Controller{
             $listtr = $_POST['listCauTraLoi'];
             $sl = $_POST['solanchuyentad'];
             $thoigian = $_POST['thoigianlambai'];
-            $result = $this->dethimodel->tinhdiem($listtr);
+            $made = $_POST['made'];
+            $nguoidung = $_SESSION['user_id'];
+            $result = $this->ketquamodel->submit($made,$nguoidung,$listtr,$thoigian,$sl);
             echo $result;
-            // echo json_encode($listtr);
         }
     }
 }

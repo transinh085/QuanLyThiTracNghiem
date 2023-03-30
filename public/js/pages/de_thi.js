@@ -83,12 +83,7 @@ $(document).ready(function () {
         if(localStorage.getItem("solanchuyentad") == null){
             localStorage.setItem("solanchuyentad", 0);
         }
-        if (localStorage.getItem("startTime") === null) {
-            var startTime = new Date().getTime();
-            var endTime = startTime + thoigian * 60 * 1000;
-            localStorage.setItem("startTime", startTime);
-            localStorage.setItem("endTime", endTime);
-        }
+        
         let listQues = JSON.parse(localStorage.getItem("dethi"));
         let listAns = JSON.parse(localStorage.getItem("cautraloi"));
         showListQuestion(listQues, listAns);
@@ -132,19 +127,29 @@ $(document).ready(function () {
     function nopbai() {
         let url = location.href.split("/");
         let dethi = url[6];
+        let now = new Date().getTime();
+        let starTest = localStorage.getItem("startTime")
+        let thoigian = Math.floor(((now - starTest) / 1000));
         $.ajax({
             type: "post",
             url: "./test/submit",
             data: {
                 listCauTraLoi: JSON.parse(localStorage.getItem("cautraloi")),
-                thoigianlambai: localStorage.getItem("countdown"),
+                thoigianlambai: thoigian,
                 solanchuyentad: localStorage.getItem("solanchuyentad"),
                 made: dethi
             },
-            // dataType: "json",
             success: function (response) {
-                console.log("Du lieu day ve");
-                console.log(response);
+                if(response){
+                    localStorage.removeItem("thoigian");
+                    localStorage.removeItem("countdown");
+                    localStorage.removeItem("startTime");
+                    localStorage.removeItem("endTime");
+                    localStorage.removeItem("solanchuyentad");
+                    localStorage.removeItem("dethi");
+                    localStorage.removeItem("cautraloi");
+                    location.href = "./dashboard";
+                }
             },
         });
     }
@@ -189,6 +194,12 @@ $(document).ready(function () {
     }
 
     function countDown(thoigian) {
+        if (localStorage.getItem("startTime") === null) {
+            var startTime = new Date().getTime();
+            var endTime = startTime + thoigian * 60 * 1000;
+            localStorage.setItem("startTime", startTime);
+            localStorage.setItem("endTime", endTime);
+        }
         var startTime = localStorage.getItem("startTime")
         var endTime = localStorage.getItem("endTime")
         var x = setInterval(function () {

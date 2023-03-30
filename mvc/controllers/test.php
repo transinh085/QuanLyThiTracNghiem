@@ -242,7 +242,11 @@ class Test extends Controller{
     public function submit(){
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $listtr = $_POST['listCauTraLoi'];
-            
+            $sl = $_POST['solanchuyentad'];
+            $thoigian = $_POST['thoigianlambai'];
+            $result = $this->dethimodel->tinhdiem($listtr);
+            echo $result;
+            // echo json_encode($listtr);
         }
     }
 }

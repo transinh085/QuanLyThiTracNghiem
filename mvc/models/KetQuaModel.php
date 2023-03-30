@@ -36,5 +36,24 @@ class KetQuaModel extends DB{
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+
+    public function socaudung($listCauTraLoi){
+        $socaudung = 0;
+        foreach($listCauTraLoi as $tl){
+            $macauhoi = $tl['macauhoi'];
+            $cautraloi = $tl['cautraloi'];
+            $sql = "SELECT * FROM cautraloi ctl WHERE ctl.macauhoi = '$macauhoi' AND ctl.macautl = '$cautraloi' AND ctl.ladapan = 1";
+            $result = mysqli_query($this->con,$sql);
+            if(mysqli_num_rows($result)>0) $socaudung++;
+        }
+        return $socaudung;
+    }
+
+    public function submit($list,$thoigian,$slct){
+        $socaudung = $this->socaudung($list);
+        $socau = count($list);
+        $diem = 10/$socau * $socaudung;
+        
+    }
 }
 ?>

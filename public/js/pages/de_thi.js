@@ -200,9 +200,7 @@ $(document).ready(function () {
     }
 
     $(window).on("beforeunload", function () {
-        if (localStorage.getItem("thoigianketthuc") !== null) {
             countDown();
-        }
     });
 });
 

@@ -226,12 +226,17 @@ class DeThiModel extends DB
         return $rows;
     }
 
-    public function getTimeTest($dethi){
-        $sql = "Select thoigianthi from dethi where made = '$dethi'";
+    public function getTimeTest($dethi,$nguoidung){
+        $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";
+        $sql_dethi = "select * from dethi where made = '$dethi'";
+        $result_dethi = mysqli_query($this->con,$sql_dethi);
         $result = mysqli_query($this->con,$sql);
         if($result){
             $data = mysqli_fetch_assoc($result);
-            return $data['thoigianthi'];
+            $data_dethi = mysqli_fetch_assoc($result_dethi);
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $thoigianketthuc = date("Y-m-d H:i:s", strtotime($data['thoigianvaothi']) + ($data_dethi['thoigianthi'] * 60));
+            return $thoigianketthuc;
         }
         return false;
     }

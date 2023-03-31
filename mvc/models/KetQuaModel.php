@@ -50,11 +50,16 @@ class KetQuaModel extends DB{
     }
 
     public function submit($made,$nguoidung,$list,$thoigian,$slct){
+        $sql_ketqua = "Select * from ketqua where made = '$made' and manguoidung = '$nguoidung'";
+        $result_ketqua = mysqli_query($this->con,$sql_ketqua);
+        $data = mysqli_fetch_assoc($result_ketqua);
+        $thoigianvaolam = strtotime($data['thoigianvaothi']);
+        $thoigianlambai = strtotime($thoigian) - $thoigianvaolam;
         $valid = true;
         $socaudung = $this->socaudung($list);
         $socau = count($list);
         $diem = 10/$socau * $socaudung;
-        $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigian',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
+        $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
         $result = mysqli_query($this->con,$sql);
         if(!$result) $valid = false;
         return $valid;

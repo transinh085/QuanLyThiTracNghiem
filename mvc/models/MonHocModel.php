@@ -56,6 +56,17 @@ class MonHocModel extends DB{
         return $rows;
     }
 
+    public function getAllSubjectAssignment($userid)
+    {
+        $sql = "SELECT monhoc.* FROM phancong, monhoc WHERE manguoidung = '$userid' AND monhoc.mamonhoc = phancong.mamonhoc AND monhoc.trangthai = 1";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function getQuery($filter, $input) {
         $query = "SELECT * FROM `monhoc` WHERE `trangthai` = 1";
         if ($input) {

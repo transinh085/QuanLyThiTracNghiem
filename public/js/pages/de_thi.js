@@ -115,12 +115,12 @@ $(document).ready(function () {
             cancelButtonText: "Huỷ",
         }).then((result) => {
             if (result.isConfirmed) {
+                nopbai();
                 Swal.fire(
                     "Nộp bài thành công!",
                     "Bài làm của bạn đã được nộp thành công.",
                     "success"
                 );
-                nopbai();
             }
         });
     });
@@ -165,6 +165,7 @@ $(document).ready(function () {
 
     var endTime = -1;
     getTimeTest();
+
     function getTimeTest() {
         let dethi = $("#dethicontent").data("id");
         $.ajax({
@@ -195,21 +196,22 @@ $(document).ready(function () {
             $("#timer").html(hours + ":" + minutes + ":" + seconds);
             if (distance <= 0) {
                 clearInterval(x);
+                nopbai();
             }
         }, 1000);
     }
 
     $(window).on("beforeunload", function () {
-            countDown();
+        countDown();
     });
 });
 
 $(window).blur(function () {
-    // if(localStorage.getItem("solanchuyentab")!==null){
-    //     let sl = localStorage.getItem("solanchuyentab");
-    //     sl++
-    //     localStorage.setItem("solanchuyentab", sl)
-    // }
+    if(localStorage.getItem("solanchuyentab")!==null){
+        let sl = localStorage.getItem("solanchuyentab");
+        sl++
+        localStorage.setItem("solanchuyentab", sl)
+    }
 });
 
 

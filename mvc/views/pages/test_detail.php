@@ -3,6 +3,7 @@ footer {
     display: none !important
 }
 </style>
+<!-- <?php echo "<pre>"; var_dump($data["Test"])?> -->
 <div class="row g-0 flex-md-grow-1">
     <div class="col-md-4 col-lg-4 col-xl-3 order-md-1 bg-white">
         <div class="content px-2">
@@ -14,37 +15,32 @@ footer {
             </div>
             <div id="side-content" class="d-none d-md-block push">
                 <h6 class="mb-3">THÔNG TIN ĐỀ THI</h6>
-                <ul class="list-unstyled text-dark">
+                <ul class="list-unstyled text-dark fs-sm">
                     <li class="mb-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bottom Tooltip"><i
-                            class="text-primary fa fa-file-signature me-2"></i> Tên đề: <span>Đề kiểm tra cuối kì</span>
+                            class="text-primary fa fa-file-signature me-2"></i> Tên đề:
+                        <span><?php echo $data["Test"]["tende"] ?></span>
                     </li>
-                    <li class="mb-1"><i class="text-primary fa fa-clock me-2"></i> Thời gian tạo: <span>3:11
-                            30/03/2023</span></li>
+                    <li class="mb-1"><i class="text-primary fa fa-clock me-2"></i> Thời gian tạo:
+                        <span><?php echo date_format(date_create($data["Test"]["thoigiantao"]),"H:i d/m/Y")?></span>
+                    </li>
                 </ul>
+                <h6 class="mb-3">MÔN THI</h6>
+                <p class="fs-sm mb-3"><?php echo $data["Test"]["mamonhoc"]." - ".$data["Test"]["tenmonhoc"] ?></p>
                 <h6 class="mb-3">GIAO CHO</h6>
-                <p class="fs-sm mb-3">Lập trình hướng đối tượng - NH2023 - HK1</p>
                 <ul class="nav nav-pills nav-justified push">
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 1</a>
-                    </li>
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 2</a>
-                    </li>
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 3</a>
-                    </li>
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 4</a>
-                    </li>
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 5</a>
-                    </li>
-                    <li class="nav-item me-1 mb-2">
-                        <a class="nav-link border text-muted" href="javascript:void(0)">Nhóm 6</a>
-                    </li>
+                    <?php 
+                        foreach($data["Test"]["nhom"] as $nhom) {
+                            echo '<li class="nav-item me-1 mb-2"><a class="nav-link border text-muted" href="./module/detail/'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
+                        }
+                    ?>
                 </ul>
-                <h6 class="mb-3">NỘI DUNG</h6>
-                <a href="javasript:void(0)" class="text-primary fw-bold"  data-bs-toggle="modal" data-bs-target="#modal-default-extra-large"><i class="fa fa-file me-2"></i>Xem chi tiết</a>
+                <?php 
+                    if($data["Test"]["loaide"] == 0) {
+                        echo '<h6 class="mb-3">NỘI DUNG</h6>
+                        <a href="javasript:void(0)" class="text-primary fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#modal-cau-hoi"><i class="fa fa-file me-2"></i>Xem chi tiết</a>';
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -516,8 +512,8 @@ footer {
 </div>
 </div>
 
-<div class="modal fade" id="modal-default-extra-large" tabindex="-1" role="dialog"
-    aria-labelledby="modal-default-extra-large" aria-hidden="true">
+<div class="modal fade" id="modal-cau-hoi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">

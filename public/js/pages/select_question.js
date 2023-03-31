@@ -23,7 +23,6 @@ function getInfoTest() {
     });
 }
 
-
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest()).done(function(){
     console.log(infoTest)

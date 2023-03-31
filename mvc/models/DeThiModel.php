@@ -248,20 +248,26 @@ class DeThiModel extends DB
     // Lấy câu hỏi của đề thi
     public function getQuestionOfTest($made)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
-        $result = mysqli_query($this->con,$sql);
-        $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = array();
-            $macauhoi = $row['macauhoi'];
-            $sql = "SELECT macautl,noidungtl FROM `cautraloi` WHERE `macauhoi` = '$macauhoi'";
-            $result_ctl = mysqli_query($this->con,$sql);
-            while($row_ctl = mysqli_fetch_assoc($result_ctl)) {
-                $row['cautraloi'][] = $row_ctl;
+        $sql_dethi = "select * from dethi where made = '$made'";
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        if($data_dethi['loaide'] == 0){
+            $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
+            $result = mysqli_query($this->con,$sql);
+            $rows = array();
+            while($row = mysqli_fetch_assoc($result)) {
+                $row['cautraloi'] = array();
+                $macauhoi = $row['macauhoi'];
+                $sql = "SELECT macautl,noidungtl FROM `cautraloi` WHERE `macauhoi` = '$macauhoi'";
+                $result_ctl = mysqli_query($this->con,$sql);
+                while($row_ctl = mysqli_fetch_assoc($result_ctl)) {
+                    $row['cautraloi'][] = $row_ctl;
+                }
+                $rows[] = $row;
             }
-            $rows[] = $row;
+            return $rows;
+        } else {
+            return $this->create_dethi($made);
         }
-        return $rows;
     }
 
     public function getTimeTest($dethi,$nguoidung){

@@ -7,7 +7,7 @@
         </div>
         <div class="nav-right d-flex align-items-center">
             <div class="nav-time me-4">
-                <span class="fw-bold"><i class="far fa-clock mx-2"></i><span id="timer">00:45:00</span></span>
+                <span class="fw-bold"><i class="far fa-clock mx-2"></i><span id="timer">00:00:00</span></span>
             </div>
             <button id="btn-nop-bai" class="btn btn-hero btn-primary" role="button"><i class="far fa-file-lines me-1"></i> Nộp bài</button>
         </div>

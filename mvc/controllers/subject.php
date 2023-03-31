@@ -58,6 +58,15 @@ class Subject extends Controller{
             echo json_encode($data);
     }
 
+    public function getSubjectAssignment()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['id'];
+            $data = $this->monHocModel->getAllSubjectAssignment($id);
+            echo json_encode($data);
+        }
+    }
+
     public function getDetail()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {

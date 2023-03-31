@@ -4,7 +4,7 @@
         <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo24@2x.jpg');"></div>
         <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
             <a class="d-block img-link mt-n5" href="javascript:void(0)">
-                <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/<?php echo $data["User"]["avatar"]?>" alt="">
+                <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/<?php echo $data["User"]["avatar"] == '' ? "avatar2.jpg" : $data["User"]["avatar"] ?>" alt="">
             </a>
             <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0">
                 <h1 class="fs-4 fw-bold mb-1"><?php echo $_SESSION['user_name'] ?></h1>
@@ -88,7 +88,7 @@
                             <div class="mb-4">
                                 <label class="form-label">Ảnh đại diện</label>
                                 <div class="push up-avatar">
-                                    <img class="img-avatar" src="./public/media/avatars/<?php echo $data["User"]["avatar"]?>" alt="">
+                                    <img class="img-avatar" src="./public/media/avatars/<?php echo $data["User"]["avatar"] == '' ? "avatar2.jpg" : $data["User"]["avatar"] ?>" alt="">
                                 </div>
                                 <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>
                                 <input class="form-control" type="file" id="dm-profile-edit-avatar" name="file-img">

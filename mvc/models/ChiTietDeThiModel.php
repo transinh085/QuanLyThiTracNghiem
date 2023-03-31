@@ -12,35 +12,25 @@ class ChiTietDeThiModel extends DB{
     public function createMultiple($made, $cauhoi)
     {
         $valid = true;
-        foreach($cauhoi as $key => $macauhoi) {
-            $result = $this->create($made,$macauhoi['macauhoi'],$key + 1);
-            if(!$result) {
-                $valid = false;
-                break;
+        $result = $this->delete($made);
+        if($result) {
+            foreach($cauhoi as $key => $macauhoi) {
+                $result = $this->create($made,$macauhoi['macauhoi'],$key + 1);
+                if(!$result) {
+                    $valid = false;
+                    break;
+                }
             }
-        }
+        } else $valid = false;
         return $valid;
     }
 
-    public function delete($made, $macauhoi)
+    public function delete($made)
     {
         $valid = true;
-        $sql = "DELETE FROM `chitietdethi` WHERE `made` = '$made' AND `macauhoi` = '$macauhoi'";
+        $sql = "DELETE FROM `chitietdethi` WHERE `made` = '$made'";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
-        return $valid;
-    }
-
-    public function deleteMultiple($made, $cauhoi)
-    {
-        $valid = true;
-        foreach($cauhoi as $macauhoi) {
-            $result = $this->delete($made,$macauhoi['macauhoi']);
-            if(!$result) {
-                $valid = false;
-                break;
-            }
-        }
         return $valid;
     }
 }

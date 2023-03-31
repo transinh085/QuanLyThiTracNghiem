@@ -139,7 +139,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response) {
-                    console.log(response)
+                    
                 }
             },
         });
@@ -174,9 +174,7 @@ $(document).ready(function () {
                 dethi: dethi,
             },
             success: function (response) {
-                console.log(response);
                 endTime = new Date(response).getTime();
-                console.log(endTime - new Date().getTime())
                 countDown();
             },
         });

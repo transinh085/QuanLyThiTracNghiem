@@ -62,6 +62,14 @@ class KetQuaModel extends DB{
         $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
         $result = mysqli_query($this->con,$sql);
         if(!$result) $valid = false;
+        $makq = $data['makq'];
+        foreach($list as $ct){
+            $macauhoi = $ct['macauhoi'];
+            $cautraloi = $ct['cautraloi'];
+            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`, `dapanchon`) VALUES ('$makq','$macauhoi','$cautraloi')";
+            $insertCt = mysqli_query($this->con,$sql);
+            if(!$insertCt) $valid = false;
+        }
         return $valid;
     }
 }

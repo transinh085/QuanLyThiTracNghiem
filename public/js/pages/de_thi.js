@@ -138,11 +138,6 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     console.log(response)
-                    // localStorage.removeItem("solanchuyentab");
-                    // localStorage.removeItem("dethi");
-                    // localStorage.removeItem("cautraloi");
-                    // localStorage.removeItem("thoigianketthuc");
-                    // location.href = "./dashboard";
                 }
             },
         });
@@ -166,8 +161,8 @@ $(document).ready(function () {
         });
     });
 
+    var endTime = -1;
     getTimeTest();
-
     function getTimeTest() {
         let dethi = $("#dethicontent").data("id");
         $.ajax({
@@ -178,17 +173,14 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(response);
-                let endTime = new Date(response).getTime();
-                if (localStorage.getItem("thoigianketthuc") === null) {
-                    localStorage.setItem("thoigianketthuc", endTime);
-                }
+                endTime = new Date(response).getTime();
+                console.log(endTime - new Date().getTime())
                 countDown();
             },
         });
     }
 
     function countDown() {
-        var endTime = localStorage.getItem("thoigianketthuc");
         var x = setInterval(function () {
             var now = new Date().getTime();
             var distance = endTime - now;
@@ -221,3 +213,5 @@ $(window).blur(function () {
     //     localStorage.setItem("solanchuyentab", sl)
     // }
 });
+
+

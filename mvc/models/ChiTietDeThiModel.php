@@ -12,13 +12,16 @@ class ChiTietDeThiModel extends DB{
     public function createMultiple($made, $cauhoi)
     {
         $valid = true;
-        foreach($cauhoi as $key => $macauhoi) {
-            $result = $this->create($made,$macauhoi['macauhoi'],$key + 1);
-            if(!$result) {
-                $valid = false;
-                break;
+        $result = $this->deleteMultiple($made,$cauhoi);
+        if($result) {
+            foreach($cauhoi as $key => $macauhoi) {
+                $result = $this->create($made,$macauhoi['macauhoi'],$key + 1);
+                if(!$result) {
+                    $valid = false;
+                    break;
+                }
             }
-        }
+        } else $valid = false;
         return $valid;
     }
 

@@ -210,7 +210,7 @@ class DeThiModel extends DB
     // Lấy câu hỏi của đề thi
     public function getQuestionOfTest($made)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

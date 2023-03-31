@@ -74,12 +74,15 @@ $(document).ready(function () {
             localStorage.setItem("dethi", JSON.stringify(questions));
         }
         if (localStorage.getItem("cautraloi") == null) {
-            localStorage.setItem("cautraloi",JSON.stringify(initListAnswer(questions)));
+            localStorage.setItem(
+                "cautraloi",
+                JSON.stringify(initListAnswer(questions))
+            );
         }
-        if(localStorage.getItem("solanchuyentab") == null){
+        if (localStorage.getItem("solanchuyentab") == null) {
             localStorage.setItem("solanchuyentab", 0);
         }
-        
+
         let listQues = JSON.parse(localStorage.getItem("dethi"));
         let listAns = JSON.parse(localStorage.getItem("cautraloi"));
         showListQuestion(listQues, listAns);
@@ -122,28 +125,24 @@ $(document).ready(function () {
 
     function nopbai() {
         let dethi = $("#dethicontent").data("id");
-        let now = new Date().getTime();
-        let starTest = localStorage.getItem("startTime")
-        let thoigian = Math.floor(((now - starTest) / 1000));
+        let thoigian = new Date()
         $.ajax({
             type: "post",
             url: "./test/submit",
             data: {
                 listCauTraLoi: JSON.parse(localStorage.getItem("cautraloi")),
                 thoigianlambai: thoigian,
-                solanchuyentab: localStorage.getItem("solanchuyentab"),
-                made: dethi
+                solanchuyentad: localStorage.getItem("solanchuyentab"),
+                made: dethi,
             },
             success: function (response) {
-                if(response){
-                    localStorage.removeItem("thoigian");
-                    localStorage.removeItem("countdown");
-                    localStorage.removeItem("startTime");
-                    localStorage.removeItem("endTime");
-                    localStorage.removeItem("solanchuyentab");
-                    localStorage.removeItem("dethi");
-                    localStorage.removeItem("cautraloi");
-                    location.href = "./dashboard";
+                if (response) {
+                    console.log(response)
+                    // localStorage.removeItem("solanchuyentab");
+                    // localStorage.removeItem("dethi");
+                    // localStorage.removeItem("cautraloi");
+                    // localStorage.removeItem("thoigianketthuc");
+                    // location.href = "./dashboard";
                 }
             },
         });
@@ -167,8 +166,6 @@ $(document).ready(function () {
         });
     });
 
-    
-
     getTimeTest();
 
     function getTimeTest() {
@@ -180,22 +177,18 @@ $(document).ready(function () {
                 dethi: dethi,
             },
             success: function (response) {
-                let thoigian = response;
-                localStorage.setItem("thoigian", thoigian);
-                countDown(thoigian);
+                console.log(response);
+                let endTime = new Date(response).getTime();
+                if (localStorage.getItem("thoigianketthuc") === null) {
+                    localStorage.setItem("thoigianketthuc", endTime);
+                }
+                countDown();
             },
         });
     }
 
-    function countDown(thoigian) {
-        if (localStorage.getItem("startTime") === null) {
-            var startTime = new Date().getTime();
-            var endTime = startTime + thoigian * 60 * 1000;
-            localStorage.setItem("startTime", startTime);
-            localStorage.setItem("endTime", endTime);
-        }
-        var startTime = localStorage.getItem("startTime")
-        var endTime = localStorage.getItem("endTime")
+    function countDown() {
+        var endTime = localStorage.getItem("thoigianketthuc");
         var x = setInterval(function () {
             var now = new Date().getTime();
             var distance = endTime - now;
@@ -208,28 +201,23 @@ $(document).ready(function () {
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             if (seconds < 10) seconds = "0" + seconds;
             $("#timer").html(hours + ":" + minutes + ":" + seconds);
-            localStorage.setItem("countdown", distance);
             if (distance <= 0) {
                 clearInterval(x);
-                localStorage.removeItem("countdown");
-                localStorage.removeItem("startTime");
-                localStorage.removeItem("endTime");
-                localStorage.removeItem("thoigian");
             }
         }, 1000);
     }
 
     $(window).on("beforeunload", function () {
-        let thoigian = localStorage.getItem("thoigian")
-        if (thoigian !== null) countDown(thoigian)
-    })
-
+        if (localStorage.getItem("thoigianketthuc") !== null) {
+            countDown();
+        }
+    });
 });
 
-$(window).blur(function() {
-    if(localStorage.getItem("solanchuyentab")!==null){
-        let sl = localStorage.getItem("solanchuyentab");
-        sl++
-        localStorage.setItem("solanchuyentab", sl)
-    }
+$(window).blur(function () {
+    // if(localStorage.getItem("solanchuyentab")!==null){
+    //     let sl = localStorage.getItem("solanchuyentab");
+    //     sl++
+    //     localStorage.setItem("solanchuyentab", sl)
+    // }
 });

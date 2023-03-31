@@ -214,7 +214,7 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
                 },
                 success: function (response) {
                     if(response) {
-                        location.href = "./test";
+                        Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm câu hỏi thành công!' });
                     } else {
                         Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề không thành công!' });
                     }

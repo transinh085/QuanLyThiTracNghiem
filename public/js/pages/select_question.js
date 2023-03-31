@@ -36,6 +36,8 @@ function getQuestionOfTest() {
 
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest(),getQuestionOfTest()).done(function(){
+    console.log(arrQuestion)
+
     $("#name-test").text(infoTest.tende)
     $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
@@ -75,26 +77,24 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
             },
             dataType: "json",
             success: function (response) {
-                showListQuestion(response);
+                showListQuestion(response,arrQuestion);
                 questions = response;
             }
         });
     }
 
     // Hiển thị danh sách câu hỏi của môn học ở cột bên trái
-    function showListQuestion(questions) {
+    function showListQuestion(questions,arrQuestion) {
         let html = ``;
         questions.forEach((question,index) => {
-            let dokho = '';
-            if(question.dokho == 1) dokho ='Dễ';
-            else if(question.dokho == 2) dokho ='TB';
-            else if(question.dokho == 3) dokho ='Khó';
+            let dokhotext = ["", "Dễ","TB","Khó"];
+            let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
             html += `<li class="list-group-item d-flex">
                 <div class="form-check">
-                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}">
+                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
                     <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidung}</label>
                 </div>
-                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokho}</span>
+                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
                 
             </li>`
         });
@@ -105,22 +105,25 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $(document).on("click", ".item-question",function () {
         let index = $(this).data("index");
         let macauhoi = $(this).data("id");
-        if(arr_slch[`${questions[index].dokho}`] <= slgioihan[`${questions[index].dokho}`]) {
-            if($(this).prop("checked") == true) {
+
+        if($(this).prop("checked") == true) {
+            if(arr_slch[`${questions[index].dokho}`] < slgioihan[`${questions[index].dokho}`]) {
                 let answer = getAnswer(questions[index].macauhoi);
                 questions[index].cautraloi = answer;
                 arrQuestion.push(questions[index]);
                 arr_slch[`${questions[index].dokho}`]++;
+                displayQuantityQueston();
+                showListQuesOfTest(arrQuestion);
             } else {
-                let i = arrQuestion.findIndex(item => item.macauhoi == macauhoi);
-                arrQuestion.splice(i,1);
-                arr_slch[`${questions[index].dokho}`]--;
+                $(this).prop("checked",false);
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
             }
+        } else {
+            let i = arrQuestion.findIndex(item => item.macauhoi == macauhoi);
+            arrQuestion.splice(i,1);
+            arr_slch[`${questions[index].dokho}`]--;
             displayQuantityQueston();
             showListQuesOfTest(arrQuestion);
-        } else {
-            $(this).prop("checked",false);
-            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
         }
     });
 

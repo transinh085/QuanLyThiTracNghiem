@@ -19,7 +19,8 @@ class Test extends Controller{
             "Page" => "test",
             "Title" => "Đề kiểm tra",
             "Plugin" => [
-                "notify" => 1
+                "notify" => 1,
+                "sweetalert2" => 1,
             ],
             "Script" => "test"
         ]);
@@ -174,6 +175,15 @@ class Test extends Controller{
             $manhom = $_POST['manhom'];
             $result = $this->dethimodel->update($made,$mamonhoc,$tende,$thoigianthi,$thoigianbatdau,$thoigianketthuc,$xembailam,$xemdiem,$xemdapan,$daocauhoi,$daodapan, $tudongnop,$loaide,$socaude,$socautb,$socaukho,$chuong,$manhom);
             echo $result;
+        }
+    }
+
+    public function delete()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $result = $this->dethimodel->delete($made);
+            echo json_encode($result);
         }
     }
 

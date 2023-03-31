@@ -7,7 +7,7 @@ class DeThiModel extends DB
         $result = mysqli_query($this->con, $sql);
         if ($result) {
             $madethi = mysqli_insert_id($this->con);
-            $result = $this->create_dethi_auto($madethi, $monthi, $chuong, $socaude, $socautb, $socaukho);
+            // $result = $this->create_dethi_auto($madethi, $monthi, $chuong, $socaude, $socautb, $socaukho);
             // Một đề thi giao cho nhiều nhóm
             $result = $this->create_giaodethi($madethi, $nhom);
             // Một đề thi thì có nhiều chương
@@ -114,7 +114,7 @@ class DeThiModel extends DB
     public function delete($madethi)
     {
         $valid = true;
-        $sql = "UPDATE `dethi` `trangthai`= 0 WHERE `madethi` = $madethi";
+        $sql = "UPDATE `dethi` SET `trangthai`= 0 WHERE `made` = $madethi";
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;
         return $valid;
@@ -125,7 +125,7 @@ class DeThiModel extends DB
     {
         $sql = "SELECT dethi.made, tende, monhoc.tenmonhoc, thoigianbatdau, thoigianketthuc, nhom.tennhom, namhoc, hocky
         FROM dethi, monhoc, giaodethi, nhom
-        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao
+        WHERE dethi.monthi = monhoc.mamonhoc AND dethi.made = giaodethi.made AND nhom.manhom = giaodethi.manhom AND nguoitao = $nguoitao AND dethi.trangthai = 1
         ORDER BY dethi.made DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();

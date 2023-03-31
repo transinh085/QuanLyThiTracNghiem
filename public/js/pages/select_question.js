@@ -23,13 +23,30 @@ function getInfoTest() {
     });
 }
 
+function getQuestionOfTest() {
+    return $.ajax({
+        type: "post",
+        url: "./test/getQuestion",
+        data: {made: made},
+        dataType: "json",
+        success: function (response) {
+            arrQuestion = response;
+        }
+    });
+}
 
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
-$.when(getInfoTest()).done(function(){
+$.when(getInfoTest(),getQuestionOfTest()).done(function(){
     console.log(infoTest)
+    console.log(arrQuestion)
+    
     $("#name-test").text(infoTest.tende)
     $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
+    
+    loadDataListQuestion();
+    showListQuesOfTest(arrQuestion);
+    displayQuantityQueston()
 
     function displayQuantityQueston() {
         $("#slcaude").text(arr_slch[1]);
@@ -39,7 +56,7 @@ $.when(getInfoTest()).done(function(){
         $("#slcaukho").text(arr_slch[3]);
         $("#ttcaukho").text(infoTest.socaukho);
     }
-    displayQuantityQueston()
+    
 
     function loadDataListQuestion() {
         $.ajax({
@@ -78,7 +95,6 @@ $.when(getInfoTest()).done(function(){
         });
         $("#list-question").html(html);
     }
-    loadDataListQuestion();
 
     // Xử lý sự kiện change trên ô input câu hỏi
     $(document).on("click", ".item-question",function () {
@@ -204,4 +220,6 @@ $.when(getInfoTest()).done(function(){
             Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi chưa đủ!' });
         }
     });
+
+    
 });

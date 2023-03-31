@@ -74,7 +74,8 @@ class Test extends Controller{
     {
         $this->view("main_layout",[
             "Page" => "test_detail",
-            "Title" => "Danh sách đã thi"
+            "Title" => "Danh sách đã thi",
+            "Test" => $this->dethimodel->getInfoTestBasic($made)
         ]);
     }
 

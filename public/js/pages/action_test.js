@@ -1,5 +1,6 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 $(document).ready(function () {
+    // Xử lý cắt url để lấy mã đề thi
     let url = location.href.split("/");
     let param = 0
     if(url[url.length - 2] == "update") {
@@ -7,9 +8,7 @@ $(document).ready(function () {
         getDetail(param);
     }
 
-    $("#btn-update-quesoftest").hide();
     let groups = [];
-
 
     function showGroup() {
         let html = "<option></option>";
@@ -30,9 +29,8 @@ $(document).ready(function () {
             }
         });
     }
-
-    showGroup();
-
+    
+    // Khi chọn nhóm học phần thì chương sẽ tự động đổi để phù hợp với môn học
     $("#nhom-hp").on("change", function () {
         let index = $(this).val();
         let mamonhoc = groups[index].mamonhoc;
@@ -84,12 +82,14 @@ $(document).ready(function () {
         }
         $("#list-group").html(html);
     }
-
+    
+    // Chọn || Huỷ chọn tất cả nhóm
     $(document).on("click","#select-all-group",function () {
         let check = $(this).prop("checked");
         $(".select-group-item").prop("checked", check);
     });
 
+    // Lấy các nhóm được chọn
     function getGroupSelected() {
         let result = [];
         $(".select-group-item").each(function() {
@@ -102,10 +102,12 @@ $(document).ready(function () {
 
     $("#tudongsoande").on("click", function () {
         $(".show-chap").toggle();
-        $("#btn-update-quesoftest").toggle();
         $('#chuong').val('').trigger("change");
     });
 
+    showGroup();
+
+    // Xừ lý sự kiện nhấn nút tạo đề
     $("#btn-add-test").click(function (e) { 
         e.preventDefault();
         $.ajax({
@@ -142,7 +144,10 @@ $(document).ready(function () {
         });
     });
 
-    let infodethi
+    /*Chỉnh sửa đề thi*/ 
+    $("#btn-update-quesoftest").hide();
+    // Khởi tạo biến đề thi để chứa thông tin đề 
+    let infodethi;
     function getDetail(made) {
         return $.ajax({
             type: "post",
@@ -157,12 +162,13 @@ $(document).ready(function () {
                     $("#btn-update-quesoftest").attr("href",`./test/select/${response.made}`)
                 }
                 infodethi = response
+                console.log(infodethi)
                 showInfo(response)
             }
         });
     }
 
-
+    // Hiển thị thông tin đề thi
     function showInfo(dethi) {
         $("#name-exam").val(dethi.tende),
         $("#exam-time").val(dethi.thoigianthi),
@@ -189,7 +195,6 @@ $(document).ready(function () {
         $("#daodapan").prop("checked",dethi.trondapan == "1" ? true : false)
         $("#tudongnop").prop("checked",dethi.nopbaichuyentab == "1" ? true : false)
         $("#btn-update-test").data("id", dethi.made);
-
         $.when(showGroup(),showChapter(dethi.monthi)).done(function(){
             $("#nhom-hp").val(findIndexGroup(dethi.nhom[0])).trigger("change");
             setGroup(dethi.nhom)
@@ -215,24 +220,29 @@ $(document).ready(function () {
         });
     }
 
+    // Xử lý nút cập nhật đề thi
     $("#btn-update-test").click(function (e) {
-        console.log(infodethi)
         e.preventDefault();
+        let loaide = $("#tudongsoande").prop("checked") ? 1 : 0
+        let made = $(this).data("id");
+        let socaude = $("#coban").val();
+        let socautb = $("#trungbinh").val();
+        let socaukho = $("#kho").val();
         $.ajax({
             type: "post",
             url: "./test/updateTest",
             data: {
-                made: $(this).data("id"),
+                made: made,
                 mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
                 tende: $("#name-exam").val(),
                 thoigianthi: $("#exam-time").val(),
                 thoigianbatdau: $("#time-start").val(),
                 thoigianketthuc: $("#time-end").val(),
-                socaude: $("#coban").val(),
-                socautb: $("#trungbinh").val(),
-                socaukho: $("#kho").val(),
+                socaude: socaude,
+                socautb: socautb,
+                socaukho: socaukho,
                 chuong: $("#chuong").val(),
-                loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                loaide: loaide,
                 xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
                 xemdapan: $("#xemda").prop("checked") ? 1 : 0,
                 xembailam: $("#xembailam").prop("checked") ? 1 : 0,
@@ -243,7 +253,11 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if(response) {
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật đề thi thành công!' });
+                    if((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
+                        location.href = `./test/select/${made}`
+                    } else {
+                        location.href = `./test`
+                    }
                 } else {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật đề thi không thành công!' });
                 }

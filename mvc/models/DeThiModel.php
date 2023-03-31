@@ -174,6 +174,24 @@ class DeThiModel extends DB
         return $dethi;
     }
 
+    // Lấy thông tin cơ bản của đề thi ()
+    public function getInfoTestBasic($made)
+    {
+        $sql_dethi = "SELECT dethi.made, dethi.tende, dethi.thoigiantao,dethi.loaide, monhoc.mamonhoc, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
+        $result_dethi = mysqli_query($this->con, $sql_dethi);
+        $dethi = mysqli_fetch_assoc($result_dethi);
+        if($dethi != null) {
+            $sql_giaodethi = "SELECT giaodethi.manhom, nhom.tennhom FROM giaodethi, nhom WHERE made = $made AND giaodethi.manhom = nhom.manhom";
+            $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
+            $dethi['nhom'] = array();
+            while($row = mysqli_fetch_assoc($result_giaodethi)) {
+                $dethi['nhom'][] = $row;
+            }
+        }
+        return $dethi;
+    }
+
+    // Lấy đề thi của nhóm học phần
     public function getListTestGroup($manhom)
     {
         $sql = "SELECT dethi.made, dethi.tende, dethi.thoigianbatdau, dethi.thoigianketthuc
@@ -189,6 +207,7 @@ class DeThiModel extends DB
         return $rows;
     }
 
+    // Lấy câu hỏi của đề thi
     public function getQuestionOfTest($made)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
@@ -216,6 +235,4 @@ class DeThiModel extends DB
         }
         return false;
     }
-
-    
 }

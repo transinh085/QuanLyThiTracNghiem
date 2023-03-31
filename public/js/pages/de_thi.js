@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     let questions = [];
     function getQuestion() {
         return $.ajax({
@@ -75,13 +74,10 @@ $(document).ready(function () {
             localStorage.setItem("dethi", JSON.stringify(questions));
         }
         if (localStorage.getItem("cautraloi") == null) {
-            localStorage.setItem(
-                "cautraloi",
-                JSON.stringify(initListAnswer(questions))
-            );
+            localStorage.setItem("cautraloi",JSON.stringify(initListAnswer(questions)));
         }
-        if(localStorage.getItem("solanchuyentad") == null){
-            localStorage.setItem("solanchuyentad", 0);
+        if(localStorage.getItem("solanchuyentab") == null){
+            localStorage.setItem("solanchuyentab", 0);
         }
         
         let listQues = JSON.parse(localStorage.getItem("dethi"));
@@ -125,8 +121,7 @@ $(document).ready(function () {
     });
 
     function nopbai() {
-        let url = location.href.split("/");
-        let dethi = url[6];
+        let dethi = $("#dethicontent").data("id");
         let now = new Date().getTime();
         let starTest = localStorage.getItem("startTime")
         let thoigian = Math.floor(((now - starTest) / 1000));
@@ -136,7 +131,7 @@ $(document).ready(function () {
             data: {
                 listCauTraLoi: JSON.parse(localStorage.getItem("cautraloi")),
                 thoigianlambai: thoigian,
-                solanchuyentad: localStorage.getItem("solanchuyentad"),
+                solanchuyentab: localStorage.getItem("solanchuyentab"),
                 made: dethi
             },
             success: function (response) {
@@ -145,7 +140,7 @@ $(document).ready(function () {
                     localStorage.removeItem("countdown");
                     localStorage.removeItem("startTime");
                     localStorage.removeItem("endTime");
-                    localStorage.removeItem("solanchuyentad");
+                    localStorage.removeItem("solanchuyentab");
                     localStorage.removeItem("dethi");
                     localStorage.removeItem("cautraloi");
                     location.href = "./dashboard";
@@ -177,8 +172,7 @@ $(document).ready(function () {
     getTimeTest();
 
     function getTimeTest() {
-        let url = location.href.split("/");
-        let dethi = url[6];
+        let dethi = $("#dethicontent").data("id");
         $.ajax({
             type: "post",
             url: "./test/getTimeTest",
@@ -230,15 +224,12 @@ $(document).ready(function () {
         if (thoigian !== null) countDown(thoigian)
     })
 
-
-
-
 });
 
 $(window).blur(function() {
-    if(localStorage.getItem("solanchuyentad")!==null){
-        let sl = localStorage.getItem("solanchuyentad");
+    if(localStorage.getItem("solanchuyentab")!==null){
+        let sl = localStorage.getItem("solanchuyentab");
         sl++
-        localStorage.setItem("solanchuyentad", sl)
+        localStorage.setItem("solanchuyentab", sl)
     }
 });

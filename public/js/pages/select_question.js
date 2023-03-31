@@ -1,13 +1,12 @@
 // Cắt tham số url
 let url = location.href.split("/");
 let made = url[url.length - 1];
+// Thông tin đề thi
 let infoTest
 // Khởi tạo mảng câu hỏi của đề thi
 let arrQuestion = [];
 // Khởi tạo mảng danh sách câu hỏi lấy từ db
 let questions = [];
-// Khởi tạo số lượng câu hỏi
-let arr_slch = [0,0,0,0];
 
 function getInfoTest() {
     return $.ajax({
@@ -37,16 +36,24 @@ function getQuestionOfTest() {
 
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest(),getQuestionOfTest()).done(function(){
-    console.log(infoTest)
     console.log(arrQuestion)
-    
+
     $("#name-test").text(infoTest.tende)
     $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
-    
+    let arr_slch = countQuantityLevel(arrQuestion);
+
     loadDataListQuestion();
     showListQuesOfTest(arrQuestion);
     displayQuantityQueston()
+
+    function countQuantityLevel(arrQuestion) {
+        let result = [0,0,0,0];
+        arrQuestion.forEach(question => {
+            result[`${question.dokho}`]++
+        });
+        return result;
+    }
 
     function displayQuantityQueston() {
         $("#slcaude").text(arr_slch[1]);
@@ -70,26 +77,24 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
             },
             dataType: "json",
             success: function (response) {
-                showListQuestion(response);
+                showListQuestion(response,arrQuestion);
                 questions = response;
             }
         });
     }
 
     // Hiển thị danh sách câu hỏi của môn học ở cột bên trái
-    function showListQuestion(questions) {
+    function showListQuestion(questions,arrQuestion) {
         let html = ``;
         questions.forEach((question,index) => {
-            let dokho = '';
-            if(question.dokho == 1) dokho ='Dễ';
-            else if(question.dokho == 2) dokho ='TB';
-            else if(question.dokho == 3) dokho ='Khó';
+            let dokhotext = ["", "Dễ","TB","Khó"];
+            let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
             html += `<li class="list-group-item d-flex">
                 <div class="form-check">
-                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}">
+                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
                     <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidung}</label>
                 </div>
-                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokho}</span>
+                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
                 
             </li>`
         });
@@ -100,22 +105,26 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $(document).on("click", ".item-question",function () {
         let index = $(this).data("index");
         let macauhoi = $(this).data("id");
-        if(arr_slch[`${questions[index].dokho}`] < slgioihan[`${questions[index].dokho}`]) {
-            if($(this).prop("checked") == true) {
+
+        if($(this).prop("checked") == true) {
+            if(arr_slch[`${questions[index].dokho}`] < slgioihan[`${questions[index].dokho}`]) {
+                let answer = getAnswer(questions[index].macauhoi);
+                questions[index].cautraloi = answer;
                 arrQuestion.push(questions[index]);
                 arr_slch[`${questions[index].dokho}`]++;
+                displayQuantityQueston();
+                showListQuesOfTest(arrQuestion);
             } else {
-                let i = arrQuestion.findIndex(item => item.macauhoi == macauhoi);
-                arrQuestion.splice(i,1);
-                arr_slch[`${questions[index].dokho}`]--;
+                $(this).prop("checked",false);
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
             }
+        } else {
+            let i = arrQuestion.findIndex(item => item.macauhoi == macauhoi);
+            arrQuestion.splice(i,1);
+            arr_slch[`${questions[index].dokho}`]--;
             displayQuantityQueston();
             showListQuesOfTest(arrQuestion);
-        } else {
-            $(this).prop("checked",false);
-            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
         }
-        console.log(slgioihan[`${questions[index].dokho}`]);
     });
 
     // Hiển thị preview bên phải
@@ -129,8 +138,7 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
                     <div class="question-top px-3">
                         <p class="question-content fw-bold mb-3">${index + 1}. ${question.noidung}</p>
                         <div class="row">`;
-                let answer = getAnswer(question.macauhoi);;
-                answer.forEach((item,i) => {
+                    question.cautraloi.forEach((item,i) => {
                     html += `<div class="col-12 mb-1">
                         <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${item.noidungtl}</p>
                     </div>`;
@@ -164,8 +172,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         });
         return ans;
     }
-
-    showListQuesOfTest(arrQuestion)
 
     $(document).on("click", ".btn-up",function () {
         let index = $(this).data("index");
@@ -206,9 +212,7 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
                     made: infoTest.made,
                     cauhoi: arrQuestion
                 },
-                // dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if(response) {
                         location.href = "./test";
                     } else {
@@ -217,9 +221,7 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
                 }
             });
         } else {
-            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi chưa đủ!' });
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi không phù hợp!' });
         }
     });
-
-    
 });

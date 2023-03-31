@@ -55,27 +55,6 @@ class Account extends Controller{
         }
     }
 
-    // public function uploadFile()
-    // {
-    //     if ($_FILES['file']['name']!='') {
-    //         $extension = explode(".", $_FILES['file']['name']);
-    //         $file_extension = end($extension);
-    //         $allowed_type = array("jpg", "jpeg", "png", "gif");
-    //         if (in_array($file_extension, $allowed_type)) {
-    //             $new_name = rand().".".$file_extension;
-    //             $path = "controllers/".$new_name;
-    //             if (move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
-    //                 echo '<img class="img-avatar" src="'.$path.'" alt="${file.name}">'
-    //             }
-    //         } else {
-    //             echo '<script>alert("File ảnh không hiệu lực")</script>';
-    //         }
-
-    //     } else {
-    //         echo '<script>alert("Chọn ảnh đê")</script>';
-    //     }
-    // }
-
     public function uploadFile()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

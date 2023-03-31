@@ -55,6 +55,44 @@ class DeThiModel extends DB
         return $data_cd;
     }
 
+    public function create_dethi($made){
+        $sql_dethi = "select * from dethi where made = '$made'";
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        $socaude = $data_dethi['socaude'];
+        $socautb = $data_dethi['socautb'];
+        $socaukho = $data_dethi['socaukho'];
+        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socaude";
+        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socautb";
+        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socaukho";
+        $result_cd = mysqli_query($this->con,$sql_cd);
+        $result_tb = mysqli_query($this->con,$sql_ctb);
+        $result_ck = mysqli_query($this->con,$sql_ck);
+        $result = array();
+
+        while ($row = mysqli_fetch_assoc($result_cd)) {
+            $result[] = $row;
+        }
+        while ($row = mysqli_fetch_assoc($result_tb)) {
+            $result[] = $row;
+        }
+        while ($row = mysqli_fetch_assoc($result_ck)) {
+            $result[] = $row;
+        }
+        shuffle($result);
+        $rows = array();
+        foreach($result as $row) {
+            $row['cautraloi'] = array();
+            $macauhoi = $row['macauhoi'];
+            $sql = "SELECT macautl,noidungtl FROM `cautraloi` WHERE `macauhoi` = '$macauhoi'";
+            $result_ctl = mysqli_query($this->con,$sql);
+            while($row_ctl = mysqli_fetch_assoc($result_ctl)) {
+                $row['cautraloi'][] = $row_ctl;
+            }
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function create_chuongdethi($made, $chuong)
     {
         $valid = true;

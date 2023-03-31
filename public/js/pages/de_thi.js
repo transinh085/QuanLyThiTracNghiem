@@ -9,6 +9,8 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log("dethi")
+                console.log(response)
                 questions = response;
             },
         });

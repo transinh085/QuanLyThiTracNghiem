@@ -267,4 +267,13 @@ class Test extends Controller
             echo $result;
         }
     }
+
+    public function getDethi(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $dethi = $_POST['made'];
+            $result = $this->dethimodel->create_dethi($dethi);
+            echo "</pre>";
+            print_r($result);
+        }
+    }
 }

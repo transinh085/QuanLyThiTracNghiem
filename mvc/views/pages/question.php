@@ -14,7 +14,7 @@
                     <div class="col-8 d-flex gap-4 align-items-center">
                         <label for="">Môn: </label>
                         <select class="js-select2 form-select" id="example-select2" name="example-select2"
-                            data-placeholder="Choose one..">
+                            data-placeholder="Choose one.." style="width: 50%">
                             <option></option>
                             <option value="1">HTML</option>
                             <option value="2">CSS</option>

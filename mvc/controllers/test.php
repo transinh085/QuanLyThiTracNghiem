@@ -77,7 +77,8 @@ class Test extends Controller
         $this->view("main_layout", [
             "Page" => "test_detail",
             "Title" => "Danh sách đã thi",
-            "Test" => $this->dethimodel->getInfoTestBasic($made)
+            "Test" => $this->dethimodel->getInfoTestBasic($made),
+            "Script" => "test_detail"
         ]);
     }
 
@@ -272,8 +273,7 @@ class Test extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dethi = $_POST['made'];
             $result = $this->dethimodel->create_dethi($dethi);
-            echo "</pre>";
-            print_r($result);
+            echo json_encode($result);
         }
     }
 }

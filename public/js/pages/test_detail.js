@@ -11,6 +11,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 showListQuestion(response)
+
             }
         });
     });
@@ -34,4 +35,7 @@ $(document).ready(function () {
         });
         $("#list-question").html(html);
     }
+
+    
+
 });

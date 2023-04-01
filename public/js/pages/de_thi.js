@@ -195,6 +195,7 @@ $(document).ready(function () {
             $("#timer").html(hours + ":" + minutes + ":" + seconds);
             if (distance <= 0) {
                 clearInterval(x);
+                nopbai();
             }
         }, 1000);
     }

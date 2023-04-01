@@ -32,7 +32,7 @@ class KetQuaModel extends DB{
 
     public function getMaKQ($made, $manguoidung)
     {
-        $sql = "SELECT `makq` FROM `ketqua` WHERE `made` = '$made' AND `manguoidung` = '$manguoidung'";
+        $sql = "SELECT `makq`, `diemthi` FROM `ketqua` WHERE `made` = '$made' AND `manguoidung` = '$manguoidung'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }

@@ -65,6 +65,7 @@ class Test extends Controller
             "Page" => "vao_thi",
             "Title" => "Bắt đầu thi",
             "Test" => $this->dethimodel->getById($made),
+            "Check" => $this->ketquamodel->getMaKQ($made, $_SESSION['user_id']),
             "Script" => "vaothi",
             "Plugin" => [
                 "notify" => 1
@@ -113,7 +114,7 @@ class Test extends Controller
         $now = new DateTime();
         $timestart = new DateTime($infoTest['thoigianbatdau']);
         $timeend = new DateTime($infoTest['thoigianketthuc']);
-        if ($check != '' && $now >= $timestart && $now <= $timeend) {
+        if ($now >= $timestart && $now <= $timeend && $check['diemthi'] == '') {
             $this->view("single_layout", [
                 "Page" => "de_thi",
                 "Title" => "Làm bài kiểm tra",

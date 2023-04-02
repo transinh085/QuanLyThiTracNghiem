@@ -37,13 +37,16 @@ function getQuestionOfTest() {
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     console.log(arrQuestion)
-
     $("#name-test").text(infoTest.tende)
     $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
     let arr_slch = countQuantityLevel(arrQuestion);
 
-    loadDataListQuestion();
+    $.when(loadDataChapter(infoTest.monthi)).done(function() {
+        loadDataListQuestion(1);
+        showNavPage(getToTalPage(),1);
+    })
+
     showListQuesOfTest(arrQuestion);
     displayQuantityQueston()
 
@@ -63,17 +66,20 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         $("#slcaukho").text(arr_slch[3]);
         $("#ttcaukho").text(infoTest.socaukho);
     }
-    
 
-    function loadDataListQuestion() {
+    function loadDataListQuestion(page) {
+        let machuong = $(".data-chapter.active").data("id");
+        let dokho = $(".data-dokho.active").data("id");
+        let content = $("#search-content").val();
         $.ajax({
             type: "post",
             url: "./question/getQuestionBySubject",
             data: {
                 mamonhoc: infoTest.monthi,
-                machuong: 0,
-                dokho: 0,
-                content: ''
+                machuong: machuong,
+                dokho: dokho,
+                content: content,
+                page: page
             },
             dataType: "json",
             success: function (response) {
@@ -86,18 +92,21 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     // Hiển thị danh sách câu hỏi của môn học ở cột bên trái
     function showListQuestion(questions,arrQuestion) {
         let html = ``;
-        questions.forEach((question,index) => {
-            let dokhotext = ["", "Dễ","TB","Khó"];
-            let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
-            html += `<li class="list-group-item d-flex">
-                <div class="form-check">
-                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
-                    <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidung}</label>
-                </div>
-                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
-                
-            </li>`
-        });
+        if(questions.length != 0) {
+            questions.forEach((question,index) => {
+                let dokhotext = ["", "Dễ","TB","Khó"];
+                let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
+                html += `<li class="list-group-item d-flex">
+                    <div class="form-check">
+                        <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
+                        <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidung}</label>
+                    </div>
+                    <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
+                </li>`
+            });
+        } else {
+            html += `<p class="text-center">Không có câu hỏi</p>`;
+        }
         $("#list-question").html(html);
     }
 
@@ -223,5 +232,93 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         } else {
             Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi không phù hợp!' });
         }
+    });
+
+    function showNavPage(total,currentpage) {
+        let html = `<li class="page-item">
+            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                <span aria-hidden="true">
+                    <i class="fa fa-angle-double-left"></i>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+        </li>`;
+        for(let i = 0; i < total; i++) {
+            html += `<li class="page-item${(i + 1) == currentpage ? " active" : ""}"><a class="page-link" href="javascript:void(0)">${i + 1}</a></li>`
+        }
+        html += `<li class="page-item">
+            <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true">
+                    <i class="fa fa-angle-double-right"></i>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </li>`
+        $("#nav-page").html(html);
+    }
+    
+    function loadDataChapter(mamon) {
+        return $.ajax({
+            type: "post",
+            url: "./subject/getAllChapter",
+            data: {
+                mamonhoc: mamon
+            },
+            dataType: "json",
+            success: function (response) {
+                showChapter(response);
+            }
+        });
+    }
+
+    function showChapter(data) {
+        let html = `<a class="dropdown-item active data-chapter" href="javascript:void(0)" data-id="0">Tất cả</a>`;
+        data.forEach(item => {
+            html += `<a class="dropdown-item data-chapter" href="javascript:void(0)" data-id="${item.machuong}">${item.tenchuong}</a>`
+        });
+        $("#list-chapter").html(html);
+    }
+
+    function getToTalPage() {
+        let machuong = $(".data-chapter.active").data("id");
+        let dokho = $(".data-dokho.active").data("id");
+        let content = $("#search-content").val();
+        let total = 0;
+        $.ajax({
+            type: "post",
+            url: "./question/getTotalPageQuestionBySubject",
+            async: false,
+            data: {
+                mamonhoc: infoTest.monthi,
+                machuong: machuong,
+                dokho: dokho,
+                content: content
+            },
+            success: function (response) {
+                total = response;
+                console.log(response)
+            }
+        });
+        return total;
+    }
+
+    $(document).on("click", ".data-chapter",function () {
+        $(".data-chapter.active").removeClass("active");
+        $(this).addClass("active");
+        loadDataListQuestion(1);
+        showNavPage(getToTalPage(),1);
+    });
+
+    $(document).on("click", ".data-dokho",function () {
+        $(".data-dokho.active").removeClass("active");
+        $(this).addClass("active");
+        loadDataListQuestion(1);
+        showNavPage(getToTalPage(),1);
+    });
+
+
+    $("#search-content").on("input", function () {
+        loadDataListQuestion(1);
+        showNavPage(getToTalPage(),1);
     });
 });

@@ -2,10 +2,14 @@
 class Client extends Controller{
 
     public $nhommodel;
+    public $dethimodel;
+    public $nguoidungmodel;
 
     public function __construct()
     {
         $this->nhommodel = $this->model("NhomModel");
+        $this->dethimodel = $this->model("DeThiModel");
+        $this->nguoidungmodel = $this->model("NguoiDungModel");
     }
 
     public function group()
@@ -20,6 +24,35 @@ class Client extends Controller{
             ]
         ]);
     }
+
+    public function test() {
+        $this->view("main_layout", [
+            "Page" => "test_schedule",
+            "Title" => "Lịch kiểm tra",
+            "Script" => "test_schedule",
+        ]);
+    }
+
+    public function getCurrentUserInfo() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user_id = $_SESSION['user_id'];
+            $result = $this->nguoidungmodel->getById($user_id);
+            echo json_encode($result);
+        }
+    }
+
+    public function getUserTestSchedule() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user_id = $_SESSION['user_id'];
+            $result = $this->dethimodel->getUserTestSchedule($user_id);
+            echo json_encode($result);
+        }
+    }
+
+    // public function getQuery($filter, $input) {
+    //     $query = $this->dethimodel->getQuery($filter, $input);
+    //     return $query;
+    // }
 
     public function joinGroup()
     {

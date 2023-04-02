@@ -96,8 +96,8 @@ footer {
                                         <th>MSSV</th>
                                         <th>Họ tên</th>
                                         <th class="text-center">Điểm</th>
-                                        <th class="text-center">Thời lượng</th>
-                                        <th class="text-center">Thời gian nộp</th>
+                                        <th class="text-center">Thời gian vào thi</th>
+                                        <th class="text-center">Thời gian thi</th>
                                         <th class="text-center">Số lần thoát</th>
                                         <th class="text-center">Hành động</th>
                                     </tr>
@@ -114,8 +114,8 @@ footer {
                                             </div>
                                         </td>
                                         <td class="text-center">10</td>
-                                        <td class="text-center">30p:45s</td>
                                         <td class="text-center">08:29 24/3/2023</td>
+                                        <td class="text-center">30p:45s</td>
                                         <td class="text-center">3</td>
                                         <td class="text-center">
                                             <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"

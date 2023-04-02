@@ -58,7 +58,7 @@ class KetQuaModel extends DB{
         $valid = true;
         $socaudung = $this->socaudung($list);
         $socau = count($list);
-        $diem = 10/$socau * $socaudung;
+        $diem = round((10/$socau * $socaudung),2);
         $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
         $result = mysqli_query($this->con,$sql);
         if(!$result) $valid = false;

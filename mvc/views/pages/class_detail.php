@@ -40,7 +40,33 @@
                                 <th class="text-center" style="width: 150px;">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="list-student">
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="fs-sm d-flex align-items-center">
+                                    <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg"
+                                        alt="">
+                                    <div class="d-flex flex-column">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Susan Day</a>
+                                        <span class="fw-normal fs-sm text-muted">client1@example.com</span>
+                                    </div>
+                                </td>
+                                <td class="text-center fs-sm">Nam</td>
+                                <td class="text-center fs-sm">20/12/2003</td>
+                                <td class="text-center">1</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-alt-secondary"
+                                            data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fa fa-fw fa-pencil-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-alt-secondary"
+                                            data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-fw fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="text-center">1</td>
                                 <td class="fs-sm d-flex align-items-center">

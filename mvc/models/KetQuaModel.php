@@ -58,7 +58,7 @@ class KetQuaModel extends DB{
         $valid = true;
         $socaudung = $this->socaudung($list);
         $socau = count($list);
-        $diem = 10/$socau * $socaudung;
+        $diem = round((10/$socau * $socaudung),2);
         $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
         $result = mysqli_query($this->con,$sql);
         if(!$result) $valid = false;
@@ -71,6 +71,16 @@ class KetQuaModel extends DB{
             if(!$insertCt) $valid = false;
         }
         return $valid;
+    }
+
+    public function tookTheExam($made){
+        $sql = "select * from ketqua kq join nguoidung nd on kq.manguoidung = nd.id where kq.made = '$made'";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }
 ?>

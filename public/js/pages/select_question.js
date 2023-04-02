@@ -7,6 +7,8 @@ let infoTest
 let arrQuestion = [];
 // Khởi tạo mảng danh sách câu hỏi lấy từ db
 let questions = [];
+// Khởi tạo tổng số trang
+let totalpage = 0
 
 function getInfoTest() {
     return $.ajax({
@@ -235,8 +237,13 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     });
 
     function showNavPage(total,currentpage) {
-        let html = `<li class="page-item">
-            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+        total = Math.ceil(total);
+        console.log(total,currentpage)
+        if(total == 0) return;
+        let prev = currentpage > 1 ? currentpage - 1 : 1;
+        let next = currentpage < total ? currentpage + 1 : total;
+        let html = `<li class="page-item ${currentpage == 1 ? "disabled" : ""}">
+            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous" data-id="${prev}">
                 <span aria-hidden="true">
                     <i class="fa fa-angle-double-left"></i>
                 </span>
@@ -244,10 +251,10 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
             </a>
         </li>`;
         for(let i = 0; i < total; i++) {
-            html += `<li class="page-item${(i + 1) == currentpage ? " active" : ""}"><a class="page-link" href="javascript:void(0)">${i + 1}</a></li>`
+            html += `<li class="page-item${(i + 1) == currentpage ? " active" : ""}"><a class="page-link" href="javascript:void(0)" data-id="${i + 1}">${i + 1}</a></li>`
         }
-        html += `<li class="page-item">
-            <a class="page-link" href="javascript:void(0)" aria-label="Next">
+        html += `<li class="page-item${currentpage == total ? " disabled" : ""}">
+            <a class="page-link" href="javascript:void(0)" aria-label="Next" data-id="${next}">
                 <span aria-hidden="true">
                     <i class="fa fa-angle-double-right"></i>
                 </span>
@@ -296,7 +303,7 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
             },
             success: function (response) {
                 total = response;
-                console.log(response)
+                totalpage = response;
             }
         });
         return total;
@@ -320,5 +327,11 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $("#search-content").on("input", function () {
         loadDataListQuestion(1);
         showNavPage(getToTalPage(),1);
+    });
+
+    $(document).on("click", ".page-link",function () {
+        let page = $(this).data("id");
+        loadDataListQuestion(page);
+        showNavPage(totalpage,page)
     });
 });

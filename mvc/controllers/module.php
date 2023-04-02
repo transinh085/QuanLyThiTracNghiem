@@ -109,5 +109,16 @@
                 echo json_encode($result);
             }
         }
+
+        public function getSvList() 
+        {
+            // if($_SERVER["REQUEST_METHOD"] == "POST") {
+            //     $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->getSvList();
+                echo json_encode($result);
+            // }
+        }
     }
+
+    
 ?>

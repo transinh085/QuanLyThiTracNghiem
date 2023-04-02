@@ -277,4 +277,12 @@ class Test extends Controller
             echo json_encode($result);
         }
     }
+
+    public function tookTheExam(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            $made = $_POST['made'];
+            $result = $this->ketquamodel->tookTheExam($made);
+            echo json_encode($result);
+        }
+    }
 }

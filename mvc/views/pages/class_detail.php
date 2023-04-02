@@ -14,19 +14,7 @@
                 điểm</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn btn-sm btn-alt-primary" id="dropdown-analytics-overview"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end fs-sm mt-1" aria-labelledby="dropdown-analytics-overview">
-                    <a class="dropdown-item" href="javascript:void(0)">Thông báo</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Previous Week</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:void(0)">This Month</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Previous Month</a>
-                </div>
-            </div>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting"><i class="fa fa-cog"></i></button>
         </div>
     </div>
     <div class="row mt-4">
@@ -101,22 +89,22 @@
                         </button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" id="ma-moi-tab" data-bs-toggle="tab"
-                            data-bs-target="#ma-moi" role="tab" aria-controls="ma-moi"
-                            aria-selected="false">
+                        <button class="nav-link" id="ma-moi-tab" data-bs-toggle="tab" data-bs-target="#ma-moi"
+                            role="tab" aria-controls="ma-moi" aria-selected="false">
                             Tham gia bằng mã mời
                         </button>
                     </li>
                     <li class="nav-item">
                         <button class="nav-link" id="them-file-excel-tab" data-bs-toggle="tab"
-                            data-bs-target="#them-file-excel" role="tab"
-                            aria-controls="them-file-excel" aria-selected="false">
+                            data-bs-target="#them-file-excel" role="tab" aria-controls="them-file-excel"
+                            aria-selected="false">
                             Thêm bằng file Excel
                         </button>
                     </li>
                     <li class="nav-item ms-auto">
-                    <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                </li>
+                        <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </li>
                 </ul>
                 <div class="block-content tab-content">
                     <div class="tab-pane fade fade-up show active" id="them-thu-cong" role="tabpanel"
@@ -151,12 +139,13 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel"
-                        aria-labelledby="ma-moi-tab" tabindex="0">
+                    <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
+                        tabindex="0">
                         <h2 class="display-1 text-center py-6">yzhr5sy</h2>
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <p class="text-center mb-0">841059 - Lập trình hướng đối tượng - NH2023 - HK1 - Nhóm 1</p>
-                            <button type="button" class="btn btn-alt-primary btn-sm"><i class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
+                            <button type="button" class="btn btn-alt-primary btn-sm"><i
+                                    class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"
@@ -168,6 +157,75 @@
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Lập trình Java - NH2023 - HK2 - Nhóm 2</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body content-side">
+        <div class="block block-transparent pull-x pull-t mb-0">
+            <ul class="nav nav-tabs nav-tabs-block nav-justified" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="so-settings-tab" data-bs-toggle="tab"
+                        data-bs-target="#so-settings" role="tab" aria-controls="so-settings" aria-selected="true">
+                        <i class="fa fa-fw fa-cog me-2"></i> Đề kiểm tra
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="so-profile-tab" data-bs-toggle="tab" data-bs-target="#so-profile"
+                        role="tab" aria-controls="so-profile" aria-selected="false" tabindex="-1">
+                        <i class="fa fa-fw fa-bell me-2"></i> Thông báo
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="so-people-tab" data-bs-toggle="tab" data-bs-target="#so-people"
+                        role="tab" aria-controls="so-people" aria-selected="false" tabindex="-1">
+                        <i class="far fa-fw fa-user-circle me-2"></i> Bạn bè
+                    </button>
+                </li>
+            </ul>
+            <div class="block-content tab-content overflow-hidden">
+                <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
+                    aria-labelledby="so-settings-tab" tabindex="0">
+                    <div class="list-test px-2">
+                        <div class="block block-rounded block-fx-pop mb-2">
+                            <div class="block-content block-content-full border-start border-3 border-primary">
+                                <div class="d-md-flex justify-content-md-between align-items-md-center">
+                                    <div class="p-1 p-md-2">
+                                        <h3 class="h4 fw-bold mb-3">
+                                            <a href="./test/start/1" class="text-dark link-fx">Kiểm tra giữa kì</a>
+                                        </h3>
+                                        <p class="fs-sm text-muted mb-0">
+                                            <i class="fa fa-clock me-1"></i> Diễn ra từ <span>12:00 08/03/2023</span>
+                                            đến
+                                            <span>12:00 09/03/2023</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
+                    aria-labelledby="so-profile-tab" tabindex="0">
+                    <p class="text-center">Không có thông báo</p>
+                </div>
+                <div class="tab-pane pull-x fade fade-up" id="so-people" role="tabpanel" aria-labelledby="so-people-tab"
+                    tabindex="0">
+                    <div class="block mb-0">
+                        <div class="block-content block-content-sm block-content-full bg-body">
+                            <span class="text-uppercase fs-sm fw-bold">Bạn cùng nhóm</span>
+                        </div>
+                        <div class="block-content">
+                            <ul class="nav-items list-friends">
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

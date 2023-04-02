@@ -20,7 +20,7 @@
                 <table class="table table-vcenter">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 100px;">ID</th>
+                            <th class="text-center" style="width: 100px;">MSSV</th>
                             <th>Họ và tên</th>
                             <th class="text-center">Giới tính</th>
                             <th class="text-center">Ngày sinh</th>

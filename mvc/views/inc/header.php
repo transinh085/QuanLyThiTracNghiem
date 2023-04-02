@@ -33,13 +33,12 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                     <div class="bg-body-light rounded-top fw-semibold text-center p-3 border-bottom">
-                        <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/avatar0.jpg"
+                        <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/<?php echo $_SESSION["avatar"] == '' ? "avatar2.jpg" : $_SESSION["avatar"] ?>"
                             alt="">
                         <div class="pt-2">
                             <a class="fw-semibold">
                                 <?php echo $_SESSION['user_name'] ?>
                             </a>
-                            <div class="fs-sm">Admin</div>
                         </div>
                     </div>
                     <div class="p-2">

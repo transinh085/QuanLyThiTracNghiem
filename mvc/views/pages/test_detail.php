@@ -102,7 +102,7 @@ footer {
                                         <th class="text-center">Hành động</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="took_the_exam">
                                     <tr>
                                         <td class="text-center">3121410422</td>
                                         <td class="fs-sm d-flex align-items-center">

@@ -72,5 +72,15 @@ class KetQuaModel extends DB{
         }
         return $valid;
     }
+
+    public function tookTheExam($made){
+        $sql = "select * from ketqua kq join nguoidung nd on kq.manguoidung = nd.id where kq.made = '$made'";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }
 ?>

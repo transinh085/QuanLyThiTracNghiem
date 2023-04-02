@@ -40,7 +40,33 @@
                                 <th class="text-center" style="width: 150px;">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="list-student">
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="fs-sm d-flex align-items-center">
+                                    <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg"
+                                        alt="">
+                                    <div class="d-flex flex-column">
+                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Susan Day</a>
+                                        <span class="fw-normal fs-sm text-muted">client1@example.com</span>
+                                    </div>
+                                </td>
+                                <td class="text-center fs-sm">Nam</td>
+                                <td class="text-center fs-sm">20/12/2003</td>
+                                <td class="text-center">1</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-alt-secondary"
+                                            data-bs-toggle="tooltip" title="Edit">
+                                            <i class="fa fa-fw fa-pencil-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-alt-secondary"
+                                            data-bs-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-fw fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="text-center">1</td>
                                 <td class="fs-sm d-flex align-items-center">
@@ -182,12 +208,6 @@
                         <i class="fa fa-fw fa-bell me-2"></i> Thông báo
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="so-people-tab" data-bs-toggle="tab" data-bs-target="#so-people"
-                        role="tab" aria-controls="so-people" aria-selected="false" tabindex="-1">
-                        <i class="far fa-fw fa-user-circle me-2"></i> Bạn bè
-                    </button>
-                </li>
             </ul>
             <div class="block-content tab-content overflow-hidden">
                 <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
@@ -214,18 +234,6 @@
                 <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
                     aria-labelledby="so-profile-tab" tabindex="0">
                     <p class="text-center">Không có thông báo</p>
-                </div>
-                <div class="tab-pane pull-x fade fade-up" id="so-people" role="tabpanel" aria-labelledby="so-people-tab"
-                    tabindex="0">
-                    <div class="block mb-0">
-                        <div class="block-content block-content-sm block-content-full bg-body">
-                            <span class="text-uppercase fs-sm fw-bold">Bạn cùng nhóm</span>
-                        </div>
-                        <div class="block-content">
-                            <ul class="nav-items list-friends">
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

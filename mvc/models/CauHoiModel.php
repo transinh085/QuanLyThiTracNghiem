@@ -65,23 +65,36 @@ class CauHoiModel extends DB{
         echo $data;
     }
 
-    public function getQuestionBySubject($mamonhoc, $machuong, $dokho, $content)
+    public function getQuestionBySubject($mamonhoc, $machuong, $dokho, $content, $page)
     {
-        // $limit = 10;
-        // $offset = ($page - 1) * $limit;
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
         $sql = "SELECT macauhoi, noidung, dokho, machuong FROM cauhoi WHERE mamonhoc = '$mamonhoc'";
         $sql .= $machuong == 0 ? "" : " AND machuong = $machuong";
         $sql .= $dokho == 0 ? "" : " AND dokho = $dokho";
         $sql .= $content == '' ? "" : " AND noidung LIKE '%$content%'";
-        // $sql .= " ORDER BY macauhoi DESC limit $offset,$limit";
+        $sql .= " ORDER BY macauhoi DESC limit $offset,$limit";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
-            if(str_contains(strip_tags($row['noidung']),$content)) {
-            }
         }
         return $rows;
+    }
+
+    public function getTotalPageQuestionBySubject($mamonhoc, $machuong, $dokho, $content)
+    {
+        $limit = 10;
+        $sql = "SELECT macauhoi, noidung, dokho, machuong FROM cauhoi WHERE mamonhoc = '$mamonhoc'";
+        $sql .= $machuong == 0 ? "" : " AND machuong = $machuong";
+        $sql .= $dokho == 0 ? "" : " AND dokho = $dokho";
+        $sql .= $content == '' ? "" : " AND noidung LIKE '%$content%'";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return count($rows)/$limit;
     }
 }
 ?>

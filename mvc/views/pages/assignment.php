@@ -176,7 +176,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-1">
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>

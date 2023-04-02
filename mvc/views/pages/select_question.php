@@ -19,7 +19,7 @@
                 <form onsubmit="return false;">
                     <div class="mb-4">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm câu hỏi..">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm câu hỏi.." id="search-content">
                             <span class="input-group-text">
                                 <i class="fa fa-fw fa-search"></i>
                             </span>
@@ -32,7 +32,7 @@
                             id="inbox-msg-sort" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Chương
                         </button>
-                        <div class="dropdown-menu fs-sm" aria-labelledby="inbox-msg-sort">
+                        <div class="dropdown-menu fs-sm" aria-labelledby="inbox-msg-sort" id="list-chapter">
                             <a class="dropdown-item" href="javascript:void(0)">1</a>
                             <a class="dropdown-item" href="javascript:void(0)">2</a>
                             <a class="dropdown-item" href="javascript:void(0)">Tất cả</a>
@@ -44,16 +44,20 @@
                             Độ khó
                         </button>
                         <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="inbox-msg-filter">
-                            <a class="dropdown-item active" href="javascript:void(0)">Cơ bản</a>
-                            <a class="dropdown-item" href="javascript:void(0)">Trung bình</a>
-                            <a class="dropdown-item" href="javascript:void(0)">Nâng cao</a>
-                            <a class="dropdown-item" href="javascript:void(0)">Khó</a>
+                            <a class="dropdown-item active data-dokho" href="javascript:void(0)" data-id="0">Tất cả</a>
+                            <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="1">Dễ</a>
+                            <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="2">Trung bình</a>
+                            <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="3">Khó</a>
                         </div>
                     </div>
                 </div>
                 <ul class="list-group fs-sm" id="list-question">
                     <!-- Danh sách câu hỏi -->
                 </ul>
+                <nav aria-label="Page navigation" class="mt-3">
+                    <ul class="pagination justify-content-center" id="nav-page">
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

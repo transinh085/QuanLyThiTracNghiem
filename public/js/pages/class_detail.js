@@ -1,6 +1,7 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 $(document).ready(function () {
     const manhom = $(".content").data("id")
+    // console.log(manhom)
 const showList = function (students) {
     let html = "";
     if(students.length == 0) {
@@ -42,63 +43,26 @@ const showList = function (students) {
     $('[data-bs-toggle="tooltip"]').tooltip();
 };
 
-//  const mamoi = "";
-// var mamoi = "";
-// const t = $(".content-heading");
-// console.log(t)
+
 function loadList() {
-<<<<<<< HEAD
-    // var mamoi = "";
-    $.get(
-        "./module/getSvList",
-        // { manhom: },
-        function (data, textStatus) {
-            console.log(data)
-            // const obeject = data[0];
-            // mamoi = obeject.mamoi;
-            // console.log(mamoi)
-            // showList(data);
-            showList(data);
-=======
     $.ajax({
         type: "post",
         url: "./module/getSvList",
         data: {
             manhom: manhom
->>>>>>> f8b3301fb794809d1f36900f76ea5debdbd5c6f2
         },
         dataType: "json",
         success: function (response) {
+            console.log(response)
             showList(response);
         }
     });
 }
 
-<<<<<<< HEAD
 
 
 loadList();
 
-// Gắn mã mới lên từng nhóm học phần
-function attachMaMoi() {
-    let html = "";
-    $.ajax({
-        type: "POST",
-        url: `./class_detail/`,
-        data: {
-            $hocky = ; 
-            $mamonhoc = ; 
-            $namhoc = $_POST['namhoc'];
-            $tennhom = $_POST['tennhom'];
-            $ghichu = $_POST['ghichu'];
-        },
-    });
-}
-
-
-
-=======
-loadList();
 
 function showListTest(tests) {
     let html = ``;
@@ -143,5 +107,5 @@ $("[data-bs-target='#offcanvasSetting']").click(function (e) {
     e.preventDefault();
     loadDataTest(manhom)
 });
-});
->>>>>>> f8b3301fb794809d1f36900f76ea5debdbd5c6f2
+
+})

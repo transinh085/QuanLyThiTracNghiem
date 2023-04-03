@@ -1,4 +1,4 @@
-<div class="content" data-id="<?php echo $data['Detail']['manhom'] ?>">
+<div class="content" data-id="<?php echo $data['Detail']['manhom']?>">
     <div class="row">
         <div class="col-4 flex-grow-1">
             <div class="input-group">

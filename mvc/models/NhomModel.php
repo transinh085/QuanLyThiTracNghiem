@@ -149,35 +149,15 @@ class NhomModel extends DB
         return mysqli_fetch_assoc($result);
     }
 
-    // Lấy mã mời
-    public function getMaMoi($hocky, $mamonhoc, $namhoc, $tennhom, $ghichu)
-    {
-        $sql = "SELECT mamoi FROM nhom WHERE hocky = $hocky AND mamonhoc = $mamonhoc AND namhoc = $namhoc AND tennhom = '$tennhom' AND ghichu='$ghichu'";
-        $result = mysqli_query($this->con, $sql);
-        return  mysqli_fetch_assoc($result);
-    }
-
     // Lấy danh sách bạn học chung nhóm
     public function getSvList($manhom) {
-<<<<<<< HEAD
-
-        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh, mamoi FROM nhom ,chitietnhom, nguoidung WHERE chitietnhom.manhom = nhom.manhom AND manguoidung = id AND chitietnhom.manhom = $manhom";
-        // $sql = "SELECT mamoi FROM nhom WHERE manhom = 1";
-=======
-        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom, nguoidung WHERE manguoidung = id AND chitietnhom.manhom = '$manhom'";
->>>>>>> f8b3301fb794809d1f36900f76ea5debdbd5c6f2
+        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom, nguoidung WHERE manguoidung = id AND chitietnhom.manhom = $manhom";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
-
-        // do {
-        //     $mamoi = substr(md5(mt_rand()), 0, 7);
-        //     $check = $this->getIdFromInvitedCode($mamoi);
-        // } while($check != null);
-        // return $check;
     }
 }
 ?>

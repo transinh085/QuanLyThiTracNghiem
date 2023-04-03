@@ -111,8 +111,8 @@ class Subject extends Controller{
         }
     }
 
-    public function getQuery($filter, $input) {
-        $result = $this->monHocModel->getQuery($filter, $input);
+    public function getQuery($filter, $input, $args) {
+        $result = $this->monHocModel->getQuery($filter, $input, $args);
         return $result;
     }
 }

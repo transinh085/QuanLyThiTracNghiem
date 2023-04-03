@@ -8,7 +8,11 @@ const showData = function (users) {
                               <strong>${user.id}</strong>
                           </td>
                           <td class="fs-sm d-flex align-items-center">
-                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${user.avatar == null ? `avatar2.jpg`: user.avatar}" alt="">
+                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
+                                user.avatar == null
+                                  ? `avatar2.jpg`
+                                  : user.avatar
+                              }" alt="">
                               <div class="d-flex flex-column">
                                   <strong class="text-primary">${
                                     user.hoten

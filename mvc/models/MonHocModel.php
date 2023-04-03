@@ -67,7 +67,7 @@ class MonHocModel extends DB{
         return $rows;
     }
 
-    public function getQuery($filter, $input) {
+    public function getQuery($filter, $input, $args) {
         $query = "SELECT * FROM `monhoc` WHERE `trangthai` = 1";
         if ($input) {
             $query = $query . " AND (`monhoc`.`tenmonhoc` LIKE N'%${input}%' OR `monhoc`.`mamonhoc` LIKE '%${input}%')";

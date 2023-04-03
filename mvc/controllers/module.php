@@ -110,11 +110,24 @@
             }
         }
 
+        public function getMaMoi() 
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $hocky = $_POST['hocky']; 
+                $mamonhoc = $_POST['mamonhoc']; 
+                $namhoc = $_POST['namhoc'];
+                $tennhom = $_POST['tennhom'];
+                $ghichu = $_POST['ghichu'];
+                $result = $this->nhomModel->getMaMoi();
+                echo json_encode($result);
+            }
+        }
+
         public function getSvList() 
         {
             // if($_SERVER["REQUEST_METHOD"] == "POST") {
             //     $manhom = $_POST['manhom'];
-                $result = $this->nhomModel->getMaMoi();
+                $result = $this->nhomModel->getSvList();
                 echo json_encode($result);
             // }
         }

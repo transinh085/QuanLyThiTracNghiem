@@ -150,9 +150,9 @@ class NhomModel extends DB
     }
 
     // Lấy mã mời
-    public function getMaMoi()
+    public function getMaMoi($hocky, $mamonhoc, $namhoc, $tennhom, $ghichu)
     {
-        $sql = "SELECT mamoi FROM nhom WHERE hocky = 1 AND mamonhoc = 841059 AND namhoc = 2023 AND tennhom = 'Nhóm 1' AND ghichu='Chiều thứ 3'";
+        $sql = "SELECT mamoi FROM nhom WHERE hocky = $hocky AND mamonhoc = $mamonhoc AND namhoc = $namhoc AND tennhom = '$tennhom' AND ghichu='$ghichu'";
         $result = mysqli_query($this->con, $sql);
         return  mysqli_fetch_assoc($result);
     }

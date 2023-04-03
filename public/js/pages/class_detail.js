@@ -38,6 +38,8 @@ const showList = function (students) {
 
 //  const mamoi = "";
 // var mamoi = "";
+// const t = $(".content-heading");
+// console.log(t)
 function loadList() {
     // var mamoi = "";
     $.get(
@@ -60,15 +62,20 @@ function loadList() {
 loadList();
 
 // Gắn mã mới lên từng nhóm học phần
+function attachMaMoi() {
+    let html = "";
+    $.ajax({
+        type: "POST",
+        url: `./class_detail/`,
+        data: {
+            $hocky = ; 
+            $mamonhoc = ; 
+            $namhoc = $_POST['namhoc'];
+            $tennhom = $_POST['tennhom'];
+            $ghichu = $_POST['ghichu'];
+        },
+    });
+}
 
 
-$(document).on("click", ".page-link", function () {
-    var page = $(this).attr("id");
-    currentPage = page;
-    getNumberPage("class_detail", currentPage);
-    fetch_data("class_detail", currentPage);
-  });
 
-  let currentPage = 1;
-  getNumberPage("class_detail", currentPage);
-  fetch_data("class_detail", currentPage);

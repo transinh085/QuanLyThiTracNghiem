@@ -73,7 +73,7 @@ if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
 <div class="collapse" id="xemkq">
     <div class="content row justify-content-center align-items-center mb-4">
         <div class="col-lg-6 col-md-12 bg-white p-4 rounded">
-            <h4 class="text-center">Điểm của bạn: <span class="display-6 fw-bold"><?php $data["Check"]['diemthi'] ?></span> </h4>
+            <h4 class="text-center">Điểm của bạn: <span class="display-6 fw-bold"><?php echo $data["Check"]['diemthi'] ?></span> </h4>
             <div class="exam-info mb-3">
                 <div class="row mb-3">
                     <div class="col-6">
@@ -81,7 +81,7 @@ if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
                             bài</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span><?php $data["Check"]['thoigianlambai']/60 ?> phút</span>
+                        <span><?php echo round($data["Check"]['thoigianlambai']/60,0) ?> phút</span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -97,7 +97,7 @@ if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
                         <span class="text-primary"><i class="far fa-circle-check me-2"></i></span><span> Số câu đúng</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span><?php $data["Check"]['socaudung'] ?></span>
+                        <span><?php echo $data["Check"]['socaudung'] ?></span>
                     </div>
                 </div>
                 <div class="row mb-3">

@@ -138,12 +138,10 @@ $(document).ready(function () {
                 made: dethi,
             },
             success: function (response) {
-                if (response) {
-                    localStorage.removeItem("cautraloi");
-                    localStorage.removeItem("dethi");
-                    localStorage.removeItem("solanchuyentab");
-                    location.href = `./test/start/${made}`;
-                }
+                localStorage.removeItem("cautraloi");
+                localStorage.removeItem("dethi");
+                localStorage.removeItem("solanchuyentab");
+                location.href = `./test/start/${made}`;
             },
         });
     }

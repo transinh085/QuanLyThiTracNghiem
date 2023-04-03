@@ -109,7 +109,7 @@ class User extends Controller{
                 $data[$i]['fullname'] = $fullname;
                 $data[$i]['email'] = $email;
                 $data[$i]['mssv'] = $mssv;
-                $data[$i]['nhomquyen'] = 1;
+                $data[$i]['nhomquyen'] = 11;
                 $data[$i]['trangthai'] = 1;
             }
             echo json_encode($data);

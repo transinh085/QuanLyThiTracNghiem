@@ -1,6 +1,6 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
-const showData = function (users) {
+function showData(users) {
   let html = "";
   users.forEach((user) => {
     html += `<tr>
@@ -56,7 +56,7 @@ const showData = function (users) {
   });
   $("#list-user").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
-};
+}
 
 $(document).ready(function () {
   $("#user_nhomquyen").select2({
@@ -246,6 +246,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         addExcel(response);
+
       },
       complete: function () {
         Dashmix.layout("header_loader_off");
@@ -260,11 +261,12 @@ $(document).ready(function () {
       data: {
         listuser: data,
       },
+      dataType: 'json',
       success: function (response) {
         $("#modal-add-user").modal("hide");
         getNumberPage("user", currentPage);
         fetch_data("user", currentPage);
-        showData();
+        loadData();
       },
     });
   }

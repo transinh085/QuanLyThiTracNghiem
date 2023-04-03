@@ -91,7 +91,12 @@ class NguoiDungModel extends DB
     {
         $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
-        return mysqli_fetch_assoc($result);
+        if($result){
+            return mysqli_fetch_assoc($result);
+        } else {
+            return false;
+        }
+        
     }
 
     public function changePassword($email, $new_password)
@@ -205,9 +210,10 @@ class NguoiDungModel extends DB
             $fullname = $user['fullname'];
             $email = $user['email'];
             $mssv = $user['mssv'];
+            $password = password_hash("123456", PASSWORD_DEFAULT);
             $trangthai = $user['trangthai'];
             $nhomquyen = $user['nhomquyen'];
-            $sql = "INSERT INTO `nguoidung`(`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$mssv','$trangthai','$nhomquyen')";
+            $sql = "INSERT INTO `nguoidung`(`id`,`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$fullname','$password','$trangthai','$nhomquyen')";
             $result = mysqli_query($this->con,$sql);
             if($result){
             } else {

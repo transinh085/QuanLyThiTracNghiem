@@ -260,15 +260,13 @@
                     <div class="row justify-content-around">
                         <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
                             <input class="form-check-input" type="checkbox" value="join" id="join_dethi"
-                                name="dethi">
-                            <label class="form-check-label" for="join_dethi">Tham gia
-                                thi</label>
+                                name="tgthi">
+                            <label class="form-check-label" for="join_dethi">Tham gia thi</label>
                         </div>
                         <div class="col-6 form-check form-switch d-flex justify-content-center gap-2">
                             <input class="form-check-input" type="checkbox" value="join" id="join_hocphan"
-                                name="hocphan">
-                            <label class="form-check-label" for="join_hocphan">Tham gia học
-                                phần</label>
+                                name="tghocphan">
+                            <label class="form-check-label" for="join_hocphan">Tham gia học phần</label>
                         </div>
                     </div>
                 </form>

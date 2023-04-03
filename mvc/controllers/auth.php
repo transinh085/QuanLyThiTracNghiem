@@ -46,11 +46,11 @@ class Auth extends Controller{
             ]);
         }
     }
-    
 
 
     function signup(){
         AuthCore::onLogin();
+        header("Location: ./signin");
         $this->view("single_layout", [
             "Page" => "auth/signup",
             "Title" => "Đăng ký tài khoản",

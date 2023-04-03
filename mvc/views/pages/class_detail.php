@@ -272,12 +272,6 @@
                         <i class="fa fa-fw fa-bell me-2"></i> Thông báo
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="so-people-tab" data-bs-toggle="tab" data-bs-target="#so-people"
-                        role="tab" aria-controls="so-people" aria-selected="false" tabindex="-1">
-                        <i class="far fa-fw fa-user-circle me-2"></i> Bạn bè
-                    </button>
-                </li>
             </ul>
             <div class="block-content tab-content overflow-hidden">
                 <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
@@ -304,18 +298,6 @@
                 <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
                     aria-labelledby="so-profile-tab" tabindex="0">
                     <p class="text-center">Không có thông báo</p>
-                </div>
-                <div class="tab-pane pull-x fade fade-up" id="so-people" role="tabpanel" aria-labelledby="so-people-tab"
-                    tabindex="0">
-                    <div class="block mb-0">
-                        <div class="block-content block-content-sm block-content-full bg-body">
-                            <span class="text-uppercase fs-sm fw-bold">Bạn cùng nhóm</span>
-                        </div>
-                        <div class="block-content">
-                            <ul class="nav-items list-friends">
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

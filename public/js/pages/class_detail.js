@@ -2,11 +2,10 @@ Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 
 const showList = function (students) {
     let html = "";
-    let d = 0;
-    students.forEach((student) => {
+    students.forEach((student,index) => {
         html += `
         <tr>
-            <td class="text-center">${d++}</td>
+            <td class="text-center">${index + 1}</td>
                 <td class="fs-sm d-flex align-items-center">
                     <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${student.avatar == null ? `avatar2.jpg`: user.avatar}"
                         alt="">
@@ -15,7 +14,7 @@ const showList = function (students) {
                         <span class="fw-normal fs-sm text-muted">${student.email}</span>
                     </div>
                 </td>
-                <td class="text-center fs-sm">${student.gioitinh}</td>
+                <td class="text-center fs-sm">${student.gioitinh == 1 ? "Nam" : "Nữ"}</td>
                 <td class="text-center fs-sm">${student.ngaysinh}</td>
                 <td class="text-center">1</td>
                 <td class="text-center">
@@ -50,9 +49,10 @@ function loadList() {
             // mamoi = obeject.mamoi;
             // console.log(mamoi)
             // showList(data);
+            showList(data);
         },
         "json"
-      );
+    );
 }
 
 

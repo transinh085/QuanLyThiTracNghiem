@@ -4,7 +4,7 @@ footer {
 }
 </style>
 <!-- <?php echo "<pre>"; var_dump($data["Test"])?> -->
-<div class="row g-0 flex-md-grow-1">
+<div class="row g-0 flex-md-grow-1" id="chitietdethi" data-id="<?php echo $data["Test"]["made"]?>">
     <div class="col-md-4 col-lg-4 col-xl-3 order-md-1 bg-white">
         <div class="content px-2">
             <div class="d-md-none push">
@@ -103,28 +103,6 @@ footer {
                                     </tr>
                                 </thead>
                                 <tbody id="took_the_exam">
-                                    <tr>
-                                        <td class="text-center">3121410422</td>
-                                        <td class="fs-sm d-flex align-items-center">
-                                            <img class="img-avatar img-avatar48 me-3"
-                                                src="./public/media/avatars/avatar0.jpg" alt="">
-                                            <div class="d-flex flex-column">
-                                                <strong class="text-primary">Trần Nhật Sinh</strong>
-                                                <span class="fw-normal fs-sm text-muted">client1@example.com</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">10</td>
-                                        <td class="text-center">08:29 24/3/2023</td>
-                                        <td class="text-center">30p:45s</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
-                                                data-bs-toggle="tooltip" aria-label="View"
-                                                data-bs-original-title="View">
-                                                <i class="fa fa-fw fa-eye"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

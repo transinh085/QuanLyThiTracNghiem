@@ -114,7 +114,7 @@
         {
             // if($_SERVER["REQUEST_METHOD"] == "POST") {
             //     $manhom = $_POST['manhom'];
-                $result = $this->nhomModel->getSvList();
+                $result = $this->nhomModel->getMaMoi();
                 echo json_encode($result);
             // }
         }

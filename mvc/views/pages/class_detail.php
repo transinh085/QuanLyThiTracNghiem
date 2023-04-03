@@ -95,6 +95,70 @@
                             </tr>
                         </tbody>
                     </table>
+                    
+                    <nav>
+                <ul class="pagination justify-content-end mt-2" id="getNumberPage"><li class="page-item disabled">
+                            <a class="page-link" id="1" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                                Prev
+                            </a>
+                        </li>
+                
+                    <li class="page-item active">
+                        <a class="page-link" id="1" href="javascript:void(0)">1</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="2" href="javascript:void(0)">2</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="3" href="javascript:void(0)">3</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="4" href="javascript:void(0)">4</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="5" href="javascript:void(0)">5</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="6" href="javascript:void(0)">6</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="7" href="javascript:void(0)">7</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="8" href="javascript:void(0)">8</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="9" href="javascript:void(0)">9</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="10" href="javascript:void(0)">10</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="11" href="javascript:void(0)">11</a>
+                    </li>
+                    
+                    <li class="page-item ">
+                        <a class="page-link" id="12" href="javascript:void(0)">12</a>
+                    </li>
+                    
+                <li class="page-item active">
+                    <a class="page-link" id="2" href="javascript:void(0)" aria-label="Next">
+                        Next
+                    </a>
+                </li>
+                </ul>
+            </nav>
+
                 </div>
             </div>
         </div>

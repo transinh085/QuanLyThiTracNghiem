@@ -37,15 +37,38 @@ const showList = function (students) {
     $('[data-bs-toggle="tooltip"]').tooltip();
 };
 
+//  const mamoi = "";
+// var mamoi = "";
 function loadList() {
+    // var mamoi = "";
     $.get(
         "./module/getSvList",
         // { manhom: },
         function (data, textStatus) {
-          showList(data);
+            console.log(data)
+            // const obeject = data[0];
+            // mamoi = obeject.mamoi;
+            // console.log(mamoi)
+            // showList(data);
         },
         "json"
       );
 }
 
+
+
 loadList();
+
+// Gắn mã mới lên từng nhóm học phần
+
+
+$(document).on("click", ".page-link", function () {
+    var page = $(this).attr("id");
+    currentPage = page;
+    getNumberPage("class_detail", currentPage);
+    fetch_data("class_detail", currentPage);
+  });
+
+  let currentPage = 1;
+  getNumberPage("class_detail", currentPage);
+  fetch_data("class_detail", currentPage);

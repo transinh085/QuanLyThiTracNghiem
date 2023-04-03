@@ -149,15 +149,31 @@ class NhomModel extends DB
         return mysqli_fetch_assoc($result);
     }
 
+    // Lấy mã mời
+    public function getMaMoi()
+    {
+        $sql = "SELECT mamoi FROM nhom WHERE hocky = 1 AND mamonhoc = 841059 AND namhoc = 2023 AND tennhom = 'Nhóm 1' AND ghichu='Chiều thứ 3'";
+        $result = mysqli_query($this->con, $sql);
+        return  mysqli_fetch_assoc($result);
+    }
+
     // Lấy danh sách bạn học chung nhóm
-    public function getSvList() {
-        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom, nguoidung WHERE manguoidung = id AND chitietnhom.manhom = 1";
+    public function getSvList($manhom) {
+
+        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh, mamoi FROM nhom ,chitietnhom, nguoidung WHERE chitietnhom.manhom = nhom.manhom AND manguoidung = id AND chitietnhom.manhom = $manhom";
+        // $sql = "SELECT mamoi FROM nhom WHERE manhom = 1";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
+
+        // do {
+        //     $mamoi = substr(md5(mt_rand()), 0, 7);
+        //     $check = $this->getIdFromInvitedCode($mamoi);
+        // } while($check != null);
+        // return $check;
     }
 }
 ?>

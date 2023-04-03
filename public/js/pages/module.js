@@ -312,5 +312,5 @@ $(document).ready(function () {
             }
         }
         showGroup(result);
-    });
+    });  
 });

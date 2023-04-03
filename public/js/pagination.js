@@ -1,18 +1,20 @@
-function optionArgument(page) {
+function optionArgument(page, args) {
   var input = $("#search-input").val();
-  const option = {
+  const filter = {
     page: page,
   };
-  if (input != "") option.input = input;
-  return option;
+  if (input != "") filter.input = input;
+  return { ...filter, ...args };
 }
 
-function fetch_data(controller, page) {
-  const option = optionArgument(page);
+function fetch_data(controller, page, args) {
+  const option = optionArgument(page, args);
   $.ajax({
     url: `./${controller}/pagination`,
     method: "post",
-    data: option,
+    data: {
+      args: JSON.stringify(option),
+    },
     dataType: "json",
     success: function (data) {
       showData(data);
@@ -23,14 +25,16 @@ function fetch_data(controller, page) {
   });
 }
 
-function getNumberPage(controller, page = 0) {
+function getNumberPage(controller, page = 0, args) {
   page = Number.parseInt(page);
-  const option = optionArgument(page);
+  const option = optionArgument(page, args);
   let html = "";
   $.ajax({
     url: `./${controller}/getNumberPage`,
     method: "post",
-    data: option,
+    data: {
+      args: JSON.stringify(option),
+    },
     success: function (numberPages) {
       if (numberPages == 0) return;
       let prev = page > 1 ? page - 1 : 1;

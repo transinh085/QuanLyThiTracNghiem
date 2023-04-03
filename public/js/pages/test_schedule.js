@@ -59,10 +59,11 @@ $(document).ready(function () {
   function getCurrentUID() {
     $.ajax({
       type: "post",
-      url: "./client/getCurrentUserInfo",
+      url: "./client/getUserID",
       dataType: "json",
-      success: function (data) {
-        return +data.id;
+      success: function (id) {
+        currentUser = id;
+        loadPage();
       },
       error: function (error) {
         console.error(error.responseText);
@@ -70,6 +71,26 @@ $(document).ready(function () {
     });
   }
 
-  const currentUser = getCurrentUID();
-  renderUserTestSchedule();
+  function loadPage() {
+    const args = {
+      manguoidung: currentUser,
+    };
+    getNumberPage("client", currentPage, args);
+    fetch_data("client", currentPage, args);
+  }
+
+  $(document).on("click", ".page-link", function () {
+    var page = $(this).attr("id");
+    currentPage = page;
+    loadPage();
+  });
+
+  $("#search-form").on("submit", function (e) {
+    e.preventDefault();
+    loadPage();
+  });
+
+  let currentUser;
+  let currentPage = 1;
+  getCurrentUID();
 });

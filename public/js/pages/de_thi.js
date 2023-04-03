@@ -4,7 +4,6 @@ $(document).ready(function () {
     const tende = "dethi" + made;
     const cautraloi = "cautraloi" + made;
     const solanchuyentab = "solanchuyentab" + made;
-    console.log(tende,cautraloi,solanchuyentab);
     function getQuestion() {
         return $.ajax({
             type: "post",
@@ -14,8 +13,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log("dethi")
-                console.log(response)
                 questions = response;
             },
         });

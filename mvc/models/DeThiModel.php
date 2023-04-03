@@ -302,5 +302,5 @@ class DeThiModel extends DB
         }
         $query = $query . " ORDER BY thoigianbatdau ASC";
         return $query;
-    }
+    } 
 }

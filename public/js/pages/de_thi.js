@@ -211,5 +211,3 @@ $(window).blur(function () {
         localStorage.setItem("solanchuyentab", sl)
     }
 });
-
-

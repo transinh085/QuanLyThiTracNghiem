@@ -152,7 +152,7 @@
                     </div>
                     <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
                         tabindex="0">
-                        <h2 class="display-1 text-center py-6" id="show-ma-moi">yzhr5sy</h2>
+                        <h2 class="display-1 text-center py-6" id="show-ma-moi"></h2>
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <p class="text-center mb-0"><?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom'] ?></p>
                             <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i

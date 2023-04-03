@@ -18,7 +18,7 @@
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end gap-3">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-join-group"><i class="fa fa-fw fa-plus me-1"></i> Thêm nhóm</button>
+                    data-bs-target="#modal-join-group"><i class="fa fa-fw fa-plus me-1"></i> Tham gia nhóm</button>
             </div>
         </div>
     </form>

@@ -6,6 +6,24 @@ $GLOBALS['navbar'] = [
         'url'   => 'dashboard'
     ),
     array(
+        'name'  => 'Sinh viên',
+        'type'  => 'heading',
+        'navbarItem' => [
+            array(
+                'name'  => 'Học phần',
+                'icon'  => 'fa fa-users-line',
+                'url'   => '/client/group',
+                'role' => 'tghocphan'
+            ),
+            array(
+                'name'  => 'Đề thi',
+                'icon'  => 'fa fa-graduation-cap',
+                'url'   => '/client/test',
+                'role' => 'tgthi'
+            )
+        ]
+            ),
+    array(
         'name'  => 'Quản lý',
         'type'  => 'heading',
         'navbarItem' => [

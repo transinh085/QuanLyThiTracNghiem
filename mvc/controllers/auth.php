@@ -46,7 +46,6 @@ class Auth extends Controller{
             ]);
         }
     }
-    
 
 
     function signup(){

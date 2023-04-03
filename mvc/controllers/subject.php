@@ -13,6 +13,8 @@ class Subject extends Controller{
 
     public function default() 
     {    
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("monhoc","view")) {
             $this->view("main_layout",[
                 "Page" => "subject",
                 "Title" => "Quản lý môn học",
@@ -22,6 +24,7 @@ class Subject extends Controller{
                     "notify" => 1
                 ]
             ]);
+        } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }
 
     public function add()
@@ -60,11 +63,9 @@ class Subject extends Controller{
 
     public function getSubjectAssignment()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $id = $_POST['id'];
-            $data = $this->monHocModel->getAllSubjectAssignment($id);
-            echo json_encode($data);
-        }
+        $id = $_SESSION['user_id'];
+        $data = $this->monHocModel->getAllSubjectAssignment($id);
+        echo json_encode($data);
     }
 
     public function getDetail()

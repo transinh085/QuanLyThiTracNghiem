@@ -84,7 +84,7 @@ class Auth extends Controller{
             $password = $_POST['password'];
             $result = $this->userModel->create($email,$fullname,$password,"1990-01-01",1,1,1);
             echo $result;
-        } 
+        }
     }
 
     public function getUser()
@@ -96,10 +96,10 @@ class Auth extends Controller{
     }
 
     public function checkLogin(){
-        if(isset($_POST['email'])){
-            $email = $_POST['email'];
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $masinhvien = $_POST['masinhvien'];
             $password = $_POST['password'];
-            $result = $this->userModel->checkLogin($email,$password);
+            $result = $this->userModel->checkLogin($masinhvien,$password);
             echo $result;
         }
     }

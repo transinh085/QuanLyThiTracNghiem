@@ -94,6 +94,7 @@ $(document).ready(function () {
       type: "post",
       url: "./user/add",
       data: {
+        masinhvien: $("#masinhvien").val(),
         hoten: $("#user_name").val(),
         gioitinh: $('input[name="user_gender"]:checked').val(),
         ngaysinh: $("#user_ngaysinh").val(),
@@ -103,7 +104,6 @@ $(document).ready(function () {
         status: $("#user_status").prop("checked") ? 1 : 0,
       },
       success: function (response) {
-        console.log(response);
         $("#modal-add-user").modal("hide");
         getNumberPage("user", currentPage);
         fetch_data("user", currentPage);
@@ -125,7 +125,8 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        console.log(response);
+        $("#masinhvien").val(response.id)
+        $("#masinhvien").prop("disabled",true);
         $("#user_name").val(response.hoten),
           $(`input[name="user_gender"][value="${response.gioitinh}"]`).prop(
             "checked",

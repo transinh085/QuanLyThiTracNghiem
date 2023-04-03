@@ -16,7 +16,7 @@ class AuthCore{
         $token = $_COOKIE['token'];
         $nguoidung = new NguoiDungModel();
         if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == false){
-            header("Location: ./auth/signin");
+            header("Location: localhost/Quanlythitracnghiem/auth/signin");
             exit;
         }
     }
@@ -25,7 +25,9 @@ class AuthCore{
     public static function checkPermission($chucnang, $hanhdong)
     {
         self::checkAuthentication();
-        $valid = in_array($hanhdong, $_SESSION["user_role"][$chucnang]);
+        if(isset($_SESSION["user_role"][$chucnang])) {
+            $valid = in_array($hanhdong, $_SESSION["user_role"][$chucnang]);
+        } else $valid = false;
         return $valid;
     }
 }

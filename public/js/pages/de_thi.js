@@ -1,11 +1,16 @@
 $(document).ready(function () {
     let questions = [];
+    const made = $("#dethicontent").data("id");
+    const tende = "dethi" + made;
+    const cautraloi = "cautraloi" + made;
+    const solanchuyentab = "solanchuyentab" + made;
+    console.log(tende,cautraloi,solanchuyentab);
     function getQuestion() {
         return $.ajax({
             type: "post",
             url: "./test/getQuestion",
             data: {
-                made: $("#dethicontent").data("id"),
+                made: made,
             },
             dataType: "json",
             success: function (response) {
@@ -116,11 +121,6 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 nopbai();
-                Swal.fire(
-                    "Nộp bài thành công!",
-                    "Bài làm của bạn đã được nộp thành công.",
-                    "success"
-                );
             }
         });
     });
@@ -139,7 +139,10 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response) {
-                    
+                    localStorage.removeItem("cautraloi");
+                    localStorage.removeItem("dethi");
+                    localStorage.removeItem("solanchuyentab");
+                    location.href = `./test/start/${made}`
                 }
             },
         });

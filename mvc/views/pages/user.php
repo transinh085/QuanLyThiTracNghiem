@@ -168,6 +168,11 @@
                     <div class="tab-pane active" id="btabs-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <div class="mb-4">
+                            <label for="masinhvien" class="form-label">Mã sinh viên</label>
+                            <input type="email" class="form-control form-control-alt" name="masinhvien" id="masinhvien"
+                                placeholder="Nhập mã sinh viên">
+                        </div>
+                        <div class="mb-4">
                             <label for="user_email" class="form-label">Email</label>
                             <input type="email" class="form-control form-control-alt" name="user_email" id="user_email"
                                 placeholder="Nhập địa chỉ email">

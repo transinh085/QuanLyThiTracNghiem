@@ -16,77 +16,103 @@ class Test extends Controller
 
     public function default()
     {
-        $this->view("main_layout", [
-            "Page" => "test",
-            "Title" => "Đề kiểm tra",
-            "Plugin" => [
-                "notify" => 1,
-                "sweetalert2" => 1,
-            ],
-            "Script" => "test"
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("dethi","view")) {
+            $this->view("main_layout", [
+                "Page" => "test",
+                "Title" => "Đề kiểm tra",
+                "Plugin" => [
+                    "notify" => 1,
+                    "sweetalert2" => 1,
+                ],
+                "Script" => "test"
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
     }
 
     public function add()
     {
-        $this->view("main_layout", [
-            "Page" => "add_update_test",
-            "Title" => "Tạo đề kiểm tra",
-            "Plugin" => [
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "select" => 1,
-                "notify" => 1
-            ],
-            "Script" => "action_test",
-            "Action" => "create"
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("dethi","create")) {
+            $this->view("main_layout", [
+                "Page" => "add_update_test",
+                "Title" => "Tạo đề kiểm tra",
+                "Plugin" => [
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "select" => 1,
+                    "notify" => 1
+                ],
+                "Script" => "action_test",
+                "Action" => "create"
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
     }
 
     public function update($made)
     {
-        $this->view("main_layout", [
-            "Page" => "add_update_test",
-            "Title" => "Cập nhật đề kiểm tra",
-            "Plugin" => [
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "select" => 1,
-                "notify" => 1
-            ],
-            "Script" => "action_test",
-            "Action" => "update"
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("dethi","update")) {
+            $this->view("main_layout", [
+                "Page" => "add_update_test",
+                "Title" => "Cập nhật đề kiểm tra",
+                "Plugin" => [
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "select" => 1,
+                    "notify" => 1
+                ],
+                "Script" => "action_test",
+                "Action" => "update"
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
     }
 
     public function start($made)
     {
-        $this->view("main_layout", [
-            "Page" => "vao_thi",
-            "Title" => "Bắt đầu thi",
-            "Test" => $this->dethimodel->getById($made),
-            "Check" => $this->ketquamodel->getMaKQ($made, $_SESSION['user_id']),
-            "Script" => "vaothi",
-            "Plugin" => [
-                "notify" => 1
-            ]
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("tgthi","join")) {
+            $this->view("main_layout", [
+                "Page" => "vao_thi",
+                "Title" => "Bắt đầu thi",
+                "Test" => $this->dethimodel->getById($made),
+                "Check" => $this->ketquamodel->getMaKQ($made, $_SESSION['user_id']),
+                "Script" => "vaothi",
+                "Plugin" => [
+                    "notify" => 1
+                ]
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
     }
 
     public function detail($made)
     {
-        $this->view("main_layout", [
-            "Page" => "test_detail",
-            "Title" => "Danh sách đã thi",
-            "Test" => $this->dethimodel->getInfoTestBasic($made),
-            "Script" => "test_detail"
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("dethi","create")) {
+            $this->view("main_layout", [
+                "Page" => "test_detail",
+                "Title" => "Danh sách đã thi",
+                "Test" => $this->dethimodel->getInfoTestBasic($made),
+                "Script" => "test_detail"
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
     }
 
     public function select($made)
     {
+        AuthCore::checkAuthentication();
         $check = $this->dethimodel->getById($made);
-        if ($check) {
+        if ($check && AuthCore::checkPermission("dethi","create") && AuthCore::checkPermission("dethi","update")) {
             $this->view('main_layout', [
                 "Page" => "select_question",
                 "Title" => "Chọn câu hỏi",
@@ -107,25 +133,40 @@ class Test extends Controller
     public function taketest($made)
     {
         AuthCore::checkAuthentication();
-        $user_id = $_SESSION['user_id'];
-        $check = $this->ketquamodel->getMaKQ($made, $user_id);
-        $infoTest = $this->dethimodel->getById($made);
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $now = new DateTime();
-        $timestart = new DateTime($infoTest['thoigianbatdau']);
-        $timeend = new DateTime($infoTest['thoigianketthuc']);
-        if ($now >= $timestart && $now <= $timeend && $check['diemthi'] == '') {
-            $this->view("single_layout", [
-                "Page" => "de_thi",
-                "Title" => "Làm bài kiểm tra",
-                "Made" => $made,
-                "Script" => "de_thi",
-                "Plugin" => [
-                    "sweetalert2" => 1
-                ]
-            ]);
+        if(AuthCore::checkPermission("tgthi","join")) {
+            $user_id = $_SESSION['user_id'];
+            $check = $this->ketquamodel->getMaKQ($made, $user_id);
+            $infoTest = $this->dethimodel->getById($made);
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = new DateTime();
+            $timestart = new DateTime($infoTest['thoigianbatdau']);
+            $timeend = new DateTime($infoTest['thoigianketthuc']);
+            if ($now >= $timestart && $now <= $timeend && $check['diemthi'] == '') {
+                $this->view("single_layout", [
+                    "Page" => "de_thi",
+                    "Title" => "Làm bài kiểm tra",
+                    "Made" => $made,
+                    "Script" => "de_thi",
+                    "Plugin" => [
+                        "sweetalert2" => 1
+                    ]
+                ]);
+            } else {
+                header("Location: ../start/$made");
+            }
         } else {
-            header("Location: ../start/$made");
+            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+        }
+    }
+
+    public function delete()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi","delete")) {
+            $made = $_POST['made'];
+            $result = $this->dethimodel->delete($made);
+            echo json_encode($result);
+        } else {
+            echo json_encode(false);
         }
     }
 
@@ -178,15 +219,6 @@ class Test extends Controller
             $manhom = $_POST['manhom'];
             $result = $this->dethimodel->update($made, $mamonhoc, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $xembailam, $xemdiem, $xemdapan, $daocauhoi, $daodapan, $tudongnop, $loaide, $socaude, $socautb, $socaukho, $chuong, $manhom);
             echo $result;
-        }
-    }
-
-    public function delete()
-    {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $made = $_POST['made'];
-            $result = $this->dethimodel->delete($made);
-            echo json_encode($result);
         }
     }
 

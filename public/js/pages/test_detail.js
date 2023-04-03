@@ -64,7 +64,7 @@ $(document).ready(function () {
                     <td class="text-center">${index++}</td>
                     <td class="fs-sm d-flex align-items-center">
                         <img class="img-avatar img-avatar48 me-3"
-                            src="./public/media/avatars/${Element["avatar"]==''?"avatar0.jpg":Element["avatar"]}" alt="${Element["hoten"]}">
+                            src="./public/media/avatars/${Element["avatar"]==null?"avatar2.jpg":Element["avatar"]}" alt="${Element["hoten"]}">
                         <div class="d-flex flex-column">
                             <strong class="text-primary">${Element["hoten"]}</strong>
                             <span class="fw-normal fs-sm text-muted">${Element["email"]}</span>

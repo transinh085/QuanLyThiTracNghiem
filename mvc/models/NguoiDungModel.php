@@ -2,10 +2,10 @@
 class NguoiDungModel extends DB
 {
 
-    public function create($email, $fullname, $password, $ngaysinh, $gioitinh, $role, $trangthai)
+    public function create($id, $email, $fullname, $password, $ngaysinh, $gioitinh, $role, $trangthai)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$email','$fullname','$gioitinh','$ngaysinh','$password',$trangthai, $role)";
+        $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$id','$email','$fullname','$gioitinh','$ngaysinh','$password',$trangthai, $role)";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
@@ -111,15 +111,15 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    public function checkLogin($email, $password)
+    public function checkLogin($masv, $password)
     {
-        $user = $this->getByEmail($email);
+        $user = $this->getById($masv);
         if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
         } else if ($user['trangthai'] == 0) {
             return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
         } else {
-            $result = $this->checkPassword($email, $password);
+            $result = $this->checkPassword($user['email'], $password);
             if ($result) {
                 $email = $user['email'];
                 $token = time() . password_hash($email, PASSWORD_DEFAULT);

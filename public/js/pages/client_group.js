@@ -160,7 +160,7 @@ $(document).ready(function () {
                     <div class="d-flex py-2 align-items-center">
                         <div class="flex-shrink-0 mx-3 overlay-container">
                             <img class="img-avatar img-avatar48"
-                                src="./public/media/avatars/avatar0.jpg" alt="">
+                                src="./public/media/avatars/${friend.avatar == null ? "avatar2.jpg" : friend.avatar}" alt="">
                         </div>
                         <div class="fw-semibold">${friend.hoten}</div>
                     </div>

@@ -10,24 +10,26 @@ class User extends Controller{
 
     public function default()
     {
-        
-        $this->view("main_layout",[
-            "Page" => "user",
-            "Title" => "Quản lý người dùng",
-            "Script" => "user",
-            "Plugin" => [
-                "sweetalert2" => 1,
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "select" => 1,
-            ]
-        ]);
+        AuthCore::checkAuthentication();
+        if(AuthCore::checkPermission("nguoidung","view")) {
+            $this->view("main_layout",[
+                "Page" => "user",
+                "Title" => "Quản lý người dùng",
+                "Script" => "user",
+                "Plugin" => [
+                    "sweetalert2" => 1,
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "select" => 1,
+                ]
+            ]);
+        } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }
 
     public function add()
     {
-        
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['masinhvien'];
             $email = $_POST['email'];
             $hoten = $_POST['hoten'];
             $ngaysinh = $_POST['ngaysinh'];
@@ -35,7 +37,7 @@ class User extends Controller{
             $password = $_POST['password'];
             $nhomquyen = $_POST['role'];
             $trangthai = $_POST['status'];
-            $result = $this->NguoiDungModel->create($email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
+            $result = $this->NguoiDungModel->create($id,$email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
             echo $result;
         }
     }

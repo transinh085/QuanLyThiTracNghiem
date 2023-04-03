@@ -19,16 +19,21 @@
                                 <i class="fa fa-burn"></i>
                             </a>
                         </li>
-                        <li class="nav-main-item">
-                            <a class="btn btn-light" href="auth/signup">
-                                Đăng ký
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="btn btn-primary" href="auth/signin">
-                                Đăng nhập
-                            </a>
-                        </li>
+                        <?php 
+                        if(!isset($_SESSION['user_id'])) {
+                            echo '<li class="nav-main-item">
+                                <a class="btn btn-light" href="auth/signin">
+                                    Đăng nhập
+                                </a>
+                            </li>';
+                        } else {
+                            echo '<li class="nav-main-item">
+                                <a class="btn btn-primary" href="dashboard">
+                                    <i class="fa fa-rocket me-2"></i>Dashboard
+                                </a>
+                            </li>';
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>

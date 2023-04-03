@@ -1,6 +1,7 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 $(document).ready(function () {
     const manhom = $(".content").data("id")
+    // console.log(manhom)
 const showList = function (students) {
     let html = "";
     if(students.length == 0) {
@@ -42,6 +43,7 @@ const showList = function (students) {
     $('[data-bs-toggle="tooltip"]').tooltip();
 };
 
+
 function loadList() {
     $.ajax({
         type: "post",
@@ -51,12 +53,16 @@ function loadList() {
         },
         dataType: "json",
         success: function (response) {
+            console.log(response)
             showList(response);
         }
     });
 }
 
+
+
 loadList();
+
 
 function showListTest(tests) {
     let html = ``;
@@ -101,4 +107,5 @@ $("[data-bs-target='#offcanvasSetting']").click(function (e) {
     e.preventDefault();
     loadDataTest(manhom)
 });
-});
+
+})

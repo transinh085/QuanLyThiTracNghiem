@@ -28,15 +28,19 @@ $(document).ready(function () {
 
     loadDataGroup(mode);
 
+    attachMaMoi();
+
+
     function showGroup(list) {
         let html = "";
+        let d = 0;
         if(list.length == 0) {
             html += `<p class="text-center mt-5">Không có dữ liệu</p>`
         } else {
             list.forEach((item) => {
                 html += `<div>
                     <div class="heading-group d-flex align-items-center">
-                        <h2 class="content-heading">${item.mamonhoc + " - " + item.tenmonhoc + " - NH" + item.namhoc + " - HK" + item.hocky}</h2>
+                        <h2 class="content-heading" id="${d++}">${ "<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>"  + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
                     </div>
                     <div class="row">`;
                 item.nhom.forEach((nhom_item) => {
@@ -312,5 +316,26 @@ $(document).ready(function () {
             }
         }
         showGroup(result);
-    });
+    });  
+
+    function attachMaMoi() {
+        let html = "";
+        const monhoc = $("#1 > span").html();
+        // const text = monhoc.text();
+        console.log(monhoc);
+        // $.ajax({
+        //     type: "POST",
+        //     url: `./class_detail/`,
+        //     data: {
+        //         // $hocky = , 
+        //         // $mamonhoc = , 
+        //         // $namhoc = $_POST['namhoc'],
+        //         // $tennhom = $_POST['tennhom'],
+        //         // $ghichu = $_POST['ghichu'],
+        //     },
+        // });
+    }
+
+    // attachMaMoi();
+   
 });

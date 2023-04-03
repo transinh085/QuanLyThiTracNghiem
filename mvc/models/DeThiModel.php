@@ -250,7 +250,7 @@ class DeThiModel extends DB
         $ctlmodel = new CauTraLoiModel();
 
         foreach($result as $row) {
-            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;
@@ -263,7 +263,7 @@ class DeThiModel extends DB
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
         while($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);;
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);;
             $rows[] = $row;
         }
         return $rows;

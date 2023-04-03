@@ -38,6 +38,17 @@ class CauTraLoiModel extends DB{
         return $rows;
     }
 
+    public function getAllWithoutAnswer($macauhoi)
+    {
+        $sql = "SELECT `macauhoi`, `noidungtl` FROM `cautraloi` WHERE `macauhoi` = $macauhoi";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function getById($macautl)
     {
         $sql = "SELECT * FROM `cautraloi` WHERE `macautl` = $macautl";

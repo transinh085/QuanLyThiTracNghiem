@@ -257,7 +257,8 @@ $(document).ready(function () {
         listuser: data,
       },
       success: function (response) {
-        $("#modal-add-user").modal("hide");
+        console.log(response)
+        // $("#modal-add-user").modal("hide");
         getNumberPage("user", currentPage);
         fetch_data("user", currentPage);
         showData();

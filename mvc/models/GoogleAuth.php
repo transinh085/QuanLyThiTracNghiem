@@ -1,9 +1,10 @@
 <?php
 require_once 'vendor/autoload.php';
-
+require_once './mvc/models/NguoiDungModel.php';
 class GoogleAuth extends DB{
 
     protected $client;
+    protected $nguoidung;
 
     public function __construct() {
         parent::__construct();
@@ -13,6 +14,7 @@ class GoogleAuth extends DB{
         $this->client->setRedirectUri('http://localhost/Quanlythitracnghiem/auth/signin');
         $this->client->setScopes('email');
         $this->client->addScope('profile');
+        $this->nguoidung = new NguoiDungModel();
     }
 
     public function getAuthUrl() {
@@ -36,10 +38,7 @@ class GoogleAuth extends DB{
             setcookie('token', $token, time() + 7 * 24 * 60 * 60, '/');
             $sqlcheck = "SELECT * FROM `nguoidung` WHERE email = '$email'";
             $check = mysqli_query($this->con, $sqlcheck);
-            if(mysqli_num_rows($check) == 0){
-                $sql = "INSERT INTO `nguoidung`(`email`, `googleid`, `hoten`, `token`,`trangthai`,`manhomquyen`) VALUES ('$email','$userid','$username','$token','1','1')";
-                mysqli_query($this->con,$sql);
-            } else {
+            if(mysqli_num_rows($check) > 0){
                 $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
                 mysqli_query($this->con,$sql);
             }
@@ -51,5 +50,8 @@ class GoogleAuth extends DB{
             exit;
         }
     }
+    
+
+    
 }
 ?>

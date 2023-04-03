@@ -91,7 +91,12 @@ class NguoiDungModel extends DB
     {
         $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
-        return mysqli_fetch_assoc($result);
+        if($result){
+            return mysqli_fetch_assoc($result);
+        } else {
+            return false;
+        }
+        
     }
 
     public function changePassword($email, $new_password)

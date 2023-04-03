@@ -13,6 +13,7 @@ class Subject extends Controller{
 
     public function default() 
     {    
+        AuthCore::checkAuthentication();
             $this->view("main_layout",[
                 "Page" => "subject",
                 "Title" => "Quản lý môn học",
@@ -60,11 +61,9 @@ class Subject extends Controller{
 
     public function getSubjectAssignment()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $id = $_POST['id'];
-            $data = $this->monHocModel->getAllSubjectAssignment($id);
-            echo json_encode($data);
-        }
+        $id = $_SESSION['user_id'];
+        $data = $this->monHocModel->getAllSubjectAssignment($id);
+        echo json_encode($data);
     }
 
     public function getDetail()

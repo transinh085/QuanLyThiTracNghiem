@@ -95,7 +95,7 @@ $(document).ready(function () {
     }
 
     $.get(
-        "./subject/getData",
+        "./subject/getSubjectAssignment",
         function (data) {
             let html = "<option></option>";
             data.forEach((item) => {

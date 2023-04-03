@@ -6,11 +6,12 @@ class Assignment extends Controller
     function __construct()
     {
         $this->PhanCongModel = $this->model("PhanCongModel");
+        parent::__construct();
     }
 
     function default()
     {
-
+        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "assignment",
             "Title" => "Phân quyền",

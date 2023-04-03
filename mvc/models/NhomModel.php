@@ -150,8 +150,8 @@ class NhomModel extends DB
     }
 
     // Lấy danh sách bạn học chung nhóm
-    public function getSvList() {
-        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom, nguoidung WHERE manguoidung = id AND chitietnhom.manhom = 1";
+    public function getSvList($manhom) {
+        $sql = "SELECT id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom, nguoidung WHERE manguoidung = id AND chitietnhom.manhom = '$manhom'";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

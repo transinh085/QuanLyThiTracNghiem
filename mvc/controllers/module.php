@@ -9,6 +9,7 @@
 
         public function default()
         {
+            AuthCore::checkAuthentication();
             $this->view("main_layout", [
                 "Page" => "module",
                 "Title" => "Quản lý nhóm học phần",
@@ -21,8 +22,9 @@
             ]);
         }
 
-        public function detail($id)
+        public function detail($manhom)
         {
+            AuthCore::checkAuthentication();
             $this->view("main_layout", [
                 "Page" => "class_detail",
                 "Title" => "Quản lý nhóm",
@@ -30,7 +32,8 @@
                     "datepicker" => 1,
                     "flatpickr" => 1
                 ],
-                "Script" => "class_detail"
+                "Script" => "class_detail",
+                "Detail" => $this->nhomModel->getDetailGroup($manhom)
             ]);
         }
 
@@ -112,11 +115,11 @@
 
         public function getSvList() 
         {
-            // if($_SERVER["REQUEST_METHOD"] == "POST") {
-            //     $manhom = $_POST['manhom'];
-                $result = $this->nhomModel->getSvList();
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->getSvList($manhom);
                 echo json_encode($result);
-            // }
+            }
         }
     }
 

@@ -8,7 +8,7 @@ $(".js-validation-signin").submit(function(e){
             type: "POST",
             url: "./auth/checkLogin",
             data: {
-                email: $("#login-username").val(),
+                masinhvien: $("#login-username").val(),
                 password: $("#login-password").val(),
             },
             dataType: "json",

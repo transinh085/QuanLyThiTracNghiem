@@ -14,6 +14,7 @@ class Client extends Controller{
 
     public function group()
     {
+        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "client_group",
             "Title" => "Nhóm",
@@ -26,6 +27,7 @@ class Client extends Controller{
     }
 
     public function test() {
+        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Page" => "test_schedule",
             "Title" => "Lịch kiểm tra",
@@ -82,7 +84,7 @@ class Client extends Controller{
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manguoidung = $_SESSION['user_id'];
             $manhom = $_POST['manhom'];
-            $result = $this->nhommodel->getFriendList($manhom);
+            $result = $this->nhommodel->getSvList($manhom);
             $index = -1;
             $i = 0;
             while($i <= count($result) && $index == -1) {

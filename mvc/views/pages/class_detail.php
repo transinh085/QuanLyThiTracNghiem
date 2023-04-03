@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" data-id="<?php echo $data['Detail']['manhom'] ?>">
     <div class="row">
         <div class="col-4 flex-grow-1">
             <div class="input-group">
@@ -14,14 +14,17 @@
                 điểm</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting"><i class="fa fa-cog"></i></button>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting"><i class="fa fa-cog"></i></button>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-12">
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">841059 - Lập trình hướng đối tượng - NH2023 - HK1 - Nhóm 1</h3>
+                    <h3 class="block-title">
+                        <?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom']?>
+                    </h3>
                     <div class="block-options">
                         <div class="block-options-item">
                             <code>(Sĩ số 2)</code>
@@ -34,6 +37,7 @@
                             <tr>
                                 <th class="text-center">STT</th>
                                 <th>Họ tên</th>
+                                <th class="text-center">Mã sinh viên</th>
                                 <th class="text-center">Giới tính</th>
                                 <th class="text-center">Ngày sinh</th>
                                 <th class="text-center">Đề thi đã làm</th>
@@ -41,58 +45,6 @@
                             </tr>
                         </thead>
                         <tbody id="list-student">
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td class="fs-sm d-flex align-items-center">
-                                    <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg"
-                                        alt="">
-                                    <div class="d-flex flex-column">
-                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Susan Day</a>
-                                        <span class="fw-normal fs-sm text-muted">client1@example.com</span>
-                                    </div>
-                                </td>
-                                <td class="text-center fs-sm">Nam</td>
-                                <td class="text-center fs-sm">20/12/2003</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                            data-bs-toggle="tooltip" title="Edit">
-                                            <i class="fa fa-fw fa-pencil-alt"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                            data-bs-toggle="tooltip" title="Delete">
-                                            <i class="fa fa-fw fa-times"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td class="fs-sm d-flex align-items-center">
-                                    <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/avatar0.jpg"
-                                        alt="">
-                                    <div class="d-flex flex-column">
-                                        <a class="fw-semibold" href="be_pages_generic_profile.html">Susan Day</a>
-                                        <span class="fw-normal fs-sm text-muted">client1@example.com</span>
-                                    </div>
-                                </td>
-                                <td class="text-center fs-sm">Nam</td>
-                                <td class="text-center fs-sm">20/12/2003</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                            data-bs-toggle="tooltip" title="Edit">
-                                            <i class="fa fa-fw fa-pencil-alt"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                            data-bs-toggle="tooltip" title="Delete">
-                                            <i class="fa fa-fw fa-times"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -137,6 +89,9 @@
                         aria-labelledby="them-thu-cong-tab" tabindex="0">
                         <form action="" method="post">
                             <div class="mb-3">
+                                <input type="text" class="form-control" name="" id="" placeholder="Mã sinh viên">
+                            </div>
+                            <div class="mb-3">
                                 <input type="text" class="form-control" name="" id="" placeholder="Họ và tên">
                             </div>
                             <div class="mb-3">
@@ -148,6 +103,9 @@
                             <div class="mb-3">
                                 <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
                                     name="example-flatpickr-custom" placeholder="Ngày sinh" data-date-format="d-m-Y">
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" name="" id="" placeholder="Mật khẩu">
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-2" for="">Giới tính</label>

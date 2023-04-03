@@ -228,9 +228,9 @@ class DeThiModel extends DB
         $socaude = $data_dethi['socaude'];
         $socautb = $data_dethi['socautb'];
         $socaukho = $data_dethi['socaukho'];
-        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 dttd.made = '$made' order by rand() limit $socaude";
-        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 dttd.made = '$made' order by rand() limit $socautb";
-        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 dttd.made = '$made' order by rand() limit $socaukho";
+        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
+        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 and dttd.made = '$made' order by rand() limit $socautb";
+        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 and dttd.made = '$made' order by rand() limit $socaukho";
         $result_cd = mysqli_query($this->con,$sql_cd);
         $result_tb = mysqli_query($this->con,$sql_ctb);
         $result_ck = mysqli_query($this->con,$sql_ck);

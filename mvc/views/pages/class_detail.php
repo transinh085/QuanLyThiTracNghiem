@@ -66,43 +66,6 @@
                     <li class="page-item ">
                         <a class="page-link" id="3" href="javascript:void(0)">3</a>
                     </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="4" href="javascript:void(0)">4</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="5" href="javascript:void(0)">5</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="6" href="javascript:void(0)">6</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="7" href="javascript:void(0)">7</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="8" href="javascript:void(0)">8</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="9" href="javascript:void(0)">9</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="10" href="javascript:void(0)">10</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="11" href="javascript:void(0)">11</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="12" href="javascript:void(0)">12</a>
-                    </li>
-                    
                 <li class="page-item active">
                     <a class="page-link" id="2" href="javascript:void(0)" aria-label="Next">
                         Next
@@ -189,10 +152,10 @@
                     </div>
                     <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
                         tabindex="0">
-                        <h2 class="display-1 text-center py-6">yzhr5sy</h2>
+                        <h2 class="display-1 text-center py-6" id="show-ma-moi">yzhr5sy</h2>
                         <div class="d-flex align-items-center justify-content-between mb-2">
-                            <p class="text-center mb-0">841059 - Lập trình hướng đối tượng - NH2023 - HK1 - Nhóm 1</p>
-                            <button type="button" class="btn btn-alt-primary btn-sm"><i
+                            <p class="text-center mb-0"><?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom'] ?></p>
+                            <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
                                     class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
                     </div>
@@ -212,7 +175,7 @@
 </div>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Lập trình Java - NH2023 - HK2 - Nhóm 2</h5>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel"><?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom'] ?></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body content-side">
@@ -234,24 +197,7 @@
             <div class="block-content tab-content overflow-hidden">
                 <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
                     aria-labelledby="so-settings-tab" tabindex="0">
-                    <div class="list-test px-2">
-                        <div class="block block-rounded block-fx-pop mb-2">
-                            <div class="block-content block-content-full border-start border-3 border-primary">
-                                <div class="d-md-flex justify-content-md-between align-items-md-center">
-                                    <div class="p-1 p-md-2">
-                                        <h3 class="h4 fw-bold mb-3">
-                                            <a href="./test/start/1" class="text-dark link-fx">Kiểm tra giữa kì</a>
-                                        </h3>
-                                        <p class="fs-sm text-muted mb-0">
-                                            <i class="fa fa-clock me-1"></i> Diễn ra từ <span>12:00 08/03/2023</span>
-                                            đến
-                                            <span>12:00 09/03/2023</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="list-test px-2"></div>
                 </div>
                 <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
                     aria-labelledby="so-profile-tab" tabindex="0">

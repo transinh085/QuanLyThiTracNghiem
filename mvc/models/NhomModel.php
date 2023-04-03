@@ -96,7 +96,7 @@ class NhomModel extends DB
     }
 
     // Cập nhật mã mời
-    public function updateMaMoi($manhom) 
+    public function updateInvitedCode($manhom) 
     {
         $valid = true;
         do {
@@ -107,6 +107,14 @@ class NhomModel extends DB
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
+    }
+
+    // Lấy mã mời 
+    public function getInvitedCode($manhom)
+    {
+        $sql = "SELECT mamoi FROM nhom WHERE manhom = '$manhom'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
     }
 
     // Lấy mã nhóm từ mã mời
@@ -125,6 +133,7 @@ class NhomModel extends DB
         if(!$result) $valid = false;
         return $valid;
     }
+    
 
     // Lấy các nhóm mà sinh viên tham gia
     public function getAllGroup_User($user_id) {

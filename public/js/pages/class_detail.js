@@ -1,5 +1,6 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
-
+$(document).ready(function () {
+    const manhom = $(".content").data("id")
 const showList = function (students) {
     let html = "";
     if(students.length == 0) {
@@ -46,7 +47,7 @@ function loadList() {
         type: "post",
         url: "./module/getSvList",
         data: {
-            manhom: $(".content").data("id")
+            manhom: manhom
         },
         dataType: "json",
         success: function (response) {
@@ -56,3 +57,48 @@ function loadList() {
 }
 
 loadList();
+
+function showListTest(tests) {
+    let html = ``;
+    if(tests.length != 0) {
+        tests.forEach(test => {
+            html += `<div class="block block-rounded block-fx-pop mb-2">
+                <div class="block-content block-content-full border-start border-3 border-primary">
+                    <div class="d-md-flex justify-content-md-between align-items-md-center">
+                        <div class="p-1 p-md-2">
+                            <h3 class="h4 fw-bold mb-3">
+                                <a href="./test/detail/${test.made}" class="text-dark link-fx">${test.tende}</a>
+                            </h3>
+                            <p class="fs-sm text-muted mb-0">
+                                <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${test.thoigianbatdau}</span> đến <span>${test.thoigianketthuc}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
+    } else {
+        html += `<p class="text-center">Chưa có đề thi...</p>`
+    }
+    $(".list-test").html(html);
+}
+
+function loadDataTest(manhom) {
+    $.ajax({
+        type: "post",
+        url: "./test/getTestGroup",
+        data: {
+            manhom: manhom
+        },
+        dataType: "json",
+        success: function (response) {
+            showListTest(response);
+        }
+    });
+}
+
+$("[data-bs-target='#offcanvasSetting']").click(function (e) { 
+    e.preventDefault();
+    loadDataTest(manhom)
+});
+});

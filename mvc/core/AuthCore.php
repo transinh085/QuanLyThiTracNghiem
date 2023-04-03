@@ -16,7 +16,7 @@ class AuthCore{
         $token = $_COOKIE['token'];
         $nguoidung = new NguoiDungModel();
         if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == false){
-            header("Location: ./auth/signin");
+            header("Location: localhost/Quanlythitracnghiem/auth/signin");
             exit;
         }
     }

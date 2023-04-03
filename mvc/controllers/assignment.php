@@ -12,17 +12,19 @@ class Assignment extends Controller
     function default()
     {
         AuthCore::checkAuthentication();
-        $this->view("main_layout", [
-            "Page" => "assignment",
-            "Title" => "Phân quyền",
-            "Plugin" => [
-                "ckeditor" => 1,
-                "select" => 1,
-                "notify" => 1,
-                "sweetalert2" => 1,
-            ],
-            "Script" => "assignment"
-        ]);
+        if(AuthCore::checkPermission("phancong","view")) {
+            $this->view("main_layout", [
+                "Page" => "assignment",
+                "Title" => "Phân quyền",
+                "Plugin" => [
+                    "ckeditor" => 1,
+                    "select" => 1,
+                    "notify" => 1,
+                    "sweetalert2" => 1,
+                ],
+                "Script" => "assignment"
+            ]);
+        } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }
 
     function getGiangVien(){

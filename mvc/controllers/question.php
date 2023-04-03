@@ -31,10 +31,7 @@ class Question extends Controller
                 "Script" => "question"
             ]);
         } else {
-            $this->view("single_layout", [
-                "Page" => "error/page_404",
-                "Title" => "Lỗi !"
-            ]);
+            $this->view("single_layout", ["Page" => "error/page_404","Title" => "Lỗi !"]);
         }
     }
 

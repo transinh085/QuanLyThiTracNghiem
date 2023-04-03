@@ -11,17 +11,19 @@ class User extends Controller{
     public function default()
     {
         AuthCore::checkAuthentication();
-        $this->view("main_layout",[
-            "Page" => "user",
-            "Title" => "Quản lý người dùng",
-            "Script" => "user",
-            "Plugin" => [
-                "sweetalert2" => 1,
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "select" => 1,
-            ]
-        ]);
+        if(AuthCore::checkPermission("nguoidung","view")) {
+            $this->view("main_layout",[
+                "Page" => "user",
+                "Title" => "Quản lý người dùng",
+                "Script" => "user",
+                "Plugin" => [
+                    "sweetalert2" => 1,
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "select" => 1,
+                ]
+            ]);
+        } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }
 
     public function add()

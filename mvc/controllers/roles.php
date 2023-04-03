@@ -11,15 +11,17 @@ class Roles extends Controller{
     public function default()
     {
         AuthCore::checkAuthentication();
-        $this->view("main_layout",[
-            "Page" => "roles",
-            "Title" => "Phân quyền",
-            "Plugin" => [
-                "sweetalert2" => 1,
-                "notify" => 1
-            ],
-            "Script" => "roles"
-        ]);
+        if(AuthCore::checkPermission("nhomquyen","view")) {
+            $this->view("main_layout",[
+                "Page" => "roles",
+                "Title" => "Phân quyền",
+                "Plugin" => [
+                    "sweetalert2" => 1,
+                    "notify" => 1
+                ],
+                "Script" => "roles"
+            ]); 
+        } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }
 
     public function add()

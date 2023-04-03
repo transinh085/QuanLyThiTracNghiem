@@ -10,6 +10,7 @@ class Client extends Controller{
         $this->nhommodel = $this->model("NhomModel");
         $this->dethimodel = $this->model("DeThiModel");
         $this->nguoidungmodel = $this->model("NguoiDungModel");
+        parent::__construct();
     }
 
     public function group()

@@ -2,7 +2,6 @@ $(document).ready(function () {
     $("[data-bs-target='#modal-cau-hoi']").click(function (e) {
         e.preventDefault();
         let made = $(this).data("id");
-
         $.ajax({
             type: "post",
             url: "./test/getQuestion",
@@ -37,7 +36,7 @@ $(document).ready(function () {
     }
     showTookTheExam();
     function showTookTheExam() {
-        var made = $('a[data-bs-target="#modal-cau-hoi"]').data("id");
+        var made = $('#chitietdethi').data("id");
         $.ajax({
             type: "post",
             url: "./test/tookTheExam",

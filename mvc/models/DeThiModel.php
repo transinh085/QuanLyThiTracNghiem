@@ -286,7 +286,7 @@ class DeThiModel extends DB
 
     // Lấy danh sách lịch thi đã được giao của người dùng
     public function getUserTestSchedule($manguoidung) {
-        $sql = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung ORDER BY thoigianbatdau ASC";
+        $sql = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung AND DT.trangthai = 1 ORDER BY thoigianbatdau DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -295,12 +295,12 @@ class DeThiModel extends DB
         return $rows;
     }
 
-    // public function getQuery($filter, $input) {
-    //     $query = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung";
-    //     if ($input) {
-    //         $query = $query . " AND (tende LIKE N'%${input}%' OR tenmonhoc LIKE '%${input}%')";
-    //     }
-    //     $query = $query . " ORDER BY thoigianbatdau ASC";
-    //     return $query;
-    // }
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = " . $args['manguoidung'];
+        if ($input) {
+            $query = $query . " AND (tende LIKE N'%${input}%' OR tenmonhoc LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY thoigianbatdau ASC";
+        return $query;
+    }
 }

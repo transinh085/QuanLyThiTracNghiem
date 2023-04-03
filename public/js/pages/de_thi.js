@@ -142,7 +142,7 @@ $(document).ready(function () {
                     localStorage.removeItem("cautraloi");
                     localStorage.removeItem("dethi");
                     localStorage.removeItem("solanchuyentab");
-                    location.href = `./test/start/${made}`
+                    location.href = `./test/start/${made}`;
                 }
             },
         });

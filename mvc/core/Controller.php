@@ -15,26 +15,22 @@ class Controller{
     public function view($view, $data=[]){
         require_once "./mvc/views/".$view.".php";
     }
-
+    
     public function pagination() {
         $limit = 5;
         $page = 1;
         $input = null;
         $filter = null;
-        if (isset($_POST["page"])) {
-            $page = $_POST["page"];
+        $args = null;
+        if (isset($_POST["args"])) {
+            $args = json_decode($_POST["args"], true);
+            extract($args);
         }
-        $start_from = ($page - 1) * $limit;
-        if (isset($_POST["input"])) {
-            $input = $_POST["input"];
-        }
-        if (isset($_POST["filter"])) {
-            $filter = $_POST["filter"];
-        }
-        $query = $this->getQuery($filter, $input);
+        $offset = ($page - 1) * $limit;
+        $query = $this->getQuery($filter, $input, $args);
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $DB = new DB();
-            $result = $DB->pagination($query, $limit, $start_from);
+            $result = $DB->pagination($query, $limit, $offset);
             echo json_encode($result);
             unset($DB);
         }
@@ -44,16 +40,15 @@ class Controller{
         $limit = 5;
         $input = null;
         $filter = null;
-        if (isset($_POST["input"])) {
-            $input = $_POST["input"];
+        $args = null;
+        if (isset($_POST["args"])) {
+            $args = json_decode($_POST["args"], true);
+            extract($args);
         }
-        if (isset($_POST["filter"])) {
-            $filter = $_POST["filter"];
-        }
-        $query = $this->getQuery($filter, $input);
+        $query = $this->getQuery($filter, $input, $args);
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $DB = new DB();
-            $result = $DB->getNumberPage($query, $limit);
+            $result = $DB->getNumberPage($query, $limit, $args);
             echo json_encode($result);
             unset($DB);
         }

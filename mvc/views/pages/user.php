@@ -234,7 +234,7 @@
                         <form id="form-upload" method="POST" enctype="multipart/form-data">
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung</label>
-                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".xlsx" required>
                             </div>
                             <div class="mb-4">
                                 <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="">Tải về file mẫu

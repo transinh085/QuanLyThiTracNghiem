@@ -63,7 +63,8 @@
         ?>
     </div>
 </div>
-
+<?php
+if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
 <div class="content row justify-content-center align-items-center">
     <div class="col-lg-6 col-md-12 p-0">
         <a class="fw-bold text-dark" data-bs-toggle="collapse" href="#xemkq" role="button" aria-expanded="false" aria-controls="xemkq">Kết quả bài thi <i class="fa fa-angle-down"></i></a>
@@ -72,7 +73,7 @@
 <div class="collapse" id="xemkq">
     <div class="content row justify-content-center align-items-center mb-4">
         <div class="col-lg-6 col-md-12 bg-white p-4 rounded">
-            <h4 class="text-center">Điểm của bạn: <span class="display-6 fw-bold">2.0</span> </h4>
+            <h4 class="text-center">Điểm của bạn: <span class="display-6 fw-bold"><?php $data["Check"]['diemthi'] ?></span> </h4>
             <div class="exam-info mb-3">
                 <div class="row mb-3">
                     <div class="col-6">
@@ -80,7 +81,7 @@
                             bài</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span>60 phút</span>
+                        <span><?php $data["Check"]['thoigianlambai']/60 ?> phút</span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -88,7 +89,7 @@
                         <span class="text-primary"><i class="far fa-calendar-days me-2"></i></span><span> Thời gian vào thi</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span>03:00 30/03/2023</span>
+                        <span><?php echo date_format(date_create($data["Check"]["thoigianvaothi"]),"H:i d/m/Y")?></span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -96,7 +97,7 @@
                         <span class="text-primary"><i class="far fa-circle-check me-2"></i></span><span> Số câu đúng</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span>10</span>
+                        <span><?php $data["Check"]['socaudung'] ?></span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -104,7 +105,7 @@
                         <span class="text-primary"><i class="far fa-circle-question me-2"></i></span><span> Tổng số câu trong đề</span>
                     </div>
                     <div class="col-6 text-end">
-                        <span>15</span>
+                        <span><?php echo $data["Test"]["socaude"] + $data["Test"]["socautb"] + $data["Test"]["socaukho"]?></span>
                     </div>
                 </div>
             </div>
@@ -113,3 +114,4 @@
 
     </div>
 </div>
+<?php }?>

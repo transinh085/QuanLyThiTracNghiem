@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="list-test"></div>
-    <div class="block-content bg-white my-3">
+    <div class="block-content my-3">
         <nav>
             <ul class="pagination justify-content-end" id="getNumberPage"></ul>
         </nav>

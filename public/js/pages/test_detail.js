@@ -48,6 +48,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 let html = "";
+                let index = 1;
                 response.forEach((Element) => {
                     var totalSeconds = Element["thoigianlambai"]
                     var hours = Math.floor(totalSeconds / 3600);
@@ -60,10 +61,10 @@ $(document).ready(function () {
                         ":" +
                         seconds.toString().padStart(2, "0");
                     html += `<tr>
-                    <td class="text-center">${Element["id"]}</td>
+                    <td class="text-center">${index++}</td>
                     <td class="fs-sm d-flex align-items-center">
                         <img class="img-avatar img-avatar48 me-3"
-                            src="./public/media/avatars/${Element["avatar"]}" alt="${Element["hoten"]}">
+                            src="./public/media/avatars/${Element["avatar"]==''?"avatar0.jpg":Element["avatar"]}" alt="${Element["hoten"]}">
                         <div class="d-flex flex-column">
                             <strong class="text-primary">${Element["hoten"]}</strong>
                             <span class="fw-normal fs-sm text-muted">${Element["email"]}</span>
@@ -83,6 +84,7 @@ $(document).ready(function () {
                 </tr>`;
                 });
                 $("#took_the_exam").html(html);
+                $("a[data-bs-toogle='tooltip']").tooltip()
             },
         });
     }

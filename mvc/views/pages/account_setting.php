@@ -1,8 +1,8 @@
-<div class="content content-full content-boxed">
+<div class="content content-full content-boxed account_ID" data-id="<?php echo $_SESSION['user_id'] ?>">
     <!-- Hero -->
     <div class="rounded border overflow-hidden push">
         <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo24@2x.jpg');"></div>
-        <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
+        <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center load-profile">
             <a class="d-block img-link mt-n5" href="javascript:void(0)">
                 <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/<?php echo $data["User"]["avatar"] == '' ? "avatar2.jpg" : $data["User"]["avatar"] ?>" alt="">
             </a>

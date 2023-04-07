@@ -165,7 +165,7 @@
                 </li>
                 </ul>
                 <div class="block-content tab-content">
-                    <div class="tab-pane active" id="btabs-static-home" role="tabpanel"
+                    <div class="tab-pane active form-add-user" id="btabs-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <div class="mb-4">
                             <label for="masinhvien" class="form-label">Mã sinh viên</label>

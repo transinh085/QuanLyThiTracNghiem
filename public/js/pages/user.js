@@ -1,5 +1,52 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
+Dashmix.onLoad((() => class {
+  static initValidation() {
+    Dashmix.helpers("jq-validation"), jQuery(".form-add-user").validate({
+      rules: {
+        "masinhvien": {
+          required: !0,
+
+        },
+        "user_email": {
+          required: !0,
+          emailWithDot: !0
+        },
+        "user_name": {
+          required: !0,
+
+        },
+        "user_password": {
+          required: !0,
+          minlength: 5
+        }
+      },
+      messages: {
+        "masinhvien": {
+          required: "Please provide your code student",
+
+        },
+        "user_email": {
+          required: "Please provide your email",
+          emailWithDot: "Nhap dung dinh dang email"
+        },
+        "user_name": {
+          required: "Please provide your full name",
+
+        },
+        "user_password": {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        }
+      }
+    })
+  }
+
+  static init() {
+    this.initValidation()
+  }
+}.init()));
+
 const showData = function (users) {
   let html = "";
   users.forEach((user) => {
@@ -89,7 +136,8 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
-  $("#btn-add-user").on("click", function () {
+  $("#btn-add-user").on("click", function (e) {
+    e.preventDefault();
     $.ajax({
       type: "post",
       url: "./user/add",

@@ -45,11 +45,12 @@ class Account extends Controller{
     public function changeProfile()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_SESSION['user_id'];
             $hoten = $_POST['hoten'];
             $email = $_POST['email'];
             $ngaysinh = $_POST['ngaysinh'];
             $gioitinh = $_POST['gioitinh'];
-            $result = $this->nguoidung->updateProfile($hoten,$gioitinh,$ngaysinh, $email);
+            $result = $this->nguoidung->updateProfile($hoten,$gioitinh,$ngaysinh, $email, $id);
             if ($result) {
                 echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
             }

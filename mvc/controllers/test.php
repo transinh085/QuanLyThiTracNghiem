@@ -317,4 +317,14 @@ class Test extends Controller
             echo json_encode($result);
         }
     }
+
+    public function getExamineeByGroup()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            $made = $_POST['made'];
+            $manhom = $_POST['manhom'];
+            $result = $this->ketquamodel->getExamineeByGroup($made, $manhom);
+            echo json_encode($result);
+        }
+    }
 }

@@ -81,6 +81,15 @@ footer {
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="input-group">
+                                    <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
+                                    <ul class="dropdown-menu mt-1">
+                                        <?php
+                                            foreach($data["Test"]["nhom"] as $nhom) {
+                                                echo '<li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
+                                            }
+                                        ?>
+                                        <!-- <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
+                                    </ul>
                                     <input type="text" class="form-control form-control-alt" id="form-search-sv"
                                         name="form-search-sv" placeholder="Tìm kiếm sinh viên..">
                                     <span class="input-group-text bg-body border-0">

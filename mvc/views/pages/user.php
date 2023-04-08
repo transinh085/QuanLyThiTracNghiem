@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="block-content bg-body-dark">
-            <form action="#" id="search-form">
+            <form action="#" id="search-form" onsubmit="return false;">
                 <div class="mb-4">
                     <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
                         placeholder="Tìm kiếm người dùng...">

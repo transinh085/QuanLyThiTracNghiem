@@ -64,6 +64,7 @@ Dashmix.onLoad((() => class {
 
 $("#update-password").click(function (e) { 
     e.preventDefault();
+    console.log($(".form-change-password").valid())
     if($(".form-change-password").valid()) {
         let currentPass = $("#current-password").val();
         let newPass = $("#new-password").val();
@@ -76,6 +77,7 @@ $("#update-password").click(function (e) {
             },
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 if(response.valid) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
                     $("#current-password").val("");
@@ -130,7 +132,7 @@ $("#update-profile").click(function (e) {
     let check = (newName != oldName && newName != '') || newGender != oldGender || newBirthDay != oldBirthDay || newAvatar != '';
 
 
-    if (check) {
+    if (check && $(".form-update-profile").valid()) {
     showProfile(newName, newAvatar);
         $.ajax({
             type: "post",

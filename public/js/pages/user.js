@@ -1,4 +1,5 @@
-Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
+Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
+
 
 Dashmix.onLoad((() => class {
   static initValidation() {
@@ -148,19 +149,16 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
+  let mssv = $("#masinhvien").val();
+  let hoten = $("#user_name").val();
+  let gioitinh = $('input[name="user_gender"]:checked').val();
+  let ngaysinh = $("#user_ngaysinh").val();
+  let email = $("#user_email").val();
+  let role = $("#user_nhomquyen").val();
+  let password = $("#user_password").val();
   $("#btn-add-user").on("click", function (e) {
     e.preventDefault();
-    let mssv = $("#masinhvien").val();
-    let hoten = $("#user_name").val();
-    let gioitinh = $('input[name="user_gender"]:checked').val();
-    let ngaysinh = $("#user_ngaysinh").val();
-    let email = $("#user_email").val();
-    let role = $("#user_nhomquyen").val();
-    let password = $("#user_password").val();
-    const check = mssv != '' && hoten != '' && gioitinh != '' && ngaysinh != '' && email != '' &&  role != '' && password != '';
-
-
-    if (check) {
+    if ($(".form-add-user").valid()) {
       $.ajax({
         type: "post",
         url: "./user/add",
@@ -175,11 +173,15 @@ $(document).ready(function () {
           status: $("#user_status").prop("checked") ? 1 : 0,
         },
         success: function (response) {
+          console.log(response.valid)
+          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
           $("#modal-add-user").modal("hide");
           getNumberPage("user", currentPage);
           fetch_data("user", currentPage);
         },
       });
+    } else {
+      Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
     }
   });
 

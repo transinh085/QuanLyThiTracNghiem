@@ -20,6 +20,7 @@ class User extends Controller{
                     "sweetalert2" => 1,
                     "datepicker" => 1,
                     "flatpickr" => 1,
+                    "notify" => 1,
                     "jquery-validate" => 1,
                     "select" => 1,
                 ]
@@ -39,6 +40,10 @@ class User extends Controller{
             $nhomquyen = $_POST['role'];
             $trangthai = $_POST['status'];
             $result = $this->NguoiDungModel->create($id,$email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
+            // if ($result) {
+            //     echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
+            // }
+            echo json_encode($result);
             echo $result;
         }
     }

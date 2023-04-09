@@ -284,23 +284,13 @@ class DeThiModel extends DB
         return false;
     }
 
-    // Lấy danh sách lịch thi đã được giao của người dùng
-    public function getUserTestSchedule($manguoidung) {
-        $sql = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung AND DT.trangthai = 1 ORDER BY thoigianbatdau DESC";
-        $result = mysqli_query($this->con, $sql);
-        $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
+    // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)
     public function getQuery($filter, $input, $args) {
-        $query = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = " . $args['manguoidung'];
+        $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '".$args['manguoidung']."') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '".$args['manguoidung']."') T2 ON T1.made = T2.made";
         if ($input) {
-            $query = $query . " AND (tende LIKE N'%${input}%' OR tenmonhoc LIKE '%${input}%')";
+            $query = $query . " WHERE (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
         }
-        $query = $query . " ORDER BY thoigianbatdau ASC";
+        $query = $query . " ORDER BY made DESC";
         return $query;
-    } 
+    }
 }

@@ -200,7 +200,7 @@
                         <div class="mb-4">
                             <label for="user_ngaysinh" class="form-label">Ngày sinh</label>
                             <input type="text" class="js-flatpickr form-control form-control-alt" id="user_ngaysinh"
-                                name="example-flatpickr-custom" placeholder="Ngày sinh">
+                                name="user_ngaysinh" placeholder="Ngày sinh">
                         </div>
                         <div class="mb-4">
                             <label for="user_nhomquyen" class="form-label">Nhóm quyền</label>

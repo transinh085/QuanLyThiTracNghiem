@@ -1,3 +1,52 @@
+Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
+
+Dashmix.onLoad((() => class {
+  static initValidation() {
+    Dashmix.helpers("jq-validation"), jQuery(".form-add-subject").validate({
+      rules: {
+        "mamonhoc": {
+          required: !0,
+          digits: true,
+        },
+        "tenmonhoc": {
+          required: !0,
+        },
+        "sotinchi": {
+          required: !0,
+        },
+        "sotiet_lt": {
+          required: !0,
+        },
+        "sotiet_th": {
+          required: !0,
+        },
+      },
+      messages: {
+        "mamonhoc": {
+          required: "Please provide your code subject",
+          digits: "Please enter alphanumeric characters"
+        },
+        "tenmonhoc": {
+          required: "Please provide course name",
+        },
+        "sotinchi": {
+          required: "Please provide the number of course credits",
+        },
+        "sotiet_lt": {
+          required: "Please enter the number of theory periods",
+        },
+        "sotiet_th": {
+          required: "Please enter the number of practice periods",
+        },
+      }
+    })
+  }
+
+  static init() {
+    this.initValidation()
+  }
+}.init()));
+
 function showData(subjects) {
   let html = "";
   subjects.forEach((subject) => {
@@ -80,6 +129,7 @@ $(document).ready(function () {
   });
 
   $("#add_subject").on("click", function () {
+
     $.ajax({
       type: "post",
       url: "./subject/add",

@@ -228,9 +228,9 @@ class DeThiModel extends DB
         $socaude = $data_dethi['socaude'];
         $socautb = $data_dethi['socautb'];
         $socaukho = $data_dethi['socaukho'];
-        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socaude";
-        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socautb";
-        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where dttd.made = '$made' order by rand() limit $socaukho";
+        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
+        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 and dttd.made = '$made' order by rand() limit $socautb";
+        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 and dttd.made = '$made' order by rand() limit $socaukho";
         $result_cd = mysqli_query($this->con,$sql_cd);
         $result_tb = mysqli_query($this->con,$sql_ctb);
         $result_ck = mysqli_query($this->con,$sql_ck);
@@ -250,7 +250,7 @@ class DeThiModel extends DB
         $ctlmodel = new CauTraLoiModel();
 
         foreach($result as $row) {
-            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;
@@ -263,7 +263,7 @@ class DeThiModel extends DB
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
         while($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);;
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);;
             $rows[] = $row;
         }
         return $rows;
@@ -284,23 +284,13 @@ class DeThiModel extends DB
         return false;
     }
 
-    // Lấy danh sách lịch thi đã được giao của người dùng
-    public function getUserTestSchedule($manguoidung) {
-        $sql = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung ORDER BY thoigianbatdau ASC";
-        $result = mysqli_query($this->con, $sql);
-        $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
+    // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '".$args['manguoidung']."') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '".$args['manguoidung']."') T2 ON T1.made = T2.made";
+        if ($input) {
+            $query = $query . " WHERE (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
         }
-        return $rows;
+        $query = $query . " ORDER BY made DESC";
+        return $query;
     }
-
-    // public function getQuery($filter, $input) {
-    //     $query = "SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND manguoidung = $manguoidung";
-    //     if ($input) {
-    //         $query = $query . " AND (tende LIKE N'%${input}%' OR tenmonhoc LIKE '%${input}%')";
-    //     }
-    //     $query = $query . " ORDER BY thoigianbatdau ASC";
-    //     return $query;
-    // }
 }

@@ -4,7 +4,7 @@ footer {
 }
 </style>
 <!-- <?php echo "<pre>"; var_dump($data["Test"])?> -->
-<div class="row g-0 flex-md-grow-1">
+<div class="row g-0 flex-md-grow-1" id="chitietdethi" data-id="<?php echo $data["Test"]["made"]?>">
     <div class="col-md-4 col-lg-4 col-xl-3 order-md-1 bg-white">
         <div class="content px-2">
             <div class="d-md-none push">
@@ -81,6 +81,15 @@ footer {
                         <form method="POST" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="input-group">
+                                    <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
+                                    <ul class="dropdown-menu mt-1">
+                                        <?php
+                                            foreach($data["Test"]["nhom"] as $nhom) {
+                                                echo '<li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
+                                            }
+                                        ?>
+                                        <!-- <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
+                                    </ul>
                                     <input type="text" class="form-control form-control-alt" id="form-search-sv"
                                         name="form-search-sv" placeholder="Tìm kiếm sinh viên..">
                                     <span class="input-group-text bg-body border-0">
@@ -103,28 +112,6 @@ footer {
                                     </tr>
                                 </thead>
                                 <tbody id="took_the_exam">
-                                    <tr>
-                                        <td class="text-center">3121410422</td>
-                                        <td class="fs-sm d-flex align-items-center">
-                                            <img class="img-avatar img-avatar48 me-3"
-                                                src="./public/media/avatars/avatar0.jpg" alt="">
-                                            <div class="d-flex flex-column">
-                                                <strong class="text-primary">Trần Nhật Sinh</strong>
-                                                <span class="fw-normal fs-sm text-muted">client1@example.com</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">10</td>
-                                        <td class="text-center">08:29 24/3/2023</td>
-                                        <td class="text-center">30p:45s</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
-                                                data-bs-toggle="tooltip" aria-label="View"
-                                                data-bs-original-title="View">
-                                                <i class="fa fa-fw fa-eye"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

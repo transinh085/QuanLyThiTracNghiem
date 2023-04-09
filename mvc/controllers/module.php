@@ -112,8 +112,17 @@
         {
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $manhom = $_POST['manhom'];
-                $result = $this->nhomModel->updateMaMoi($manhom);
-                echo json_encode($result);
+                $result = $this->nhomModel->updateInvitedCode($manhom);
+                echo $result;
+            }
+        }
+
+        public function getInvitedCode()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->getInvitedCode($manhom);
+                echo $result['mamoi'];
             }
         }
 
@@ -126,6 +135,4 @@
             }
         }
     }
-
-    
 ?>

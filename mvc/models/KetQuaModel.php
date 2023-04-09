@@ -32,7 +32,7 @@ class KetQuaModel extends DB{
 
     public function getMaKQ($made, $manguoidung)
     {
-        $sql = "SELECT `makq`, `diemthi` FROM `ketqua` WHERE `made` = '$made' AND `manguoidung` = '$manguoidung'";
+        $sql = "SELECT * FROM `ketqua` WHERE `made` = '$made' AND `manguoidung` = '$manguoidung'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
@@ -75,6 +75,16 @@ class KetQuaModel extends DB{
 
     public function tookTheExam($made){
         $sql = "select * from ketqua kq join nguoidung nd on kq.manguoidung = nd.id where kq.made = '$made'";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function getExamineeByGroup($made, $manhom) {
+        $sql = "SELECT * FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = $made AND CTN.manhom = $manhom";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){

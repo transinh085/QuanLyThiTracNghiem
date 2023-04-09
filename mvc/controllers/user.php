@@ -110,7 +110,7 @@ class User extends Controller{
                 $data[$i]['fullname'] = $fullname;
                 $data[$i]['email'] = $email;
                 $data[$i]['mssv'] = $mssv;
-                $data[$i]['nhomquyen'] = 1;
+                $data[$i]['nhomquyen'] = 11;
                 $data[$i]['trangthai'] = 1;
             }
             echo json_encode($data);
@@ -125,8 +125,8 @@ class User extends Controller{
         }
     }
 
-    public function getQuery($filter, $input) {
-        $query = $this->NguoiDungModel->getQuery($filter, $input);
+    public function getQuery($filter, $input, $args) {
+        $query = $this->NguoiDungModel->getQuery($filter, $input, $args);
         return $query;
     }
 }

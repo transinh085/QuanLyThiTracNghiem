@@ -1,75 +1,102 @@
 function showData(data) {
+  const format = new Intl.DateTimeFormat(navigator.language, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   let html = "";
   data.forEach((test) => {
     let htmlTestState = ``;
     const open = new Date(test.thoigianbatdau);
     const close = new Date(test.thoigianketthuc);
-    const now = Date.now();
-    if (now < +open) {
-      // chua toi gio mo de
-      htmlTestState += `<button class="btn btn-alt-secondary rounded-pill px-3 me-1 my-1" disabled>Chưa mở</button>`;
-    } else if (now >= +open && now <= +close) {
-      // kiem tra: da nop/co the lam bai
-      htmlTestState += `<button class="btn btn-alt-success rounded-pill px-3 my-1" disabled>Có thể vào thi</button>`;
+    const state = {};
+    if (test.diemthi) {
+      state.color = "primary";
+      state.text = `${+test.diemthi} điểm`;
     } else {
-      // qua han
-      htmlTestState += `<button class="btn btn-alt-danger rounded-pill px-3 my-1" disabled>Quá hạn</button>`;
+      const now = Date.now();
+      if (now < +open) {
+        state.color = "secondary";
+        state.text = "Chưa mở";
+      } else if (now >= +open && now <= +close) {
+        state.color = "success";
+        state.text = "Chưa làm";
+      } else {
+        state.color = "danger";
+        state.text = "Quá hạn";
+      }
     }
+    htmlTestState += `<button class="btn btn-alt-${state.color} rounded-pill px-3 me-1 my-1" disabled>${state.text}</button>`;
     html += `
     <div class="block block-rounded block-fx-pop mb-2">
-        <div class="block-content block-content-full border-start border-3 border-primary">
+        <div class="block-content block-content-full border-start border-3 border-${
+          state.color
+        }">
             <div class="d-md-flex justify-content-md-between align-items-md-center">
                 <div class="p-1 p-md-3">
                     <h3 class="h4 fw-bold mb-3">
-                        <a href="./test/start/${test.made}" class="text-dark link-fx">${test.tende}</a>
+                        <a href="./test/start/${
+                          test.made
+                        }" class="text-dark link-fx">${test.tende}</a>
                     </h3>
                     <p class="fs-sm text-muted mb-2">
-                        <i class="fa fa-layer-group me-1"></i></i> <strong>${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
+                        <i class="fa fa-layer-group me-1"></i></i> <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${
+                          test.tennhom
+                        }" style="cursor:pointer">${test.tenmonhoc} - NH${
+      test.namhoc
+    } - HK${test.hocky}</strong>
                     </p>
                     <p class="fs-sm text-muted mb-0">
-                        <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${test.thoigianbatdau}</span> đến <span>${test.thoigianketthuc}</span>
+                        <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${format.format(
+                          open
+                        )}</span> đến <span>${format.format(close)}</span>
                     </p>
                 </div>
                 <div class="p-1 p-md-3">
                 ${htmlTestState}
-                    <a class="btn btn-alt-info rounded-pill px-3 me-1 my-1" href="./test/start/${test.made}">Xem chi tiết</a>
+                    <a class="btn btn-alt-info rounded-pill px-3 me-1 my-1" href="./test/start/${
+                      test.made
+                    }">Xem chi tiết</a>
                 </div>
             </div>
         </div>
     </div>`;
   });
   $(".list-test").html(html);
+  $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 $(document).ready(function () {
-  function renderUserTestSchedule() {
-    $.ajax({
-      type: "post",
-      url: "./client/getUserTestSchedule",
-      dataType: "json",
-      success: function (data) {
-        showData(data);
-      },
-      error: function (error) {
-        console.error(error.responseText);
-      },
-    });
+  function loadPage(input) {
+    const args = {
+      manguoidung: currentUser,
+    };
+    if (input != "") {
+      args.input = input;
+    }
+    getNumberPage("client", currentPage, args);
+    fetch_data("client", currentPage, args);
   }
 
-  function getCurrentUID() {
-    $.ajax({
-      type: "post",
-      url: "./client/getCurrentUserInfo",
-      dataType: "json",
-      success: function (data) {
-        return +data.id;
-      },
-      error: function (error) {
-        console.error(error.responseText);
-      },
-    });
-  }
+  $(document).on("click", ".page-link", function () {
+    var page = $(this).attr("id");
+    var input = $("#search-input").val();
+    currentPage = page;
+    loadPage(input);
+  });
 
-  const currentUser = getCurrentUID();
-  renderUserTestSchedule();
+  $("#search-input").on("input", function (e) {
+    e.preventDefault();
+    var input = $("#search-input").val();
+    if (input.length == 1) return;
+    loadPage(input);
+  });
+
+  const container = document.querySelector(".content");
+  const currentUser = container.dataset.id;
+  delete container.dataset.id;
+  let currentPage = 1;
+  loadPage();
 });

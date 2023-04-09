@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="block-content bg-body-dark">
-            <form action="#" id="search-form">
+            <form action="#" id="search-form" onsubmit="return false;">
                 <div class="mb-4">
                     <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
                         placeholder="Tìm kiếm người dùng...">
@@ -234,7 +234,7 @@
                         <form id="form-upload" method="POST" enctype="multipart/form-data">
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung</label>
-                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".xlsx" required>
                             </div>
                             <div class="mb-4">
                                 <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="">Tải về file mẫu

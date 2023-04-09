@@ -46,6 +46,7 @@ Dashmix.onLoad((() => class {
 }.init()));
 
 const showData = function (users) {
+function showData(users) {
   let html = "";
   users.forEach((user) => {
     html += `<tr>
@@ -53,7 +54,11 @@ const showData = function (users) {
                               <strong>${user.id}</strong>
                           </td>
                           <td class="fs-sm d-flex align-items-center">
-                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${user.avatar == null ? `avatar2.jpg`: user.avatar}" alt="">
+                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
+                                user.avatar == null
+                                  ? `avatar2.jpg`
+                                  : user.avatar
+                              }" alt="">
                               <div class="d-flex flex-column">
                                   <strong class="text-primary">${
                                     user.hoten
@@ -97,7 +102,7 @@ const showData = function (users) {
   });
   $("#list-user").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
-};
+}
 
 $(document).ready(function () {
   $("#user_nhomquyen").select2({
@@ -300,6 +305,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         addExcel(response);
+
       },
       complete: function () {
         Dashmix.layout("header_loader_off");
@@ -314,11 +320,12 @@ $(document).ready(function () {
       data: {
         listuser: data,
       },
+      dataType: 'json',
       success: function (response) {
         $("#modal-add-user").modal("hide");
         getNumberPage("user", currentPage);
         fetch_data("user", currentPage);
-        showData();
+        loadData();
       },
     });
   }

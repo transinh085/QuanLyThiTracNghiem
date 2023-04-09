@@ -59,9 +59,7 @@ function loadList() {
 }
 
 
-
 loadList();
-
 
 function showListTest(tests) {
     let html = ``;
@@ -105,6 +103,35 @@ function loadDataTest(manhom) {
 $("[data-bs-target='#offcanvasSetting']").click(function (e) { 
     e.preventDefault();
     loadDataTest(manhom)
+});
+
+showInvitedCode()
+
+function showInvitedCode() {
+    $.ajax({
+        type: "post",
+        url: "./module/getInvitedCode",
+        data: {
+            manhom: manhom
+        },
+        success: function (response) {
+            $("#show-ma-moi").text(response);
+        }
+    });
+}
+
+$(".btn-reset-invited-code").click(function (e) { 
+    e.preventDefault();
+    $.ajax({
+        type: "post",
+        url: "./module/updateInvitedCode",
+        data: {
+            manhom: manhom
+        },
+        success: function (response) {
+            showInvitedCode()
+        }
+    });
 });
 
 })

@@ -4,7 +4,6 @@ $(document).ready(function () {
     const tende = "dethi" + made;
     const cautraloi = "cautraloi" + made;
     const solanchuyentab = "solanchuyentab" + made;
-    console.log(tende,cautraloi,solanchuyentab);
     function getQuestion() {
         return $.ajax({
             type: "post",
@@ -14,8 +13,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log("dethi")
-                console.log(response)
                 questions = response;
             },
         });
@@ -138,12 +135,10 @@ $(document).ready(function () {
                 made: dethi,
             },
             success: function (response) {
-                if (response) {
-                    localStorage.removeItem("cautraloi");
-                    localStorage.removeItem("dethi");
-                    localStorage.removeItem("solanchuyentab");
-                    location.href = `./test/start/${made}`
-                }
+                localStorage.removeItem("cautraloi");
+                localStorage.removeItem("dethi");
+                localStorage.removeItem("solanchuyentab");
+                location.href = `./test/start/${made}`;
             },
         });
     }
@@ -216,5 +211,3 @@ $(window).blur(function () {
         localStorage.setItem("solanchuyentab", sl)
     }
 });
-
-

@@ -33,6 +33,7 @@ class Client extends Controller{
             "Page" => "test_schedule",
             "Title" => "Lịch kiểm tra",
             "Script" => "test_schedule",
+            "user_id" => $_SESSION['user_id'],
         ]);
     }
 
@@ -44,24 +45,10 @@ class Client extends Controller{
         }
     }
 
-    public function getUserTestSchedule() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $user_id = $_SESSION['user_id'];
-            $result = $this->dethimodel->getUserTestSchedule($user_id);
-            echo json_encode($result);
-        }
-    }
-
     // /client/test pagination
     public function getQuery($filter, $input, $args) {
         $query = $this->dethimodel->getQuery($filter, $input, $args);
         return $query;
-    }
-
-    public function getUserID() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo $_SESSION['user_id'];
-        }
     }
 
     public function joinGroup()

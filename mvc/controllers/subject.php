@@ -21,6 +21,7 @@ class Subject extends Controller{
                 "Script" => "subject",
                 "Plugin" => [
                     "sweetalert2" => 1,
+                    "jquery-validate" => 1,
                     "notify" => 1
                 ]
             ]);

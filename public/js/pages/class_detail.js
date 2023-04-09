@@ -1,7 +1,6 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 $(document).ready(function () {
     const manhom = $(".content").data("id")
-    // console.log(manhom)
 const showList = function (students) {
     let html = "";
     if(students.length == 0) {

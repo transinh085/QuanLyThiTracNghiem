@@ -1,4 +1,5 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
+const accountId = $(".account_ID").attr("data-id");
 Dashmix.onLoad((() => class {
     static initValidation() {
         Dashmix.helpers("jq-validation"), jQuery(".form-change-password").validate({
@@ -60,11 +61,11 @@ Dashmix.onLoad((() => class {
     }
 }.init()));
 
+
 $("#update-password").click(function (e) { 
     e.preventDefault();
     if($(".form-change-password").valid()) {
         let currentPass = $("#current-password").val();
-        console.log(currentPass);
         let newPass = $("#new-password").val();
         $.ajax({
             type: "post",
@@ -93,6 +94,9 @@ $("#update-password").click(function (e) {
     let oldBirthDay = $("#user_ngaysinh").val();
     let oldGender = $('input[name="user_gender"]:checked').val();
     let resultElement = $(".up-avatar");
+    console.log(resultElement)
+    let avatarProfile = $(".avatar-Profile");
+    let avatarAccount = $(".avatar-Account");
 
     $("#dm-profile-edit-avatar").change(function (e) { 
         const files = e.target.files
@@ -106,62 +110,28 @@ $("#update-password").click(function (e) {
             resultElement.html(
                 `<img class="img-avatar" src="${url}" alt="${file.name}">`,
                 )
+            avatarProfile.html(
+            `<img class="img-avatar img-avatar128 img-avatar-thumb" src="${url}" alt="${file.name}">`,
+            )
+            avatarAccount.html(
+                `<img class="img-avatar img-avatar48 img-avatar-thumb" src="${url}"
+                alt="${file.name}">`,
+            )    
         }
     });
-
-// $("#update-profile").click(function (e) {
-//     e.preventDefault();
-//     console.log($(".form-update-profile").valid())
-//     if ($(".form-update-profile").valid()) {
-//     let newName = $("#dm-profile-edit-name").val();
-    
-//     // console.log(newName);
-//     // console.log(oldName);
-//     // if (newName === oldName) {
-//     //     console.log('False');
-//     // } else {
-//     //     console.log('True');
-//     // }
-//         $.ajax({
-//             type: "post",
-//             url: "./account/changeProfile",
-//             data: { 
-//                 hoten: $("#dm-profile-edit-name").val(),
-//                 email: $("#dm-profile-edit-email").val(),
-//                 ngaysinh: $("#user_ngaysinh").val(),
-//                 gioitinh: $('input[name="user_gender"]:checked').val(),
-//             },
-//             dataType: "json",
-//             success: function(response) {
-//             // if (newName != oldName) {
-//             //     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
-//             // } else {
-//             //     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `${response.message}` });
-//             // }   
-//                 if (response.valid) {
-//                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
-//                 } else {
-//                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `${response.message}` })
-//                 }
-//             }
-//         })
-//     }
-// })
 
 $("#update-profile").click(function (e) {
     e.preventDefault();
     let newName = $("#dm-profile-edit-name").val();
+    console.log(newName)
     let newBirthDay = $("#user_ngaysinh").val();
     let newGender = $('input[name="user_gender"]:checked').val(); 
     let newAvatar = $('input[name="file-img"]').val();
-    let check;
-    if (newName != oldName || newGender != oldGender || newBirthDay != oldBirthDay || newAvatar != '') {
-        check = true;
-    } else {
-        check = false;
-    }
+    let check = (newName != oldName && newName != '') || newGender != oldGender || newBirthDay != oldBirthDay || newAvatar != '';
+
 
     if (check) {
+    showProfile(newName, newAvatar);
         $.ajax({
             type: "post",
             url: "./account/changeProfile",
@@ -173,6 +143,7 @@ $("#update-profile").click(function (e) {
             },
             dataType: "json",
             success: function(response) {
+                console.log(response)
                 Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `${response.message}` });
             }
         })
@@ -181,6 +152,7 @@ $("#update-profile").click(function (e) {
     }
 
     saveFileAvatar();
+    
 })
 
 function saveFileAvatar() {
@@ -189,8 +161,6 @@ function saveFileAvatar() {
                 const file_data = $('#dm-profile-edit-avatar')[0].files;
                 console.log(file_data)
                 const dk = form_data.append('file-img', file_data[0]);
-                console.log(dk)
-                console.log($("#dm-profile-edit-email").val())
                 $.ajax({
                     type: "post",
                     url: "./account/uploadFile",
@@ -204,5 +174,33 @@ function saveFileAvatar() {
                     }
                 })
     })
+}
+
+function showProfile(newName) {
+    let html1 = "";
+    let html2 = "";
+
+
+    
+        html1 += `
+        <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0 load-nameProfile">
+            <h1 class="fs-4 fw-bold mb-1">${newName}</h1>
+            <h2 class="fs-sm fw-medium text-muted mb-0">
+                Chỉnh sửa hồ sơ
+            </h2>
+        </div>
+        `;
+
+        html2 += `
+            <div class="pt-2 load-nameAccount">
+                <a class="fw-semibold">
+                ${newName}                          
+                </a>
+            </div>
+        `;
+
+    $(".load-nameProfile").html(html1);
+    $(".load-nameAccount").html(html2);
+
 }
 

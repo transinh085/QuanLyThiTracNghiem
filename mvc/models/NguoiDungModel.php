@@ -38,9 +38,9 @@ class NguoiDungModel extends DB
     }
 
     // Update Profile
-    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
+    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email ,$id)
     {
-        $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
+        $sql = "UPDATE `nguoidung` SET `email` = '$email',`hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `id`='$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) $check = false;

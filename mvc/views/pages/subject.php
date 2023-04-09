@@ -79,7 +79,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="block-content fs-sm">
+                <form class="block-content fs-sm form-add-subject">
                     <div class="mb-3">
                         <label for="" class="form-label">Mã môn học</label>
                         <input type="text" class="form-control form-control-alt" name="mamonhoc" id="mamonhoc"
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>

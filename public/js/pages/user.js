@@ -1,6 +1,65 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
-function showData(users) {
+Dashmix.onLoad((() => class {
+  static initValidation() {
+    Dashmix.helpers("jq-validation"), jQuery(".form-add-user").validate({
+      rules: {
+        "masinhvien": {
+          required: !0,
+          digits: true
+        },
+        "user_email": {
+          required: !0,
+          emailWithDot: !0
+        },
+        "user_name": {
+          required: !0,
+        },
+        "user_gender": {
+          required: !0,
+        },
+        "user_ngaysinh": {
+          required: !0,
+        },
+        "user_password": {
+          required: !0,
+          minlength: 5
+        },
+      },
+      messages: {
+        "masinhvien": {
+          required: "Please provide your code student",
+          digits: "Please enter alphanumeric characters"
+        },
+        "user_email": {
+          required: "Please provide your email",
+          emailWithDot: "Nhap dung dinh dang email"
+        },
+        "user_name": {
+          required: "Please provide your full name",
+
+        },
+        "user_gender": {
+          required: "Please tick 1 out of 2",
+        },
+        "user_ngaysinh": {
+          required: "Please provide your date of birth",
+        },
+        "user_password": {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+      }
+    })
+  }
+
+  static init() {
+    this.initValidation()
+  }
+}.init()));
+
+
+const showData = function (users) {
   let html = "";
   users.forEach((user) => {
     html += `<tr>
@@ -8,11 +67,7 @@ function showData(users) {
                               <strong>${user.id}</strong>
                           </td>
                           <td class="fs-sm d-flex align-items-center">
-                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
-                                user.avatar == null
-                                  ? `avatar2.jpg`
-                                  : user.avatar
-                              }" alt="">
+                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${user.avatar == null ? `avatar2.jpg`: user.avatar}" alt="">
                               <div class="d-flex flex-column">
                                   <strong class="text-primary">${
                                     user.hoten
@@ -56,7 +111,7 @@ function showData(users) {
   });
   $("#list-user").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
-}
+};
 
 $(document).ready(function () {
   $("#user_nhomquyen").select2({
@@ -93,26 +148,39 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
-  $("#btn-add-user").on("click", function () {
-    $.ajax({
-      type: "post",
-      url: "./user/add",
-      data: {
-        masinhvien: $("#masinhvien").val(),
-        hoten: $("#user_name").val(),
-        gioitinh: $('input[name="user_gender"]:checked').val(),
-        ngaysinh: $("#user_ngaysinh").val(),
-        email: $("#user_email").val(),
-        role: $("#user_nhomquyen").val(),
-        password: $("#user_password").val(),
-        status: $("#user_status").prop("checked") ? 1 : 0,
-      },
-      success: function (response) {
-        $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
-      },
-    });
+  $("#btn-add-user").on("click", function (e) {
+    e.preventDefault();
+    let mssv = $("#masinhvien").val();
+    let hoten = $("#user_name").val();
+    let gioitinh = $('input[name="user_gender"]:checked').val();
+    let ngaysinh = $("#user_ngaysinh").val();
+    let email = $("#user_email").val();
+    let role = $("#user_nhomquyen").val();
+    let password = $("#user_password").val();
+    const check = mssv != '' && hoten != '' && gioitinh != '' && ngaysinh != '' && email != '' &&  role != '' && password != '';
+
+
+    if (check) {
+      $.ajax({
+        type: "post",
+        url: "./user/add",
+        data: {
+          masinhvien: $("#masinhvien").val(),
+          hoten: $("#user_name").val(),
+          gioitinh: $('input[name="user_gender"]:checked').val(),
+          ngaysinh: $("#user_ngaysinh").val(),
+          email: $("#user_email").val(),
+          role: $("#user_nhomquyen").val(),
+          password: $("#user_password").val(),
+          status: $("#user_status").prop("checked") ? 1 : 0,
+        },
+        success: function (response) {
+          $("#modal-add-user").modal("hide");
+          getNumberPage("user", currentPage);
+          fetch_data("user", currentPage);
+        },
+      });
+    }
   });
 
   $(document).on("click", ".user-edit", function () {
@@ -246,7 +314,6 @@ $(document).ready(function () {
       },
       success: function (response) {
         addExcel(response);
-
       },
       complete: function () {
         Dashmix.layout("header_loader_off");
@@ -261,12 +328,11 @@ $(document).ready(function () {
       data: {
         listuser: data,
       },
-      dataType: 'json',
       success: function (response) {
         $("#modal-add-user").modal("hide");
         getNumberPage("user", currentPage);
         fetch_data("user", currentPage);
-        loadData();
+        showData();
       },
     });
   }

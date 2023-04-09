@@ -1,12 +1,12 @@
-<div class="content content-full content-boxed">
+<div class="content content-full content-boxed account_ID" data-id="<?php echo $_SESSION['user_id'] ?>">
     <!-- Hero -->
     <div class="rounded border overflow-hidden push">
         <div class="bg-image pt-9" style="background-image: url('./public/media/photos/photo24@2x.jpg');"></div>
-        <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
-            <a class="d-block img-link mt-n5" href="javascript:void(0)">
+        <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center load-profile">
+            <a class="d-block img-link mt-n5 avatar-Profile" href="javascript:void(0)">
                 <img class="img-avatar img-avatar128 img-avatar-thumb" src="./public/media/avatars/<?php echo $data["User"]["avatar"] == '' ? "avatar2.jpg" : $data["User"]["avatar"] ?>" alt="">
             </a>
-            <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0">
+            <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0 load-nameProfile">
                 <h1 class="fs-4 fw-bold mb-1"><?php echo $_SESSION['user_name'] ?></h1>
                 <h2 class="fs-sm fw-medium text-muted mb-0">
                     Chỉnh sửa hồ sơ

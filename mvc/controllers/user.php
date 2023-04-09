@@ -20,6 +20,7 @@ class User extends Controller{
                     "sweetalert2" => 1,
                     "datepicker" => 1,
                     "flatpickr" => 1,
+                    "jquery-validate" => 1,
                     "select" => 1,
                 ]
             ]);

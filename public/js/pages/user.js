@@ -6,7 +6,6 @@ Dashmix.onLoad((() => class {
       rules: {
         "masinhvien": {
           required: !0,
-
         },
         "user_email": {
           required: !0,
@@ -14,12 +13,11 @@ Dashmix.onLoad((() => class {
         },
         "user_name": {
           required: !0,
-
         },
         "user_password": {
           required: !0,
           minlength: 5
-        }
+        },
       },
       messages: {
         "masinhvien": {
@@ -37,7 +35,7 @@ Dashmix.onLoad((() => class {
         "user_password": {
           required: "Please provide a password",
           minlength: "Your password must be at least 5 characters long"
-        }
+        },
       }
     })
   }
@@ -138,25 +136,37 @@ $(document).ready(function () {
 
   $("#btn-add-user").on("click", function (e) {
     e.preventDefault();
-    $.ajax({
-      type: "post",
-      url: "./user/add",
-      data: {
-        masinhvien: $("#masinhvien").val(),
-        hoten: $("#user_name").val(),
-        gioitinh: $('input[name="user_gender"]:checked').val(),
-        ngaysinh: $("#user_ngaysinh").val(),
-        email: $("#user_email").val(),
-        role: $("#user_nhomquyen").val(),
-        password: $("#user_password").val(),
-        status: $("#user_status").prop("checked") ? 1 : 0,
-      },
-      success: function (response) {
-        $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
-      },
-    });
+    let mssv = $("#masinhvien").val();
+    let hoten = $("#user_name").val();
+    let gioitinh = $('input[name="user_gender"]:checked').val();
+    let ngaysinh = $("#user_ngaysinh").val();
+    let email = $("#user_email").val();
+    let role = $("#user_nhomquyen").val();
+    let password = $("#user_password").val();
+    const check = mssv != '' && hoten != '' && gioitinh != '' && ngaysinh != '' && email != '' &&  role != '' && password != '';
+
+
+    if (check) {
+      $.ajax({
+        type: "post",
+        url: "./user/add",
+        data: {
+          masinhvien: $("#masinhvien").val(),
+          hoten: $("#user_name").val(),
+          gioitinh: $('input[name="user_gender"]:checked').val(),
+          ngaysinh: $("#user_ngaysinh").val(),
+          email: $("#user_email").val(),
+          role: $("#user_nhomquyen").val(),
+          password: $("#user_password").val(),
+          status: $("#user_status").prop("checked") ? 1 : 0,
+        },
+        success: function (response) {
+          $("#modal-add-user").modal("hide");
+          getNumberPage("user", currentPage);
+          fetch_data("user", currentPage);
+        },
+      });
+    }
   });
 
   $(document).on("click", ".user-edit", function () {

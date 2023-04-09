@@ -32,11 +32,13 @@
                     <i class="fa fa-fw fa-angle-down d-none opacity-50 d-sm-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
-                    <div class="bg-body-light rounded-top fw-semibold text-center p-3 border-bottom load-account">
-                        <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/<?php echo $_SESSION["avatar"] == '' ? "avatar2.jpg" : $_SESSION["avatar"] ?>"
+                    <div class="bg-body-light rounded-top fw-semibold text-center p-3 border-bottom">
+                        <span class="avatar-Account">
+                            <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/<?php echo $_SESSION["avatar"] == '' ? "avatar2.jpg" : $_SESSION["avatar"] ?>"
                             alt="">
-                        <div class="pt-2">
-                            <a class="fw-semibold">
+                        </span>
+                        <div class="pt-2 load-nameAccount">
+                            <a class="fw-semibold ">
                                 <?php echo $_SESSION['user_name'] ?>
                             </a>
                         </div>

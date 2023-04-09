@@ -165,11 +165,11 @@
                 </li>
                 </ul>
                 <div class="block-content tab-content">
-                    <div class="tab-pane active form-add-user" id="btabs-static-home" role="tabpanel"
+                    <form novalidate="novalidate" onsubmit="return false;" class="tab-pane active form-add-user" id="btabs-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
                         <div class="mb-4">
                             <label for="masinhvien" class="form-label">Mã sinh viên</label>
-                            <input type="email" class="form-control form-control-alt" name="masinhvien" id="masinhvien"
+                            <input type="text" class="form-control form-control-alt" name="masinhvien" id="masinhvien"
                                 placeholder="Nhập mã sinh viên">
                         </div>
                         <div class="mb-4">
@@ -223,12 +223,12 @@
                         <div class="block-content block-content-full text-end">
                             <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                                 data-bs-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-sm btn-primary add-user-element"
+                            <button type="submit" class="btn btn-sm btn-primary add-user-element"
                                 id="btn-add-user">Lưu</button>
                             <button type="button" class="btn btn-sm btn-primary update-user-element"
                                 id="btn-update-user" data-id="">Cập nhật</button>
                         </div>
-                    </div>
+                    </form>
                     <div class="tab-pane" id="btabs-static-profile" role="tabpanel"
                         aria-labelledby="btabs-static-profile-tab" tabindex="0">
                         <form id="form-upload" method="POST" enctype="multipart/form-data">

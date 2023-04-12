@@ -131,34 +131,57 @@ $(document).ready(function () {
   $("#add_subject").on("click", function () {
 
     if ($(".form-add-subject").valid()) {
+
+      let mamon = $("#mamonhoc").val();
+      let tenmon = $("#tenmonhoc").val();
+
       $.ajax({
         type: "post",
-        url: "./subject/add",
+        url: "./subject/checkSubject",
         data: {
-          mamon: $("#mamonhoc").val(),
-          tenmon: $("#tenmonhoc").val(),
-          sotinchi: $("#sotinchi").val(),
-          sotietlythuyet: $("#sotiet_lt").val(),
-          sotietthuchanh: $("#sotiet_th").val(),
+          mamon: mamon,
+          tenmon: tenmon,
         },
-        success: function (response) {
-          if (response) {
-            $("#modal-add-subject").modal("hide");
-            Dashmix.helpers("jq-notify", {
-              type: "success",
-              icon: "fa fa-check me-1",
-              message: "Thêm môn học thành công!",
-            });
-            loadData();
-          } else {
-            Dashmix.helpers("jq-notify", {
-              type: "danger",
-              icon: "fa fa-times me-1",
-              message: "Thêm môn học không thành công!",
-            });
+        dataType: "json",
+        success: function(response) {
+          // Kiểm tra xem người dùng đó tồn tại chưa
+          if (response.length !== 0) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Môn học đã tồn tại!` });
+            return;
           }
-        },
-      });
+
+          $.ajax({
+            type: "post",
+            url: "./subject/add",
+            data: {
+              mamon: $("#mamonhoc").val(),
+              tenmon: $("#tenmonhoc").val(),
+              sotinchi: $("#sotinchi").val(),
+              sotietlythuyet: $("#sotiet_lt").val(),
+              sotietthuchanh: $("#sotiet_th").val(),
+            },
+            success: function (response) {
+              if (response) {
+                Dashmix.helpers("jq-notify", {
+                  type: "success",
+                  icon: "fa fa-check me-1",
+                  message: "Thêm môn học thành công!",
+                });
+                $("#modal-add-subject").modal("hide");
+                loadData();
+              } else {
+                Dashmix.helpers("jq-notify", {
+                  type: "danger",
+                  icon: "fa fa-times me-1",
+                  message: "Thêm môn học không thành công!",
+                });
+              }
+            },
+          });
+
+        }
+      })
+
     }
   });
 

@@ -40,11 +40,17 @@ class User extends Controller{
             $nhomquyen = $_POST['role'];
             $trangthai = $_POST['status'];
             $result = $this->NguoiDungModel->create($id,$email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
-            // if ($result) {
-            //     echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
-            // }
-            echo json_encode($result);
             echo $result;
+        }
+    }
+
+    public function checkUser() 
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['mssv'];
+            $email = $_POST['email'];
+            $result = $this->NguoiDungModel->checkUser($id,$email);
+            echo json_encode($result);
         }
     }
 

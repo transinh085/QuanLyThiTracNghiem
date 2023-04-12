@@ -28,7 +28,6 @@ $(document).ready(function () {
 
     loadDataGroup(mode);
 
-    attachMaMoi();
 
 
     function showGroup(list) {
@@ -58,7 +57,6 @@ $(document).ready(function () {
                     }
                     html += `
                         <div class="col-sm-6 col-lg-6 col-xl-3">
-                        <!-- <a class="block block-rounded block-link-shadow" href="./module/detail/${nhom_item.manhom}"> </a> -->
                         <div class="block block-rounded">
                             <div class="block-header block-header-default">
                                 <h3 class="block-title block-class-name">${nhom_item.tennhom}</h3>
@@ -318,24 +316,4 @@ $(document).ready(function () {
         showGroup(result);
     });  
 
-    function attachMaMoi() {
-        let html = "";
-        const monhoc = $("#1 > span").html();
-        // const text = monhoc.text();
-        console.log(monhoc);
-        // $.ajax({
-        //     type: "POST",
-        //     url: `./class_detail/`,
-        //     data: {
-        //         // $hocky = , 
-        //         // $mamonhoc = , 
-        //         // $namhoc = $_POST['namhoc'],
-        //         // $tennhom = $_POST['tennhom'],
-        //         // $ghichu = $_POST['ghichu'],
-        //     },
-        // });
-    }
-
-    // attachMaMoi();
-   
 });

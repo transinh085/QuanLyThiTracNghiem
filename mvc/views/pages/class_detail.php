@@ -27,7 +27,7 @@
                     </h3>
                     <div class="block-options">
                         <div class="block-options-item">
-                            <code>(Sĩ số 2)</code>
+                            <code>Sỉ số: <span class="number-participants"></span></code>
                         </div>
                     </div>
                 </div>

@@ -231,4 +231,14 @@ class NguoiDungModel extends DB
         $query = $query . " ORDER BY id ASC";
         return $query;
     }
+
+    public function checkUser($mssv, $email) {
+        $sql = "SELECT * FROM `nguoidung` WHERE `id` = $mssv OR `email` = '$email'";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

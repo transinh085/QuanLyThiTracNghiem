@@ -149,37 +149,57 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
-  let mssv = $("#masinhvien").val();
-  let hoten = $("#user_name").val();
-  let gioitinh = $('input[name="user_gender"]:checked').val();
-  let ngaysinh = $("#user_ngaysinh").val();
-  let email = $("#user_email").val();
-  let role = $("#user_nhomquyen").val();
-  let password = $("#user_password").val();
+  
+  
   $("#btn-add-user").on("click", function (e) {
     e.preventDefault();
+    let mssv = $("#masinhvien").val();
+    let email = $("#user_email").val();
+
+    // Validate user
     if ($(".form-add-user").valid()) {
       $.ajax({
         type: "post",
-        url: "./user/add",
+        url: "./user/checkUser",
         data: {
-          masinhvien: $("#masinhvien").val(),
-          hoten: $("#user_name").val(),
-          gioitinh: $('input[name="user_gender"]:checked').val(),
-          ngaysinh: $("#user_ngaysinh").val(),
-          email: $("#user_email").val(),
-          role: $("#user_nhomquyen").val(),
-          password: $("#user_password").val(),
-          status: $("#user_status").prop("checked") ? 1 : 0,
-        },
+          mssv: mssv,
+          email: email,
+        }, 
+        dataType: "json",
         success: function (response) {
-          console.log(response.valid)
-          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
-          $("#modal-add-user").modal("hide");
-          getNumberPage("user", currentPage);
-          fetch_data("user", currentPage);
+
+          // Kiểm tra xem người dùng đó tồn tại chưa
+          if (response.length !== 0) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
+            return;
+          }
+          $.ajax({
+            type: "post",
+            url: "./user/add",
+            data: {
+              masinhvien: $("#masinhvien").val(),
+              hoten: $("#user_name").val(),
+              gioitinh: $('input[name="user_gender"]:checked').val(),
+              ngaysinh: $("#user_ngaysinh").val(),
+              email: $("#user_email").val(),
+              role: $("#user_nhomquyen").val(),
+              password: $("#user_password").val(),
+              status: $("#user_status").prop("checked") ? 1 : 0,
+            },
+            success: function (response) {
+              console.log(response.valid)
+              Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
+              $("#modal-add-user").modal("hide");
+              getNumberPage("user", currentPage);
+              fetch_data("user", currentPage);
+            },
+          });
+          
         },
-      });
+        error: function (error) {
+          console.error(error.responseText);
+        }
+      })
     } else {
       Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
     }

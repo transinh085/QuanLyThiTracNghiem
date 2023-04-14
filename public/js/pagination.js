@@ -1,19 +1,11 @@
-function optionArgument(page, args) {
-  var input = $("#search-input").val();
-  const filter = {
-    page: page,
-  };
-  if (input != "") filter.input = input;
-  return { ...filter, ...args };
-}
-
-function fetch_data(controller, page, args) {
-  const option = optionArgument(page, args);
+function fetchData(args, page) {
+  args.page = page;
+  const { controller } = args;
   $.ajax({
     url: `./${controller}/pagination`,
     method: "post",
     data: {
-      args: JSON.stringify(option),
+      args: JSON.stringify(args),
     },
     dataType: "json",
     success: function (data) {
@@ -25,46 +17,185 @@ function fetch_data(controller, page, args) {
   });
 }
 
-function getNumberPage(controller, page = 0, args) {
-  page = Number.parseInt(page);
-  const option = optionArgument(page, args);
-  let html = "";
+function getPagination(args, page) {
+  args.page = page;
+  const { controller } = args;
   $.ajax({
-    url: `./${controller}/getNumberPage`,
+    url: `./${controller}/getTotalPages`,
     method: "post",
     data: {
-      args: JSON.stringify(option),
+      args: JSON.stringify(args),
     },
-    success: function (numberPages) {
-      if (numberPages == 0) return;
-      let prev = page > 1 ? page - 1 : 1;
-      let next = page < numberPages ? page + 1 : numberPages;
-      html += `<li class="page-item ${page == 1 ? "disabled" : "active"}">
-                            <a class="page-link" id="${prev}" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-                                Prev
-                            </a>
-                        </li>
-                `;
-      for (let i = 1; i <= numberPages; i++) {
-        html += `
-                    <li class="page-item ${i == page ? "active" : ""}">
-                        <a class="page-link" id="${i}" href="javascript:void(0)">${i}</a>
-                    </li>
-                    `;
+    dataType: "json",
+    success: function (total) {
+      valuePage.totalPages = total;
+      if (total === 1) {
+        valuePage.curPage = total;
       }
-      html += `
-                <li class="page-item ${
-                  page == numberPages ? "disabled" : "active"
-                }">
-                    <a class="page-link" id="${next}" href="javascript:void(0)" aria-label="Next">
-                        Next
-                    </a>
-                </li>
-                `;
-      $("#getNumberPage").html(html);
+      pagination();
+      fetchData(args, valuePage.curPage);
     },
-    error: function (error) {
-      console.error(error.responseText);
+    error: function (err) {
+      console.error(err.responseText);
     },
   });
 }
+
+/*
+// Truyền tham số vào hàm getPagination
+const args = {
+  // Bắt buộc phải có
+  controller: "user",
+  model: "NguoiDungModel",
+
+  // Optional
+  limit: 10,
+  input: "",
+  filter: "",
+  // (các tham số khác tuỳ theo câu truy vấn) ...
+}
+*/
+
+// Dynamic pagination
+const pg = document.getElementById("list-page");
+const btnNextPg = document.querySelector("a.next-page");
+const btnPrevPg = document.querySelector("a.prev-page");
+const btnFirstPg = document.querySelector("a.first-page");
+const btnLastPg = document.querySelector("a.last-page");
+
+const valuePage = {
+  truncate: true,
+  curPage: 1,
+  numLinksTwoSide: 1,
+  totalPages: 10,
+};
+
+function renderPage(index, active = "") {
+  if (index === 1 || index === valuePage.totalPages) {
+    style = `style="border-radius:0;"`;
+  }
+  return `<li class="page-item ${active}">
+        <a class="page-link" href="javascript:void(0)" ${
+          style ? style : ""
+        } data-page="${index}">${index}</a>
+    </li>`;
+}
+
+function handleButtonLeft() {
+  if (valuePage.curPage === 1 || valuePage.totalPages <= 1) {
+    btnPrevPg.classList.add("disabled");
+    btnFirstPg.classList.add("disabled");
+  } else {
+    btnPrevPg.classList.remove("disabled");
+    btnFirstPg.classList.remove("disabled");
+  }
+}
+
+function handleButtonRight() {
+  if (valuePage.curPage === valuePage.totalPages || valuePage.totalPages <= 1) {
+    btnNextPg.classList.add("disabled");
+    btnLastPg.classList.add("disabled");
+  } else {
+    btnNextPg.classList.remove("disabled");
+    btnLastPg.classList.remove("disabled");
+  }
+}
+
+function handleButton(element) {
+  if (element.classList.contains("first-page")) {
+    valuePage.curPage = 1;
+  } else if (element.classList.contains("last-page")) {
+    valuePage.curPage = valuePage.totalPages;
+  } else if (element.classList.contains("prev-page")) {
+    if (valuePage.curPage === 1) return;
+    valuePage.curPage--;
+    btnNextPg.classList.remove("disabled");
+    btnLastPg.classList.remove("disabled");
+  } else if (element.classList.contains("next-page")) {
+    if (valuePage.curPage === valuePage.totalPages) return;
+    valuePage.curPage++;
+    btnPrevPg.classList.remove("disabled");
+    btnFirstPg.classList.remove("disabled");
+  }
+
+  pagination();
+  handleButtonLeft();
+  handleButtonRight();
+}
+
+function pagination() {
+  const { totalPages, curPage, truncate, numLinksTwoSide: delta } = valuePage;
+
+  const range = delta + 4; // use for handle visible number of links left side
+
+  let render = "";
+  let renderTwoSide = "";
+  let dot = `<li class="page-item"><a class="page-link" href="javascript:void(0)">...</a></li>`;
+  let countTruncate = 0; // use for ellipsis - truncate left side or right side
+
+  // use for truncate two side
+  const numberTruncateLeft = curPage - delta;
+  const numberTruncateRight = curPage + delta;
+
+  let active = "";
+  for (let pos = 1; pos <= totalPages; pos++) {
+    active = pos === curPage ? "active" : "";
+
+    // truncate
+    if (totalPages >= 2 * range - 1 && truncate) {
+      if (numberTruncateLeft > 3 && numberTruncateRight < totalPages - 3 + 1) {
+        // truncate 2 side
+        if (pos >= numberTruncateLeft && pos <= numberTruncateRight) {
+          renderTwoSide += renderPage(pos, active);
+        }
+      } else {
+        // truncate left side or right side
+        if (
+          (curPage < range && pos <= range) ||
+          (curPage > totalPages - range && pos >= totalPages - range + 1) ||
+          pos === totalPages ||
+          pos === 1
+        ) {
+          render += renderPage(pos, active);
+        } else {
+          countTruncate++;
+          if (countTruncate === 1) render += dot;
+        }
+      }
+    } else {
+      // not truncate
+      render += renderPage(pos, active);
+    }
+  }
+
+  if (renderTwoSide) {
+    renderTwoSide =
+      renderPage(1) + dot + renderTwoSide + dot + renderPage(totalPages);
+    pg.innerHTML = renderTwoSide;
+  } else {
+    pg.innerHTML = render;
+  }
+
+  handleButtonLeft();
+  handleButtonRight();
+}
+
+pg.addEventListener("click", function (e) {
+  const el = e.target;
+
+  if (el.dataset.page) {
+    const pageNumber = parseInt(el.dataset.page, 10);
+    valuePage.curPage = pageNumber;
+    pagination();
+    handleButtonLeft();
+    handleButtonRight();
+  }
+});
+
+document
+  .querySelector(".pagination-container")
+  .addEventListener("click", function (e) {
+    if (e.target.closest(".page-link")) {
+      handleButton(e.target.closest(".page-link"));
+    }
+  });

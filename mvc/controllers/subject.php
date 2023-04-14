@@ -9,6 +9,7 @@ class Subject extends Controller{
     {
         $this->monHocModel = $this->model("MonHocModel");
         $this->chuongModel = $this->model("ChuongModel");
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function default() 
@@ -22,7 +23,8 @@ class Subject extends Controller{
                 "Plugin" => [
                     "sweetalert2" => 1,
                     "jquery-validate" => 1,
-                    "notify" => 1
+                    "notify" => 1,
+                    "pagination" => 1,
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);

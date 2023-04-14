@@ -6,6 +6,7 @@ class User extends Controller{
     {
         $this->NguoiDungModel = $this->model("NguoiDungModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function default()
@@ -23,6 +24,7 @@ class User extends Controller{
                     "notify" => 1,
                     "jquery-validate" => 1,
                     "select" => 1,
+                    "pagination" => 1,
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);

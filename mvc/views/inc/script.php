@@ -1,6 +1,5 @@
 <!-- END Page Container -->
 <script src="./public/js/dashmix.app.min.js"></script>
-<script src="./public/js/pagination.js"></script>
 
 <!-- jQuery (required for BS Datepicker + BS Maxlength + Select2 + Masked Inputs + Ion Range Slider plugins) -->
 <?php
@@ -30,6 +29,9 @@ if(isset($data["Plugin"]["sweetalert2"]) && $data["Plugin"]["sweetalert2"] == 1)
 }
 if(isset($data["Plugin"]["jquery-validate"]) && $data["Plugin"]["jquery-validate"] == 1) {
     echo '<script src="./public/js/plugins/jquery-validation/jquery.validate.min.js"></script>';
+}
+if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) {
+    echo '<script src="./public/js/pagination.js"></script>';
 }
 if(isset($data["Script"])) {
     echo '<script src="./public/js/pages/'.$data["Script"].'.js"></script>';

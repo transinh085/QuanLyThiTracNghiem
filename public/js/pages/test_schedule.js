@@ -69,34 +69,38 @@ function showData(data) {
 }
 
 $(document).ready(function () {
-  function loadPage(input) {
-    const args = {
-      manguoidung: currentUser,
-    };
-    if (input != "") {
-      args.input = input;
-    }
-    getNumberPage("client", currentPage, args);
-    fetch_data("client", currentPage, args);
-  }
-
-  $(document).on("click", ".page-link", function () {
-    var page = $(this).attr("id");
-    var input = $("#search-input").val();
-    currentPage = page;
-    loadPage(input);
-  });
-
-  $("#search-input").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input.length == 1) return;
-    loadPage(input);
-  });
-
+  // Get current user ID
   const container = document.querySelector(".content");
   const currentUser = container.dataset.id;
   delete container.dataset.id;
-  let currentPage = 1;
-  loadPage();
+
+  // Pagination initialization
+  const defaultPaginationOptions = {
+    controller: "client",
+    model: "DeThiModel",
+    manguoidung: currentUser,
+  };
+  let currentPaginationOptions = defaultPaginationOptions;
+
+  document
+    .querySelector(".pagination-container")
+    .addEventListener("click", function (e) {
+      if (e.target.closest(".page-link")) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
+      }
+    });
+
+  $("#search-form").on("input", function (e) {
+    e.preventDefault();
+    var input = $("#search-input").val();
+    if (input == "") {
+      delete currentPaginationOptions.input;
+    } else {
+      currentPaginationOptions.input = input;
+      valuePage.curPage = 1;
+    }
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  getPagination(currentPaginationOptions, valuePage.curPage);
 });

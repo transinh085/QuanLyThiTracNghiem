@@ -131,7 +131,7 @@ $(document).ready(function () {
     "json"
   );
 
-  function loadData() {
+  function loadAll() {
     $.get(
       "./user/getData",
       function (data, textStatus) {
@@ -141,7 +141,7 @@ $(document).ready(function () {
     );
   }
 
-  loadData();
+  // loadAll();
 
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
@@ -190,8 +190,7 @@ $(document).ready(function () {
               console.log(response.valid)
               Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
               $("#modal-add-user").modal("hide");
-              getNumberPage("user", currentPage);
-              fetch_data("user", currentPage);
+              getPagination(currentPaginationOptions, valuePage.curPage);
             },
           });
           
@@ -250,9 +249,8 @@ $(document).ready(function () {
         status: $("#user_status").prop("checked") ? 1 : 0,
       },
       success: function (response) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
         $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
       },
     });
   });
@@ -295,28 +293,13 @@ $(document).ready(function () {
           },
           success: function (response) {
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
-            // loadData();
-            getNumberPage("user", 1);
-            fetch_data("user", 1);
+            getPagination(currentPaginationOptions, valuePage.curPage);
           },
         });
       } else {
         e.fire("Cancelled", "Bạn đã không xóa người dùng :)", "error");
       }
     });
-  });
-
-  $(document).on("click", ".page-link", function () {
-    var page = $(this).attr("id");
-    currentPage = page;
-    getNumberPage("user", currentPage);
-    fetch_data("user", currentPage);
-  });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    getNumberPage("user", 1);
-    fetch_data("user", 1);
   });
 
   $("#nhap-file").click(function (e) {
@@ -351,15 +334,38 @@ $(document).ready(function () {
         listuser: data,
       },
       success: function (response) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
         $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
-        showData();
       },
     });
   }
 
-  let currentPage = 1;
-  getNumberPage("user", currentPage);
-  fetch_data("user", currentPage);
+  // Pagination initialization
+  const defaultPaginationOptions = {
+    controller: "user",
+    model: "NguoiDungModel",
+  };
+  let currentPaginationOptions = defaultPaginationOptions;
+
+  document
+    .querySelector(".pagination-container")
+    .addEventListener("click", function (e) {
+      if (e.target.closest(".page-link")) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
+      }
+    });
+
+  $("#search-form").on("input", function (e) {
+    e.preventDefault();
+    var input = $("#search-input").val();
+    if (input == "") {
+      delete currentPaginationOptions.input;
+    } else {
+      currentPaginationOptions.input = input;
+      valuePage.curPage = 1;
+    }
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  getPagination(currentPaginationOptions, valuePage.curPage);
 });

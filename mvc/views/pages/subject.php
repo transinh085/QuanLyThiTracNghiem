@@ -35,30 +35,29 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Photos Search Navigation">
-                <ul class="pagination pagination-sm justify-content-end mt-2" id="getNumberPage">
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-                            Prev
+            <nav class="pagination-container">
+                <ul class="pagination justify-content-end mt-2">
+                    <li class="page-item">
+                        <a class="page-link first-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="First" data-page="1">
+                            <i class="fas fa-angle-double-left"></i>
                         </a>
                     </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0)">1</a>
-                    </li>
                     <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">4</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                            Next
+                        <a class="page-link prev-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                            <i class="fas fa-angle-left"></i>
                         </a>
-                    </li> -->
+                    </li>
+                    <div class="d-flex" id="list-page"></div>
+                    <li class="page-item">
+                        <a class="page-link next-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Next">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link last-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Last">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>

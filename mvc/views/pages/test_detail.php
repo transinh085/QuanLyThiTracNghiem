@@ -78,7 +78,7 @@ footer {
                 <div class="block-content tab-content">
                     <div class="tab-pane active" id="bang-diem" role="tabpanel" aria-labelledby="bang-diem-tab"
                         tabindex="0">
-                        <form method="POST" onsubmit="return false;">
+                        <form action="#" method="POST" id="search-form" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="input-group">
                                     <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
@@ -90,8 +90,8 @@ footer {
                                         ?>
                                         <!-- <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
                                     </ul>
-                                    <input type="text" class="form-control form-control-alt" id="form-search-sv"
-                                        name="form-search-sv" placeholder="Tìm kiếm sinh viên..">
+                                    <input type="text" class="form-control form-control-alt" id="search-input"
+                                        name="search-input" placeholder="Tìm kiếm sinh viên..">
                                     <span class="input-group-text bg-body border-0">
                                         <i class="fa fa-search"></i>
                                     </span>
@@ -115,28 +115,27 @@ footer {
                                 </tbody>
                             </table>
                         </div>
-                        <nav aria-label="Photos Search Navigation">
-                            <ul class="pagination pagination-sm justify-content-end mt-2">
+                        <nav class="pagination-container">
+                            <ul class="pagination justify-content-end mt-2">
                                 <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-                                        Prev
+                                    <a class="page-link first-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="First" data-page="1">
+                                        <i class="fas fa-angle-double-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="javascript:void(0)">1</a>
+                                <li class="page-item">
+                                    <a class="page-link prev-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                <div class="d-flex" id="list-page"></div>
+                                <li class="page-item">
+                                    <a class="page-link next-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Next">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                                        Next
+                                    <a class="page-link last-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Last">
+                                        <i class="fas fa-angle-double-right"></i>
                                     </a>
                                 </li>
                             </ul>

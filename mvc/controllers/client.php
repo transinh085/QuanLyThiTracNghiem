@@ -11,6 +11,7 @@ class Client extends Controller{
         $this->dethimodel = $this->model("DeThiModel");
         $this->nguoidungmodel = $this->model("NguoiDungModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function group()
@@ -34,6 +35,9 @@ class Client extends Controller{
             "Title" => "Lịch kiểm tra",
             "Script" => "test_schedule",
             "user_id" => $_SESSION['user_id'],
+            "Plugin" => [
+                "pagination" => 1,
+            ],
         ]);
     }
 

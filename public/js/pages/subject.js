@@ -1,51 +1,54 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
-Dashmix.onLoad((() => class {
-  static initValidation() {
-    Dashmix.helpers("jq-validation"), jQuery(".form-add-subject").validate({
-      rules: {
-        "mamonhoc": {
-          required: !0,
-          digits: true,
-        },
-        "tenmonhoc": {
-          required: !0,
-        },
-        "sotinchi": {
-          required: !0,
-        },
-        "sotiet_lt": {
-          required: !0,
-        },
-        "sotiet_th": {
-          required: !0,
-        },
-      },
-      messages: {
-        "mamonhoc": {
-          required: "Please provide your code subject",
-          digits: "Please enter alphanumeric characters"
-        },
-        "tenmonhoc": {
-          required: "Please provide course name",
-        },
-        "sotinchi": {
-          required: "Please provide the number of course credits",
-        },
-        "sotiet_lt": {
-          required: "Please enter the number of theory periods",
-        },
-        "sotiet_th": {
-          required: "Please enter the number of practice periods",
-        },
-      }
-    })
-  }
+Dashmix.onLoad(() =>
+  class {
+    static initValidation() {
+      Dashmix.helpers("jq-validation"),
+        jQuery(".form-add-subject").validate({
+          rules: {
+            mamonhoc: {
+              required: !0,
+              digits: true,
+            },
+            tenmonhoc: {
+              required: !0,
+            },
+            sotinchi: {
+              required: !0,
+            },
+            sotiet_lt: {
+              required: !0,
+            },
+            sotiet_th: {
+              required: !0,
+            },
+          },
+          messages: {
+            mamonhoc: {
+              required: "Please provide your code subject",
+              digits: "Please enter alphanumeric characters",
+            },
+            tenmonhoc: {
+              required: "Please provide course name",
+            },
+            sotinchi: {
+              required: "Please provide the number of course credits",
+            },
+            sotiet_lt: {
+              required: "Please enter the number of theory periods",
+            },
+            sotiet_th: {
+              required: "Please enter the number of practice periods",
+            },
+          },
+        });
+    }
 
-  static init() {
-    this.initValidation()
-  }
-}.init()));
+    static init() {
+      this.initValidation();
+    }
+  }.init()
+);
 
 function showData(subjects) {
   let html = "";
@@ -75,52 +78,20 @@ function showData(subjects) {
   $("#list-subject").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
   $('[data-bs-toggles="tooltip"]').tooltip();
-
 }
 
 $(document).ready(function () {
   function loadData() {
-    // $.get(
-    //   "./subject/getData",
-    //   function (data, textStatus) {
-    //     showData(data);
-    //   },
-    //   "json"
-    // );
-    fetch_data("subject", 1);
-    getNumberPage("subject", 1);
+    $.get(
+      "./subject/getData",
+      function (data, textStatus) {
+        showData(data);
+      },
+      "json"
+    );
   }
 
-  loadData();
-
-  // function showData(subjects) {
-  //   let html = "";
-  //   subjects.forEach((subject) => {
-  //     html += `<tr tid="${subject.mamonhoc}">
-  //               <td class="text-center fs-sm"><strong>${subject.mamonhoc}</strong></td>
-  //               <td>${subject.tenmonhoc}</td>
-  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
-  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
-  //               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
-  //               <td class="text-center">
-  //                   <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
-  //                       data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Thêm chương" data-id="${subject.mamonhoc}">
-  //                       <i class="fa fa-circle-info"></i>
-  //                   </a>
-  //                   <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
-  //                       data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
-  //                       <i class="fa fa-fw fa-pencil"></i>
-  //                   </a>
-  //                   <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
-  //                       data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
-  //                       <i class="fa fa-fw fa-times"></i>
-  //                   </a>
-  //               </td>
-  //           </tr>`;
-  //   });
-  //   $("#list-subject").html(html);
-  //   $('[data-bs-toggle="tooltip"]').tooltip();
-  // }
+  // loadData();
 
   $("[data-bs-target='#modal-add-subject']").click(function (e) {
     e.preventDefault();
@@ -129,9 +100,7 @@ $(document).ready(function () {
   });
 
   $("#add_subject").on("click", function () {
-
     if ($(".form-add-subject").valid()) {
-
       let mamon = $("#mamonhoc").val();
       let tenmon = $("#tenmonhoc").val();
 
@@ -143,10 +112,14 @@ $(document).ready(function () {
           tenmon: tenmon,
         },
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
           // Kiểm tra xem người dùng đó tồn tại chưa
           if (response.length !== 0) {
-            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Môn học đã tồn tại!` });
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: `Môn học đã tồn tại!`,
+            });
             return;
           }
 
@@ -168,7 +141,8 @@ $(document).ready(function () {
                   message: "Thêm môn học thành công!",
                 });
                 $("#modal-add-subject").modal("hide");
-                loadData();
+                // loadData();
+                getPagination(currentPaginationOptions, valuePage.curPage);
               } else {
                 Dashmix.helpers("jq-notify", {
                   type: "danger",
@@ -178,10 +152,8 @@ $(document).ready(function () {
               }
             },
           });
-
-        }
-      })
-
+        },
+      });
     }
   });
 
@@ -242,7 +214,8 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Cập nhật môn học thành công!",
           });
-          loadData();
+          // loadData();
+          getPagination(currentPaginationOptions, valuePage.curPage);
         } else {
           Dashmix.helpers("jq-notify", {
             type: "danger",
@@ -294,7 +267,8 @@ $(document).ready(function () {
           success: function (response) {
             if (response) {
               e.fire("Deleted!", "Xóa môn học thành công!", "success");
-              loadData();
+              // loadData();
+              getPagination(currentPaginationOptions, valuePage.curPage);
             } else {
               e.fire("Lỗi !", "Xoá môn học không thành công !)", "error");
             }
@@ -386,7 +360,6 @@ $(document).ready(function () {
         if (response) {
           resetFormChapter();
           showChapter(mamonhoc);
-          showData();
         }
       },
     });
@@ -463,18 +436,32 @@ $(document).ready(function () {
     });
   });
 
+  // Pagination initialization
+  const defaultPaginationOptions = {
+    controller: "subject",
+    model: "MonHocModel",
+  };
+  let currentPaginationOptions = defaultPaginationOptions;
+
+  document
+    .querySelector(".pagination-container")
+    .addEventListener("click", function (e) {
+      if (e.target.closest(".page-link")) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
+      }
+    });
+
   $("#search-form").on("input", function (e) {
     e.preventDefault();
-    loadData();
+    var input = $("#search-input").val();
+    if (input == "") {
+      delete currentPaginationOptions.input;
+    } else {
+      currentPaginationOptions.input = input;
+      valuePage.curPage = 1;
+    }
+    getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
-  $(document).on("click", ".page-link", function () {
-    var page = $(this).attr("id");
-    currentPage = page;
-    fetch_data("subject", currentPage);
-    getNumberPage("subject", currentPage);
-  });
-
-  var currentPage = 1;
-  loadData();
+  getPagination(currentPaginationOptions, valuePage.curPage);
 });

@@ -1,5 +1,4 @@
 <?php
-require_once "./mvc/core/DB.php";
 
 class Controller{
     public function __construct()
@@ -17,40 +16,24 @@ class Controller{
     }
     
     public function pagination() {
-        $limit = 5;
-        $page = 1;
-        $input = null;
-        $filter = null;
-        $args = null;
-        if (isset($_POST["args"])) {
-            $args = json_decode($_POST["args"], true);
-            extract($args);
-        }
-        $offset = ($page - 1) * $limit;
-        $query = $this->getQuery($filter, $input, $args);
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $DB = new DB();
-            $result = $DB->pagination($query, $limit, $offset);
-            echo json_encode($result);
-            unset($DB);
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (isset($_POST["args"])) {
+                $args = json_decode($_POST["args"], true);
+            }
+            $pagination = new Pagination($args["model"]);
+            $pagination->getData($args);
+            unset($pagination);
         }
     }
 
-    public function getNumberPage() {
-        $limit = 5;
-        $input = null;
-        $filter = null;
-        $args = null;
-        if (isset($_POST["args"])) {
-            $args = json_decode($_POST["args"], true);
-            extract($args);
-        }
-        $query = $this->getQuery($filter, $input, $args);
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $DB = new DB();
-            $result = $DB->getNumberPage($query, $limit, $args);
-            echo json_encode($result);
-            unset($DB);
+    public function getTotalPages() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (isset($_POST["args"])) {
+                $args = json_decode($_POST["args"], true);
+            }
+            $pagination = new Pagination($args["model"]);
+            $pagination->getTotal($args);
+            unset($pagination);
         }
     }
 }

@@ -1,5 +1,5 @@
 function showData(data) {
-  //   console.log(data);
+  // console.log(data);
   let html = "";
   let index = 1;
   data.forEach((Element) => {
@@ -14,7 +14,7 @@ function showData(data) {
       ":" +
       seconds.toString().padStart(2, "0");
     html += `<tr>
-        <td class="text-center">${index++}</td>
+        <td class="text-center">${Element["manguoidung"]}</td>
         <td class="fs-sm d-flex align-items-center">
             <img class="img-avatar img-avatar48 me-3"
                 src="./public/media/avatars/${
@@ -27,7 +27,7 @@ function showData(data) {
                 }</span>
             </div>
         </td>
-        <td class="text-center">${Element["diemthi"]}</td>
+        <td class="text-center">${Element["diemthi"] ? Element["diemthi"] : "(Chưa nộp bài)"}</td>
         <td class="text-center">${Element["thoigianvaothi"]}</td>
         <td class="text-center">${formattedTime}</td>
         <td class="text-center">${Element["solanchuyentab"]}</td>

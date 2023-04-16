@@ -40,7 +40,7 @@ class CauTraLoiModel extends DB{
 
     public function getAllWithoutAnswer($macauhoi)
     {
-        $sql = "SELECT `macauhoi`, `noidungtl` FROM `cautraloi` WHERE `macauhoi` = $macauhoi";
+        $sql = "SELECT `macautl`, `noidungtl` FROM `cautraloi` WHERE `macauhoi` = $macauhoi";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

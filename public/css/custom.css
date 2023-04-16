@@ -40,6 +40,20 @@
     color: #fff;
 }
 
+.btn-answer-true {
+    background-color: #76BB68;
+    color: #fff;
+}
+
+.btn-answer-false {
+    background-color: #FF5A5F;
+    color: #fff;
+}xx
+
+.btn-check[disabled] + .btn-answer-question, .btn-check:disabled + .btn-answer-question {
+    opacity: 1;
+}
+
 #list-options p {
     margin-bottom: 0;
 }

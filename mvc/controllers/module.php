@@ -18,6 +18,7 @@
                     "Plugin" => [
                         "sweetalert2" => 1,
                         "select" => 1,
+                        "jquery-validate" => 1,
                         "notify" => 1
                     ]
                 ]);
@@ -84,7 +85,7 @@
                 $namhoc = $_POST['namhoc'];
                 $hocky = $_POST['hocky'];
                 $result = $this->nhomModel->update($manhom,$tennhom,$ghichu,$namhoc,$hocky,$monhoc);
-                echo $result;
+                echo json_encode($result);
             } else echo json_encode(false);
         }
 

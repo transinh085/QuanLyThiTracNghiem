@@ -22,6 +22,9 @@ Dashmix.onLoad((() => class {
         "user_ngaysinh": {
           required: !0,
         },
+        "user_nhomquyen": {
+          required: !0,
+        },
         "user_password": {
           required: !0,
           minlength: 5
@@ -38,13 +41,15 @@ Dashmix.onLoad((() => class {
         },
         "user_name": {
           required: "Please provide your full name",
-
         },
         "user_gender": {
           required: "Please tick 1 out of 2",
         },
         "user_ngaysinh": {
           required: "Please provide your date of birth",
+        },
+        "user_nhomquyen": {
+          required: "Please select the group with permissions",
         },
         "user_password": {
           required: "Please provide a password",

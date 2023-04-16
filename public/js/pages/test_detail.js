@@ -123,7 +123,8 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filter").text($(this).text());
     currentGroupID = $(this).data("value");
-    showExamineeByGroup(made, currentGroupID);
+    defaultPaginationOptions.filter = currentGroupID;
+    getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
   // Lấy danh sách mã nhóm
@@ -132,7 +133,6 @@ $(document).ready(function () {
     const id = element.dataset.value;
     listGroupID.push(+id);
   });
-
   let currentGroupID = listGroupID[0];
   showExamineeByGroup(made, currentGroupID);
 
@@ -184,4 +184,35 @@ $(document).ready(function () {
 
 
 
+
+  // Pagination initialization
+  const defaultPaginationOptions = {
+    controller: "test",
+    model: "KetQuaModel",
+    made,
+    filter: currentGroupID,
+  };
+  let currentPaginationOptions = defaultPaginationOptions;
+
+  document
+    .querySelector(".pagination-container")
+    .addEventListener("click", function (e) {
+      if (e.target.closest(".page-link")) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
+      }
+    });
+
+  $("#search-form").on("input", function (e) {
+    e.preventDefault();
+    var input = $("#search-input").val();
+    if (input == "") {
+      delete currentPaginationOptions.input;
+    } else {
+      currentPaginationOptions.input = input;
+      valuePage.curPage = 1;
+    }
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  getPagination(currentPaginationOptions, valuePage.curPage);
 });

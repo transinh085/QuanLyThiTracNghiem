@@ -49,10 +49,10 @@ class CauTraLoiModel extends DB{
         return $rows;
     }
 
-    public function getAllHaveAnswer($macauhoi) 
+    // Hàm lấy đáp án của câu hỏi đó + đáp án của người chọn
+    public function getAllHaveAnswer($macauhoi, $makq) 
     {
-        // $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
-        $sql = "SELECT `cautraloi`.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon`, `makq` FROM `cautraloi`, `chitietketqua` WHERE `cautraloi`.`macauhoi` = `chitietketqua`.`macauhoi` AND `chitietketqua`.`macauhoi` = $macauhoi";
+        $sql = "SELECT `cautraloi`.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon`, `makq` FROM `cautraloi`, `chitietketqua` WHERE `cautraloi`.`macauhoi` = `chitietketqua`.`macauhoi` AND `chitietketqua`.`macauhoi` = $macauhoi AND `makq` = $makq";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

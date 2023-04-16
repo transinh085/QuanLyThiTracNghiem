@@ -57,16 +57,6 @@ $(document).ready(function () {
                             }" alt="">
                         </div>
                         <div class="flex-grow-1 fs-sm pe-2">
-                            <!--- <div class="fw-semibold">${
-                              notification.noidung
-                            }</div>
-                            <div class="text-muted">${
-                              displayDate || notification.thoigiantao
-                            }</div>
-                            <div class="text-muted">${notification.hoten} - ${
-          notification.tenmonhoc + " - " + notification.tennhom
-        }</div> --->
-
                             <div class="truncate truncate--3"><span class="fw-semibold">${
                               notification.hoten
                             }</span> đã gửi một thông báo đến học phần <span class="fw-semibold">${

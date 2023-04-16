@@ -48,7 +48,12 @@
 .btn-answer-false {
     background-color: #FF5A5F;
     color: #fff;
-}xx
+}
+
+.btn-answer-chose {
+    background-color: orange;
+    color: #fff;
+}
 
 .btn-check[disabled] + .btn-answer-question, .btn-check:disabled + .btn-answer-question {
     opacity: 1;

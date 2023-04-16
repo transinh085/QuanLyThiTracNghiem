@@ -32,9 +32,7 @@ function showData(data) {
         <td class="text-center">${formattedTime}</td>
         <td class="text-center">${Element["solanchuyentab"]}</td>
         <td class="text-center">
-            <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)"
-                data-bs-toggle="tooltip" aria-label="View"
-                data-bs-original-title="View">
+            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"]}">
                 <i class="fa fa-fw fa-eye"></i>
             </a>
         </td>
@@ -56,6 +54,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
+        console.log(response)
         showListQuestion(response);
       },
     });
@@ -93,12 +92,13 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
+        console.log(response)
         showData(response);
       },
     });
   }
   var made = $("#chitietdethi").data("id");
-  //   showTookTheExam(made);
+    showTookTheExam(made);
 
   function showExamineeByGroup(made, manhom) {
     $.ajax({
@@ -135,4 +135,53 @@ $(document).ready(function () {
 
   let currentGroupID = listGroupID[0];
   showExamineeByGroup(made, currentGroupID);
+
+  // Hiển thị đề kiểm tra đáp án + câu trả lời của thí sinh đó
+  function showTestDetail(tests) {
+    let html = "";
+    tests.forEach((test, index) => {
+      html += `<div class="question rounded border mb-3 id="c${index + 1}">
+                <div class="question-top p-3">
+                  <p class="question-content fw-bold mb-3">${index + 1}.${test.noidung} </p>
+                  <div class="row">`;
+                  test.cautraloi.forEach((ctl,i) => {
+                    html += `
+                    <div class="col-6 mb-1">
+                      <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${ctl.noidungtl}</p>
+                    </div>`;
+                  });
+                  html += `
+                        </div>
+                      </div>`;
+                  html += `
+                  <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer-false btn-answer-question" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
+                            <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
+                        </div>
+                  `;
+                  html += `</div>`;
+    });
+    $("#content-file").html(html);
+  }
+
+  $(document).on("click", ".show-exam-detail", function() {
+    $("#modal-show-test").modal("show");
+    let makq = $(this).data("id");
+
+    $.ajax({
+      type: "post",
+      url: "./test/getQuestion",
+      data: {made:made},
+      dataType: "json",
+      success: function(response) {
+        showTestDetail(response)
+      }
+    })
+  })
+
+
+
 });

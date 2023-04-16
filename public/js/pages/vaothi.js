@@ -18,13 +18,4 @@ $(document).ready(function () {
             }
         });
     });
-
-    function showTest() {
-        let html = "";
-        
-    }
-
-    $("#show-exam-detail").click(() => {
-
-    })
 });

@@ -1,9 +1,10 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 $(document).ready(function () {
     const manhom = $(".content").data("id")
-    // console.log(manhom)
+    console.log(manhom)
 const showList = function (students) {
     let html = "";
+    $(".number-participants").html(students.length);
     if(students.length == 0) {
         html += `<tr><td colspan="7" class="text-center">Không có dữ liệu</td></tr>`;
     } else {
@@ -53,7 +54,7 @@ function loadList() {
         },
         dataType: "json",
         success: function (response) {
-            console.log(response)
+            console.log(response.length)
             showList(response);
         }
     });

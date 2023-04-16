@@ -6,6 +6,7 @@ class User extends Controller{
     {
         $this->NguoiDungModel = $this->model("NguoiDungModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function default()
@@ -20,7 +21,10 @@ class User extends Controller{
                     "sweetalert2" => 1,
                     "datepicker" => 1,
                     "flatpickr" => 1,
+                    "notify" => 1,
+                    "jquery-validate" => 1,
                     "select" => 1,
+                    "pagination" => 1,
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
@@ -39,6 +43,16 @@ class User extends Controller{
             $trangthai = $_POST['status'];
             $result = $this->NguoiDungModel->create($id,$email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
             echo $result;
+        }
+    }
+
+    public function checkUser() 
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST['mssv'];
+            $email = $_POST['email'];
+            $result = $this->NguoiDungModel->checkUser($id,$email);
+            echo json_encode($result);
         }
     }
 

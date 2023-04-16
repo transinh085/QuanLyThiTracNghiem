@@ -12,6 +12,7 @@ class Test extends Controller
         $this->chitietde = $this->model("ChiTietDeThiModel");
         $this->ketquamodel = $this->model("KetQuaModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function default()
@@ -101,7 +102,10 @@ class Test extends Controller
                 "Page" => "test_detail",
                 "Title" => "Danh sách đã thi",
                 "Test" => $this->dethimodel->getInfoTestBasic($made),
-                "Script" => "test_detail"
+                "Script" => "test_detail",
+                "Plugin" => [
+                    "pagination" => 1,
+                ]
             ]);
         } else {
             $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
@@ -316,5 +320,20 @@ class Test extends Controller
             $result = $this->ketquamodel->tookTheExam($made);
             echo json_encode($result);
         }
+    }
+
+    public function getExamineeByGroup()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            $made = $_POST['made'];
+            $manhom = $_POST['manhom'];
+            $result = $this->ketquamodel->getExamineeByGroup($made, $manhom);
+            echo json_encode($result);
+        }
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $result = $this->ketquamodel->getQuery($filter, $input, $args);
+        return $result;
     }
 }

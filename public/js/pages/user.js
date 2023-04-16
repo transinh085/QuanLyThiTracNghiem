@@ -1,6 +1,66 @@
-Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
+Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 
-function showData(users) {
+
+Dashmix.onLoad((() => class {
+  static initValidation() {
+    Dashmix.helpers("jq-validation"), jQuery(".form-add-user").validate({
+      rules: {
+        "masinhvien": {
+          required: !0,
+          digits: true
+        },
+        "user_email": {
+          required: !0,
+          emailWithDot: !0
+        },
+        "user_name": {
+          required: !0,
+        },
+        "user_gender": {
+          required: !0,
+        },
+        "user_ngaysinh": {
+          required: !0,
+        },
+        "user_password": {
+          required: !0,
+          minlength: 5
+        },
+      },
+      messages: {
+        "masinhvien": {
+          required: "Please provide your code student",
+          digits: "Please enter alphanumeric characters"
+        },
+        "user_email": {
+          required: "Please provide your email",
+          emailWithDot: "Nhap dung dinh dang email"
+        },
+        "user_name": {
+          required: "Please provide your full name",
+
+        },
+        "user_gender": {
+          required: "Please tick 1 out of 2",
+        },
+        "user_ngaysinh": {
+          required: "Please provide your date of birth",
+        },
+        "user_password": {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+      }
+    })
+  }
+
+  static init() {
+    this.initValidation()
+  }
+}.init()));
+
+
+const showData = function (users) {
   let html = "";
   users.forEach((user) => {
     html += `<tr>
@@ -8,11 +68,7 @@ function showData(users) {
                               <strong>${user.id}</strong>
                           </td>
                           <td class="fs-sm d-flex align-items-center">
-                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
-                                user.avatar == null
-                                  ? `avatar2.jpg`
-                                  : user.avatar
-                              }" alt="">
+                              <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${user.avatar == null ? `avatar2.jpg`: user.avatar}" alt="">
                               <div class="d-flex flex-column">
                                   <strong class="text-primary">${
                                     user.hoten
@@ -56,7 +112,7 @@ function showData(users) {
   });
   $("#list-user").html(html);
   $('[data-bs-toggle="tooltip"]').tooltip();
-}
+};
 
 $(document).ready(function () {
   $("#user_nhomquyen").select2({
@@ -75,7 +131,7 @@ $(document).ready(function () {
     "json"
   );
 
-  function loadData() {
+  function loadAll() {
     $.get(
       "./user/getData",
       function (data, textStatus) {
@@ -85,7 +141,7 @@ $(document).ready(function () {
     );
   }
 
-  loadData();
+  // loadAll();
 
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
@@ -93,26 +149,59 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
-  $("#btn-add-user").on("click", function () {
-    $.ajax({
-      type: "post",
-      url: "./user/add",
-      data: {
-        masinhvien: $("#masinhvien").val(),
-        hoten: $("#user_name").val(),
-        gioitinh: $('input[name="user_gender"]:checked').val(),
-        ngaysinh: $("#user_ngaysinh").val(),
-        email: $("#user_email").val(),
-        role: $("#user_nhomquyen").val(),
-        password: $("#user_password").val(),
-        status: $("#user_status").prop("checked") ? 1 : 0,
-      },
-      success: function (response) {
-        $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
-      },
-    });
+  
+  
+  $("#btn-add-user").on("click", function (e) {
+    e.preventDefault();
+    let mssv = $("#masinhvien").val();
+    let email = $("#user_email").val();
+
+    // Validate user
+    if ($(".form-add-user").valid()) {
+      $.ajax({
+        type: "post",
+        url: "./user/checkUser",
+        data: {
+          mssv: mssv,
+          email: email,
+        }, 
+        dataType: "json",
+        success: function (response) {
+
+          // Kiểm tra xem người dùng đó tồn tại chưa
+          if (response.length !== 0) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
+            return;
+          }
+          $.ajax({
+            type: "post",
+            url: "./user/add",
+            data: {
+              masinhvien: $("#masinhvien").val(),
+              hoten: $("#user_name").val(),
+              gioitinh: $('input[name="user_gender"]:checked').val(),
+              ngaysinh: $("#user_ngaysinh").val(),
+              email: $("#user_email").val(),
+              role: $("#user_nhomquyen").val(),
+              password: $("#user_password").val(),
+              status: $("#user_status").prop("checked") ? 1 : 0,
+            },
+            success: function (response) {
+              console.log(response.valid)
+              Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
+              $("#modal-add-user").modal("hide");
+              getPagination(currentPaginationOptions, valuePage.curPage);
+            },
+          });
+          
+        },
+        error: function (error) {
+          console.error(error.responseText);
+        }
+      })
+    } else {
+      Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
+    }
   });
 
   $(document).on("click", ".user-edit", function () {
@@ -160,9 +249,8 @@ $(document).ready(function () {
         status: $("#user_status").prop("checked") ? 1 : 0,
       },
       success: function (response) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
         $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
       },
     });
   });
@@ -205,28 +293,13 @@ $(document).ready(function () {
           },
           success: function (response) {
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
-            // loadData();
-            getNumberPage("user", 1);
-            fetch_data("user", 1);
+            getPagination(currentPaginationOptions, valuePage.curPage);
           },
         });
       } else {
         e.fire("Cancelled", "Bạn đã không xóa người dùng :)", "error");
       }
     });
-  });
-
-  $(document).on("click", ".page-link", function () {
-    var page = $(this).attr("id");
-    currentPage = page;
-    getNumberPage("user", currentPage);
-    fetch_data("user", currentPage);
-  });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    getNumberPage("user", 1);
-    fetch_data("user", 1);
   });
 
   $("#nhap-file").click(function (e) {
@@ -246,7 +319,6 @@ $(document).ready(function () {
       },
       success: function (response) {
         addExcel(response);
-
       },
       complete: function () {
         Dashmix.layout("header_loader_off");
@@ -261,17 +333,39 @@ $(document).ready(function () {
       data: {
         listuser: data,
       },
-      dataType: 'json',
       success: function (response) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
         $("#modal-add-user").modal("hide");
-        getNumberPage("user", currentPage);
-        fetch_data("user", currentPage);
-        loadData();
       },
     });
   }
 
-  let currentPage = 1;
-  getNumberPage("user", currentPage);
-  fetch_data("user", currentPage);
+  // Pagination initialization
+  const defaultPaginationOptions = {
+    controller: "user",
+    model: "NguoiDungModel",
+  };
+  let currentPaginationOptions = defaultPaginationOptions;
+
+  document
+    .querySelector(".pagination-container")
+    .addEventListener("click", function (e) {
+      if (e.target.closest(".page-link")) {
+        getPagination(currentPaginationOptions, valuePage.curPage);
+      }
+    });
+
+  $("#search-form").on("input", function (e) {
+    e.preventDefault();
+    var input = $("#search-input").val();
+    if (input == "") {
+      delete currentPaginationOptions.input;
+    } else {
+      currentPaginationOptions.input = input;
+      valuePage.curPage = 1;
+    }
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  getPagination(currentPaginationOptions, valuePage.curPage);
 });

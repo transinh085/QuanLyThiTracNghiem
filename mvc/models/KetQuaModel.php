@@ -82,5 +82,27 @@ class KetQuaModel extends DB{
         }
         return $rows;
     }
+
+    public function getExamineeByGroup($made, $manhom) {
+        $sql = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = $made AND CTN.manhom = $manhom";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
+        if ($filter) {
+            $query = $query . " AND CTN.manhom = $filter";
+        }
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY id ASC";
+        return $query;
+    }
 }
 ?>

@@ -38,9 +38,9 @@ class NguoiDungModel extends DB
     }
 
     // Update Profile
-    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email)
+    public function updateProfile($fullname,$gioitinh,$ngaysinh, $email ,$id)
     {
-        $sql = "UPDATE `nguoidung` SET `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `email`='$email'";
+        $sql = "UPDATE `nguoidung` SET `email` = '$email',`hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh'WHERE `id`='$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) $check = false;
@@ -230,5 +230,15 @@ class NguoiDungModel extends DB
         }
         $query = $query . " ORDER BY id ASC";
         return $query;
+    }
+
+    public function checkUser($mssv, $email) {
+        $sql = "SELECT * FROM `nguoidung` WHERE `id` = $mssv OR `email` = '$email'";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

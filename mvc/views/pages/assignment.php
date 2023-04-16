@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="block-content">
-            <form action="#" id="search-form">
+            <form action="#" id="search-form" onsubmit="return false;">
                 <div class="mb-4">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"

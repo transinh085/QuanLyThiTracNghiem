@@ -44,6 +44,16 @@ function showData(data) {
   $("a[data-bs-toogle='tooltip']").tooltip();
 }
 
+const made = document.getElementById("chitietdethi").dataset.id;
+
+// Lấy danh sách mã nhóm
+const listGroupID = [];
+document.querySelectorAll(".filter-search").forEach(function (element) {
+  const id = element.dataset.value;
+  listGroupID.push(+id);
+});
+let currentGroupID = listGroupID[0];
+
 $(document).ready(function () {
   $("[data-bs-target='#modal-cau-hoi']").click(function (e) {
     e.preventDefault();
@@ -83,7 +93,7 @@ $(document).ready(function () {
     });
     $("#list-question").html(html);
   }
-
+  var made = $("#chitietdethi").data("id");
   function showTookTheExam(made) {
     $.ajax({
       type: "post",
@@ -97,8 +107,8 @@ $(document).ready(function () {
       },
     });
   }
-  var made = $("#chitietdethi").data("id");
-  //   showTookTheExam(made);
+  
+  // showTookTheExam(made);
 
   function showExamineeByGroup(made, manhom) {
     $.ajax({
@@ -127,42 +137,13 @@ $(document).ready(function () {
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
-  // Lấy danh sách mã nhóm
-  const listGroupID = [];
-  document.querySelectorAll(".filter-search").forEach(function (element) {
-    const id = element.dataset.value;
-    listGroupID.push(+id);
-  });
-  let currentGroupID = listGroupID[0];
-
-  // Pagination initialization
-  const defaultPaginationOptions = {
-    controller: "test",
-    model: "KetQuaModel",
-    made,
-    filter: currentGroupID,
-  };
-  let currentPaginationOptions = defaultPaginationOptions;
-
-  document
-    .querySelector(".pagination-container")
-    .addEventListener("click", function (e) {
-      if (e.target.closest(".page-link")) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
-      }
-    });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input == "") {
-      delete currentPaginationOptions.input;
-    } else {
-      currentPaginationOptions.input = input;
-      valuePage.curPage = 1;
-    }
-    getPagination(currentPaginationOptions, valuePage.curPage);
-  });
-
-  getPagination(currentPaginationOptions, valuePage.curPage);
 });
+
+(function () {
+  // Pagination
+  defaultPaginationOptions.controller = "test";
+  defaultPaginationOptions.model = "KetQuaModel";
+  defaultPaginationOptions.made = made;
+  defaultPaginationOptions.filter = currentGroupID;
+  getPagination(currentPaginationOptions, valuePage.curPage);
+})();

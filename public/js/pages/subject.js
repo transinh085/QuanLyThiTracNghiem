@@ -436,32 +436,9 @@ $(document).ready(function () {
     });
   });
 
-  // Pagination initialization
-  const defaultPaginationOptions = {
-    controller: "subject",
-    model: "MonHocModel",
-  };
-  let currentPaginationOptions = defaultPaginationOptions;
-
-  document
-    .querySelector(".pagination-container")
-    .addEventListener("click", function (e) {
-      if (e.target.closest(".page-link")) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
-      }
-    });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input == "") {
-      delete currentPaginationOptions.input;
-    } else {
-      currentPaginationOptions.input = input;
-      valuePage.curPage = 1;
-    }
-    getPagination(currentPaginationOptions, valuePage.curPage);
-  });
-
-  getPagination(currentPaginationOptions, valuePage.curPage);
 });
+
+// Pagination
+defaultPaginationOptions.controller = "subject";
+defaultPaginationOptions.model = "MonHocModel";
+getPagination(currentPaginationOptions, valuePage.curPage);

@@ -52,7 +52,10 @@ class CauTraLoiModel extends DB{
     // Hàm lấy đáp án của câu hỏi đó + đáp án của người chọn
     public function getAllHaveAnswer($macauhoi, $makq) 
     {
-        $sql = "SELECT `cautraloi`.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon`, `makq` FROM `cautraloi`, `chitietketqua` WHERE `cautraloi`.`macauhoi` = `chitietketqua`.`macauhoi` AND `chitietketqua`.`macauhoi` = $macauhoi AND `makq` = $makq";
+        $sql = "SELECT makq, macauhoi, noidungtl, ladapan, macautl, dapanchon FROM (SELECT CTL.* FROM cautraloi CTL WHERE CTL.macauhoi = $macauhoi) T1 
+        LEFT JOIN (SELECT CTKQ.makq, CTKQ.dapanchon, CTKQ.macauhoi AS macauhoi2 FROM chitietketqua CTKQ, cautraloi CTL where CTKQ.dapanchon = CTL.macautl AND CTL.macauhoi = $macauhoi AND CTKQ.makq = $makq) T2 
+        ON T1.macauhoi = T2.macauhoi2";
+        // $sql = "SELECT cautraloi.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon`, `macautl` FROM `cautraloi`, `chitietketqua` WHERE cautraloi.`macauhoi` = chitietketqua.`macauhoi` AND cautraloi.`macauhoi` = $macauhoi AND `makq` = $makq";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

@@ -276,9 +276,9 @@ class DeThiModel extends DB
         $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
         $question = array();
         if($data_dethi['loaide'] == 0){
-            $question = $this->getQuestionOfTestManual($made, $makq);
+            $question = $this->getQuestionOfTestManual1($made, $makq);
         } else {
-            $question = $this->getQuestionTestAuto($made, $makq);
+            $question = $this->getQuestionTestAuto1($made, $makq);
         }
         return $question;
     }
@@ -330,6 +330,17 @@ class DeThiModel extends DB
         }
         return $rows;
     }
+
+    // public function getAnswerOfTest($made, $makq)
+    // {
+    //     $sql = "SELECT cautraloi.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon` FROM `cautraloi`, `chitietketqua` WHERE cautraloi.`macauhoi` = chitietketqua.`macauhoi` AND chitietketqua.`macauhoi` = $macauhoi AND `makq` = $makq";
+    //     $result = mysqli_query($this->con,$sql);
+    //     $rows = array();
+    //     while($row = mysqli_fetch_assoc($result)) {
+    //         $rows[] = $row;
+    //     }
+    //     return $rows;
+    // }
 
     public function getTimeTest($dethi,$nguoidung){
         $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";

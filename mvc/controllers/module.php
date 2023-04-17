@@ -34,7 +34,8 @@
                     "Title" => "Quản lý nhóm",
                     "Plugin" => [
                         "datepicker" => 1,
-                        "flatpickr" => 1
+                        "flatpickr" => 1,
+                        "sweetalert2" => 1, 
                     ],
                     "Script" => "class_detail",
                     "Detail" => $this->nhomModel->getDetailGroup($manhom)
@@ -133,6 +134,25 @@
                 $manhom = $_POST['manhom'];
                 $result = $this->nhomModel->getSvList($manhom);
                 echo json_encode($result);
+            }
+        }
+
+        public function kickUser()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom= $_POST['manhom'];
+                $manguoidung= $_POST['manguoidung'];
+                $result = $this->nhomModel->kickUser($manhom, $manguoidung);
+            }
+        }
+
+        public function updateSiso()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->updateSiso($manhom);
+                echo json_encode($result);
+                // echo $result;
             }
         }
     }

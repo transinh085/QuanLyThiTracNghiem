@@ -9,7 +9,6 @@ Dashmix.onLoad((() => class {
           },
           "ghi-chu": {
             required: !0,
-            emailWithDot: !0
           },
           "mon-hoc": {
             required: !0,
@@ -27,8 +26,7 @@ Dashmix.onLoad((() => class {
             digits: "Please enter alphanumeric characters"
           },
           "ghi-chu": {
-            required: "Please provide your email",
-            emailWithDot: "Nhap dung dinh dang email"
+            required: "Please not be blank",
           },
           "mon-hoc": {
             required: "Please select a subject",
@@ -68,6 +66,11 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                const listItem = response.forEach((item) => {
+                    item.nhom.forEach((nhom_item) => {
+                        updateSiso(nhom_item.manhom)
+                    })
+                })
                 showGroup(response);
                 groups = response;
             }
@@ -114,7 +117,7 @@ $(document).ready(function () {
                                     <i class="si si-settings"></i>
                                     </button>
                                     <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light" style="">
-                                    <a class="nav-main-link dropdown-item" href="module/detail/${nhom_item.manhom}">
+                                    <a class="nav-main-link dropdown-item manhom" href="module/detail/${nhom_item.manhom}">
                                         <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
                                         <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
                                     </a>
@@ -133,16 +136,43 @@ $(document).ready(function () {
                         </div>
                         <div class="block-content">
                             <p class="block-class-note">${nhom_item.ghichu}</p>
-                            <p>Sỉ số: ${nhom_item.siso}</p>
+                            <p class="Si-So"></p>
                         </div>
                         </div>
                     </div>`;
+                    // updateSiso(nhom_item.manhom);
                 });
+                // item.nhom.forEach((nhom_item) => {
+                //     console.log(nhom_item)
+                //     updateSiso(nhom_item.manhom);
+                // })
                 html += `</div></div>`;
             });
         }
         $("#class-group").html(html);
     }
+
+    function showSiSo(siso) {
+        let html = ""
+        html += `Sỉ số: <span>${siso}</span>`
+        $(".Si-So").html(html)
+    }
+
+    function updateSiso(manhom) {
+        $.ajax({
+            type: "post",
+            url: "./module/updateSiso",
+            data: {
+                manhom: manhom,
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response.SiSo)
+                showSiSo(response.SiSo)
+            }
+        })
+    }
+
 
     $.get(
         "./subject/getSubjectAssignment",

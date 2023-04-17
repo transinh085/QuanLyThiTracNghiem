@@ -211,5 +211,7 @@ document.querySelector("#search-form").addEventListener("input", function (e) {
   getPagination(currentPaginationOptions, valuePage.curPage);
 });
 
-const defaultPaginationOptions = {};
+const defaultPaginationOptions = {
+  custom: {},
+};
 let currentPaginationOptions = defaultPaginationOptions;

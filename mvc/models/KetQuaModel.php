@@ -101,7 +101,19 @@ class KetQuaModel extends DB{
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
         }
-        $query = $query . " ORDER BY id ASC";
+        if (isset($args["custom"]["function"])) {
+            $function = $args["custom"]["function"];
+            switch ($function) {
+                case "sort":
+                    $column = $args["custom"]["column"];
+                    $orderBy = $args["custom"]["order"];
+                    $query = $query . " ORDER BY $column $orderBy";
+                    break;
+                default:
+            }
+        } else {
+            $query = $query . " ORDER BY id ASC";
+        }
         return $query;
     }
 }

@@ -66,8 +66,8 @@ footer {
                             <thead>
                                 <tr>
                                     <th class="text-center">MSSV</th>
-                                    <th>Họ tên</th>
-                                    <th class="text-center">Điểm</th>
+                                    <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
+                                    <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
                                     <th class="text-center">Thời gian vào thi</th>
                                     <th class="text-center">Thời gian thi</th>
                                     <th class="text-center">Số lần thoát</th>

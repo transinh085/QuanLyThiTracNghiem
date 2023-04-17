@@ -151,30 +151,6 @@ $(document).ready(function () {
       }
       const chonDung = dapanchonIndex === dapandungIndex;
 
-      // if (dapanchonIndex == null) {
-      //   question.cautraloi.forEach((ctl,i) => {
-      //     htmlResult += `
-      //     <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //     <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //     `;
-      //   })
-      // } else {
-      //   if (chonDung) {
-      //     question.cautraloi.forEach((ctl,i) => {
-      //       htmlResult += `
-      //       <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //       <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-true" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //       `;
-      //     });
-      //   } else {
-      //     question.cautraloi.forEach((ctl,i) => {
-      //       htmlResult += `
-      //       <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //       <label class="btn btn-light rounded-pill me-2 btn-answer-question ${i === dapanchonIndex ? "btn-answer-chose" : ""}${i === dapandungIndex ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //       `;
-      //     });
-      //   }
-      // }
 
       if (chonDung) {
         question.cautraloi.forEach((ctl,i) => {

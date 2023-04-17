@@ -68,39 +68,19 @@ function showData(data) {
   $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
+// Get current user ID
+const container = document.querySelector(".content");
+const currentUser = container.dataset.id;
+delete container.dataset.id;
+
 $(document).ready(function () {
-  // Get current user ID
-  const container = document.querySelector(".content");
-  const currentUser = container.dataset.id;
-  delete container.dataset.id;
-
-  // Pagination initialization
-  const defaultPaginationOptions = {
-    controller: "client",
-    model: "DeThiModel",
-    manguoidung: currentUser,
-  };
-  let currentPaginationOptions = defaultPaginationOptions;
-
-  document
-    .querySelector(".pagination-container")
-    .addEventListener("click", function (e) {
-      if (e.target.closest(".page-link")) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
-      }
-    });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input == "") {
-      delete currentPaginationOptions.input;
-    } else {
-      currentPaginationOptions.input = input;
-      valuePage.curPage = 1;
-    }
-    getPagination(currentPaginationOptions, valuePage.curPage);
-  });
-
-  getPagination(currentPaginationOptions, valuePage.curPage);
+  
 });
+
+(function () {
+  // Pagination
+  defaultPaginationOptions.controller = "client";
+  defaultPaginationOptions.model = "DeThiModel";
+  defaultPaginationOptions.manguoidung = currentUser;
+  getPagination(currentPaginationOptions, valuePage.curPage);
+})();

@@ -192,10 +192,24 @@ pg.addEventListener("click", function (e) {
   }
 });
 
-document
-  .querySelector(".pagination-container")
-  .addEventListener("click", function (e) {
-    if (e.target.closest(".page-link")) {
-      handleButton(e.target.closest(".page-link"));
-    }
-  });
+document.querySelector(".pagination-container").addEventListener("click", function (e) {
+  if (e.target.closest(".page-link")) {
+    handleButton(e.target.closest(".page-link"));
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  }
+});
+
+document.querySelector("#search-form").addEventListener("input", function (e) {
+  e.preventDefault();
+  const input = document.querySelector("#search-input");
+  if (input.value == "") {
+    delete currentPaginationOptions.input;
+  } else {
+    currentPaginationOptions.input = input.value;
+    valuePage.curPage = 1;
+  }
+  getPagination(currentPaginationOptions, valuePage.curPage);
+});
+
+const defaultPaginationOptions = {};
+let currentPaginationOptions = defaultPaginationOptions;

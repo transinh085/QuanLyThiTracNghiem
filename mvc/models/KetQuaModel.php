@@ -93,6 +93,18 @@ class KetQuaModel extends DB{
         return $rows;
     }
 
+    public function getQuerySortByName($filter, $input, $args, $order) {
+        $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
+        if ($filter) {
+            $query = $query . " AND CTN.manhom = $filter";
+        }
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY firstname $order";
+        return $query;
+    }
+
     public function getQuery($filter, $input, $args) {
         $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
         if ($filter) {
@@ -106,8 +118,16 @@ class KetQuaModel extends DB{
             switch ($function) {
                 case "sort":
                     $column = $args["custom"]["column"];
-                    $orderBy = $args["custom"]["order"];
-                    $query = $query . " ORDER BY $column $orderBy";
+                    $order = $args["custom"]["order"];
+                    switch ($column) {
+                        case "diemthi":
+                            $query = $query . " ORDER BY $column $order";
+                            break;
+                        case "hoten":
+                            $query = $this->getQuerySortByName($filter, $input, $args, $order);
+                            break;
+                        default:
+                    }
                     break;
                 default:
             }

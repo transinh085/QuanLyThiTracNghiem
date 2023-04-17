@@ -134,6 +134,7 @@ $(document).ready(function () {
     $(".btn-filter").text($(this).text());
     currentGroupID = $(this).data("value");
     defaultPaginationOptions.filter = currentGroupID;
+    resetSortIcons();
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 

@@ -160,7 +160,7 @@ $(document).ready(function () {
                       test.cautraloi.forEach((ctl,i) => {
                         html += `
                         <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-                        <label class="btn btn-light rounded-pill me-2 ${ctl.ladapan === '1' ? `btn-answer-true` : ``}   btn-answer-question" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
+                        <label class="btn btn-light rounded-pill me-2 ${ctl.ladapan === '1' ? `btn-answer-true` : ``}    btn-answer-question" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
                         `;
                       })  
                         // <input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">

@@ -1,5 +1,5 @@
 function showData(data) {
-  //   console.log(data);
+  // console.log(data);
   let html = "";
   let index = 1;
   data.forEach((Element) => {
@@ -14,7 +14,7 @@ function showData(data) {
       ":" +
       seconds.toString().padStart(2, "0");
     html += `<tr>
-        <td class="text-center">${index++}</td>
+        <td class="text-center">${Element["manguoidung"]}</td>
         <td class="fs-sm d-flex align-items-center">
             <img class="img-avatar img-avatar48 me-3"
                 src="./public/media/avatars/${
@@ -27,7 +27,7 @@ function showData(data) {
                 }</span>
             </div>
         </td>
-        <td class="text-center">${Element["diemthi"]}</td>
+        <td class="text-center">${Element["diemthi"] ? Element["diemthi"] : "(Chưa nộp bài)"}</td>
         <td class="text-center">${Element["thoigianvaothi"]}</td>
         <td class="text-center">${formattedTime}</td>
         <td class="text-center">${Element["solanchuyentab"]}</td>
@@ -41,6 +41,16 @@ function showData(data) {
   $("#took_the_exam").html(html);
   $("a[data-bs-toogle='tooltip']").tooltip();
 }
+
+const made = document.getElementById("chitietdethi").dataset.id;
+
+// Lấy danh sách mã nhóm
+const listGroupID = [];
+document.querySelectorAll(".filter-search").forEach(function (element) {
+  const id = element.dataset.value;
+  listGroupID.push(+id);
+});
+let currentGroupID = listGroupID[0];
 
 $(document).ready(function () {
   $("[data-bs-target='#modal-cau-hoi']").click(function (e) {
@@ -81,7 +91,7 @@ $(document).ready(function () {
     });
     $("#list-question").html(html);
   }
-
+  var made = $("#chitietdethi").data("id");
   function showTookTheExam(made) {
     $.ajax({
       type: "post",
@@ -96,8 +106,9 @@ $(document).ready(function () {
       },
     });
   }
+
   var made = $("#chitietdethi").data("id");
-    showTookTheExam(made);
+  // showTookTheExam(made);
 
   function showExamineeByGroup(made, manhom) {
     $.ajax({
@@ -126,14 +137,6 @@ $(document).ready(function () {
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
-  // Lấy danh sách mã nhóm
-  const listGroupID = [];
-  document.querySelectorAll(".filter-search").forEach(function (element) {
-    const id = element.dataset.value;
-    listGroupID.push(+id);
-  });
-  let currentGroupID = listGroupID[0];
-  showExamineeByGroup(made, currentGroupID);
 
   // Hiển thị đề kiểm tra đáp án + câu trả lời của thí sinh đó
   function showTestDetail(test) {
@@ -263,38 +266,15 @@ $(document).ready(function () {
         showTestDetail(response)
       }
     })
-
-  
   })
 
-  // Pagination initialization
-  const defaultPaginationOptions = {
-    controller: "test",
-    model: "KetQuaModel",
-    made,
-    filter: currentGroupID,
-  };
-  let currentPaginationOptions = defaultPaginationOptions;
-
-  document
-    .querySelector(".pagination-container")
-    .addEventListener("click", function (e) {
-      if (e.target.closest(".page-link")) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
-      }
-    });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input == "") {
-      delete currentPaginationOptions.input;
-    } else {
-      currentPaginationOptions.input = input;
-      valuePage.curPage = 1;
-    }
-    getPagination(currentPaginationOptions, valuePage.curPage);
-  });
-
-  getPagination(currentPaginationOptions, valuePage.curPage);
 });
+
+(function () {
+  // Pagination
+  defaultPaginationOptions.controller = "test";
+  defaultPaginationOptions.model = "KetQuaModel";
+  defaultPaginationOptions.made = made;
+  defaultPaginationOptions.filter = currentGroupID;
+  getPagination(currentPaginationOptions, valuePage.curPage);
+})();

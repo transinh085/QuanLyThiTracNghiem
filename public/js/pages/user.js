@@ -1,6 +1,5 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 
-
 Dashmix.onLoad((() => class {
   static initValidation() {
     Dashmix.helpers("jq-validation"), jQuery(".form-add-user").validate({
@@ -345,32 +344,9 @@ $(document).ready(function () {
     });
   }
 
-  // Pagination initialization
-  const defaultPaginationOptions = {
-    controller: "user",
-    model: "NguoiDungModel",
-  };
-  let currentPaginationOptions = defaultPaginationOptions;
-
-  document
-    .querySelector(".pagination-container")
-    .addEventListener("click", function (e) {
-      if (e.target.closest(".page-link")) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
-      }
-    });
-
-  $("#search-form").on("input", function (e) {
-    e.preventDefault();
-    var input = $("#search-input").val();
-    if (input == "") {
-      delete currentPaginationOptions.input;
-    } else {
-      currentPaginationOptions.input = input;
-      valuePage.curPage = 1;
-    }
-    getPagination(currentPaginationOptions, valuePage.curPage);
-  });
-
-  getPagination(currentPaginationOptions, valuePage.curPage);
 });
+
+// Pagination
+defaultPaginationOptions.controller = "user";
+defaultPaginationOptions.model = "NguoiDungModel";
+getPagination(currentPaginationOptions, valuePage.curPage);

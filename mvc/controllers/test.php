@@ -266,11 +266,31 @@ class Test extends Controller
     public function getQuestion()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $made = $_POST['made'];;
+            $made = $_POST['made'];
             $result = $this->dethimodel->getQuestionOfTest($made);
             echo json_encode($result);
         }
     }
+
+    public function getQuestion1()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $makq = $_POST['makq'];
+            $result = $this->dethimodel->getQuestionOfTest1($made, $makq);
+            echo json_encode($result);
+        }
+    }
+
+    // public function getAnswer()
+    // {
+    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //         $made = $_POST['made'];
+    //         $makq = $_POST['makq'];
+    //         $result = $this->dethimodel->getAnswerOfTest($made, $makq);
+    //         echo json_encode($result);
+    //     }
+    // }
 
     public function startTest()
     {

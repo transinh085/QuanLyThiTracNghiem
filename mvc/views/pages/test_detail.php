@@ -114,6 +114,7 @@ footer {
     </div>
 </div>
 
+
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h4 class="offcanvas-title" id="offcanvasExampleLabel"><?php echo $data["Test"]["tende"] ?></h4>
@@ -152,4 +153,40 @@ footer {
             ?>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="modal-show-test" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết kết quả</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+                <div id="content-file">
+                    <!-- <div class="question rounded border mb-3">
+                        <div class="question-top p-3">
+                            <p class="question-content fw-bold mb-3">1. OOP là viết tắt của: </p>
+                            <div class="row"><div class="col-6 mb-1">
+                            <p class="mb-1"><b>A.</b> Object Open Programming</p></div><div class="col-6 mb-1">
+                            <p class="mb-1"><b>B.</b> Open Object Programming</p></div><div class="col-6 mb-1">
+                            <p class="mb-1"><b>C.</b> Object Oriented Programming.</p></div><div class="col-6 mb-1">
+                            <p class="mb-1"><b>D.</b> Object Oriented Proccessing.</p></div></div>
+                        </div>
+                        <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer-false btn-answer-question" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
+                            <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
+                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+            </div>
+        </div>
 </div>

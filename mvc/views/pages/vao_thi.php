@@ -109,7 +109,7 @@ if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-hero btn-info w-100" role="button">Xem chi tiết bài thi</button>
+            <button class="btn btn-hero btn-info w-100" id="show-exam-detail" role="button">Xem chi tiết bài thi</button>
         </div>
 
     </div>

@@ -256,6 +256,7 @@ class DeThiModel extends DB
         return $rows;
     }
 
+
     public function getQuestionOfTestManual($made)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
@@ -263,11 +264,83 @@ class DeThiModel extends DB
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
         while($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);;
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;
     }
+
+    public function getQuestionOfTest1($made, $makq)
+    {
+        $sql_dethi = "select * from dethi where made = '$made'";
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        $question = array();
+        if($data_dethi['loaide'] == 0){
+            $question = $this->getQuestionOfTestManual1($made, $makq);
+        } else {
+            $question = $this->getQuestionTestAuto1($made, $makq);
+        }
+        return $question;
+    }
+
+    public function getQuestionTestAuto1($made, $makq){
+        $sql_dethi = "select * from dethi where made = '$made'";
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        $socaude = $data_dethi['socaude'];
+        $socautb = $data_dethi['socautb'];
+        $socaukho = $data_dethi['socaukho'];
+        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
+        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 and dttd.made = '$made' order by rand() limit $socautb";
+        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 and dttd.made = '$made' order by rand() limit $socaukho";
+        $result_cd = mysqli_query($this->con,$sql_cd);
+        $result_tb = mysqli_query($this->con,$sql_ctb);
+        $result_ck = mysqli_query($this->con,$sql_ck);
+        $result = array();
+        while ($row = mysqli_fetch_assoc($result_cd)) {
+            $result[] = $row;
+        }
+        while ($row = mysqli_fetch_assoc($result_tb)) {
+            $result[] = $row;
+        }
+        while ($row = mysqli_fetch_assoc($result_ck)) {
+            $result[] = $row;
+        }
+        shuffle($result);
+        $rows = array();
+        
+        $ctlmodel = new CauTraLoiModel();
+
+        foreach($result as $row) {
+            $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+
+    public function getQuestionOfTestManual1($made, $makq)
+    {
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        $ctlmodel = new CauTraLoiModel();
+        while($row = mysqli_fetch_assoc($result)) {
+            $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // public function getAnswerOfTest($made, $makq)
+    // {
+    //     $sql = "SELECT cautraloi.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon` FROM `cautraloi`, `chitietketqua` WHERE cautraloi.`macauhoi` = chitietketqua.`macauhoi` AND chitietketqua.`macauhoi` = $macauhoi AND `makq` = $makq";
+    //     $result = mysqli_query($this->con,$sql);
+    //     $rows = array();
+    //     while($row = mysqli_fetch_assoc($result)) {
+    //         $rows[] = $row;
+    //     }
+    //     return $rows;
+    // }
 
     public function getTimeTest($dethi,$nguoidung){
         $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";

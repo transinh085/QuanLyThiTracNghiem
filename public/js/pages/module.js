@@ -1,4 +1,52 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
+
+Dashmix.onLoad((() => class {
+    static initValidation() {
+      Dashmix.helpers("jq-validation"), jQuery(".form-add-group").validate({
+        rules: {
+          "ten-nhom": {
+            required: !0,
+          },
+          "ghi-chu": {
+            required: !0,
+            emailWithDot: !0
+          },
+          "mon-hoc": {
+            required: !0,
+          },
+          "nam-hoc": {
+            required: !0
+          },
+          "hoc-ky": {
+            required: !0,
+          },
+        },
+        messages: {
+          "ten-nhom": {
+            required: "Please provide your code student",
+            digits: "Please enter alphanumeric characters"
+          },
+          "ghi-chu": {
+            required: "Please provide your email",
+            emailWithDot: "Nhap dung dinh dang email"
+          },
+          "mon-hoc": {
+            required: "Please select a subject",
+          },
+          "nam-hoc": {
+            required: "Please select a shool year",
+          },
+          "hoc-ky": {
+            required: "Please select semester",
+          },
+        }
+      })
+    }
+  
+    static init() {
+      this.initValidation()
+    }
+  }.init()));
 $(document).ready(function () {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -124,27 +172,29 @@ $(document).ready(function () {
 
     $("#add-group").click(function (e) {
         e.preventDefault();
-        $.ajax({
-            type: "post",
-            url: "./module/add",
-            data: {
-                tennhom: $("#ten-nhom").val(),
-                ghichu: $("#ghi-chu").val(),
-                monhoc: $("#mon-hoc").val(),
-                namhoc: $("#nam-hoc").val(),
-                hocky: $("#hoc-ky").val()
-            },
-            success: function (response) {
-                console.log(response);
-                if (response) {
-                    $("#modal-add-group").modal("hide");
-                    loadDataGroup(mode);
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm nhóm thành công!' });
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thêm nhóm không thành công!' });
+
+        if ($(".form-add-group").valid()) {
+            $.ajax({
+                type: "post",
+                url: "./module/add",
+                data: {
+                    tennhom: $("#ten-nhom").val(),
+                    ghichu: $("#ghi-chu").val(),
+                    monhoc: $("#mon-hoc").val(),
+                    namhoc: $("#nam-hoc").val(),
+                    hocky: $("#hoc-ky").val()
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#modal-add-group").modal("hide");
+                        loadDataGroup(mode);
+                        Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm nhóm thành công!' });
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thêm nhóm không thành công!' });
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     $(document).on("click", ".btn-delete-group", function () {
@@ -270,7 +320,8 @@ $(document).ready(function () {
                 hocky: $("#hoc-ky").val()
             },
             success: function (response) {
-                if (response) {
+                console.log(response)
+                if (response === true) {
                     $("#modal-add-group").modal("hide");
                     loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm thành công!' });

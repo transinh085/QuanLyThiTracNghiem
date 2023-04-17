@@ -143,7 +143,7 @@ $(document).ready(function () {
     let html = "";
     test.forEach((question, index) => {
       let htmlResult = "";
-      const dapandungIndex = question.cautraloi.findIndex(el => el.ladapan == 1);
+      const dapandungIndex = question.cautraloi.findIndex(el => el.ladapan == 1); 
       let dapanchon = question.cautraloi[0].dapanchon;
       let dapanchonIndex = null;
       if (dapanchon) {

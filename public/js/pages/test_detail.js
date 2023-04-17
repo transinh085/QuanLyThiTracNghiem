@@ -206,29 +206,29 @@ $(document).ready(function () {
         htmlResult += `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${resultChar}</span>`;
       }
 
-      html += `<div class="question rounded border mb-3" data-id="${question.macauhoi}" id="c${index + 1}">
-                <div class="question-top p-3">
-                  <p class="question-content fw-bold mb-3">${index + 1}.${question.noidung} </p>
-                  <div class="row">`;
-                  question.cautraloi.forEach((ctl,i) => {
-                    html += `
-                    <div class="col-6 mb-1">
-                      <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${ctl.noidungtl}</p>
-                    </div>`;
-                  });
-                  html += `
-                        </div>
-                      </div>`;
-                      html += `
-                      <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center show-answer-test ">
-                        <p class="mb-0 text-white me-4">Đáp án của bạn:</p>
-                        `;
-                      test.cautraloi.forEach((ctl,i) => {
-                        html += `
-                        <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-                        <label class="btn btn-light rounded-pill me-2 ${ctl.ladapan === '1' ? `btn-answer-true` : ``}    btn-answer-question" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
-                        `;
-                      })  
+      // html += `<div class="question rounded border mb-3" data-id="${question.macauhoi}" id="c${index + 1}">
+      //           <div class="question-top p-3">
+      //             <p class="question-content fw-bold mb-3">${index + 1}.${question.noidung} </p>
+      //             <div class="row">`;
+      //             question.cautraloi.forEach((ctl,i) => {
+      //               html += `
+      //               <div class="col-6 mb-1">
+      //                 <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${ctl.noidungtl}</p>
+      //               </div>`;
+      //             });
+      //             html += `
+      //                   </div>
+      //                 </div>`;
+      //                 html += `
+      //                 <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center show-answer-test ">
+      //                   <p class="mb-0 text-white me-4">Đáp án của bạn:</p>
+      //                   `;
+                      // test.cautraloi.forEach((ctl,i) => {
+                      //   html += `
+                      //   <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
+                      //   <label class="btn btn-light rounded-pill me-2 ${ctl.ladapan === '1' ? `btn-answer-true` : ``}    btn-answer-question" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
+                      //   `;
+                      // })  
                       html += htmlResult;
                       // question.cautraloi.forEach((ctl,i) => {
                       //   html += `
@@ -245,10 +245,10 @@ $(document).ready(function () {
                         // <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
                         // <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
                         // <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
-                      html += `
-                      </div>
-                      `;  
-                  html += `</div>`;
+                  //     html += `
+                  //     </div>
+                  //     `;  
+                  // html += `</div>`;
     });
     $("#content-file").html(html);
   }

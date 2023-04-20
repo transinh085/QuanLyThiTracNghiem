@@ -21,7 +21,6 @@
     <!-- END Icons -->
     <!-- Stylesheets -->
     <?php
-    $_GET['url'];
     if(isset($data["Plugin"]["datepicker"]) && $data["Plugin"]["datepicker"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">';
     }

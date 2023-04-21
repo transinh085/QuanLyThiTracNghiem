@@ -135,5 +135,15 @@
                 echo json_encode($result);
             }
         }
+
+        public function updateSiso()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $manhom = $_POST['manhom'];
+                $result = $this->nhomModel->updateSiso($manhom);
+                echo json_encode($result);
+                // echo $result;
+            }
+        }
     }
 ?>

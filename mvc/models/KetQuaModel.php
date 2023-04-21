@@ -120,7 +120,11 @@ class KetQuaModel extends DB{
                     $column = $args["custom"]["column"];
                     $order = $args["custom"]["order"];
                     switch ($column) {
+                        case "manguoidung":
                         case "diemthi":
+                        case "thoigianvaothi":
+                        case "thoigianlambai":
+                        case "solanchuyentab":
                             $query = $query . " ORDER BY $column $order";
                             break;
                         case "hoten":

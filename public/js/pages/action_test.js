@@ -1,4 +1,69 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
+
+Dashmix.onLoad((() => class {
+    static initValidation() {
+      Dashmix.helpers("jq-validation"), jQuery(".form-tao-de").validate({
+        rules: {
+          "name-exam": {
+            required: !0,
+          },
+          "time-start": {
+            required: !0,
+          },
+          "time-end": {
+            required: !0,
+          },
+          "exam-time": {
+            required: !0,
+          },
+          "select2-nhom-hp-container": {
+            required: !0,
+          },
+          "user_nhomquyen": {
+            required: !0,
+          },
+          "coban": {
+            required: !0,
+          },
+          "trungbinh": {
+            required: !0,
+          },
+          "kho": {
+            required: !0,
+          }
+        },
+        messages: {
+          "name-exam": {
+            required: "Please provide your test name",
+          },
+          "time-start": {
+            required: "Please select your start time test",
+          },
+          "time-end": {
+            required: "Please select your end time test",
+          },
+          "exam-time": {
+            required: "Please select your time exam",
+          },
+          "select2-nhom-hp-container": {
+            required: "Please select ",
+          },
+          "user_nhomquyen": {
+            required: "Please select the group with permissions",
+          },
+          "user_password": {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+          },
+        }
+      })
+    }
+  
+    static init() {
+      this.initValidation()
+    }
+  }.init()));
+
 $(document).ready(function () {
     // Xử lý cắt url để lấy mã đề thi
     let url = location.href.split("/");
@@ -110,38 +175,40 @@ $(document).ready(function () {
     // Xừ lý sự kiện nhấn nút tạo đề
     $("#btn-add-test").click(function (e) { 
         e.preventDefault();
-        $.ajax({
-            type: "post",
-            url: "./test/addTest",
-            data: {
-                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                tende: $("#name-exam").val(),
-                thoigianthi: $("#exam-time").val(),
-                thoigianbatdau: $("#time-start").val(),
-                thoigianketthuc: $("#time-end").val(),
-                socaude: $("#coban").val(),
-                socautb: $("#trungbinh").val(),
-                socaukho: $("#kho").val(),
-                chuong: $("#chuong").val(),
-                loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
-                xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
-                xemdapan: $("#xemda").prop("checked") ? 1 : 0,
-                xembailam: $("#xembailam").prop("checked") ? 1 : 0,
-                daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
-                daodapan: $("#daodapan").prop("checked") ? 1 : 0,
-                tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
-                manhom: getGroupSelected()
-            },
-            success: function (response) {
-                console.log(response)
-                if(response) {
-                    if($("#tudongsoande").prop("checked")) location.href = "./test";
-                    else location.href = `./test/select/${response}`;
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+        if ($(".form-tao-de").valid()) {
+            $.ajax({
+                type: "post",
+                url: "./test/addTest",
+                data: {
+                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                    tende: $("#name-exam").val(),
+                    thoigianthi: $("#exam-time").val(),
+                    thoigianbatdau: $("#time-start").val(),
+                    thoigianketthuc: $("#time-end").val(),
+                    socaude: $("#coban").val(),
+                    socautb: $("#trungbinh").val(),
+                    socaukho: $("#kho").val(),
+                    chuong: $("#chuong").val(),
+                    loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                    xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                    xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                    xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                    daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                    daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                    tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                    manhom: getGroupSelected()
+                },
+                success: function (response) {
+                    console.log(response)
+                    if(response) {
+                        if($("#tudongsoande").prop("checked")) location.href = "./test";
+                        else location.href = `./test/select/${response}`;
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     /*Chỉnh sửa đề thi*/ 

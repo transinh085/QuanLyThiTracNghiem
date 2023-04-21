@@ -235,3 +235,24 @@ td p {
 .select2-dropdown {
     z-index: 1056;
 }
+
+.col-sort {
+    cursor: pointer;
+}
+
+.col-sort::after {
+    font-family: "Font Awesome 6 Free","Font Awesome 6 Pro";
+    margin-left: 0.5rem;
+}
+
+[data-sort-order="default"]::after {
+    content: "\f0dc";
+}
+
+[data-sort-order="asc"]::after {
+    content: "\f106";
+}
+
+[data-sort-order="desc"]::after {
+    content: "\f107";
+}

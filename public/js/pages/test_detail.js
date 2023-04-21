@@ -134,6 +134,7 @@ $(document).ready(function () {
     $(".btn-filter").text($(this).text());
     currentGroupID = $(this).data("value");
     defaultPaginationOptions.filter = currentGroupID;
+    resetSortIcons();
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
@@ -166,6 +167,45 @@ $(document).ready(function () {
         showTestDetail(response)
       }
     })
+  })
+
+  function resetSortIcons () {
+    document.querySelectorAll(".col-sort").forEach(column => {
+      column.dataset.sortOrder = "default";
+    });
+  }
+
+  $(".col-sort").click(function (e) {
+    const column = e.target.dataset.sortColumn;
+    const prevSortOrder = e.target.dataset.sortOrder;
+    let currentSortOrder = "";
+    switch (prevSortOrder) {
+      case "default":
+        currentSortOrder = "asc";
+        break;
+      case "asc":
+        currentSortOrder = "desc";
+        break;
+      case "desc":
+        currentSortOrder = "default";
+        break;
+    }
+
+    if (currentSortOrder === "default") {
+      currentPaginationOptions.custom = {};
+    } else {
+      currentPaginationOptions.custom.function = "sort";
+      currentPaginationOptions.custom.column = column;
+      currentPaginationOptions.custom.order = currentSortOrder;
+    }
+    
+    // AJAX call (with pagination)
+    valuePage.curPage = 1;
+    getPagination(currentPaginationOptions, valuePage.curPage);
+
+    // Display icon
+    resetSortIcons();
+    e.target.dataset.sortOrder = currentSortOrder;
   })
 
 });

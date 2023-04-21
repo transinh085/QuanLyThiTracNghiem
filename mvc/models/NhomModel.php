@@ -168,5 +168,13 @@ class NhomModel extends DB
         }
         return $rows;
     }
+
+    // hàm update(đếm) sỉ số sinh viên trong nhóm
+    public function updateSiso($manhom)
+    {
+        $sql = "SELECT COUNT(siso) SiSo FROM `nhom`, `chitietnhom` WHERE `nhom`.`manhom` = `chitietnhom`.`manhom` AND `chitietnhom`.`manhom` = '$manhom'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
 }
 ?>

@@ -144,6 +144,28 @@ $(document).ready(function () {
         $("#class-group").html(html);
     }
 
+
+    function showSiSo(siso) {
+        let html = ""
+        html += `Sỉ số: <span>${siso}</span>`
+        $(".Si-So").html(html)
+    }
+
+    function updateSiso(manhom) {
+        $.ajax({
+            type: "post",
+            url: "./module/updateSiso",
+            data: {
+                manhom: manhom,
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response.SiSo)
+                showSiSo(response.SiSo)
+            }
+        })
+    }
+
     $.get(
         "./subject/getSubjectAssignment",
         function (data) {

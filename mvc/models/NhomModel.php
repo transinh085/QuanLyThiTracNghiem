@@ -176,5 +176,12 @@ class NhomModel extends DB
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+
+    public function addSV()
+    {
+        // $sql = "";
+        // $result = ;
+        // return  ;
+    }
 }
 ?>

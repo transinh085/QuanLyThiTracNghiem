@@ -145,5 +145,21 @@
                 // echo $result;
             }
         }
+
+        public function addSV()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $mssv = $_POST['mssv'];
+                $hoten = $_POST['hoten'];
+                $sdt = $_POST['sdt'];
+                $email = $_POST['email'];
+                $ngaysinh = $_POST['ngaysinh'];
+                $password = $_POST['password'];
+                $gioitinh = $_POST['gioitinh'];
+                $result = $this->nhomModel->addSV($mssv,$hoten,$sdt,$email,$ngaysinh,$password,$gioitinh);
+                echo json_encode($result);
+            }
+
+        }
     }
 ?>

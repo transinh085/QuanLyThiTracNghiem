@@ -136,4 +136,26 @@ $(".btn-reset-invited-code").click(function (e) {
     });
 });
 
+
+$(".btn-add-sv").click(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: "post",
+        url: "./module/addSV",
+        data: {
+            mssv: $("#mssv").val(),
+            hoten: $("#hoten").val(),
+            sdt: $("#sdt").val(),
+            email: $("#email").val(),
+            ngaysinh: $("#ngaysinh").val(),
+            password: $("#matkhau").val(),
+            gioitinh: $('input[name="gender"]:checked').val(),
+        },
+        success: function (response) {
+            console.log(response)
+        }
+    });
+});
+
 })

@@ -98,6 +98,9 @@ class KetQuaModel extends DB{
             $query = "SELECT CTN.manguoidung, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manguoidung IN (SELECT manguoidung FROM `chitietnhom` where manhom = ".$args['manhom'].") AND CTN.manguoidung NOT IN (SELECT KQ1.manguoidung FROM ketqua KQ1, nguoidung ND1, chitietnhom CTN1 WHERE KQ1.manguoidung = ND1.id AND CTN1.manguoidung = ND1.id AND KQ1.made = ".$args['made']." AND CTN1.manhom = ".$args['manhom'].")";
         } else {
             $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
+            if (isset($filter) && $filter == "interrupted") {
+                $query = $query . " AND ISNULL(diemthi)";
+            }
         }
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
@@ -116,6 +119,9 @@ class KetQuaModel extends DB{
             $query = $this->getListAbsentFromTest($filter, $input, $args);
         } else {
             $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
+            if (isset($filter) && $filter == "interrupted") {
+                $query = $query . " AND ISNULL(diemthi)";
+            }
         }
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";

@@ -3,7 +3,7 @@ function showData(data) {
   let html = "";
   let index = 1;
   data.forEach((Element) => {
-    var totalSeconds = Element["thoigianlambai"] ? Element["thoigianlambai"] : 0;
+    var totalSeconds = Element["thoigianlambai"] || 0;
     var hours = Math.floor(totalSeconds / 3600);
     var minutes = Math.floor((totalSeconds % 3600) / 60);
     var seconds = Math.floor(totalSeconds % 60);
@@ -27,12 +27,12 @@ function showData(data) {
                 }</span>
             </div>
         </td>
-        <td class="text-center">${Element["diemthi"] ? Element["diemthi"] : "(Chưa nộp bài)"}</td>
-        <td class="text-center">${Element["thoigianvaothi"] ? Element["thoigianvaothi"] : 0}</td>
+        <td class="text-center">${Element["diemthi"] || "(Chưa nộp bài)"}</td>
+        <td class="text-center">${Element["thoigianvaothi"] || "(Vắng thi)"}</td>
         <td class="text-center">${formattedTime}</td>
-        <td class="text-center">${Element["solanchuyentab"] ? Element["solanchuyentab"] : 0}</td>
+        <td class="text-center">${Element["solanchuyentab"] || 0}</td>
         <td class="text-center">
-            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"]}">
+            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"] || ""}">
                 <i class="fa fa-fw fa-eye"></i>
             </a>
         </td>
@@ -135,6 +135,7 @@ $(document).ready(function () {
     currentGroupID = $(this).data("value");
     currentPaginationOptions.manhom = currentGroupID;
     resetFilterState();
+    renderTableTitleColumns();
     resetSortIcons();
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
@@ -143,12 +144,15 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-state").text($(this).text());
     const state = $(this).data("state");
-    if (state === "absent") {
+    if (state !== "present") {
       currentPaginationOptions.filter = state;
     } else {
       delete currentPaginationOptions.filter;
     }
+
+    renderTableTitleColumns(state);
     resetSortIcons();
+    
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
@@ -241,7 +245,12 @@ $(document).ready(function () {
   $(document).on("click", ".show-exam-detail", function() {
     $("#modal-show-test").modal("show");
     let makq = $(this).data("id");
-    console.log(makq)
+    // console.log(makq)
+    if (makq === "" || currentPaginationOptions.filter === "interrupted") {
+      let html = `<h5 class="text-center mb-2 fw-normal">Không thể xem kết quả</h5>`;
+      $("#content-file").html(html);
+      return;
+    }
     $.ajax({
       type: "post",
       url: "./test/getResultDetail",
@@ -268,8 +277,74 @@ $(document).ready(function () {
     $(".btn-filtered-by-state").text("Đã tham gia");
   }
 
-  $(".col-sort").click(function (e) {
+  function renderTableTitleColumns (state = "present") {
+    let html = `
+    <th class="text-center col-sort" data-sort-column="manguoidung" data-sort-order="default">MSSV</th>
+    <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
+    `;
+
+    switch (state) {
+      case "present":
+        html += `
+        <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
+        <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
+        <th class="text-center col-sort" data-sort-column="thoigianlambai" data-sort-order="default">Thời gian thi</th>
+        <th class="text-center col-sort" data-sort-column="solanchuyentab" data-sort-order="default">Số lần thoát</th>
+        `;
+        break;
+      case "absent":
+        html += `
+        <th class="text-center">Điểm</th>
+        <th class="text-center">Thời gian vào thi</th>
+        <th class="text-center">Thời gian thi</th>
+        <th class="text-center">Số lần thoát</th>
+        `;
+        break;
+      case "interrupted":
+        html += `
+        <th class="text-center">Điểm</th>
+        <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
+        <th class="text-center">Thời gian thi</th>
+        <th class="text-center">Số lần thoát</th>
+        `;
+        break;
+      default:
+    }
+    html += `
+    <th class="text-center">Hành động</th>
+    `;
+    $(".table-col-title").html(html);
+  }
+
+  $(".table-col-title").click(function (e) {
+    if (!e.target.classList.contains("col-sort")) {
+      return;
+    }
     const column = e.target.dataset.sortColumn;
+
+    switch (currentPaginationOptions.filter) {
+      case "absent":
+        switch (column) {
+          case "diemthi":
+          case "thoigianvaothi":
+          case "thoigianlambai":
+          case "solanchuyentab":
+            return;
+          default:
+        }
+        break;
+      case "interrupted":
+        switch (column) {
+          case "diemthi":
+          case "thoigianlambai":
+          case "solanchuyentab":
+            return;
+          default:
+        }
+        break;
+      default:
+    }
+
     const prevSortOrder = e.target.dataset.sortOrder;
     let currentSortOrder = "";
     switch (prevSortOrder) {

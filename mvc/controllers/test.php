@@ -278,7 +278,7 @@ class Test extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $makq = $_POST['makq'];
-            $result = $this->dethimodel->getResultDetail($made, $makq);
+            $result = $this->dethimodel->getResultDetail($makq);
             echo json_encode($result);
         }
     }

@@ -154,88 +154,28 @@ $(document).ready(function () {
 
 
   // Hiển thị đề kiểm tra đáp án + câu trả lời của thí sinh đó
-  function showTestDetail(test) {
-    let html = "";
-    test.forEach((question, index) => {
-      let htmlResult = "";
-      const dapandungIndex = question.cautraloi.findIndex(el => el.ladapan == 1); 
-      let dapanchon = question.cautraloi[0].dapanchon;
-      let dapanchonIndex = null;
-      if (dapanchon) {
-        dapanchonIndex = question.cautraloi.findIndex(el => dapanchon == el.macautl);
-      }
-      const chonDung = dapanchonIndex === dapandungIndex;
-
-      if (chonDung) {
-        question.cautraloi.forEach((ctl,i) => {
-          htmlResult += `
-          <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-          <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-true" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-          `;
-        });
-        htmlResult += `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>`;
-      } else {
-        let resultChar = "";
-        if (dapanchonIndex == null) {
-          question.cautraloi.forEach((ctl,i) => {
-            if (i === dapandungIndex) resultChar = String.fromCharCode(i + 65);
-            htmlResult += `
-            <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-            <label class="btn btn-light rounded-pill me-2 btn-answer-question" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-            `;
-          })
-        } else {
-          question.cautraloi.forEach((ctl,i) => {
-            if (i === dapandungIndex) resultChar = String.fromCharCode(i + 65);
-            htmlResult += `
-            <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-            <label class="btn btn-light rounded-pill me-2 btn-answer-question ${i === dapanchonIndex ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-            `;
-          });
-        }
-        htmlResult += `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${resultChar}</span>`;
-      }
-
-      html += `<div class="question rounded border mb-3" data-id="${question.macauhoi}" id="c${index + 1}">
-                <div class="question-top p-3">
-                  <p class="question-content fw-bold mb-3">${index + 1}.${question.noidung} </p>
-                  <div class="row">`;
-                  question.cautraloi.forEach((ctl,i) => {
-                    html += `
-                    <div class="col-6 mb-1">
-                      <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${ctl.noidungtl}</p>
-                    </div>`;
-                  });
-                  html += `
-                        </div>
-                      </div>`;
-                      html += `
-                      <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center show-answer-test ">
-                        <p class="mb-0 text-white me-4">Đáp án của bạn:</p>
-                        `;
-                      html += htmlResult;
-                      // question.cautraloi.forEach((ctl,i) => {
-                      //   html += `
-                      //   <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-                      //   <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? `btn-answer-true` : ``}" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
-                      //   `;
-                      // })  
-                      
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer-false btn-answer-question" for="option-c0_0">A</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_1">B</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
-                      html += `
-                      </div>
-                      `;  
-                  html += `</div>`;
-      
+  function showTestDetail(questions) {  
+    let data = ``;
+    questions.forEach((item, index) => {
+      let dadung = item.cautraloi.find(op => op.ladapan == 1);
+      data += `<div class="question rounded border mb-3">
+            <div class="question-top p-3">
+                <p class="question-content fw-bold mb-3">${index + 1}. ${item.noidung} </p>
+                <div class="row">`;
+      item.cautraloi.forEach((op, i) => {
+        data += `<div class="col-6 mb-1">
+                <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${op.noidungtl}</p></div>`;
+      });
+      data += `</div></div>`;
+      data += `<div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p>`;
+      item.cautraloi.forEach((op, i) => {
+        let check = item.dapanchon == op.macautl ? (op.ladapan == 1 ? "btn-answer-true" : "btn-answer-false") : "";
+        data += `<button class="btn btn-light rounded-pill me-2 btn-answer-question ${check}" for="option-c${index}_${i}">${String.fromCharCode(i + 65)}</button>`;
+      });
+      data += dadung.macautl == item.dapanchon ? `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>` : `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${String.fromCharCode(item.cautraloi.indexOf(dadung) + 65)}</span>`;
+      data += `</div></div>`;
     });
-    $("#content-file").html(html);
+    $("#content-file").html(data);
   }
 
   $(document).on("click", ".show-exam-detail", function() {

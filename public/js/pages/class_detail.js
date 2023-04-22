@@ -79,8 +79,8 @@ $(document).on("click", ".kick-user", function() {
                 manguoidung: mssv,
             },
             success: function (response) {
-                loadList();
               e.fire("Deleted!", "Xóa người dùng thành công!", "success");
+              updateSiso(manhom);
             },
           });
         } else {
@@ -104,6 +104,20 @@ function loadList() {
     });
 }
 
+function updateSiso(manhom) {
+        $.ajax({
+            type: "post",
+            url: "./module/updateSiso",
+            data: {
+                manhom: manhom,
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response)
+                loadList();
+            }
+        })
+    }
 
 loadList();
 
@@ -176,6 +190,28 @@ $(".btn-reset-invited-code").click(function (e) {
         },
         success: function (response) {
             showInvitedCode()
+        }
+    });
+});
+
+
+$(".btn-add-sv").click(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: "post",
+        url: "./module/addSV",
+        data: {
+            mssv: $("#mssv").val(),
+            hoten: $("#hoten").val(),
+            sdt: $("#sdt").val(),
+            email: $("#email").val(),
+            ngaysinh: $("#ngaysinh").val(),
+            password: $("#matkhau").val(),
+            gioitinh: $('input[name="gender"]:checked').val(),
+        },
+        success: function (response) {
+            console.log(response)
         }
     });
 });

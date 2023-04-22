@@ -93,6 +93,18 @@ class KetQuaModel extends DB{
         return $rows;
     }
 
+    public function getQuerySortByName($filter, $input, $args, $order) {
+        $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
+        if ($filter) {
+            $query = $query . " AND CTN.manhom = $filter";
+        }
+        if ($input) {
+            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+        }
+        $query = $query . " ORDER BY firstname $order";
+        return $query;
+    }
+
     public function getQuery($filter, $input, $args) {
         $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
         if ($filter) {
@@ -101,7 +113,31 @@ class KetQuaModel extends DB{
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
         }
-        $query = $query . " ORDER BY id ASC";
+        if (isset($args["custom"]["function"])) {
+            $function = $args["custom"]["function"];
+            switch ($function) {
+                case "sort":
+                    $column = $args["custom"]["column"];
+                    $order = $args["custom"]["order"];
+                    switch ($column) {
+                        case "manguoidung":
+                        case "diemthi":
+                        case "thoigianvaothi":
+                        case "thoigianlambai":
+                        case "solanchuyentab":
+                            $query = $query . " ORDER BY $column $order";
+                            break;
+                        case "hoten":
+                            $query = $this->getQuerySortByName($filter, $input, $args, $order);
+                            break;
+                        default:
+                    }
+                    break;
+                default:
+            }
+        } else {
+            $query = $query . " ORDER BY id ASC";
+        }
         return $query;
     }
 }

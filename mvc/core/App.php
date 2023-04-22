@@ -1,12 +1,11 @@
 <?php
 class App{
-
     protected $controller="home";
     protected $action="default";
     protected $params=[];
+    
 
     function __construct(){
-
         $arr = $this->UrlProcess();
         // Controller
         if($arr != NULL) {

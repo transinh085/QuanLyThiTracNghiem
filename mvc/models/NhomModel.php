@@ -169,6 +169,15 @@ class NhomModel extends DB
         return $rows;
     }
 
+    // Kick người dùng ra khỏi nhóm
+    public function kickUser($manhom, $manguoidung) 
+    {
+        $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung' ";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
+        return $check;
+    }
+
     // hàm update(đếm) sỉ số sinh viên trong nhóm
     public function updateSiso($manhom)
     {

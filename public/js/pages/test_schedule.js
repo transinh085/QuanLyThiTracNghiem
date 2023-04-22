@@ -14,7 +14,7 @@ function showData(data) {
     const state = {};
     if (test.diemthi) {
       state.color = "primary";
-      state.text = `${+test.diemthi} điểm`;
+      state.text = `Đã hoàn thành`;
     } else {
       const now = Date.now();
       if (now < +open) {

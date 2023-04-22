@@ -13,6 +13,7 @@ $(".js-validation-signin").submit(function(e){
             },
             dataType: "json",
             success: function (response) {
+                console.log(response.valid)
                 if(response.valid == 'true') {
                     location.href = "./dashboard";
                 } else {

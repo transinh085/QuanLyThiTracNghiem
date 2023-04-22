@@ -222,6 +222,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
+        // console.log(response)
         $("#masinhvien").val(response.id)
         $("#masinhvien").prop("disabled",true);
         $("#user_name").val(response.hoten),
@@ -237,8 +238,16 @@ $(document).ready(function () {
     });
   });
 
+  
+  
   $("#btn-update-user").click(function (e) {
     e.preventDefault();
+    let emailUser = $("#user_email").val();
+    
+      console.log(emailUser)
+
+
+
     $.ajax({
       type: "post",
       url: "./user/update",

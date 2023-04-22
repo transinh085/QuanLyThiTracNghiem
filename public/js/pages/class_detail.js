@@ -1,7 +1,6 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 $(document).ready(function () {
     const manhom = $(".content").data("id")
-    console.log(manhom)
 const showList = function (students) {
     let html = "";
     $(".number-participants").html(students.length);
@@ -26,12 +25,8 @@ const showList = function (students) {
                     <td class="text-center">1</td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-alt-secondary"
-                                data-bs-toggle="tooltip" title="Edit">
-                                <i class="fa fa-fw fa-pencil-alt"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-alt-secondary"
-                                data-bs-toggle="tooltip" title="Delete">
+                            <button type="button" class="btn btn-sm btn-alt-secondary kick-user"
+                                data-bs-toggle="Delete" title="Delete" data-id="${student.id}">
                                 <i class="fa fa-fw fa-times"></i>
                             </button>
                         </div>
@@ -44,6 +39,56 @@ const showList = function (students) {
     $('[data-bs-toggle="tooltip"]').tooltip();
 };
 
+$(document).on("click", ".kick-user", function() {
+    var mssv = $(this).data("id");
+    
+    let e = Swal.mixin({
+        buttonsStyling: !1,
+        target: "#page-container",
+        customClass: {
+          confirmButton: "btn btn-success m-1",
+          cancelButton: "btn btn-danger m-1",
+          input: "form-control",
+        },
+      });
+
+      e.fire({
+        title: "Are you sure?",
+        text: "Bạn có chắc chắn muốn xóa người dùng này ra khỏi nhóm?",
+        icon: "warning",
+        showCancelButton: !0,
+        customClass: {
+          confirmButton: "btn btn-danger m-1",
+          cancelButton: "btn btn-secondary m-1",
+        },
+        confirmButtonText: "Vâng, tôi chắc chắn!",
+        html: !1,
+        preConfirm: (e) =>
+          new Promise((e) => {
+            setTimeout(() => {
+              e();
+            }, 50);
+          }),
+      }).then((t) => {
+        if (t.value == true) {
+          $.ajax({
+            type: "post",
+            url: "./module/kickUser",
+            data: {
+                manhom: manhom, 
+                manguoidung: mssv,
+            },
+            success: function (response) {
+                loadList();
+              e.fire("Deleted!", "Xóa người dùng thành công!", "success");
+            },
+          });
+        } else {
+          e.fire("Cancelled", "Bạn đã không xóa người dùng, bạn là một người tốt :)", "error");
+        }
+      });  
+
+})
 
 function loadList() {
     $.ajax({
@@ -54,7 +99,6 @@ function loadList() {
         },
         dataType: "json",
         success: function (response) {
-            console.log(response.length)
             showList(response);
         }
     });

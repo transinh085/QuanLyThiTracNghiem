@@ -116,23 +116,23 @@
                         aria-labelledby="them-thu-cong-tab" tabindex="0">
                         <form action="" method="post">
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="" id="" placeholder="Mã sinh viên">
+                                <input type="text" class="form-control" name="mssv" id="mssv" placeholder="Mã sinh viên">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="" id="" placeholder="Họ và tên">
+                                <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và tên">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="" id="" placeholder="Số điện thoại">
+                                <input type="text" class="form-control" name="sdt" id="sdt" placeholder="Số điện thoại">
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" name="" id="" placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
-                                    name="example-flatpickr-custom" placeholder="Ngày sinh" data-date-format="d-m-Y">
+                                <input type="text" class="js-flatpickr form-control" id="ngaysinh"
+                                    name="ngaysinh" placeholder="Ngày sinh" data-date-format="d-m-Y">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" name="" id="" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="matkhau" id="matkhau" placeholder="Mật khẩu">
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-2" for="">Giới tính</label>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Done</button>
                 </div>
             </div>
         </div>

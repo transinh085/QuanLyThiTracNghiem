@@ -56,7 +56,7 @@
                         ?>
                         <h3 class="block-title"><?php echo $title ?></h3>
                     </div>
-                    <div class="block-content">
+                    <div class="block block-content">
                         <div class="mb-4">
                             <label class="form-label" for="name-exam">Tên đề kiểm tra</label>
                             <input type="text" class="form-control" id="name-exam" name="name-exam"

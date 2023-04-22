@@ -117,6 +117,16 @@ $(document).ready(function(){
     function addAssignment(giangvien,listSubject){
         $.ajax({
             type: "post",
+            url: "./assignment/deleteAll",
+            data: {
+                id: giangvien
+            },
+            success: function (response) {
+                
+            }
+        });
+        $.ajax({
+            type: "post",
             url: "./assignment/addAssignment",
             data: {
                 magiangvien: giangvien,

@@ -51,6 +51,12 @@ class PhanCongModel extends DB{
         return $result;
     }
 
+    public function deleteAll($id){
+        $sql = "DELETE FROM `phancong` WHERE manguoidung = '$id'";
+        $result = mysqli_query($this->con,$sql);
+        return $result;
+    }
+
     public function getAssignmentByUser($user){
         $sql = "SELECT * FROM `phancong` where manguoidung = '$user'";
         $result = mysqli_query($this->con,$sql);

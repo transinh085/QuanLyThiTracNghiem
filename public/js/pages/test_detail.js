@@ -3,7 +3,7 @@ function showData(data) {
   let html = "";
   let index = 1;
   data.forEach((Element) => {
-    var totalSeconds = Element["thoigianlambai"];
+    var totalSeconds = Element["thoigianlambai"] ? Element["thoigianlambai"] : 0;
     var hours = Math.floor(totalSeconds / 3600);
     var minutes = Math.floor((totalSeconds % 3600) / 60);
     var seconds = Math.floor(totalSeconds % 60);
@@ -28,9 +28,9 @@ function showData(data) {
             </div>
         </td>
         <td class="text-center">${Element["diemthi"] ? Element["diemthi"] : "(Chưa nộp bài)"}</td>
-        <td class="text-center">${Element["thoigianvaothi"]}</td>
+        <td class="text-center">${Element["thoigianvaothi"] ? Element["thoigianvaothi"] : 0}</td>
         <td class="text-center">${formattedTime}</td>
-        <td class="text-center">${Element["solanchuyentab"]}</td>
+        <td class="text-center">${Element["solanchuyentab"] ? Element["solanchuyentab"] : 0}</td>
         <td class="text-center">
             <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"]}">
                 <i class="fa fa-fw fa-eye"></i>
@@ -46,7 +46,7 @@ const made = document.getElementById("chitietdethi").dataset.id;
 
 // Lấy danh sách mã nhóm
 const listGroupID = [];
-document.querySelectorAll(".filter-search").forEach(function (element) {
+document.querySelectorAll(".filtered-by-group").forEach(function (element) {
   const id = element.dataset.value;
   listGroupID.push(+id);
 });
@@ -129,11 +129,25 @@ $(document).ready(function () {
   }
 
   // Dropdown
-  $(".filter-search").click(function (e) {
+  $(".filtered-by-group").click(function (e) {
     e.preventDefault();
-    $(".btn-filter").text($(this).text());
+    $(".btn-filtered-by-group").text($(this).text());
     currentGroupID = $(this).data("value");
-    defaultPaginationOptions.filter = currentGroupID;
+    currentPaginationOptions.manhom = currentGroupID;
+    resetFilterState();
+    resetSortIcons();
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  $(".filtered-by-state").click(function (e) {
+    e.preventDefault();
+    $(".btn-filtered-by-state").text($(this).text());
+    const state = $(this).data("state");
+    if (state === "absent") {
+      currentPaginationOptions.filter = state;
+    } else {
+      delete currentPaginationOptions.filter;
+    }
     resetSortIcons();
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
@@ -151,31 +165,6 @@ $(document).ready(function () {
         dapanchonIndex = question.cautraloi.findIndex(el => dapanchon == el.macautl);
       }
       const chonDung = dapanchonIndex === dapandungIndex;
-
-      // if (dapanchonIndex == null) {
-      //   question.cautraloi.forEach((ctl,i) => {
-      //     htmlResult += `
-      //     <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //     <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //     `;
-      //   })
-      // } else {
-      //   if (chonDung) {
-      //     question.cautraloi.forEach((ctl,i) => {
-      //       htmlResult += `
-      //       <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //       <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-true" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //       `;
-      //     });
-      //   } else {
-      //     question.cautraloi.forEach((ctl,i) => {
-      //       htmlResult += `
-      //       <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-      //       <label class="btn btn-light rounded-pill me-2 btn-answer-question ${i === dapanchonIndex ? "btn-answer-chose" : ""}${i === dapandungIndex ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-      //       `;
-      //     });
-      //   }
-      // }
 
       if (chonDung) {
         question.cautraloi.forEach((ctl,i) => {
@@ -257,7 +246,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "./test/getQuestion1",
+      url: "./test/getResultDetail",
       data: {
         makq: makq,
         made: made,
@@ -274,6 +263,11 @@ $(document).ready(function () {
     document.querySelectorAll(".col-sort").forEach(column => {
       column.dataset.sortOrder = "default";
     });
+  }
+
+  function resetFilterState () {
+    delete currentPaginationOptions.filter;
+    $(".btn-filtered-by-state").text("Đã tham gia");
   }
 
   $(".col-sort").click(function (e) {
@@ -316,6 +310,6 @@ $(document).ready(function () {
   defaultPaginationOptions.controller = "test";
   defaultPaginationOptions.model = "KetQuaModel";
   defaultPaginationOptions.made = made;
-  defaultPaginationOptions.filter = currentGroupID;
+  defaultPaginationOptions.manhom = currentGroupID;
   getPagination(currentPaginationOptions, valuePage.curPage);
 })();

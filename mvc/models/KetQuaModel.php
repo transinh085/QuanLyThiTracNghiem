@@ -114,6 +114,16 @@ class KetQuaModel extends DB{
         return $query;
     }
 
+    // Lấy thông tin đề thi, kết quả của sinh viên để xuất file PDF
+    public function getInfoPrintPdf($makq)
+    {
+        $sql = "SELECT DISTINCT ketqua.made, tende, tenmonhoc, mamonhoc, thoigianthi, manguoidung, hoten, socaudung,(socaude + socautb + socaukho) AS tongsocauhoi , diemthi
+        FROM chitietketqua, ketqua, dethi, monhoc, nguoidung
+        WHERE chitietketqua.makq = '$makq' AND chitietketqua.makq = ketqua.makq AND ketqua.manguoidung = nguoidung.id AND ketqua.made = dethi.made AND dethi.monthi = monhoc.mamonhoc";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
     public function getQuery($filter, $input, $args) {
         if (isset($filter) && $filter == "absent") {
             $query = $this->getListAbsentFromTest($filter, $input, $args);
@@ -154,4 +164,3 @@ class KetQuaModel extends DB{
         return $query;
     }
 }
-?>

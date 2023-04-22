@@ -32,14 +32,17 @@ function showData(data) {
         <td class="text-center">${formattedTime}</td>
         <td class="text-center">${Element["solanchuyentab"] || 0}</td>
         <td class="text-center">
-            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"] || ""}">
+            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Xem chi tiết" data-bs-original-title="Xem chi tiết" data-id="${Element["makq"] || ""}">
                 <i class="fa fa-fw fa-eye"></i>
+            </a>
+            <a class="btn btn-sm btn-alt-secondary print-pdf" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="In bài làm" data-bs-original-title="In bài làm" data-id="${Element["makq"] || ""}">
+                <i class="fa fa-fw fa-print"></i>
             </a>
         </td>
     </tr>`;
   });
   $("#took_the_exam").html(html);
-  $("a[data-bs-toogle='tooltip']").tooltip();
+  $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 const made = document.getElementById("chitietdethi").dataset.id;
@@ -91,6 +94,7 @@ $(document).ready(function () {
     });
     $("#list-question").html(html);
   }
+
   var made = $("#chitietdethi").data("id");
   function showTookTheExam(made) {
     $.ajax({
@@ -316,7 +320,45 @@ $(document).ready(function () {
     e.target.dataset.sortOrder = currentSortOrder;
   })
 
+  $(document).on("click", ".print-pdf",function () {
+    let makq = $(this).data("id");
+    $.ajax({
+      url:  `./test/exportPdf/${makq}`,
+      method: "POST",
+      success: function (response) {
+          // Tạo tệp blob từ chuỗi base64
+          var binaryString = atob(response);
+          var binaryLen = binaryString.length;
+          var bytes = new Uint8Array(binaryLen);
+
+          for (var i = 0; i < binaryLen; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+          }
+          // Tạo đối tượng Blob
+          var blob = new Blob([bytes], { type: "application/pdf" });
+
+          // Tạo đường dẫn URL tới blob
+          var url = URL.createObjectURL(blob);
+
+          // Tạo một liên kết ẩn để tải xuống tệp
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "ket_qua_thi.pdf";
+          a.style.display = "none";
+          document.body.appendChild(a);
+
+          // Kích hoạt liên kết và xóa nó sau khi tải xuống
+          a.click();
+          setTimeout(function () {
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+          }, 100);
+      }
+  });
+  });
+
 });
+
 
 (function () {
   // Pagination

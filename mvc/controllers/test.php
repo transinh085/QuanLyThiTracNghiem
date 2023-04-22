@@ -356,54 +356,12 @@ class Test extends Controller
         return $result;
     }
 
-    public function exportPdf()
+    public function exportPdf($makq)
     {
-
-        $cauHoi = [
-            [
-                "macauhoi" => "1",
-                "noidung" => "OOP là viết tắt của:",
-                "dokho" => "1",
-                "dapanchon" => "3",
-                "cautraloi" => [
-                    [
-                        "macautl" => "1",
-                        "macauhoi" => "1",
-                        "noidungtl" => "Object Open Programming",
-                        "ladapan" => "0"
-                    ],
-                    [
-                        "macautl" => "2",
-                        "macauhoi" => "1",
-                        "noidungtl" => "Open Object Programming",
-                        "ladapan" => "0"
-                    ],
-                    [
-                        "macautl" => "3",
-                        "macauhoi" => "1",
-                        "noidungtl" => "Object Oriented Programming.",
-                        "ladapan" => "1"
-                    ],
-                    [
-                        "macautl" => "4",
-                        "macauhoi" => "1",
-                        "noidungtl" => "Object Oriented Proccessing.",
-                        "ladapan" => "0"
-                    ]
-                ]
-            ],
-        ];
         $dompdf = new Dompdf();
-
-        // Thông tin sinh viên và đề thi
-        $tenThiSinh = 'Trần Nhật Sinh';
-        $maSinhVien = '3121410422';
-        $tenDeThi = 'ĐỀ THI CUỐI HỌC KỲ 2';
-        $thoiGianThi = '90';
-        $monHoc = 'Lập trình hướng đối tượng';
-        $diemSo = '10';
-        $maHocPhan = "841567";
-        $soCauDung = "15/15";
+        
+        $info = $this->ketquamodel->getInfoPrintPdf($makq);
+        $cauHoi = $this->dethimodel->getResultDetail($makq);
 
         $html = '
         <!DOCTYPE html>
@@ -412,7 +370,7 @@ class Test extends Controller
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
             <style>
                 * {padding: 0;margin: 0;box-sizing: border-box;}
-                body{font-family: "Times New Roman", serif; padding: 30px 50px}
+                body{font-family: "Times New Roman", serif; padding: 50px 50px}
             </style>
         </head>
         <body>
@@ -423,21 +381,21 @@ class Test extends Controller
                         KHOA CÔNG NGHỆ THÔNG TIN<br><br><br>
                     </td>
                     <td style="text-align: center;">
-                        <p style="font-weight:bold">'.$tenDeThi.'</p>
-                        <p style="font-weight:bold">Học phần: '.$monHoc.'</p>
-                        <p style="font-weight:bold">Mã học phần: '.$maHocPhan.'</p>
-                        <p style="font-style:italic">Thời gian làm bài: '.$thoiGianThi.' phút</p>
+                        <p style="font-weight:bold">'.mb_strtoupper($info['tende'], "UTF-8").'</p>
+                        <p style="font-weight:bold">Học phần: '.$info['tenmonhoc'].'</p>
+                        <p style="font-weight:bold">Mã học phần: '.$info['mamonhoc'].'</p>
+                        <p style="font-style:italic">Thời gian làm bài: '.$info['thoigianthi'].' phút</p>
                     </td>
                 </tr>
             </table>
             <table style="width:100%;margin-bottom:10px">
                 <tr style="width:100%">
-                    <td>Mã sinh viên: ' . $maSinhVien . '</td>
-                    <td>Tên thí sinh: ' . $tenThiSinh . '</td>
+                    <td>Mã sinh viên: ' . $info['manguoidung'] . '</td>
+                    <td>Tên thí sinh: ' . $info['hoten'] . '</td>
                 </tr>
                 <tr style="width:100%">
-                    <td>Số câu đúng: ' . $soCauDung . '</td>
-                    <td>Điểm: ' . $diemSo . '</td>
+                    <td>Số câu đúng: '.$info['socaudung'].'/'.$info['tongsocauhoi'].'</td>
+                    <td>Điểm: ' . $info['diemthi'] . '</td>
                 </tr>
             </table>       
             <hr>
@@ -459,7 +417,6 @@ class Test extends Controller
         </body>
         </html>
         ';
-
         $dompdf->loadHtml($html, 'UTF-8');
 
         // Thiết lập kích thước giấy và hướng giấy
@@ -467,6 +424,7 @@ class Test extends Controller
 
         // Xuất PDF
         $dompdf->render();
-        $dompdf->stream('ket_qua_thi.pdf', ['Attachment' => false]);
+        $output = $dompdf->output();
+        echo base64_encode($output);
     }
 }

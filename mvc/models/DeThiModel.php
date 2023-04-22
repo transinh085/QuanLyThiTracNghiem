@@ -11,7 +11,7 @@ class DeThiModel extends DB
             // Một đề thi giao cho nhiều nhóm
             $result = $this->create_giaodethi($madethi, $nhom);
             // Một đề thi thì có nhiều chương
-            $result = $this->create_chuongdethi($madethi,$chuong);
+            $result = $this->create_chuongdethi($madethi, $chuong);
             return $madethi;
         } else return false;
     }
@@ -23,22 +23,22 @@ class DeThiModel extends DB
         $sql_caude = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 1 and ";
         $sql_cautb = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 2 and ";
         $sql_caukho = "SELECT * FROM cauhoi ch join monhoc mh on ch.mamonhoc = mh.mamonhoc where ch.mamonhoc = $monhoc and ch.dokho = 3 and ";
-        $countChuong = count($chuong)-1;
+        $countChuong = count($chuong) - 1;
         $detailChuong = "(";
         $i = 0;
         while ($i < $countChuong) {
-            $detailChuong.="ch.machuong='$chuong[$i]' or ";
+            $detailChuong .= "ch.machuong='$chuong[$i]' or ";
             $i++;
         }
-        $detailChuong.="ch.machuong=$chuong[$countChuong])";
+        $detailChuong .= "ch.machuong=$chuong[$countChuong])";
 
-        $sql_caude = $sql_caude.$detailChuong." order by rand() limit $socaude";
-        $sql_cautb = $sql_cautb.$detailChuong." order by rand() limit $socautb";
-        $sql_caukho = $sql_caukho.$detailChuong." order by rand() limit $socaukho";
-        
-        $result_cd = mysqli_query($this->con,$sql_caude);
-        $result_tb = mysqli_query($this->con,$sql_cautb);
-        $result_ck = mysqli_query($this->con,$sql_caukho);
+        $sql_caude = $sql_caude . $detailChuong . " order by rand() limit $socaude";
+        $sql_cautb = $sql_cautb . $detailChuong . " order by rand() limit $socautb";
+        $sql_caukho = $sql_caukho . $detailChuong . " order by rand() limit $socaukho";
+
+        $result_cd = mysqli_query($this->con, $sql_caude);
+        $result_tb = mysqli_query($this->con, $sql_cautb);
+        $result_ck = mysqli_query($this->con, $sql_caukho);
 
         $data_cd = array();
 
@@ -157,17 +157,17 @@ class DeThiModel extends DB
         $sql_dethi = "SELECT dethi.*, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
         $dethi = mysqli_fetch_assoc($result_dethi);
-        if($dethi != null) {
+        if ($dethi != null) {
             $sql_giaodethi = "SELECT manhom FROM giaodethi WHERE made = $made";
             $sql_dethitudong = "SELECT machuong FROM dethitudong WHERE made = $made";
             $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
             $result_dethitudong = mysqli_query($this->con, $sql_dethitudong);
             $dethi['chuong'] = array();
-            while($row = mysqli_fetch_assoc($result_dethitudong)) {
+            while ($row = mysqli_fetch_assoc($result_dethitudong)) {
                 $dethi['chuong'][] = $row['machuong'];
             }
             $dethi['nhom'] = array();
-            while($row = mysqli_fetch_assoc($result_giaodethi)) {
+            while ($row = mysqli_fetch_assoc($result_giaodethi)) {
                 $dethi['nhom'][] = $row['manhom'];
             }
         }
@@ -180,11 +180,11 @@ class DeThiModel extends DB
         $sql_dethi = "SELECT dethi.made, dethi.tende, dethi.thoigiantao,dethi.loaide, monhoc.mamonhoc, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
         $dethi = mysqli_fetch_assoc($result_dethi);
-        if($dethi != null) {
+        if ($dethi != null) {
             $sql_giaodethi = "SELECT giaodethi.manhom, nhom.tennhom FROM giaodethi, nhom WHERE made = $made AND giaodethi.manhom = nhom.manhom";
             $result_giaodethi = mysqli_query($this->con, $sql_giaodethi);
             $dethi['nhom'] = array();
-            while($row = mysqli_fetch_assoc($result_giaodethi)) {
+            while ($row = mysqli_fetch_assoc($result_giaodethi)) {
                 $dethi['nhom'][] = $row;
             }
         }
@@ -211,9 +211,9 @@ class DeThiModel extends DB
     public function getQuestionOfTest($made)
     {
         $sql_dethi = "select * from dethi where made = '$made'";
-        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con, $sql_dethi));
         $question = array();
-        if($data_dethi['loaide'] == 0){
+        if ($data_dethi['loaide'] == 0) {
             $question = $this->getQuestionOfTestManual($made);
         } else {
             $question = $this->getQuestionTestAuto($made);
@@ -222,18 +222,19 @@ class DeThiModel extends DB
     }
 
 
-    public function getQuestionTestAuto($made){
+    public function getQuestionTestAuto($made)
+    {
         $sql_dethi = "select * from dethi where made = '$made'";
-        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
+        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con, $sql_dethi));
         $socaude = $data_dethi['socaude'];
         $socautb = $data_dethi['socautb'];
         $socaukho = $data_dethi['socaukho'];
         $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
         $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 and dttd.made = '$made' order by rand() limit $socautb";
         $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 and dttd.made = '$made' order by rand() limit $socaukho";
-        $result_cd = mysqli_query($this->con,$sql_cd);
-        $result_tb = mysqli_query($this->con,$sql_ctb);
-        $result_ck = mysqli_query($this->con,$sql_ck);
+        $result_cd = mysqli_query($this->con, $sql_cd);
+        $result_tb = mysqli_query($this->con, $sql_ctb);
+        $result_ck = mysqli_query($this->con, $sql_ck);
         $result = array();
         while ($row = mysqli_fetch_assoc($result_cd)) {
             $result[] = $row;
@@ -246,10 +247,10 @@ class DeThiModel extends DB
         }
         shuffle($result);
         $rows = array();
-        
+
         $ctlmodel = new CauTraLoiModel();
 
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             $rows[] = $row;
         }
@@ -260,94 +261,36 @@ class DeThiModel extends DB
     public function getQuestionOfTestManual($made)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
-        $result = mysqli_query($this->con,$sql);
+        $result = mysqli_query($this->con, $sql);
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;
     }
 
-    public function getQuestionOfTest1($made, $makq)
+    public function getResultDetail($made, $makq)
     {
-        $sql_dethi = "select * from dethi where made = '$made'";
-        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
-        $question = array();
-        if($data_dethi['loaide'] == 0){
-            $question = $this->getQuestionOfTestManual1($made, $makq);
-        } else {
-            $question = $this->getQuestionTestAuto1($made, $makq);
-        }
-        return $question;
-    }
-
-    public function getQuestionTestAuto1($made, $makq){
-        $sql_dethi = "select * from dethi where made = '$made'";
-        $data_dethi = mysqli_fetch_assoc(mysqli_query($this->con,$sql_dethi));
-        $socaude = $data_dethi['socaude'];
-        $socautb = $data_dethi['socautb'];
-        $socaukho = $data_dethi['socaukho'];
-        $sql_cd = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 1 and dttd.made = '$made' order by rand() limit $socaude";
-        $sql_ctb = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 2 and dttd.made = '$made' order by rand() limit $socautb";
-        $sql_ck = "select ch.macauhoi,ch.noidung,ch.dokho from dethitudong dttd join cauhoi ch on dttd.machuong=ch.machuong where ch.dokho = 3 and dttd.made = '$made' order by rand() limit $socaukho";
-        $result_cd = mysqli_query($this->con,$sql_cd);
-        $result_tb = mysqli_query($this->con,$sql_ctb);
-        $result_ck = mysqli_query($this->con,$sql_ck);
-        $result = array();
-        while ($row = mysqli_fetch_assoc($result_cd)) {
-            $result[] = $row;
-        }
-        while ($row = mysqli_fetch_assoc($result_tb)) {
-            $result[] = $row;
-        }
-        while ($row = mysqli_fetch_assoc($result_ck)) {
-            $result[] = $row;
-        }
-        shuffle($result);
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
+        $result = mysqli_query($this->con, $sql);
         $rows = array();
-        
         $ctlmodel = new CauTraLoiModel();
-
-        foreach($result as $row) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
             $rows[] = $row;
         }
         return $rows;
     }
 
-
-    public function getQuestionOfTestManual1($made, $makq)
+    public function getTimeTest($dethi, $nguoidung)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
-        $result = mysqli_query($this->con,$sql);
-        $rows = array();
-        $ctlmodel = new CauTraLoiModel();
-        while($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
-    // public function getAnswerOfTest($made, $makq)
-    // {
-    //     $sql = "SELECT cautraloi.`macauhoi`, `noidungtl`, `ladapan` , `dapanchon` FROM `cautraloi`, `chitietketqua` WHERE cautraloi.`macauhoi` = chitietketqua.`macauhoi` AND chitietketqua.`macauhoi` = $macauhoi AND `makq` = $makq";
-    //     $result = mysqli_query($this->con,$sql);
-    //     $rows = array();
-    //     while($row = mysqli_fetch_assoc($result)) {
-    //         $rows[] = $row;
-    //     }
-    //     return $rows;
-    // }
-
-    public function getTimeTest($dethi,$nguoidung){
         $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";
         $sql_dethi = "select * from dethi where made = '$dethi'";
-        $result_dethi = mysqli_query($this->con,$sql_dethi);
-        $result = mysqli_query($this->con,$sql);
-        if($result){
+        $result_dethi = mysqli_query($this->con, $sql_dethi);
+        $result = mysqli_query($this->con, $sql);
+        if ($result) {
             $data = mysqli_fetch_assoc($result);
             $data_dethi = mysqli_fetch_assoc($result_dethi);
             date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -358,8 +301,9 @@ class DeThiModel extends DB
     }
 
     // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)
-    public function getQuery($filter, $input, $args) {
-        $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '".$args['manguoidung']."') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '".$args['manguoidung']."') T2 ON T1.made = T2.made";
+    public function getQuery($filter, $input, $args)
+    {
+        $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '" . $args['manguoidung'] . "') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '" . $args['manguoidung'] . "') T2 ON T1.made = T2.made";
         if ($input) {
             $query = $query . " WHERE (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
         }

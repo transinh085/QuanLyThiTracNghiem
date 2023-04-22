@@ -257,7 +257,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "./test/getQuestion1",
+      url: "./test/getResultDetail",
       data: {
         makq: makq,
         made: made,

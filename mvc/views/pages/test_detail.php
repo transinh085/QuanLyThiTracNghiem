@@ -42,22 +42,29 @@ footer {
                 <div class="tab-pane active" id="bang-diem" role="tabpanel" aria-labelledby="bang-diem-tab"
                     tabindex="0">
                     <form action="#" method="POST" id="search-form" onsubmit="return false;">
-                        <div class="mb-4">
+                        <div class="row mb-4">
                             <div class="input-group">
-                                <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
-                                <ul class="dropdown-menu mt-1">
-                                    <?php
-                                        foreach($data["Test"]["nhom"] as $nhom) {
-                                            echo '<li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
-                                        }
-                                    ?>
-                                    <!-- <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
-                                </ul>
-                                <input type="text" class="form-control form-control-alt" id="search-input"
-                                    name="search-input" placeholder="Tìm kiếm sinh viên..">
-                                <span class="input-group-text bg-body border-0">
-                                    <i class="fa fa-search"></i>
-                                </span>
+                                <div class="col-md-6 d-flex gap-3">
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
+                                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
+                                        <?php
+                                            foreach($data["Test"]["nhom"] as $nhom) {
+                                                echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
+                                            }
+                                        ?>
+                                        <!-- <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
+                                    </ul>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Đã tham gia</button>
+                                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="present">Đã tham gia</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="absent">Vắng thi</a></li>
+                                    </ul>
+                                    <input type="text" class="form-control form-control-alt" id="search-input"
+                                        name="search-input" placeholder="Tìm kiếm sinh viên...">
+                                    <!-- <span class="input-group-text bg-body border-0">
+                                        <i class="fa fa-search"></i>
+                                    </span> -->
+                                </div>
                             </div>
                         </div>
                     </form>

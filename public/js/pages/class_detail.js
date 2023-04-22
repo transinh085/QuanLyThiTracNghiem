@@ -105,19 +105,19 @@ function loadList() {
 }
 
 function updateSiso(manhom) {
-        $.ajax({
-            type: "post",
-            url: "./module/updateSiso",
-            data: {
-                manhom: manhom,
-            },
-            dataType: "json",
-            success: function(response) {
-                console.log(response)
-                loadList();
-            }
-        })
-    }
+    $.ajax({
+        type: "post",
+        url: "./module/updateSiso",
+        data: {
+            manhom: manhom,
+        },
+        dataType: "json",
+        success: function(response) {
+            console.log(response)
+            loadList();
+        }
+    })
+}
 
 loadList();
 

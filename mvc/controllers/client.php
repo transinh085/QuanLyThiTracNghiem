@@ -64,7 +64,10 @@ class Client extends Controller{
             if($result_manhom != null) {
                 $manhom = $result_manhom['manhom'];
                 $result = $this->nhommodel->join($manhom,$manguoidung);
-                if($result) echo json_encode($this->nhommodel->getDetailGroup($manhom));
+                if($result) {
+                        echo json_encode($this->nhommodel->getDetailGroup($manhom));
+                        // $update_siso = $this->nhommodel->updateSiso($result_manhom);
+                }
                 else echo json_encode(1);
             } else echo json_encode(0);
         }

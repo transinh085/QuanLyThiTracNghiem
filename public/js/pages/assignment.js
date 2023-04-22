@@ -9,7 +9,6 @@ $(document).ready(function(){
     function loadAssignment(){
         $.get("./assignment/getAssignment",
             function (data) {
-                console.log(data)
                 let html = '';
                 let index = 1;
                 data.forEach(element => {
@@ -90,6 +89,27 @@ $(document).ready(function(){
         });
         let giangvien = $("#giang-vien").val();
         addAssignment(giangvien,listQuestions);
+        
+    })
+
+    $(document).on("change", "#giang-vien", function (e) {
+        let giangvien = $("#giang-vien").val();
+        $.ajax({
+            type: "post",
+            url: "./assignment/getAssignmentByUser",
+            data: {
+                id: giangvien
+            },
+            dataType: "json",
+            success: function (response) {
+                $("input:checkbox[name=selectSubject]:checked").removeAttr('checked');
+                let data = response;
+                data.forEach(element => {
+                    $(`input:checkbox[value=${element['mamonhoc']}]`).attr("checked", "checked");
+                });
+                
+            }
+        });
         
     })
 

@@ -50,5 +50,15 @@ class PhanCongModel extends DB{
         $result = mysqli_query($this->con,$sql);
         return $result;
     }
+
+    public function getAssignmentByUser($user){
+        $sql = "SELECT * FROM `phancong` where manguoidung = '$user'";
+        $result = mysqli_query($this->con,$sql);
+        $row = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }
 ?>

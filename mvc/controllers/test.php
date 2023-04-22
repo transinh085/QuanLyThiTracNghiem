@@ -1,4 +1,8 @@
 <?php
+require_once 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+
 class Test extends Controller
 {
 
@@ -18,7 +22,7 @@ class Test extends Controller
     public function default()
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("dethi","view")) {
+        if (AuthCore::checkPermission("dethi", "view")) {
             $this->view("main_layout", [
                 "Page" => "test",
                 "Title" => "Đề kiểm tra",
@@ -29,14 +33,14 @@ class Test extends Controller
                 "Script" => "test"
             ]);
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
     public function add()
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("dethi","create")) {
+        if (AuthCore::checkPermission("dethi", "create")) {
             $this->view("main_layout", [
                 "Page" => "add_update_test",
                 "Title" => "Tạo đề kiểm tra",
@@ -51,14 +55,14 @@ class Test extends Controller
                 "Action" => "create"
             ]);
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
     public function update($made)
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("dethi","update")) {
+        if (AuthCore::checkPermission("dethi", "update")) {
             $this->view("main_layout", [
                 "Page" => "add_update_test",
                 "Title" => "Cập nhật đề kiểm tra",
@@ -72,14 +76,14 @@ class Test extends Controller
                 "Action" => "update"
             ]);
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
     public function start($made)
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("tgthi","join")) {
+        if (AuthCore::checkPermission("tgthi", "join")) {
             $this->view("main_layout", [
                 "Page" => "vao_thi",
                 "Title" => "Bắt đầu thi",
@@ -91,14 +95,14 @@ class Test extends Controller
                 ]
             ]);
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
     public function detail($made)
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("dethi","create")) {
+        if (AuthCore::checkPermission("dethi", "create")) {
             $this->view("main_layout", [
                 "Page" => "test_detail",
                 "Title" => "Danh sách đã thi",
@@ -109,7 +113,7 @@ class Test extends Controller
                 ]
             ]);
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
@@ -117,7 +121,7 @@ class Test extends Controller
     {
         AuthCore::checkAuthentication();
         $check = $this->dethimodel->getById($made);
-        if ($check && AuthCore::checkPermission("dethi","create") && AuthCore::checkPermission("dethi","update")) {
+        if ($check && AuthCore::checkPermission("dethi", "create") && AuthCore::checkPermission("dethi", "update")) {
             $this->view('main_layout', [
                 "Page" => "select_question",
                 "Title" => "Chọn câu hỏi",
@@ -138,7 +142,7 @@ class Test extends Controller
     public function taketest($made)
     {
         AuthCore::checkAuthentication();
-        if(AuthCore::checkPermission("tgthi","join")) {
+        if (AuthCore::checkPermission("tgthi", "join")) {
             $user_id = $_SESSION['user_id'];
             $check = $this->ketquamodel->getMaKQ($made, $user_id);
             $infoTest = $this->dethimodel->getById($made);
@@ -160,13 +164,13 @@ class Test extends Controller
                 header("Location: ../start/$made");
             }
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
     public function delete()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi","delete")) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi", "delete")) {
             $made = $_POST['made'];
             $result = $this->dethimodel->delete($made);
             echo json_encode($result);
@@ -313,12 +317,13 @@ class Test extends Controller
             $date = DateTime::createFromFormat('D M d Y H:i:s e+', $thoigian);
             $made = $_POST['made'];
             $nguoidung = $_SESSION['user_id'];
-            $result = $this->ketquamodel->submit($made,$nguoidung,$listtr,$date->format('Y-m-d H:i:s'),$sl);
+            $result = $this->ketquamodel->submit($made, $nguoidung, $listtr, $date->format('Y-m-d H:i:s'), $sl);
             echo $result;
         }
     }
 
-    public function getDethi(){
+    public function getDethi()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dethi = $_POST['made'];
             $result = $this->dethimodel->create_dethi($dethi);
@@ -326,8 +331,9 @@ class Test extends Controller
         }
     }
 
-    public function tookTheExam(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    public function tookTheExam()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $result = $this->ketquamodel->tookTheExam($made);
             echo json_encode($result);
@@ -336,7 +342,7 @@ class Test extends Controller
 
     public function getExamineeByGroup()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $manhom = $_POST['manhom'];
             $result = $this->ketquamodel->getExamineeByGroup($made, $manhom);
@@ -344,8 +350,123 @@ class Test extends Controller
         }
     }
 
-    public function getQuery($filter, $input, $args) {
+    public function getQuery($filter, $input, $args)
+    {
         $result = $this->ketquamodel->getQuery($filter, $input, $args);
         return $result;
+    }
+
+    public function exportPdf()
+    {
+
+        $cauHoi = [
+            [
+                "macauhoi" => "1",
+                "noidung" => "OOP là viết tắt của:",
+                "dokho" => "1",
+                "dapanchon" => "3",
+                "cautraloi" => [
+                    [
+                        "macautl" => "1",
+                        "macauhoi" => "1",
+                        "noidungtl" => "Object Open Programming",
+                        "ladapan" => "0"
+                    ],
+                    [
+                        "macautl" => "2",
+                        "macauhoi" => "1",
+                        "noidungtl" => "Open Object Programming",
+                        "ladapan" => "0"
+                    ],
+                    [
+                        "macautl" => "3",
+                        "macauhoi" => "1",
+                        "noidungtl" => "Object Oriented Programming.",
+                        "ladapan" => "1"
+                    ],
+                    [
+                        "macautl" => "4",
+                        "macauhoi" => "1",
+                        "noidungtl" => "Object Oriented Proccessing.",
+                        "ladapan" => "0"
+                    ]
+                ]
+            ],
+        ];
+        $dompdf = new Dompdf();
+
+        // Thông tin sinh viên và đề thi
+        $tenThiSinh = 'Trần Nhật Sinh';
+        $maSinhVien = '3121410422';
+        $tenDeThi = 'ĐỀ THI CUỐI HỌC KỲ 2';
+        $thoiGianThi = '90';
+        $monHoc = 'Lập trình hướng đối tượng';
+        $diemSo = '10';
+        $maHocPhan = "841567";
+        $soCauDung = "15/15";
+
+        $html = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <style>
+                * {padding: 0;margin: 0;box-sizing: border-box;}
+                body{font-family: "Times New Roman", serif; padding: 30px 50px}
+            </style>
+        </head>
+        <body>
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align: center;font-weight:bold">
+                        TRƯỜNG ĐẠI HỌC SÀI GÒN<br>
+                        KHOA CÔNG NGHỆ THÔNG TIN<br><br><br>
+                    </td>
+                    <td style="text-align: center;">
+                        <p style="font-weight:bold">'.$tenDeThi.'</p>
+                        <p style="font-weight:bold">Học phần: '.$monHoc.'</p>
+                        <p style="font-weight:bold">Mã học phần: '.$maHocPhan.'</p>
+                        <p style="font-style:italic">Thời gian làm bài: '.$thoiGianThi.' phút</p>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;margin-bottom:10px">
+                <tr style="width:100%">
+                    <td>Mã sinh viên: ' . $maSinhVien . '</td>
+                    <td>Tên thí sinh: ' . $tenThiSinh . '</td>
+                </tr>
+                <tr style="width:100%">
+                    <td>Số câu đúng: ' . $soCauDung . '</td>
+                    <td>Điểm: ' . $diemSo . '</td>
+                </tr>
+            </table>       
+            <hr>
+            <div style="margin-top:20px">
+        ';
+        foreach ($cauHoi as $index => $ch) {
+            $html .= '<li style="list-style:none"><strong>Câu '.($index+1).'</strong>: '.$ch['noidung'].'<ol type="A" style="margin-left:30px">';
+            foreach ($ch['cautraloi'] as $ctl) {
+                $dapAn = $ctl['ladapan'] == "1" ? " (Đáp án chính xác)" : "";
+                $dapAnChon = $ctl['macautl'] == $ch['dapanchon'] ? " (Đáp án chọn)" : "";
+                $html .= '<li>' . $ctl['noidungtl'] . $dapAnChon . $dapAn . '</li>';
+            }
+
+            $html .= '</ol></li>';
+        }
+
+        $html .= '
+        </div>
+        </body>
+        </html>
+        ';
+
+        $dompdf->loadHtml($html, 'UTF-8');
+
+        // Thiết lập kích thước giấy và hướng giấy
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Xuất PDF
+        $dompdf->render();
+        $dompdf->stream('ket_qua_thi.pdf', ['Attachment' => false]);
     }
 }

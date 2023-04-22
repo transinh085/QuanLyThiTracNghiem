@@ -66,11 +66,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                const listItem = response.forEach((item) => {
-                    item.nhom.forEach((nhom_item) => {
-                        updateSiso(nhom_item.manhom)
-                    })
-                })
                 showGroup(response);
                 groups = response;
             }
@@ -87,6 +82,7 @@ $(document).ready(function () {
         if(list.length == 0) {
             html += `<p class="text-center mt-5">Không có dữ liệu</p>`
         } else {
+            console.log(list)
             list.forEach((item) => {
                 html += `<div>
                     <div class="heading-group d-flex align-items-center">
@@ -136,42 +132,15 @@ $(document).ready(function () {
                         </div>
                         <div class="block-content">
                             <p class="block-class-note">${nhom_item.ghichu}</p>
-                            <p class="Si-So"></p>
+                            <p class="Si-So">Sỉ số: <span>${nhom_item.siso}</span></p>
                         </div>
                         </div>
                     </div>`;
-                    // updateSiso(nhom_item.manhom);
                 });
-                // item.nhom.forEach((nhom_item) => {
-                //     console.log(nhom_item)
-                //     updateSiso(nhom_item.manhom);
-                // })
                 html += `</div></div>`;
             });
         }
         $("#class-group").html(html);
-    }
-
-
-    function showSiSo(siso) {
-        let html = ""
-        html += `Sỉ số: <span>${siso}</span>`
-        $(".Si-So").html(html)
-    }
-
-    function updateSiso(manhom) {
-        $.ajax({
-            type: "post",
-            url: "./module/updateSiso",
-            data: {
-                manhom: manhom,
-            },
-            dataType: "json",
-            success: function(response) {
-                console.log(response.SiSo)
-                showSiSo(response.SiSo)
-            }
-        })
     }
 
 

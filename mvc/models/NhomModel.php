@@ -181,9 +181,17 @@ class NhomModel extends DB
     // hàm update(đếm) sỉ số sinh viên trong nhóm
     public function updateSiso($manhom)
     {
-        $sql = "SELECT COUNT(siso) SiSo FROM `nhom`, `chitietnhom` WHERE `nhom`.`manhom` = `chitietnhom`.`manhom` AND `chitietnhom`.`manhom` = '$manhom'";
+        // $sql = "SELECT COUNT(siso) SiSo FROM `nhom`, `chitietnhom` WHERE `nhom`.`manhom` = `chitietnhom`.`manhom` AND `chitietnhom`.`manhom` = '$manhom'";
+        // $result = mysqli_query($this->con, $sql);
+        // return mysqli_fetch_assoc($result);
+
+        $valid = true;
+        $sql = "UPDATE `nhom` SET `siso`= (SELECT count(*) FROM `chitietnhom` where manhom = $manhom ) WHERE `manhom` = $manhom";
         $result = mysqli_query($this->con, $sql);
-        return mysqli_fetch_assoc($result);
+        if (!$result) {
+            $valid = false;
+        }
+        return $valid;
     }
 
     public function addSV()

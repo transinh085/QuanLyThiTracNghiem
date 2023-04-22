@@ -79,8 +79,8 @@ $(document).on("click", ".kick-user", function() {
                 manguoidung: mssv,
             },
             success: function (response) {
-                loadList();
               e.fire("Deleted!", "Xóa người dùng thành công!", "success");
+              updateSiso(manhom);
             },
           });
         } else {
@@ -104,6 +104,20 @@ function loadList() {
     });
 }
 
+function updateSiso(manhom) {
+        $.ajax({
+            type: "post",
+            url: "./module/updateSiso",
+            data: {
+                manhom: manhom,
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response)
+                loadList();
+            }
+        })
+    }
 
 loadList();
 

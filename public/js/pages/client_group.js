@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let groups = [];
     $('.btn-join-group').on("click", function () {
+        let mamoi = $("#mamoi").val();
         $.ajax({
             type: "post",
             url: "./client/joinGroup",
@@ -9,13 +10,13 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 if(response == 0) {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "Mã mời không hợp lệ !"});
                 }else if(response == 1) {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "Bạn đã tham gia nhóm này !"});
                 } else {
                     $("#modal-join-group").modal("hide");
+                    updateSiso(mamoi);
                     groups.push(response);
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Tham gia nhóm thành công !"});
@@ -23,6 +24,19 @@ $(document).ready(function () {
             }
         });
     });
+
+    function updateSiso(mamoi) {
+        $.ajax({
+            type: "post",
+            url: "./module/updateSiso1",
+            data: {
+                mamoi: mamoi,
+            },
+            dataType: "json",
+            success: function(response) {
+            }
+        })
+    }
 
     function loadDataGroups() {
         $.getJSON("./client/loadDataGroups",
@@ -54,18 +68,13 @@ $(document).ready(function () {
                                         <i class="fa fa-gears"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-users me-1"></i> People
+                                        <a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)">
+                                            <i class="nav-main-link-icon si si-eye me-2 text-dark"></i> 
+                                            Ẩn nhóm
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-bell me-1"></i> Alerts
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="fa fa-fw fa-check-double me-1"></i> Tasks
-                                        </a>
-                                        <div role="separator" class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="be_pages_projects_edit.html">
-                                            <i class="fa fa-fw fa-pencil-alt me-1"></i> Edit Project
+                                        <a class="dropdown-item btn-delete-group" data-id="${group.manhom}" href="javascript:void(0)">
+                                            <i class="si si-logout me-2 fa-fw icon-dropdown-item"></i> 
+                                            Thoát nhóm
                                         </a>
                                     </div>
                                 </div>
@@ -175,4 +184,64 @@ $(document).ready(function () {
         }
         $(".list-friends").html(html);
     }
+
+    $(document).on("click", ".btn-hide-group", function () {
+        let manhom = $(this).data("id");
+        $.ajax({
+            type: "post",
+            url: "./client/hide",
+            data: {
+                manhom: manhom,
+                giatri: 0
+            },
+            success: function (response) {
+                console.log(groups)
+                if (response) {
+                    for(let i = 0; i < groups.length; i++) {
+                        let index = groups[i].nhom.findIndex(item => item.manhom === manhom)
+                        if(index != -1) {
+                            groups[i].nhom.splice(index, 1);
+                            if(groups[i].nhom.length == 0) groups.splice(i,1);
+                            break;
+                        }
+                    }
+                    showListGroup(groups);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+                }
+            },
+        });
+    });
+
+    $(document).on("click", ".btn-delete-group", function () {
+        swalWithBootstrapButtons
+            .fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "post",
+                        url: "./client/delete",
+                        data: {
+                            manhom: $(this).data("id"),
+                        },
+                        success: function (response) {
+                            if (response) {
+                                swalWithBootstrapButtons.fire(
+                                    "Thoát thành công!",
+                                    "Bạn đã thoát nhóm thành công",
+                                    "success"
+                                );
+                                loadDataGroups();
+                            }
+                        },
+                    });
+                }
+            });
+    })
 });

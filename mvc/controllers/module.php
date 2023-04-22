@@ -152,7 +152,16 @@
                 $manhom = $_POST['manhom'];
                 $result = $this->nhomModel->updateSiso($manhom);
                 echo json_encode($result);
-                // echo $result;
+            }
+        }
+
+        // Hàm update sỉ số thông qua mã mời
+        public function updateSiso1()
+        {
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $mamoi = $_POST['mamoi'];
+                $result = $this->nhomModel->updateSiso1($mamoi);
+                echo json_encode($result);
             }
         }
 

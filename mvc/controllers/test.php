@@ -44,7 +44,8 @@ class Test extends Controller
                     "datepicker" => 1,
                     "flatpickr" => 1,
                     "select" => 1,
-                    "notify" => 1
+                    "notify" => 1,
+                    "jquery-validate" => 1
                 ],
                 "Script" => "action_test",
                 "Action" => "create"

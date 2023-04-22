@@ -241,9 +241,7 @@ $(document).ready(function () {
   $(document).on("click", ".show-exam-detail", function() {
     $("#modal-show-test").modal("show");
     let makq = $(this).data("id");
-    
     console.log(makq)
-
     $.ajax({
       type: "post",
       url: "./test/getResultDetail",

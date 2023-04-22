@@ -271,14 +271,14 @@ class DeThiModel extends DB
         return $rows;
     }
 
-    public function getResultDetail($made, $makq)
+    public function getResultDetail($makq)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho,chitietketqua.dapanchon FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
         while ($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
+            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;

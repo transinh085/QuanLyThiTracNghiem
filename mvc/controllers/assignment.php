@@ -66,6 +66,13 @@ class Assignment extends Controller
         }
     }
 
+    function deleteAll(){
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $id = $_POST['id'];
+            $result = $this->PhanCongModel->deleteAll($id);
+        }
+    }
+
     function getAssignmentByUser(){
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $id = $_POST['id'];

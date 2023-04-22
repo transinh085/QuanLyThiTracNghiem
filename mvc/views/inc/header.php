@@ -6,9 +6,13 @@
         <div>
             <!-- Toggle Sidebar -->
             <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-            <button type="button" class="btn btn-alt-secondary me-1" data-toggle="layout"
-                data-action="sidebar_mini_toggle">
+            <button type="button" class="btn btn-alt-secondary me-1 d-lg-none" data-toggle="layout"
+                data-action="sidebar_toggle">
                 <i class="fa fa-fw fa-bars"></i>
+            </button>
+            <button type="button" class="btn btn-alt-secondary me-1 d-none d-lg-inline-block" data-toggle="layout"
+                data-action="sidebar_mini_toggle">
+                <i class="fa fa-fw fa-ellipsis-v"></i>
             </button>
             <!-- END Toggle Sidebar -->
 
@@ -34,8 +38,9 @@
                 <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                     <div class="bg-body-light rounded-top fw-semibold text-center p-3 border-bottom">
                         <span class="avatar-Account">
-                            <img class="img-avatar img-avatar48 img-avatar-thumb" src="./public/media/avatars/<?php echo $_SESSION["avatar"] == '' ? "avatar2.jpg" : $_SESSION["avatar"] ?>"
-                            alt="">
+                            <img class="img-avatar img-avatar48 img-avatar-thumb"
+                                src="./public/media/avatars/<?php echo $_SESSION["avatar"] == '' ? "avatar2.jpg" : $_SESSION["avatar"] ?>"
+                                alt="">
                         </span>
                         <div class="pt-2 load-nameAccount">
                             <a class="fw-semibold ">
@@ -75,13 +80,13 @@
         </div>
     </div>
     <!-- END Header Search -->
-        <div id="page-header-loader" class="overlay-header bg-header-dark">
+    <div id="page-header-loader" class="overlay-header bg-header-dark">
         <div class="bg-white-10">
-        <div class="content-header">
-            <div class="w-100 text-center">
-            <i class="fa fa-fw fa-sun fa-spin text-white"></i>
+            <div class="content-header">
+                <div class="w-100 text-center">
+                    <i class="fa fa-fw fa-sun fa-spin text-white"></i>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </header>

@@ -79,17 +79,23 @@ $(document).ready(function(){
     })
 
     $("#btn_assignment").click(function(){
-        
-        let listQuestions = [];
+        let listAssignment = [];
         $("input:checkbox[name=selectSubject]:checked").each(function(){
             let subject = {
                 mamonhoc: $(this).val()
             }
-            listQuestions.push(subject);
+            listAssignment.push(subject);
         });
         let giangvien = $("#giang-vien").val();
-        addAssignment(giangvien,listQuestions);
-        
+        if(listAssignment.length === 0){
+            delteAssignmentUser(giangvien)
+            loadAssignment();
+            $("#modal-add-assignment").modal("hide");
+            Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
+        } else {
+            delteAssignmentUser(giangvien)
+            addAssignment(giangvien,listAssignment);
+        }
     })
 
     $(document).on("change", "#giang-vien", function (e) {
@@ -115,6 +121,7 @@ $(document).ready(function(){
 
 
     function addAssignment(giangvien,listSubject){
+        
         $.ajax({
             type: "post",
             url: "./assignment/addAssignment",
@@ -134,6 +141,18 @@ $(document).ready(function(){
                     },10)
                 }
                 loadAssignment();
+            }
+        });
+    }
+
+    function delteAssignmentUser(giangvien){
+        $.ajax({
+            type: "post",
+            url: "./assignment/deleteAll",
+            data: {
+                id: giangvien
+            },
+            success: function (response) {
             }
         });
     }

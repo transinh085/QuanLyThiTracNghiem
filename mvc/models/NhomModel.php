@@ -178,19 +178,23 @@ class NhomModel extends DB
         return $check;
     }
 
-    // hàm update(đếm) sỉ số sinh viên trong nhóm
+    // hàm update sỉ số sinh viên trong nhóm
     public function updateSiso($manhom)
     {
-        // $sql = "SELECT COUNT(siso) SiSo FROM `nhom`, `chitietnhom` WHERE `nhom`.`manhom` = `chitietnhom`.`manhom` AND `chitietnhom`.`manhom` = '$manhom'";
-        // $result = mysqli_query($this->con, $sql);
-        // return mysqli_fetch_assoc($result);
-
         $valid = true;
         $sql = "UPDATE `nhom` SET `siso`= (SELECT count(*) FROM `chitietnhom` where manhom = $manhom ) WHERE `manhom` = $manhom";
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
             $valid = false;
         }
+        return $valid;
+    }
+
+    public function updateSiso1($mamoi)
+    {
+        $result = $this->getIdFromInvitedCode($mamoi);
+        $manhom = $result['manhom'];
+        $valid = $this->updateSiso($manhom);
         return $valid;
     }
 

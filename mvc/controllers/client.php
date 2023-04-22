@@ -23,7 +23,11 @@ class Client extends Controller{
             "Script" => "client_group",
             "Plugin" => [
                 "jquery-validate" => 1,
-                "notify" => 1
+                "notify" => 1,
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "sweetalert2" => 1,
+                "select" => 1,
             ]
         ]);
     }
@@ -98,5 +102,24 @@ class Client extends Controller{
             echo json_encode($result);
         }
     }
+
+    public function hide()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan","create")) {
+            $manhom = $_POST['manhom'];
+            $giatri =$_POST['giatri'];
+            $result = $this->nhommodel->hide($manhom,$giatri);
+            echo $result;
+        } else echo json_encode(false);
+    }
+
+    public function delete()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan","delete")) {
+            $manhom = $_POST['manhom'];
+            $result = $this->nhommodel->delete($manhom);
+            echo $result;
+        } else echo json_encode(false);
+    }    
 }
 ?>

@@ -82,7 +82,6 @@ $(document).ready(function () {
         if(list.length == 0) {
             html += `<p class="text-center mt-5">Không có dữ liệu</p>`
         } else {
-            console.log(list)
             list.forEach((item) => {
                 html += `<div>
                     <div class="heading-group d-flex align-items-center">
@@ -240,6 +239,7 @@ $(document).ready(function () {
                 giatri: 0
             },
             success: function (response) {
+                console.log(groups)
                 if (response) {
                     for(let i = 0; i < groups.length; i++) {
                         let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
@@ -296,7 +296,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 $("#ten-nhom").val(response.tennhom),
                     $("#ghi-chu").val(response.ghichu),
                     $("#mon-hoc").val(response.mamonhoc).trigger("change"),
@@ -320,7 +319,6 @@ $(document).ready(function () {
                 hocky: $("#hoc-ky").val()
             },
             success: function (response) {
-                console.log(response)
                 if (response === true) {
                     $("#modal-add-group").modal("hide");
                     loadDataGroup(mode);

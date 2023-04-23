@@ -111,7 +111,8 @@ class CauHoiModel extends DB{
             }
         }
         if ($input) {
-            $query .= " AND (noidung LIKE N'%${input}%')";
+            $input_entity_encode = htmlentities($input);
+            $query .= " AND (noidung LIKE N'%${input}%' OR noidung LIKE N'%${input_entity_encode}%')";
         }
         return $query;
     }

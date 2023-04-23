@@ -256,3 +256,48 @@ td p {
 [data-sort-order="desc"]::after {
     content: "\f107";
 }
+
+/* Responsive Test */
+@media (max-width: 480px) {
+    .sidebar-answer {
+        display: none;
+    }
+
+    #btn-thoat {
+        display: none;
+    }
+
+    .nav-center {
+        display: none;
+    }
+
+    .row:not(.g-sm):not(.g-0) {
+        --bs-gutter-x: 0rem !important;
+    }
+
+    .col-8 {
+        flex: none;
+        width: auto;
+    }
+    
+}
+
+@media (481px < width <= 767.98px) {
+    .sidebar-answer {
+        display: none;
+    }
+
+    #list-question {
+        padding-top: 2.5rem;
+    }
+
+    .col-8 {
+        flex: none;
+        width: auto;
+    }
+
+    #btn-thoat {
+        margin-right: 1.25rem;
+    }
+    
+}

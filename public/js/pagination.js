@@ -29,7 +29,7 @@ function getPagination(args, page) {
     dataType: "json",
     success: function (total) {
       valuePage.totalPages = total;
-      if (total === 1) {
+      if (total === 1 || (total !== 0 && total < valuePage.curPage)) {
         valuePage.curPage = total;
       }
       pagination();

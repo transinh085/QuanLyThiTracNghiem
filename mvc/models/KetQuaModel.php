@@ -99,7 +99,9 @@ class KetQuaModel extends DB{
         } else {
             $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
             if (isset($filter) && $filter == "interrupted") {
-                $query = $query . " AND ISNULL(diemthi)";
+                $query .= " AND ISNULL(diemthi)";
+            } else {
+                $query .= " AND diemthi IS NOT NULL";
             }
         }
         if ($input) {
@@ -130,7 +132,9 @@ class KetQuaModel extends DB{
         } else {
             $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
             if (isset($filter) && $filter == "interrupted") {
-                $query = $query . " AND ISNULL(diemthi)";
+                $query .= " AND ISNULL(diemthi)";
+            } else {
+                $query .= " AND diemthi IS NOT NULL";
             }
         }
         if ($input) {

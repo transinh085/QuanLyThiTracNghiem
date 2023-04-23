@@ -68,6 +68,7 @@ $(document).ready(function () {
             success: function (response) {
                 showGroup(response);
                 groups = response;
+                console.log(response)
             }
         });
     }

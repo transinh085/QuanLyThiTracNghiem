@@ -59,7 +59,7 @@ class NhomModel extends DB
         $sql = "SELECT monhoc.mamonhoc, monhoc.tenmonhoc, nhom.namhoc, nhom.hocky, nhom.manhom, nhom.tennhom, nhom.ghichu, nhom.siso, nhom.hienthi
         FROM nhom, monhoc
         WHERE nhom.mamonhoc = monhoc.mamonhoc AND nhom.giangvien = '$nguoitao' AND nhom.trangthai = 1 $sht";
-        $result = mysqli_query($this->con, $sql);
+        $result = mysqli_query($this->con, $sql);   
         $rows = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
@@ -133,10 +133,22 @@ class NhomModel extends DB
         if(!$result) $valid = false;
         return $valid;
     }
+
+    // Thoát khỏi nhóm 
+    public function SVDelete($manhom,$manguoidung) {
+        $valid = true;
+        $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung'";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
+    
     
 
     // Lấy các nhóm mà sinh viên tham gia
-    public function getAllGroup_User($user_id) {
+    public function getAllGroup_User($user_id) 
+    {
         $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten
         FROM chitietnhom, nhom, nguoidung, monhoc
         WHERE chitietnhom.manhom = nhom.manhom AND nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND chitietnhom.manguoidung = $user_id";

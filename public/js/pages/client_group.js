@@ -1,5 +1,8 @@
+Dashmix.helpersOnLoad(["jq-select2"]);
+
 $(document).ready(function () {
     let groups = [];
+    let mode = 1;
     $('.btn-join-group').on("click", function () {
         let mamoi = $("#mamoi").val();
         $.ajax({
@@ -43,8 +46,23 @@ $(document).ready(function () {
             function (data) {
                 groups = data;
                 showListGroup(data)
+                console.log(data)
             }
         );
+
+        // $.ajax({
+        //     type: "get",
+        //     url: "./client/loadDataGroups",
+        //     data: {
+        //         hienthi: hienthi
+        //     },
+        //     dataType: "json",
+        //     success: function (data) {
+        //         groups = data;
+        //         showListGroup(data)
+        //         console.log(data)
+        //     }
+        // });
     }
 
     loadDataGroups()
@@ -185,6 +203,8 @@ $(document).ready(function () {
         $(".list-friends").html(html);
     }
 
+    console.log(groups)
+
     $(document).on("click", ".btn-hide-group", function () {
         let manhom = $(this).data("id");
         $.ajax({
@@ -198,13 +218,15 @@ $(document).ready(function () {
                 console.log(groups)
                 if (response) {
                     for(let i = 0; i < groups.length; i++) {
-                        let index = groups[i].nhom.findIndex(item => item.manhom === manhom)
-                        if(index != -1) {
-                            groups[i].nhom.splice(index, 1);
-                            if(groups[i].nhom.length == 0) groups.splice(i,1);
-                            break;
-                        }
-                    }
+                        let index = groups.findIndex(item => item.manhom == manhom)
+                        console.log(index)
+                        console.log(groups[0])
+                        if (index != -1) {
+                            groups.splice(index, 1);
+                            if (groups.length == 0) groups.splice(i,1);
+                            break;    
+                        }x
+                    } 
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
                 }
@@ -213,13 +235,21 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".btn-delete-group", function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success me-2",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
+
         swalWithBootstrapButtons
             .fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Yes, out groups section!",
                 cancelButtonText: "No, cancel!",
             })
             .then((result) => {
@@ -231,6 +261,7 @@ $(document).ready(function () {
                             manhom: $(this).data("id"),
                         },
                         success: function (response) {
+                            console.log(response)
                             if (response) {
                                 swalWithBootstrapButtons.fire(
                                     "Thoát thành công!",

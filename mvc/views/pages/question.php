@@ -12,20 +12,21 @@
             <form action="#" method="POST" id="search-form" onsubmit="return false;">
                 <div class="row mb-3">
                     <div class="col-xl-4 d-flex gap-2 align-items-center">
-                        <!-- <label for="">Môn:</label> -->
-                        <select class="js-select2 form-select" id="main-page-monhoc" name="main-page-monhoc" data-placeholder="Chọn môn học" data-tab="1">
+                        <select class="js-select2 form-select" id="main-page-monhoc" name="main-page-monhoc"
+                            data-placeholder="Chọn môn học" data-tab="1">
                             <option></option>
                         </select>
                     </div>
                     <div class="col-xl-4 d-flex gap-2 align-items-center">
-                        <!-- <label for="">Chương:</label> -->
-                        <select class="js-select2 form-select" id="main-page-chuong" data-tab="1" name="main-page-chuong" data-placeholder="Chọn chương">
+                        <select class="js-select2 form-select" id="main-page-chuong" data-tab="1"
+                            name="main-page-chuong" data-placeholder="Chọn chương">
                             <option></option>
                         </select>
                     </div>
-                    <div class="col-xl-2 d-flex gap-2 align-items-center">
+                    <div class="col-xl-4 d-flex gap-2 align-items-center">
                         <label for="">Độ khó:</label>
-                        <select class="js-select2 form-select" id="main-page-dokho" name="main-page-dokho" style="width: 150px;" data-placeholder="Choose one..">
+                        <select class="js-select2 form-select" id="main-page-dokho" name="main-page-dokho"
+                            style="width: 150px;" data-placeholder="Choose one..">
                             <option value="0">Tất cả</option>
                             <option value="1">Cơ bản</option>
                             <option value="2">Trung bình</option>
@@ -34,8 +35,12 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-xl-4 d-flex gap-2 align-items-center">
-                        <input type="text" class="form-control" name="search-input" id="search-input" placeholder="Nhập nội dung câu hỏi...">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                            placeholder="Nội dung câu hỏi...">
+                        <button class="input-group-text bg-body border-0 btn-search">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </form>

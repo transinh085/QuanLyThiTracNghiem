@@ -110,6 +110,7 @@ class Test extends Controller
                 "Script" => "test_detail",
                 "Plugin" => [
                     "pagination" => 1,
+                    "chart" => 1
                 ]
             ]);
         } else {

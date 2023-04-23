@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="block block-rounded bg-gd-dusk">
+    <div class="block block-rounded bg-gd-primary">
         <div class="block-content bg-white-5">
             <div class="py-4 text-center">
                 <h1 class="h2 fw-bold text-white mb-2">Dashboard</h1>

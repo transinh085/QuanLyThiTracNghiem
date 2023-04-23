@@ -3,28 +3,25 @@ footer {
     display: none !important
 }
 </style>
-<!-- <?php echo "<pre>"; var_dump($data["Test"])?> -->
-<div class="row g-0 flex-md-grow-1" id="chitietdethi" data-id="<?php echo $data["Test"]["made"]?>">
+<!-- <?php echo "<pre>";
+        var_dump($data["Test"]) ?> -->
+<div class="row g-0 flex-md-grow-1" id="chitietdethi" data-id="<?php echo $data["Test"]["made"] ?>">
     <div class="content content-full">
         <div class="block block-rounded">
             <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
                 <li class="nav-item">
-                    <button class="nav-link active" id="bang-diem-tab" data-bs-toggle="tab"
-                        data-bs-target="#bang-diem" role="tab" aria-controls="bang-diem" aria-selected="true">Bảng
+                    <button class="nav-link active" id="bang-diem-tab" data-bs-toggle="tab" data-bs-target="#bang-diem"
+                        role="tab" aria-controls="bang-diem" aria-selected="true">Bảng
                         điểm</button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="thong-ke-tab" data-bs-toggle="tab" data-bs-target="#thong-ke"
                         role="tab" aria-controls="thong-ke" aria-selected="false">Thống kê</button>
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="thong-so-cau-tab" data-bs-toggle="tab"
-                        data-bs-target="#thong-so-cau" role="tab" aria-controls="thong-so-cau"
-                        aria-selected="false">Thông số câu</button>
-                </li>
                 <li class="nav-item ms-auto">
                     <div class="block-options ps-3 pe-2">
-                        <button type="button" class="btn-block-option" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">
+                        <button type="button" class="btn-block-option" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">
                             <i class="si si-info"></i>
                         </button>
                         <a name="" id="" class="btn-block-option" href="#" role="button"><i
@@ -45,20 +42,27 @@ footer {
                         <div class="row mb-4">
                             <div class="input-group">
                                 <div class="col-md-6 d-flex gap-3">
-                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"]?></button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group"
+                                        id="dropdown-filter-group" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
                                         <?php
-                                            foreach($data["Test"]["nhom"] as $nhom) {
-                                                echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
-                                            }
+                                        foreach ($data["Test"]["nhom"] as $nhom) {
+                                            echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
+                                        }
                                         ?>
                                         <!-- <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
                                     </ul>
-                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Đã tham gia</button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state"
+                                        id="dropdown-filter-state" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">Đã tham gia</button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="present">Đã tham gia</a></li>
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="absent">Vắng thi</a></li>
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="interrupted">Chưa nộp bài</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
+                                                data-state="present">Đã tham gia</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
+                                                data-state="absent">Vắng thi</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
+                                                data-state="interrupted">Chưa nộp bài</a></li>
                                     </ul>
                                     <input type="text" class="form-control form-control-alt" id="search-input"
                                         name="search-input" placeholder="Tìm kiếm sinh viên...">
@@ -73,12 +77,17 @@ footer {
                         <table class="table table-vcenter">
                             <thead>
                                 <tr class="table-col-title">
-                                    <th class="text-center col-sort" data-sort-column="manguoidung" data-sort-order="default">MSSV</th>
+                                    <th class="text-center col-sort" data-sort-column="manguoidung"
+                                        data-sort-order="default">MSSV</th>
                                     <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
-                                    <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
-                                    <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
-                                    <th class="text-center col-sort" data-sort-column="thoigianlambai" data-sort-order="default">Thời gian thi</th>
-                                    <th class="text-center col-sort" data-sort-column="solanchuyentab" data-sort-order="default">Số lần thoát</th>
+                                    <th class="text-center col-sort" data-sort-column="diemthi"
+                                        data-sort-order="default">Điểm</th>
+                                    <th class="text-center col-sort" data-sort-column="thoigianvaothi"
+                                        data-sort-order="default">Thời gian vào thi</th>
+                                    <th class="text-center col-sort" data-sort-column="thoigianlambai"
+                                        data-sort-order="default">Thời gian thi</th>
+                                    <th class="text-center col-sort" data-sort-column="solanchuyentab"
+                                        data-sort-order="default">Số lần thoát</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -86,16 +95,136 @@ footer {
                             </tbody>
                         </table>
                     </div>
-                    <?php if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php"?>
+                    <?php if (isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php" ?>
                 </div>
                 <div class="tab-pane" id="thong-ke" role="tabpanel" aria-labelledby="thong-ke-tab" tabindex="0">
-                    <h4 class="fw-normal">Thống kê</h4>
-                    <p>...</p>
-                </div>
-                <div class="tab-pane" id="thong-so-cau" role="tabpanel" aria-labelledby="thong-so-cau-tab"
-                    tabindex="0">
-                    <h4 class="fw-normal">Thông số câu hỏi</h4>
-                    <p>...</p>
+                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group mb-3"
+                        id="dropdown-filter-group" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
+                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
+                        <?php
+                                foreach ($data["Test"]["nhom"] as $nhom) {
+                                    echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-id="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
+                                }
+                                ?>
+                    </ul>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">40</p>
+                                        <p class="text-muted mb-0">Thí sinh đã nộp</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-user-check text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">31</p>
+                                        <p class="text-muted mb-0">Thí sinh chưa nộp</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-user-pen text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">12</p>
+                                        <p class="text-muted mb-0">Thí sinh không thi</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-user-xmark text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">3.1</p>
+                                        <p class="text-muted mb-0">Điểm trung bình</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-gauge text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">1</p>
+                                        <p class="text-muted mb-0">Số thí sinh điểm <= 1</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-face-sad-cry text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">80</p>
+                                        <p class="text-muted mb-0">Số thí sinh điểm <= 5</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-thumbs-down text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">80</p>
+                                        <p class="text-muted mb-0">Số thí sinh điểm >= 5</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-award text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="block block-rounded block-fx-shadow">
+                                <div
+                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                    <div class="me-3">
+                                        <p class="fs-lg fw-semibold mb-0">7</p>
+                                        <p class="text-muted mb-0">Điểm nhiều nhất</p>
+                                    </div>
+                                    <div class="item item-circle bg-body-light">
+                                        <i class="fa fa-users text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container mt-4" style="position: relative; height:40vh">
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,27 +266,29 @@ footer {
         <div>
             <h5 class="mb-3">THÔNG TIN ĐỀ THI</h5>
             <ul class="list-unstyled text-dark fs-sm">
-                <li class="mb-1 fs-base"><i class="text-primary fa fa-file-signature me-2"></i><span>Tên đề: <?php echo $data["Test"]["tende"]?></span>
+                <li class="mb-1 fs-base"><i class="text-primary fa fa-file-signature me-2"></i><span>Tên đề:
+                        <?php echo $data["Test"]["tende"] ?></span>
                 </li>
-                <li class="mb-1 fs-base"><i class="text-primary fa fa-clock me-2"></i><span>Thời gian tạo: <?php echo date_format(date_create($data["Test"]["thoigiantao"]),"H:i d/m/Y")?></span>
+                <li class="mb-1 fs-base"><i class="text-primary fa fa-clock me-2"></i><span>Thời gian tạo:
+                        <?php echo date_format(date_create($data["Test"]["thoigiantao"]), "H:i d/m/Y") ?></span>
                 </li>
             </ul>
             <h5 class="mb-3">MÔN THI</h5>
-            <p class="mb-3"><?php echo $data["Test"]["mamonhoc"]." - ".$data["Test"]["tenmonhoc"] ?></p>
+            <p class="mb-3"><?php echo $data["Test"]["mamonhoc"] . " - " . $data["Test"]["tenmonhoc"] ?></p>
             <h5 class="mb-3">GIAO CHO</h5>
             <ul class="nav nav-pills nav-justified push">
-                <?php 
-                    foreach($data["Test"]["nhom"] as $nhom) {
-                        echo '<li class="nav-item me-1 mb-2"><a class="nav-link border text-muted" href="./module/detail/'.$nhom['manhom'].'">'.$nhom['tennhom'].'</a></li>';
-                    }
+                <?php
+                foreach ($data["Test"]["nhom"] as $nhom) {
+                    echo '<li class="nav-item me-1 mb-2"><a class="nav-link border text-muted" href="./module/detail/' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
+                }
                 ?>
             </ul>
-            <?php 
-                if($data["Test"]["loaide"] == 0) {
-                    echo '<h5 class="mb-3">NỘI DUNG</h5>
+            <?php
+            if ($data["Test"]["loaide"] == 0) {
+                echo '<h5 class="mb-3">NỘI DUNG</h5>
                     <a href="javasript:void(0)" class="text-primary fw-bold" data-bs-toggle="modal"
-                            data-bs-target="#modal-cau-hoi" data-id="'.$data["Test"]["made"].'"><i class="fa fa-file me-2"></i>Xem chi tiết</a>';
-                }
+                            data-bs-target="#modal-cau-hoi" data-id="' . $data["Test"]["made"] . '"><i class="fa fa-file me-2"></i>Xem chi tiết</a>';
+            }
             ?>
         </div>
     </div>
@@ -173,23 +304,6 @@ footer {
             </div>
             <div class="modal-body pb-1">
                 <div id="content-file">
-                    <!-- <div class="question rounded border mb-3">
-                        <div class="question-top p-3">
-                            <p class="question-content fw-bold mb-3">1. OOP là viết tắt của: </p>
-                            <div class="row"><div class="col-6 mb-1">
-                            <p class="mb-1"><b>A.</b> Object Open Programming</p></div><div class="col-6 mb-1">
-                            <p class="mb-1"><b>B.</b> Open Object Programming</p></div><div class="col-6 mb-1">
-                            <p class="mb-1"><b>C.</b> Object Oriented Programming.</p></div><div class="col-6 mb-1">
-                            <p class="mb-1"><b>D.</b> Object Oriented Proccessing.</p></div></div>
-                        </div>
-                        <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p><input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">
-                            <label class="btn btn-light rounded-pill me-2 btn-answer-false btn-answer-question" for="option-c0_0">A</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" disabled="">
-                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_1">B</label><input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" disabled="">
-                            <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
-                            <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
-                            <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -197,4 +311,4 @@ footer {
                 <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
             </div>
         </div>
-</div>
+    </div>

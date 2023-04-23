@@ -25,11 +25,6 @@ class KetQuaModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
-    public function end($made, $manguoidung, $diemthi, $thoigianlambai, $socaudung)
-    {
-        $sql = "UPDATE `ketqua` SET `diemthi`='$diemthi',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung' WHERE `made`='$made' AND `manguoidung`='$manguoidung'";
-    }
-
     public function getMaKQ($made, $manguoidung)
     {
         $sql = "SELECT * FROM `ketqua` WHERE `made` = '$made' AND `manguoidung` = '$manguoidung'";
@@ -124,6 +119,26 @@ class KetQuaModel extends DB{
         return mysqli_fetch_assoc($result);
     }
 
+    // Lấy điểm để thống kê 
+    public function getMarkForStatictical($made, $manhom)
+    {
+        $sql = "SELECT DISTINCT chitietnhom.manguoidung,ketqua.manguoidung,makq,ketqua.made, diemthi
+        FROM chitietnhom LEFT JOIN ketqua ON ketqua.manguoidung = chitietnhom.manguoidung AND ketqua.made = '$made'
+        WHERE manhom = '$manhom'";
+        $result = mysqli_query($this->con, $sql);
+        $diemthi = array_fill(1, 9, 0);
+        $tong = 0;
+        $danop = 0;
+        $chuanop = 0;
+        $khongthi = 0;
+        
+        while($row = mysqli_fetch_assoc($result)){
+            
+        }
+        return $rows;
+    }
+    
+    // Tìm kiếm & phân trang & sắp xếp
     public function getQuery($filter, $input, $args) {
         if (isset($filter) && $filter == "absent") {
             $query = $this->getListAbsentFromTest($filter, $input, $args);

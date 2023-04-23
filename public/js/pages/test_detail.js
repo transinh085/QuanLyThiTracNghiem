@@ -346,7 +346,6 @@ $(document).ready(function () {
           a.download = "ket_qua_thi.pdf";
           a.style.display = "none";
           document.body.appendChild(a);
-
           // Kích hoạt liên kết và xóa nó sau khi tải xuống
           a.click();
           setTimeout(function () {
@@ -356,9 +355,70 @@ $(document).ready(function () {
       }
   });
   });
-
 });
 
+
+// Tạo dữ liệu giả điểm số cho 100 sinh viên
+const scores = [];
+
+for (let i = 0; i < 100; i++) {
+    const score = Math.floor(Math.random() * 101) / 10;
+    scores.push({ score: score });
+}
+
+// Khởi tạo mảng để lưu trữ số lượng sinh viên đạt được từng khoảng điểm
+const data = [0, 0, 0, 0, 0];
+
+// Lặp qua từng điểm thi và tăng giá trị tương ứng trong mảng data
+scores.forEach(score => {
+    if (score.score >= 9) {
+        data[0]++;
+    } else if (score.score >= 8) {
+        data[1]++;
+    } else if (score.score >= 6.5) {
+        data[2]++;
+    } else if (score.score >= 5) {
+        data[3]++;
+    } else if (score.score < 5) {
+      data[4]++;
+    }
+});
+
+// Thiết lập các nhãn cho biểu đồ
+const labels = ['> 9', '8 - 9', '6.5 - 8', '5 - 6.5', '< 5'];
+
+// Thiết lập các tùy chọn cho biểu đồ
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Thống kê điểm số'
+      }
+    }
+};
+
+// Vẽ biểu đồ dạng pie
+const ctx = document.getElementById('myChart').getContext('2d');
+
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Số lượng sinh viên',
+            data: data,
+            backgroundColor: 'rgba(6, 101, 208, 1)',
+            borderColor: 'rgba(6, 101, 208, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: options
+});
 
 (function () {
   // Pagination

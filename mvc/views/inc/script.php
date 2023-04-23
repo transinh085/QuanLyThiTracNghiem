@@ -32,7 +32,7 @@ if(isset($data["Plugin"]["jquery-validate"]) && $data["Plugin"]["jquery-validate
 }
 if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) {
     echo '<script src="./public/js/pagination.js"></script>';
-}
+} 
 if(isset($data["Script"])) {
     echo '<script src="./public/js/pages/'.$data["Script"].'.js"></script>';
 }

@@ -28,6 +28,12 @@ $GLOBALS['navbar'] = [
         'type'  => 'heading',
         'navbarItem' => [
             array(
+                'name'  => 'Nhóm học phần',
+                'icon'  => 'fa fa-layer-group',
+                'url'   => 'module',
+                'role' => 'hocphan'
+            ),
+            array(
                 'name'  => 'Câu hỏi',
                 'icon'  => 'fa fa-circle-question',
                 'url'   => 'question',
@@ -56,12 +62,6 @@ $GLOBALS['navbar'] = [
                 'icon'  => 'fa fa-file',
                 'url'   => 'test',
                 'role' => 'dethi'
-            ),
-            array(
-                'name'  => 'Nhóm học phần',
-                'icon'  => 'fa fa-layer-group',
-                'url'   => 'module',
-                'role' => 'hocphan'
             )
         ]
     ),

@@ -218,12 +218,12 @@ class DeThiModel extends DB
         } else {
             $question = $this->getQuestionTestAuto($made);
         }
-        $makq = $this->getMaDe($made,$_SESSION['user_id']);
-        foreach ($question as $data) {
-            $macauhoi = $data['macauhoi'];
-            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
-            $addCtKq = mysqli_query($this->con,$sql);
-        }
+        // $makq = $this->getMaDe($made,$_SESSION['user_id']);
+        // foreach ($question as $data) {
+        //     $macauhoi = $data['macauhoi'];
+        //     $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
+        //     $addCtKq = mysqli_query($this->con,$sql);
+        // }
         return $question;
     }
 

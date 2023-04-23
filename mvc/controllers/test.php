@@ -272,7 +272,7 @@ class Test extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
-            $result = $this->dethimodel->getQuestionOfTest($made);
+            $result = $this->dethimodel->getQuestionByUser($made,$_SESSION['user_id']);
             echo json_encode($result);
         }
     }
@@ -294,6 +294,7 @@ class Test extends Controller
             $made = $_POST['made'];
             $user_id = $_SESSION['user_id'];
             $result = $this->ketquamodel->start($made, $user_id);
+            $question = $this->dethimodel->getQuestionOfTest($made);
             echo json_encode($result);
         }
     }

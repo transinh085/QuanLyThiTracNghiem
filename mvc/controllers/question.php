@@ -14,6 +14,7 @@ class Question extends Controller
         $this->cauHoiModel = $this->model("CauHoiModel");
         $this->cauTraLoiModel = $this->model("CauTraLoiModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     function default()
@@ -27,6 +28,7 @@ class Question extends Controller
                     "select" => 1,
                     "notify" => 1,
                     "sweetalert2" => 1,
+                    "pagination" => 1,
                 ],
                 "Script" => "question"
             ]);
@@ -286,5 +288,10 @@ class Question extends Controller
             $result = $this->cauHoiModel->getTotalPageQuestionBySubject($mamonhoc,$machuong,$dokho,$content);
             echo $result;
         }
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $result = $this->cauHoiModel->getQuery($filter, $input, $args);
+        return $result;
     }
 }

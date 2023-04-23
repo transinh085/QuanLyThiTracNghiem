@@ -218,7 +218,20 @@ class DeThiModel extends DB
         } else {
             $question = $this->getQuestionTestAuto($made);
         }
+        $makq = $this->getMaDe($made,$_SESSION['user_id']);
+        foreach ($question as $data) {
+            $macauhoi = $data['macauhoi'];
+            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
+            $addCtKq = mysqli_query($this->con,$sql);
+        }
         return $question;
+    }
+
+    public function getMaDe($made, $user){
+        $sql = "SELECT * FROM `ketqua` WHERE made = '$made' and manguoidung = '$user'";
+        $result = mysqli_query($this->con,$sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['makq'];
     }
 
 
@@ -258,6 +271,7 @@ class DeThiModel extends DB
     }
 
 
+    // Tạo đề thủ công
     public function getQuestionOfTestManual($made)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
@@ -271,19 +285,21 @@ class DeThiModel extends DB
         return $rows;
     }
 
-    public function getResultDetail($made, $makq)
+    // Lấy chi tiết đề thi của sinh viên
+    public function getResultDetail($makq)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
+        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho,chitietketqua.dapanchon FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
         while ($row = mysqli_fetch_assoc($result)) {
-            $row['cautraloi'] = $ctlmodel->getAllHaveAnswer($row['macauhoi'], $makq);
+            $row['cautraloi'] = $ctlmodel->getAll($row['macauhoi']);
             $rows[] = $row;
         }
         return $rows;
     }
 
+    // Lấy thời gian kết thúc đề thi
     public function getTimeTest($dethi, $nguoidung)
     {
         $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";
@@ -298,6 +314,15 @@ class DeThiModel extends DB
             return $thoigianketthuc;
         }
         return false;
+    }
+
+    public function getTimeEndTest($dethi){
+        $sql_dethi = "select * from dethi where made = '$dethi'";
+        $result_dethi = mysqli_query($this->con, $sql_dethi);
+        $data_dethi = mysqli_fetch_assoc($result_dethi);
+        $thoigianketthuc = date("Y-m-d H:i:s", strtotime($data_dethi['thoigianketthuc']));
+        return $thoigianketthuc;
+
     }
 
     // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)

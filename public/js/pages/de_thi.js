@@ -20,7 +20,6 @@ $(document).ready(function () {
 
     function showListQuestion(questions, answers) {
         let html = ``;
-        console.log(questions)
         questions.forEach((question, index) => {
             html += `<div class="question rounded border mb-3 bg-white" id="c${index + 1
                 }">
@@ -175,6 +174,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 endTime = new Date(response).getTime();
+                $.ajax({
+                    type: "post",
+                    url: "./test/getTimeEndTest",
+                    data: {
+                        dethi: dethi,
+                    },
+                    success: function (responseEnd) {
+                        let endTimeTest = new Date(responseEnd).getTime();
+                        if(endTimeTest < endTime){
+                            endTime = endTimeTest;
+                        }
+                    }
+                });
                 countDown();
             },
         });

@@ -3,7 +3,7 @@ function showData(data) {
   let html = "";
   let index = 1;
   data.forEach((Element) => {
-    var totalSeconds = Element["thoigianlambai"] ? Element["thoigianlambai"] : 0;
+    var totalSeconds = Element["thoigianlambai"] || 0;
     var hours = Math.floor(totalSeconds / 3600);
     var minutes = Math.floor((totalSeconds % 3600) / 60);
     var seconds = Math.floor(totalSeconds % 60);
@@ -27,19 +27,22 @@ function showData(data) {
                 }</span>
             </div>
         </td>
-        <td class="text-center">${Element["diemthi"] ? Element["diemthi"] : "(Chưa nộp bài)"}</td>
-        <td class="text-center">${Element["thoigianvaothi"] ? Element["thoigianvaothi"] : 0}</td>
+        <td class="text-center">${Element["diemthi"] || "(Chưa nộp bài)"}</td>
+        <td class="text-center">${Element["thoigianvaothi"] || "(Vắng thi)"}</td>
         <td class="text-center">${formattedTime}</td>
-        <td class="text-center">${Element["solanchuyentab"] ? Element["solanchuyentab"] : 0}</td>
+        <td class="text-center">${Element["solanchuyentab"] || 0}</td>
         <td class="text-center">
-            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="View"data-bs-original-title="View" data-id="${Element["makq"]}">
+            <a class="btn btn-sm btn-alt-secondary show-exam-detail" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="Xem chi tiết" data-bs-original-title="Xem chi tiết" data-id="${Element["makq"] || ""}">
                 <i class="fa fa-fw fa-eye"></i>
+            </a>
+            <a class="btn btn-sm btn-alt-secondary print-pdf" href="javascript:void(0)" data-bs-toggle="tooltip" aria-label="In bài làm" data-bs-original-title="In bài làm" data-id="${Element["makq"] || ""}">
+                <i class="fa fa-fw fa-print"></i>
             </a>
         </td>
     </tr>`;
   });
   $("#took_the_exam").html(html);
-  $("a[data-bs-toogle='tooltip']").tooltip();
+  $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 const made = document.getElementById("chitietdethi").dataset.id;
@@ -91,6 +94,7 @@ $(document).ready(function () {
     });
     $("#list-question").html(html);
   }
+
   var made = $("#chitietdethi").data("id");
   function showTookTheExam(made) {
     $.ajax({
@@ -135,6 +139,7 @@ $(document).ready(function () {
     currentGroupID = $(this).data("value");
     currentPaginationOptions.manhom = currentGroupID;
     resetFilterState();
+    renderTableTitleColumns();
     resetSortIcons();
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
@@ -143,107 +148,53 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-state").text($(this).text());
     const state = $(this).data("state");
-    if (state === "absent") {
+    if (state !== "present") {
       currentPaginationOptions.filter = state;
     } else {
       delete currentPaginationOptions.filter;
     }
+
+    renderTableTitleColumns(state);
     resetSortIcons();
+    
     getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
 
   // Hiển thị đề kiểm tra đáp án + câu trả lời của thí sinh đó
-  function showTestDetail(test) {
-    let html = "";
-    test.forEach((question, index) => {
-      let htmlResult = "";
-      const dapandungIndex = question.cautraloi.findIndex(el => el.ladapan == 1); 
-      let dapanchon = question.cautraloi[0].dapanchon;
-      let dapanchonIndex = null;
-      if (dapanchon) {
-        dapanchonIndex = question.cautraloi.findIndex(el => dapanchon == el.macautl);
-      }
-      const chonDung = dapanchonIndex === dapandungIndex;
-
-      if (chonDung) {
-        question.cautraloi.forEach((ctl,i) => {
-          htmlResult += `
-          <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-          <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? "btn-answer-true" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-          `;
-        });
-        htmlResult += `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>`;
-      } else {
-        let resultChar = "";
-        if (dapanchonIndex == null) {
-          question.cautraloi.forEach((ctl,i) => {
-            if (i === dapandungIndex) resultChar = String.fromCharCode(i + 65);
-            htmlResult += `
-            <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-            <label class="btn btn-light rounded-pill me-2 btn-answer-question" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-            `;
-          })
-        } else {
-          question.cautraloi.forEach((ctl,i) => {
-            if (i === dapandungIndex) resultChar = String.fromCharCode(i + 65);
-            htmlResult += `
-            <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-            <label class="btn btn-light rounded-pill me-2 btn-answer-question ${i === dapanchonIndex ? "btn-answer-false" : ""}" for="options-c${index}">${String.fromCharCode(i + 65)}</label>
-            `;
-          });
-        }
-        htmlResult += `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${resultChar}</span>`;
-      }
-
-      html += `<div class="question rounded border mb-3" data-id="${question.macauhoi}" id="c${index + 1}">
-                <div class="question-top p-3">
-                  <p class="question-content fw-bold mb-3">${index + 1}.${question.noidung} </p>
-                  <div class="row">`;
-                  question.cautraloi.forEach((ctl,i) => {
-                    html += `
-                    <div class="col-6 mb-1">
-                      <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${ctl.noidungtl}</p>
-                    </div>`;
-                  });
-                  html += `
-                        </div>
-                      </div>`;
-                      html += `
-                      <div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center show-answer-test ">
-                        <p class="mb-0 text-white me-4">Đáp án của bạn:</p>
-                        `;
-                      html += htmlResult;
-                      // question.cautraloi.forEach((ctl,i) => {
-                      //   html += `
-                      //   <input type="radio" class="btn-check" name="options-c${index}" id="option-c${index}_${i}" autocomplete="off" disabled="">
-                      //   <label class="btn btn-light rounded-pill me-2 btn-answer-question ${ctl.ladapan === '1' ? `btn-answer-true` : ``}" for="option-c0_0">${String.fromCharCode(i + 65)}</label>
-                      //   `;
-                      // })  
-                      
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_0" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer-false btn-answer-question" for="option-c0_0">A</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_1" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_1">B</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_2" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer-true btn-answer-question" for="option-c0_2">C</label>
-                        // <input type="radio" class="btn-check" name="options-c0" id="option-c0_3" autocomplete="off" disabled="">
-                        // <label class="btn btn-light rounded-pill me-2 btn-answer btn-answer-question" for="option-c0_3">D</label>
-                      html += `
-                      </div>
-                      `;  
-                  html += `</div>`;
-      
+  function showTestDetail(questions) {  
+    let data = ``;
+    questions.forEach((item, index) => {
+      let dadung = item.cautraloi.find(op => op.ladapan == 1);
+      data += `<div class="question rounded border mb-3">
+            <div class="question-top p-3">
+                <p class="question-content fw-bold mb-3">${index + 1}. ${item.noidung} </p>
+                <div class="row">`;
+      item.cautraloi.forEach((op, i) => {
+        data += `<div class="col-6 mb-1">
+                <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${op.noidungtl}</p></div>`;
+      });
+      data += `</div></div>`;
+      data += `<div class="test-ans bg-primary rounded-bottom py-2 px-3 d-flex align-items-center"><p class="mb-0 text-white me-4">Đáp án của bạn:</p>`;
+      item.cautraloi.forEach((op, i) => {
+        let check = item.dapanchon == op.macautl ? (op.ladapan == 1 ? "btn-answer-true" : "btn-answer-false") : "";
+        data += `<button class="btn btn-light rounded-pill me-2 btn-answer-question ${check}" for="option-c${index}_${i}">${String.fromCharCode(i + 65)}</button>`;
+      });
+      data += dadung.macautl == item.dapanchon ? `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>` : `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${String.fromCharCode(item.cautraloi.indexOf(dadung) + 65)}</span>`;
+      data += `</div></div>`;
     });
-    $("#content-file").html(html);
+    $("#content-file").html(data);
   }
 
   $(document).on("click", ".show-exam-detail", function() {
     $("#modal-show-test").modal("show");
     let makq = $(this).data("id");
-    
-    console.log(makq)
-
+    // console.log(makq)
+    if (makq === "" || currentPaginationOptions.filter === "interrupted") {
+      let html = `<h5 class="text-center mb-2 fw-normal">Không thể xem kết quả</h5>`;
+      $("#content-file").html(html);
+      return;
+    }
     $.ajax({
       type: "post",
       url: "./test/getResultDetail",
@@ -270,8 +221,74 @@ $(document).ready(function () {
     $(".btn-filtered-by-state").text("Đã tham gia");
   }
 
-  $(".col-sort").click(function (e) {
+  function renderTableTitleColumns (state = "present") {
+    let html = `
+    <th class="text-center col-sort" data-sort-column="manguoidung" data-sort-order="default">MSSV</th>
+    <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
+    `;
+
+    switch (state) {
+      case "present":
+        html += `
+        <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
+        <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
+        <th class="text-center col-sort" data-sort-column="thoigianlambai" data-sort-order="default">Thời gian thi</th>
+        <th class="text-center col-sort" data-sort-column="solanchuyentab" data-sort-order="default">Số lần thoát</th>
+        `;
+        break;
+      case "absent":
+        html += `
+        <th class="text-center">Điểm</th>
+        <th class="text-center">Thời gian vào thi</th>
+        <th class="text-center">Thời gian thi</th>
+        <th class="text-center">Số lần thoát</th>
+        `;
+        break;
+      case "interrupted":
+        html += `
+        <th class="text-center">Điểm</th>
+        <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
+        <th class="text-center">Thời gian thi</th>
+        <th class="text-center">Số lần thoát</th>
+        `;
+        break;
+      default:
+    }
+    html += `
+    <th class="text-center">Hành động</th>
+    `;
+    $(".table-col-title").html(html);
+  }
+
+  $(".table-col-title").click(function (e) {
+    if (!e.target.classList.contains("col-sort")) {
+      return;
+    }
     const column = e.target.dataset.sortColumn;
+
+    switch (currentPaginationOptions.filter) {
+      case "absent":
+        switch (column) {
+          case "diemthi":
+          case "thoigianvaothi":
+          case "thoigianlambai":
+          case "solanchuyentab":
+            return;
+          default:
+        }
+        break;
+      case "interrupted":
+        switch (column) {
+          case "diemthi":
+          case "thoigianlambai":
+          case "solanchuyentab":
+            return;
+          default:
+        }
+        break;
+      default:
+    }
+
     const prevSortOrder = e.target.dataset.sortOrder;
     let currentSortOrder = "";
     switch (prevSortOrder) {
@@ -303,7 +320,45 @@ $(document).ready(function () {
     e.target.dataset.sortOrder = currentSortOrder;
   })
 
+  $(document).on("click", ".print-pdf",function () {
+    let makq = $(this).data("id");
+    $.ajax({
+      url:  `./test/exportPdf/${makq}`,
+      method: "POST",
+      success: function (response) {
+          // Tạo tệp blob từ chuỗi base64
+          var binaryString = atob(response);
+          var binaryLen = binaryString.length;
+          var bytes = new Uint8Array(binaryLen);
+
+          for (var i = 0; i < binaryLen; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+          }
+          // Tạo đối tượng Blob
+          var blob = new Blob([bytes], { type: "application/pdf" });
+
+          // Tạo đường dẫn URL tới blob
+          var url = URL.createObjectURL(blob);
+
+          // Tạo một liên kết ẩn để tải xuống tệp
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "ket_qua_thi.pdf";
+          a.style.display = "none";
+          document.body.appendChild(a);
+
+          // Kích hoạt liên kết và xóa nó sau khi tải xuống
+          a.click();
+          setTimeout(function () {
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+          }, 100);
+      }
+  });
+  });
+
 });
+
 
 (function () {
   // Pagination

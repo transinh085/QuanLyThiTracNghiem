@@ -1,5 +1,55 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
+
+function showData(data) {
+  let html = "";
+  let index = 1;
+  let offset = (valuePage.curPage - 1) * defaultPaginationOptions.limit;
+  data.forEach((question) => {
+    let dokho = "";
+    switch (question["dokho"]) {
+      case "1":
+        dokho = "Cơ bản";
+        break;
+      case "2":
+        dokho = "Trung bình";
+        break;
+      case "3":
+        dokho = "Nâng cao";
+        break;
+    }
+    html += `<tr>
+              <td class="text-center fs-sm">
+                  <a class="fw-semibold" href="#">
+                      <strong>${offset + index++}</strong>
+                  </a>
+              </td>
+              <td>${question["noidung"]}</td>
+              <td class="d-none d-xl-table-cell fs-sm">
+                  <a class="fw-semibold">${question["tenmonhoc"]}</a>
+              </td>
+              <td class="d-none d-sm-table-cell fs-sm">
+                  <strong>${dokho}</strong>
+              </td>
+              <td class="text-center">
+                  <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
+                              aria-label="Edit" data-bs-original-title="Edit" data-id="${
+                                question["macauhoi"]
+                              }">
+                              <i class="fa fa-fw fa-pencil" ></i>
+                          </a>
+                  <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
+                      data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
+                        question["macauhoi"]
+                      }">
+                      <i class="fa fa-fw fa-times"></i>
+                  </a>
+              </td>
+          </tr>`;
+  });
+  $("#listQuestion").html(html);
+}
+
 $(document).ready(function () {
   let options = [];
 
@@ -144,6 +194,7 @@ $(document).ready(function () {
         html += `<option value="${item.mamonhoc}">${item.tenmonhoc}</option>`;
       });
       $(".data-monhoc").html(html);
+      $("#main-page-monhoc").html(html);
     },
     "json"
   );
@@ -166,6 +217,46 @@ $(document).ready(function () {
         $(`.data-chuong[data-tab="${id}"]`).html(html);
       },
     });
+  });
+
+  $("#main-page-monhoc").on("change", function () {
+    let mamonhoc = $(this).val();
+    let id = $(this).data("tab");
+    let html = "<option></option>";
+    $.ajax({
+      type: "post",
+      url: "./subject/getAllChapter",
+      data: {
+        mamonhoc: mamonhoc,
+      },
+      dataType: "json",
+      success: function (data) {
+        data.forEach((item) => {
+          html += `<option value="${item.machuong}">${item.tenchuong}</option>`;
+        });
+        $(`#main-page-chuong[data-tab="${id}"]`).html(html);
+      },
+    });
+
+    // Reset filter
+    $("#main-page-dokho").val(0).trigger('change');
+    currentPaginationOptions.filter = {};
+
+    // Ajax call + pagination
+    currentPaginationOptions.filter.mamonhoc = mamonhoc;
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  $("#main-page-chuong").on("change", function () {
+    const machuong = $(this).val();
+    currentPaginationOptions.filter.machuong = machuong;
+    getPagination(currentPaginationOptions, valuePage.curPage);
+  });
+
+  $("#main-page-dokho").on("change", function () {
+    const dokho = +$(this).val();
+    currentPaginationOptions.filter.dokho = dokho;
+    getPagination(currentPaginationOptions, valuePage.curPage);
   });
 
   $("#file-cau-hoi").change(function (e) {
@@ -250,7 +341,7 @@ $(document).ready(function () {
     $("#content-file").html(data);
   }
 
-  loadQuestion();
+  // loadQuestion();
 
   //add question
   $("#add_question").click(function (e) {
@@ -285,7 +376,8 @@ $(document).ready(function () {
           });
 
           $("#modal-add-question").modal("hide");
-          loadQuestion();
+          // loadQuestion();
+          getPagination(currentPaginationOptions, valuePage.curPage);
         },
       });
     } else {
@@ -371,7 +463,8 @@ $(document).ready(function () {
       },
       success: function (response) {
         $("#modal-add-question").modal("hide");
-        loadQuestion();
+        // loadQuestion();
+        getPagination(currentPaginationOptions, valuePage.curPage);
         setTimeout(function () {
           Dashmix.helpers("jq-notify", {
             type: "success",
@@ -425,7 +518,8 @@ $(document).ready(function () {
           });
 
           $("#modal-add-question").modal("hide");
-          loadQuestion();
+          // loadQuestion();
+          getPagination(currentPaginationOptions, valuePage.curPage);
         },
       });
     } else {
@@ -532,7 +626,7 @@ $(document).ready(function () {
 
     e.fire({
       title: "Are you sure?",
-      text: "Bạn có chắc chắn muốn xoá nhóm môn học?",
+      text: "Bạn có chắc chắn muốn xoá câu hỏi này?",
       icon: "warning",
       showCancelButton: !0,
       customClass: {
@@ -556,18 +650,13 @@ $(document).ready(function () {
             macauhoi: trid,
           },
           success: function (response) {
-            e.fire("Deleted!", "Xóa môn học thành công!", "success");
-            loadQuestion();
+            e.fire("Deleted!", "Xóa câu hỏi thành công!", "success");
+            // loadQuestion();
+            getPagination(currentPaginationOptions, valuePage.curPage);
           },
         });
       }
     });
-  });
-
-  $(".filter-search").click(function (e) {
-    e.preventDefault();
-    $(".btn-filter").text($(this).text());
-    console.log($(".btn-filter").text())
   });
 
   // loadDataQuestion
@@ -579,67 +668,23 @@ $(document).ready(function () {
       {
         page: page,
         selected: $(".btn-filter").text(),
-        content: $("#question-search").val().trim()
+        content: $("#search-input").val().trim()
       },
       function (data) {
-        let html = "";
-        let index = 1;
-        data.forEach((question) => {
-          let dokho = "";
-          switch (question["dokho"]) {
-            case "1":
-              dokho = "Cơ bản";
-              break;
-            case "2":
-              dokho = "Trung bình";
-              break;
-            case "3":
-              dokho = "Nâng cao";
-              break;
-          }
-          html += `<tr>
-                    <td class="text-center fs-sm">
-                        <a class="fw-semibold" href="#">
-                            <strong>${index++}</strong>
-                        </a>
-                    </td>
-                    <td>${question["noidung"]}</td>
-                    <td class="d-none d-xl-table-cell fs-sm">
-                        <a class="fw-semibold">${question["tenmonhoc"]}</a>
-                    </td>
-                    <td class="d-none d-sm-table-cell fs-sm">
-                        <strong>${dokho}</strong>
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
-                                    aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                      question["macauhoi"]
-                                    }">
-                                    <i class="fa fa-fw fa-pencil" ></i>
-                                </a>
-                        <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
-                            data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
-                              question["macauhoi"]
-                            }">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
-                    </td>
-                </tr>`;
-        });
-        $("#listQuestion").html(html);
+        showData(data);
       },
       "json"
     );
   }
 
-  loadPagination();
+  // loadPagination();
   function loadPagination() {
     $.ajax({
       url: "./question/getTotalPage",
       type: "post",
       data: {
         selected: $(".btn-filter").text(),
-        content: $("#question-search").val().trim()
+        content: $("#search-input").val().trim()
       },
       success: function (data) {
         let sum = parseInt(data);
@@ -656,12 +701,6 @@ $(document).ready(function () {
     });
   }
 
-  $("#question-search").on("input", function (e) {
-    e.preventDefault();
-    console.log($("#question-search").val());
-    loadPagination();
-  });
-
   function loadSearchQuestion(content) {
     $.ajax({
       url: "search.php",
@@ -676,3 +715,10 @@ $(document).ready(function () {
     loadPagination();
   }
 });
+
+// Pagination
+defaultPaginationOptions.controller = "question";
+defaultPaginationOptions.model = "CauHoiModel";
+defaultPaginationOptions.limit = 10;
+defaultPaginationOptions.filter = {};
+getPagination(currentPaginationOptions, valuePage.curPage);

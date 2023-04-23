@@ -16,15 +16,6 @@
             <!-- END Logo -->
             <!-- Options -->
             <div>
-                <!-- Toggle Sidebar Style -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
-                <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
-                    data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on"
-                    onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');">
-                    <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
-                </button>
-                <!-- END Toggle Sidebar Style -->
                 <!-- Dark Mode -->
                 <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"

@@ -15,13 +15,60 @@
                 <i class="fa fa-fw fa-ellipsis-v"></i>
             </button>
             <!-- END Toggle Sidebar -->
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn btn-alt-secondary me-1" id="page-header-themes-dropdown"
+                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-wrench"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg p-0" aria-labelledby="page-header-themes-dropdown">
+                    <div class="p-3 bg-body-light rounded-top">
+                        <h5 class="h6 text-center mb-0">
+                            Màu sắc
+                        </h5>
+                    </div>
+                    <div class="p-3">
+                        <div class="row g-0 text-center">
+                            <div class="col-2">
+                                <a class="text-default" data-toggle="theme" data-theme="default"
+                                    href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="text-xwork" data-toggle="theme"
+                                    data-theme="./public/css/themes/xwork.min.css" href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="text-xplay" data-toggle="theme"
+                                    data-theme="./public/css/themes/xplay.min.css" href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="text-xeco" data-toggle="theme"
+                                    data-theme="./public/css/themes/xeco.min.css" href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="text-xsmooth" data-toggle="theme"
+                                    data-theme="./public/css/themes/xsmooth.min.css" href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <a class="text-xinspire" data-toggle="theme"
+                                    data-theme="./public/css/themes/xinspire.min.css" href="javascript:void(0)">
+                                    <i class="fa fa-2x fa-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Open Search Section -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="header_search_on">
-                <i class="fa fa-fw opacity-50 fa-search"></i> <span class="ms-1 d-none d-sm-inline-block">Search</span>
-            </button>
-            <!-- END Open Search Section -->
         </div>
         <!-- END Left Section -->
 
@@ -64,22 +111,6 @@
     </div>
     <!-- END Header Content -->
 
-    <!-- Header Search -->
-    <div id="page-header-search" class="overlay-header bg-primary">
-        <div class="content-header">
-            <form class="w-100" method="POST">
-                <div class="input-group">
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-primary" data-toggle="layout" data-action="header_search_off">
-                        <i class="fa fa-fw fa-times-circle"></i>
-                    </button>
-                    <input type="text" class="form-control border-0" placeholder="Search or hit ESC.."
-                        id="page-header-search-input" name="page-header-search-input">
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- END Header Search -->
     <div id="page-header-loader" class="overlay-header bg-header-dark">
         <div class="bg-white-10">
             <div class="content-header">

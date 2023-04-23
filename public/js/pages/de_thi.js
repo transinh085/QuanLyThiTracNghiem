@@ -13,8 +13,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log("De thi")
-                console.log(response)
                 questions = response;
             },
         });
@@ -176,6 +174,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 endTime = new Date(response).getTime();
+                $.ajax({
+                    type: "post",
+                    url: "./test/getTimeEndTest",
+                    data: {
+                        dethi: dethi,
+                    },
+                    success: function (responseEnd) {
+                        let endTimeTest = new Date(responseEnd).getTime();
+                        if(endTimeTest < endTime){
+                            endTime = endTimeTest;
+                        }
+                    }
+                });
                 countDown();
             },
         });

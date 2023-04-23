@@ -303,6 +303,14 @@ class Test extends Controller
         }
     }
 
+    public function getTimeEndTest(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $dethi = $_POST['dethi'];
+            $result = $this->dethimodel->getTimeEndTest($dethi);
+            echo $result;
+        }
+    }
+
     public function submit()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

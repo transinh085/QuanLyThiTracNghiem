@@ -317,7 +317,9 @@ class DeThiModel extends DB
         $sql_dethi = "select * from dethi where made = '$dethi'";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
         $data_dethi = mysqli_fetch_assoc($result_dethi);
-        
+        $thoigianketthuc = date("Y-m-d H:i:s", strtotime($data_dethi['thoigianketthuc']));
+        return $thoigianketthuc;
+
     }
 
     // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)

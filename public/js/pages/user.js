@@ -331,6 +331,7 @@ $(document).ready(function () {
         Dashmix.layout("header_loader_on");
       },
       success: function (response) {
+        console.log(response)
         addExcel(response);
       },
       complete: function () {

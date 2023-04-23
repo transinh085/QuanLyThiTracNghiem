@@ -1,6 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
-
+require_once 'vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
 use Dompdf\Dompdf;
 
 class Test extends Controller
@@ -272,7 +272,7 @@ class Test extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
-            $result = $this->dethimodel->getQuestionByUser($made,$_SESSION['user_id']);
+            $result = $this->dethimodel->getQuestionByUser($made, $_SESSION['user_id']);
             echo json_encode($result);
         }
     }
@@ -308,7 +308,8 @@ class Test extends Controller
         }
     }
 
-    public function getTimeEndTest(){
+    public function getTimeEndTest()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dethi = $_POST['dethi'];
             $result = $this->dethimodel->getTimeEndTest($dethi);
@@ -368,7 +369,7 @@ class Test extends Controller
     public function exportPdf($makq)
     {
         $dompdf = new Dompdf();
-        
+
         $info = $this->ketquamodel->getInfoPrintPdf($makq);
         $cauHoi = $this->dethimodel->getResultDetail($makq);
 
@@ -390,10 +391,10 @@ class Test extends Controller
                         KHOA CÔNG NGHỆ THÔNG TIN<br><br><br>
                     </td>
                     <td style="text-align: center;">
-                        <p style="font-weight:bold">'.mb_strtoupper($info['tende'], "UTF-8").'</p>
-                        <p style="font-weight:bold">Học phần: '.$info['tenmonhoc'].'</p>
-                        <p style="font-weight:bold">Mã học phần: '.$info['mamonhoc'].'</p>
-                        <p style="font-style:italic">Thời gian làm bài: '.$info['thoigianthi'].' phút</p>
+                        <p style="font-weight:bold">' . mb_strtoupper($info['tende'], "UTF-8") . '</p>
+                        <p style="font-weight:bold">Học phần: ' . $info['tenmonhoc'] . '</p>
+                        <p style="font-weight:bold">Mã học phần: ' . $info['mamonhoc'] . '</p>
+                        <p style="font-style:italic">Thời gian làm bài: ' . $info['thoigianthi'] . ' phút</p>
                     </td>
                 </tr>
             </table>
@@ -403,7 +404,7 @@ class Test extends Controller
                     <td>Tên thí sinh: ' . $info['hoten'] . '</td>
                 </tr>
                 <tr style="width:100%">
-                    <td>Số câu đúng: '.$info['socaudung'].'/'.$info['tongsocauhoi'].'</td>
+                    <td>Số câu đúng: ' . $info['socaudung'] . '/' . $info['tongsocauhoi'] . '</td>
                     <td>Điểm: ' . $info['diemthi'] . '</td>
                 </tr>
             </table>       
@@ -411,7 +412,7 @@ class Test extends Controller
             <div style="margin-top:20px">
         ';
         foreach ($cauHoi as $index => $ch) {
-            $html .= '<li style="list-style:none"><strong>Câu '.($index+1).'</strong>: '.$ch['noidung'].'<ol type="A" style="margin-left:30px">';
+            $html .= '<li style="list-style:none"><strong>Câu ' . ($index + 1) . '</strong>: ' . $ch['noidung'] . '<ol type="A" style="margin-left:30px">';
             foreach ($ch['cautraloi'] as $ctl) {
                 $dapAn = $ctl['ladapan'] == "1" ? " (Đáp án chính xác)" : "";
                 $dapAnChon = $ctl['macautl'] == $ch['dapanchon'] ? " (Đáp án chọn)" : "";
@@ -435,5 +436,71 @@ class Test extends Controller
         $dompdf->render();
         $output = $dompdf->output();
         echo base64_encode($output);
+    }
+
+    public function exportExcel()
+    {
+        $data = [
+            ['Nguyễn Khánh Linh', 'Nữ', '500k'],
+            ['Ngọc Trinh', 'Nữ', '700k'],
+            ['Tùng Sơn', 'Không xác định', 'Miễn phí'],
+            ['Kenny Sang', 'Không xác định', 'Miễn phí']
+        ];
+        //Khởi tạo đối tượng
+        $excel = new PHPExcel();
+        //Chọn trang cần ghi (là số từ 0->n)
+        $excel->setActiveSheetIndex(0);
+        //Tạo tiêu đề cho trang. (có thể không cần)
+        $excel->getActiveSheet()->setTitle('demo ghi dữ liệu');
+
+        //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+
+        //Xét in đậm cho khoảng cột
+        $excel->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
+        //Tạo tiêu đề cho từng cột
+//Vị trí có dạng như sau:
+        /**
+         * |A1|B1|C1|..|n1|
+         * |A2|B2|C2|..|n1|
+         * |..|..|..|..|..|
+         * |An|Bn|Cn|..|nn|
+         */
+        $excel->getActiveSheet()->setCellValue('A1', 'Tên');
+        $excel->getActiveSheet()->setCellValue('B1', 'Giới Tính');
+        $excel->getActiveSheet()->setCellValue('C1', 'Đơn giá(/shoot)');
+        // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
+// dòng bắt đầu = 2
+        $numRow = 2;
+        foreach ($data as $row) {
+            $excel->getActiveSheet()->setCellValue('A' . $numRow, $row[0]);
+            $excel->getActiveSheet()->setCellValue('B' . $numRow, $row[1]);
+            $excel->getActiveSheet()->setCellValue('C' . $numRow, $row[2]);
+            $numRow++;
+        }
+        // Khởi tạo đối tượng PHPExcel_IOFactory để thực hiện ghi file
+// ở đây mình lưu file dưới dạng excel2007
+        // Thiết lập header cho phản hồi HTTP
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="data.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Lưu file vào bộ đệm đầu ra
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Booking Report.xlsx"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+    
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
     }
 }

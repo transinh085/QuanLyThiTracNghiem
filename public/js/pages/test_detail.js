@@ -356,7 +356,17 @@ $(document).ready(function () {
       }
   });
   });
-
+  $("#export_excel").click(function(){
+    $.ajax({
+      type: "post",
+      url: "./test/exportExcel",
+      // data: "data",
+      // dataType: "dataType",
+      success: function (response) {
+        console.log(response)
+      }
+    });
+  })
 });
 
 

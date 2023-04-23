@@ -66,6 +66,10 @@ footer {
                                         <i class="fa fa-search"></i>
                                     </span> -->
                                 </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+                điểm</button>
+                                </div>
                             </div>
                         </div>
                     </form>

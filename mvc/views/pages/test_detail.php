@@ -58,6 +58,7 @@ footer {
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
                                         <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="present">Đã tham gia</a></li>
                                         <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="absent">Vắng thi</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="interrupted">Chưa nộp bài</a></li>
                                     </ul>
                                     <input type="text" class="form-control form-control-alt" id="search-input"
                                         name="search-input" placeholder="Tìm kiếm sinh viên...">
@@ -71,7 +72,7 @@ footer {
                     <div class="table-responsive">
                         <table class="table table-vcenter">
                             <thead>
-                                <tr>
+                                <tr class="table-col-title">
                                     <th class="text-center col-sort" data-sort-column="manguoidung" data-sort-order="default">MSSV</th>
                                     <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
                                     <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>

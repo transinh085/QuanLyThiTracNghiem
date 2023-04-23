@@ -9,34 +9,33 @@
             </div>
         </div>
         <div class="block-content">
-            <form onsubmit="return false;">
-                <div class="row mb-4 align-items-center">
-                    <div class="col-8 d-flex gap-4 align-items-center">
-                        <label for="">Môn: </label>
-                        <select class="js-select2 form-select" id="example-select2" name="example-select2"
-                            data-placeholder="Choose one.." style="width: 50%">
+            <form action="#" method="POST" id="search-form" onsubmit="return false;">
+                <div class="row mb-3">
+                    <div class="col-xl-4 d-flex gap-2 align-items-center">
+                        <!-- <label for="">Môn:</label> -->
+                        <select class="js-select2 form-select" id="main-page-monhoc" name="main-page-monhoc" data-placeholder="Chọn môn học" data-tab="1">
                             <option></option>
-                            <option value="1">HTML</option>
-                            <option value="2">CSS</option>
-                            <option value="3">JavaScript</option>
-                            <option value="4">PHP</option>
-                            <option value="5">MySQL</option>
-                            <option value="6">Ruby</option>
-                            <option value="7">Angular</option>
-                            <option value="8">React</option>
-                            <option value="9">Vue.js</option>
-                        </select>
-                        <label for="">Độ khó: </label>
-                        <select class="form-select" id="example-select2" name="example-select2"
-                            style="width: 150px;" data-placeholder="Choose one..">
-                            <option value="0">Tất cả</option>
-                            <option value="1">Dễ </option>
-                            <option value="2">Trung bình</option>
-                            <option value="3">Khó</option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <input type="text" class="form-control" name="question-search" id="question-search" placeholder="Nhập nội dung tìm kiếm">
+                    <div class="col-xl-4 d-flex gap-2 align-items-center">
+                        <!-- <label for="">Chương:</label> -->
+                        <select class="js-select2 form-select" id="main-page-chuong" data-tab="1" name="main-page-chuong" data-placeholder="Chọn chương">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-xl-2 d-flex gap-2 align-items-center">
+                        <label for="">Độ khó:</label>
+                        <select class="js-select2 form-select" id="main-page-dokho" name="main-page-dokho" style="width: 150px;" data-placeholder="Choose one..">
+                            <option value="0">Tất cả</option>
+                            <option value="1">Cơ bản</option>
+                            <option value="2">Trung bình</option>
+                            <option value="3">Nâng cao</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-xl-4 d-flex gap-2 align-items-center">
+                        <input type="text" class="form-control" name="search-input" id="search-input" placeholder="Nhập nội dung câu hỏi...">
                     </div>
                 </div>
             </form>
@@ -55,22 +54,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Photos Search Navigation">
-                <ul class="pagination pagination-sm justify-content-center mt-2" id="pagination">
-                    <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0)">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">4</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php"?>
         </div>
     </div>
 </div>

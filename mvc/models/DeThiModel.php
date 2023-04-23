@@ -271,6 +271,7 @@ class DeThiModel extends DB
     }
 
 
+    // Tạo đề thủ công
     public function getQuestionOfTestManual($made)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
@@ -284,6 +285,7 @@ class DeThiModel extends DB
         return $rows;
     }
 
+    // Lấy chi tiết đề thi của sinh viên
     public function getResultDetail($makq)
     {
         $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho,chitietketqua.dapanchon FROM chitietketqua, cauhoi WHERE makq= '$makq' AND chitietketqua.macauhoi = cauhoi.macauhoi";
@@ -297,6 +299,7 @@ class DeThiModel extends DB
         return $rows;
     }
 
+    // Lấy thời gian kết thúc đề thi
     public function getTimeTest($dethi, $nguoidung)
     {
         $sql = "Select * from ketqua where made = '$dethi' and manguoidung = '$nguoidung'";

@@ -98,6 +98,9 @@ class KetQuaModel extends DB{
             $query = "SELECT CTN.manguoidung, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manguoidung IN (SELECT manguoidung FROM `chitietnhom` where manhom = ".$args['manhom'].") AND CTN.manguoidung NOT IN (SELECT KQ1.manguoidung FROM ketqua KQ1, nguoidung ND1, chitietnhom CTN1 WHERE KQ1.manguoidung = ND1.id AND CTN1.manguoidung = ND1.id AND KQ1.made = ".$args['made']." AND CTN1.manhom = ".$args['manhom'].")";
         } else {
             $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
+            if (isset($filter) && $filter == "interrupted") {
+                $query = $query . " AND ISNULL(diemthi)";
+            }
         }
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
@@ -111,11 +114,24 @@ class KetQuaModel extends DB{
         return $query;
     }
 
+    // Lấy thông tin đề thi, kết quả của sinh viên để xuất file PDF
+    public function getInfoPrintPdf($makq)
+    {
+        $sql = "SELECT DISTINCT ketqua.made, tende, tenmonhoc, mamonhoc, thoigianthi, manguoidung, hoten, socaudung,(socaude + socautb + socaukho) AS tongsocauhoi , diemthi
+        FROM chitietketqua, ketqua, dethi, monhoc, nguoidung
+        WHERE chitietketqua.makq = '$makq' AND chitietketqua.makq = ketqua.makq AND ketqua.manguoidung = nguoidung.id AND ketqua.made = dethi.made AND dethi.monthi = monhoc.mamonhoc";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+
     public function getQuery($filter, $input, $args) {
         if (isset($filter) && $filter == "absent") {
             $query = $this->getListAbsentFromTest($filter, $input, $args);
         } else {
             $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
+            if (isset($filter) && $filter == "interrupted") {
+                $query = $query . " AND ISNULL(diemthi)";
+            }
         }
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
@@ -148,4 +164,3 @@ class KetQuaModel extends DB{
         return $query;
     }
 }
-?>

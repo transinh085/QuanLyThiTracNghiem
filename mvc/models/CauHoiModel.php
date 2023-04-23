@@ -96,5 +96,24 @@ class CauHoiModel extends DB{
         }
         return count($rows)/$limit;
     }
+
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE 1";
+        if (isset($filter)) {
+            if (isset($filter['mamonhoc'])) {
+                $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];
+            }
+            if (isset($filter['machuong'])) {
+                $query .= " AND machuong = ".$filter['machuong'];
+            }
+            if (isset($filter['dokho']) && $filter['dokho'] != 0) {
+                $query .= " AND dokho = ".$filter['dokho'];
+            }
+        }
+        if ($input) {
+            $query .= " AND (noidung LIKE N'%${input}%')";
+        }
+        return $query;
+    }
 }
 ?>

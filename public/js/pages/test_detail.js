@@ -218,7 +218,7 @@ $(document).ready(function () {
 
   function resetFilterState () {
     delete currentPaginationOptions.filter;
-    $(".btn-filtered-by-state").text("Đã tham gia");
+    $(".btn-filtered-by-state").text("Đã nộp bài");
   }
 
   function renderTableTitleColumns (state = "present") {

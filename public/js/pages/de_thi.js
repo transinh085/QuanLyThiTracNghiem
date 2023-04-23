@@ -13,6 +13,8 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log("De thi")
+                console.log(response)
                 questions = response;
             },
         });
@@ -20,7 +22,6 @@ $(document).ready(function () {
 
     function showListQuestion(questions, answers) {
         let html = ``;
-        console.log(questions)
         questions.forEach((question, index) => {
             html += `<div class="question rounded border mb-3 bg-white" id="c${index + 1
                 }">

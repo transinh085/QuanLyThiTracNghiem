@@ -218,7 +218,20 @@ class DeThiModel extends DB
         } else {
             $question = $this->getQuestionTestAuto($made);
         }
+        $makq = $this->getMaDe($made,$_SESSION['user_id']);
+        foreach ($question as $data) {
+            $macauhoi = $data['macauhoi'];
+            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
+            $addCtKq = mysqli_query($this->con,$sql);
+        }
         return $question;
+    }
+
+    public function getMaDe($made, $user){
+        $sql = "SELECT * FROM `ketqua` WHERE made = '$made' and manguoidung = '$user'";
+        $result = mysqli_query($this->con,$sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['makq'];
     }
 
 
@@ -298,6 +311,13 @@ class DeThiModel extends DB
             return $thoigianketthuc;
         }
         return false;
+    }
+
+    public function getTimeEndTest($dethi){
+        $sql_dethi = "select * from dethi where made = '$dethi'";
+        $result_dethi = mysqli_query($this->con, $sql_dethi);
+        $data_dethi = mysqli_fetch_assoc($result_dethi);
+        
     }
 
     // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)

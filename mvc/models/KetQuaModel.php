@@ -66,7 +66,7 @@ class KetQuaModel extends DB{
         foreach($list as $ct){
             $macauhoi = $ct['macauhoi'];
             $cautraloi = $ct['cautraloi'];
-            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`, `dapanchon`) VALUES ('$makq','$macauhoi','$cautraloi')";
+            $sql = "UPDATE `chitietketqua` SET `dapanchon`='$cautraloi' WHERE `makq`='$makq' AND `macauhoi`='$macauhoi'";
             $insertCt = mysqli_query($this->con,$sql);
             if(!$insertCt) $valid = false;
         }

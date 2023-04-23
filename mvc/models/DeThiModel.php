@@ -227,6 +227,21 @@ class DeThiModel extends DB
         return $question;
     }
 
+    public function getQuestionByUser($made,$user){
+        $sql_ketqua = "SELECT * FROM ketqua where made = '$made' and manguoidung = '$user'";
+        $result_ketqua = mysqli_query($this->con,$sql_ketqua);
+        $data_ketqua = mysqli_fetch_assoc($result_ketqua);
+        $ketqua = $data_ketqua['makq'];
+        $sql_question = "SELECT * FROM chitietketqua ctkq JOIN cauhoi ch on ctkq.macauhoi = ch.macauhoi WHERE makq = '$ketqua'";
+        $data_question = mysqli_query($this->con,$sql_question);
+        $ctlmodel = new CauTraLoiModel();
+        foreach ($data_question as $row) {
+            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function getMaDe($made, $user){
         $sql = "SELECT * FROM `ketqua` WHERE made = '$made' and manguoidung = '$user'";
         $result = mysqli_query($this->con,$sql);
@@ -271,6 +286,8 @@ class DeThiModel extends DB
     }
 
 
+
+
     // Tạo đề thủ công
     public function getQuestionOfTestManual($made)
     {
@@ -284,6 +301,7 @@ class DeThiModel extends DB
         }
         return $rows;
     }
+
 
     // Lấy chi tiết đề thi của sinh viên
     public function getResultDetail($makq)

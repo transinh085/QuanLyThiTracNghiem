@@ -53,22 +53,21 @@ footer {
                                         ?>
                                         <!-- <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li> -->
                                     </ul>
-                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state"
-                                        id="dropdown-filter-state" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">Đã tham gia</button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Đã nộp bài</button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
-                                                data-state="present">Đã tham gia</a></li>
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
-                                                data-state="absent">Vắng thi</a></li>
-                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)"
-                                                data-state="interrupted">Chưa nộp bài</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="present">Đã nộp bài</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="absent">Vắng thi</a></li>
+                                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="interrupted">Chưa nộp bài</a></li>
                                     </ul>
                                     <input type="text" class="form-control form-control-alt" id="search-input"
                                         name="search-input" placeholder="Tìm kiếm sinh viên...">
                                     <!-- <span class="input-group-text bg-body border-0">
                                         <i class="fa fa-search"></i>
                                     </span> -->
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-sm" id="export_excel"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+                điểm</button>
                                 </div>
                             </div>
                         </div>

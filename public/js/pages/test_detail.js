@@ -218,7 +218,7 @@ $(document).ready(function () {
 
   function resetFilterState () {
     delete currentPaginationOptions.filter;
-    $(".btn-filtered-by-state").text("Đã tham gia");
+    $(".btn-filtered-by-state").text("Đã nộp bài");
   }
 
   function renderTableTitleColumns (state = "present") {
@@ -355,6 +355,17 @@ $(document).ready(function () {
       }
   });
   });
+  $("#export_excel").click(function(){
+    $.ajax({
+      type: "post",
+      url: "./test/exportExcel",
+      // data: "data",
+      // dataType: "dataType",
+      success: function (response) {
+        console.log(response)
+      }
+    });
+  })
 });
 
 

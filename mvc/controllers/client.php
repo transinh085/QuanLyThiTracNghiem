@@ -70,7 +70,6 @@ class Client extends Controller{
                 $result = $this->nhommodel->join($manhom,$manguoidung);
                 if($result) {
                         echo json_encode($this->nhommodel->getDetailGroup($manhom));
-                        // $update_siso = $this->nhommodel->updateSiso($result_manhom);
                 }
                 else echo json_encode(1);
             } else echo json_encode(0);
@@ -80,6 +79,7 @@ class Client extends Controller{
     public function loadDataGroups() {
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             $manguoidung = $_SESSION['user_id'];
+            // $hienthi = $_GET['hienthi'];
             $result = $this->nhommodel->getAllGroup_User($manguoidung);
             echo json_encode($result);
         }
@@ -115,9 +115,10 @@ class Client extends Controller{
 
     public function delete()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan","delete")) {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
-            $result = $this->nhommodel->delete($manhom);
+            $manguoidung = $_SESSION['user_id'];
+            $result = $this->nhommodel->SVDelete($manhom,$manguoidung);
             echo $result;
         } else echo json_encode(false);
     }    

@@ -376,7 +376,8 @@ $(document).ready(function () {
           });
 
           $("#modal-add-question").modal("hide");
-          loadQuestion();
+          // loadQuestion();
+          getPagination(currentPaginationOptions, valuePage.curPage);
         },
       });
     } else {
@@ -462,7 +463,8 @@ $(document).ready(function () {
       },
       success: function (response) {
         $("#modal-add-question").modal("hide");
-        loadQuestion();
+        // loadQuestion();
+        getPagination(currentPaginationOptions, valuePage.curPage);
         setTimeout(function () {
           Dashmix.helpers("jq-notify", {
             type: "success",
@@ -516,7 +518,8 @@ $(document).ready(function () {
           });
 
           $("#modal-add-question").modal("hide");
-          loadQuestion();
+          // loadQuestion();
+          getPagination(currentPaginationOptions, valuePage.curPage);
         },
       });
     } else {
@@ -623,7 +626,7 @@ $(document).ready(function () {
 
     e.fire({
       title: "Are you sure?",
-      text: "Bạn có chắc chắn muốn xoá nhóm môn học?",
+      text: "Bạn có chắc chắn muốn xoá câu hỏi này?",
       icon: "warning",
       showCancelButton: !0,
       customClass: {
@@ -647,8 +650,9 @@ $(document).ready(function () {
             macauhoi: trid,
           },
           success: function (response) {
-            e.fire("Deleted!", "Xóa môn học thành công!", "success");
-            loadQuestion();
+            e.fire("Deleted!", "Xóa câu hỏi thành công!", "success");
+            // loadQuestion();
+            getPagination(currentPaginationOptions, valuePage.curPage);
           },
         });
       }

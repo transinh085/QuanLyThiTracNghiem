@@ -1,4 +1,12 @@
 <div class="content">
+    <div class="block block-rounded bg-gd-dusk">
+        <div class="block-content bg-white-5">
+            <div class="py-4 text-center">
+                <h1 class="h2 fw-bold text-white mb-2">Dashboard</h1>
+                <h2 class="h5 fw-medium text-white-75">Welcome Admin, create something amazing!</h2>
+            </div>
+        </div>
+    </div>
     <div
         class="d-md-flex justify-content-md-between align-items-md-center py-3 pt-md-3 pb-md-0 text-center text-md-start">
         <div>

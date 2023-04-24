@@ -17,14 +17,21 @@ class SendEmail
              //Server settings
             $email->SMTPDebug = 2;                                 // Bật thông báo lỗi nếu như bị sai cấu hình
             $email->isSMTP();                                      // Sử dụng SMTP để gửi mail
-            $email->Host = 'globalproxy.online';                   // Server SMTP của mình
+            $email->Host = 'smtp.gmail.com';                   // Server SMTP của mình
             $email->SMTPAuth = true;                               // Bật xác thực SMTP
             $email->Username = 'thekrister123@gmail.com';                 // Tài khoản email
             $email->Password = 'God_Simon2452003';                           // Mật khẩu email
             $email->SMTPSecure = 'none';                            // Tắt SSL /TLS
             $email->SMTPAutoTLS = false;
             $email->SMTPSecure = false;
-            $email->Port = 25;
+            $email->Port = 587;
+            $email->SMTPOptions = array{
+                'ssl' => array {
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                }
+            }
 
             //Recipients
             $email->setFrom('asengame@globalproxy.online', 'Khang');           // Địa chỉ email và tên người gửi
@@ -38,7 +45,7 @@ class SendEmail
             //$mail->addAttachment('/var/tmp/file.tar.gz');         // Nếu muốn gửi thêm tệp thì uncomment dòng này
             //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Và cả dòng này nữa nếu gửi trên một file
 
-             //Content
+            //Content
             $email->isHTML(true);                                  // Set email format to HTML
             $email->Subject = 'Here is the subject';                                                 // Tiêu đề
             $email->Body    = 'This is the HTML message body in bold!'; // Nội dung
@@ -53,7 +60,7 @@ class SendEmail
 
     public SendEmail() 
     {
-        $randPassword = rand_string(8);
+        $randPassword = rand_string(8); // random mật khẩu khi gửi về email/gmail
         $title = 'Update password';
         $content = "<h3>Dear".$account['UserName'].'</h3>';
         $content = "<p>We have received a request  to re-issue your  password  recently.</p>";
@@ -61,7 +68,7 @@ class SendEmail
         $content = "<p>Your new password is: </p><b>$randPassword</b>";
         $sendMail = SendEmail::send($title, $content, $account['HoTen'], $account['Email']);
 
-        // Khi gửi mail thành công thì 
+        // Khi gửi mail thành công thì mã hóa mk 
         if ($sendMail) { 
             $hash = password_hash($randPassword, PASSWORD_DEFAULT);
             $sqlUpdate = "UPDATE `account` SET `Pass` = '". $hash ."' WHERE `IdAccount` = ". $account['IdAccount'];

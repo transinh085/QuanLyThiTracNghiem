@@ -5,16 +5,16 @@ $(document).submit(function (e) {
     let mail = $("#reminder-credential").val();
     $.ajax({
         type: "post",
-        url: "./auth/checkEmail",
+        url: "./auth/sendOptAuth",
         data: {
             email: mail
         },
         success: function (response) {
             console.log(response)
             if(response == '1'){
-                alert("tai khoan kko ton tai")
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Tài khoản của bạn chưa được đăng ký!` });
             } else {
-                alert("tai khoan ton tai")
+                Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Đã gửi mã thành công mã OTP!` });
             }
         }
     });

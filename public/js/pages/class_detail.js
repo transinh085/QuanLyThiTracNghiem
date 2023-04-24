@@ -80,7 +80,6 @@ $(document).on("click", ".kick-user", function() {
             },
             success: function (response) {
               e.fire("Deleted!", "Xóa người dùng thành công!", "success");
-              updateSiso(manhom);
             },
           });
         } else {
@@ -102,21 +101,6 @@ function loadList() {
             showList(response);
         }
     });
-}
-
-function updateSiso(manhom) {
-    $.ajax({
-        type: "post",
-        url: "./module/updateSiso",
-        data: {
-            manhom: manhom,
-        },
-        dataType: "json",
-        success: function(response) {
-            console.log(response)
-            loadList();
-        }
-    })
 }
 
 loadList();

@@ -376,6 +376,14 @@ class Test extends Controller
         return $result;
     }
 
+    public function getStatictical() 
+    {
+        $made = $_POST['made'];
+        $manhom = $_POST['manhom'];
+        $result = $this->ketquamodel->getStatictical($made, $manhom);
+        echo json_encode($result);
+    }
+
     public function exportPdf($makq)
     {
         $dompdf = new Dompdf();

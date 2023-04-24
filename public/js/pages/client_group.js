@@ -19,7 +19,6 @@ $(document).ready(function () {
                     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "Bạn đã tham gia nhóm này !"});
                 } else {
                     $("#modal-join-group").modal("hide");
-                    updateSiso(mamoi);
                     groups.push(response);
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Tham gia nhóm thành công !"});
@@ -27,19 +26,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    function updateSiso(mamoi) {
-        $.ajax({
-            type: "post",
-            url: "./module/updateSiso1",
-            data: {
-                mamoi: mamoi,
-            },
-            dataType: "json",
-            success: function(response) {
-            }
-        })
-    }
 
     function loadDataGroups() {
         $.getJSON("./client/loadDataGroups",

@@ -130,6 +130,7 @@ class NhomModel extends DB
         $valid = true;
         $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
         $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
@@ -139,12 +140,10 @@ class NhomModel extends DB
         $valid = true;
         $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung'";
         $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
-
-    
-    
 
     // Lấy các nhóm mà sinh viên tham gia
     public function getAllGroup_User($user_id) 
@@ -186,6 +185,7 @@ class NhomModel extends DB
     {
         $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung' ";
         $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
         if (!$result) $check = false;
         return $check;
     }
@@ -205,7 +205,7 @@ class NhomModel extends DB
     public function updateSiso1($mamoi)
     {
         $result = $this->getIdFromInvitedCode($mamoi);
-        $manhom = $result['manhom'];    
+        $manhom = $result['manhom'];
         $valid = $this->updateSiso($manhom);
         return $valid;
     }

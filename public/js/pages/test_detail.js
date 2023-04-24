@@ -378,12 +378,17 @@ $(document).ready(function () {
   });
   $("#export_excel").click(function () {
     $.ajax({
-      type: "post",
+      method: "post",
       url: "./test/exportExcel",
-      // data: "data",
-      // dataType: "dataType",
+      dataType: "json",
       success: function (response) {
-        console.log(response);
+        console.log($("#dropdown-filter-group").val());
+        // var $a = $("<a>");
+        // $a.attr("href", data.file);
+        // $("body").append($a);
+        // $a.attr("download", "file.xls");
+        // $a[0].click();
+        // $a.remove();
       },
     });
   });

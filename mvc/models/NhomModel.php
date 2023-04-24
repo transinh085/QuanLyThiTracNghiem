@@ -210,5 +210,29 @@ class NhomModel extends DB
         $valid = $this->updateSiso($manhom);
         return $valid;
     }
+
+    // Hàm lấy sinh viên ra từ nhóm
+    public function getStudentByGroup($group){
+        $sql = "SELECT ng.id,ng.hoten,ng.email,ng.ngaythamgia,ng.ngaysinh,ng.gioitinh FROM chitietnhom ctn JOIN nguoidung ng ON ctn.manguoidung=ng.id WHERE ctn.manhom = $group";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[]=$row;
+        }
+        return $rows;
+    }
+
+    public function addSV($mssv, $hoten, $sdt, $email, $ngaysinh, $password, $gioitinh)
+    {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$hoten','$gioitinh','$ngaysinh','$password','1', '11')";
+        return $sql;
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) {
+            $check = false;
+        }
+        return $check;
+    }
 }
 ?>

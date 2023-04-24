@@ -230,7 +230,7 @@ $(document).ready(function () {
             "checked",
             true
           ),
-          $("#user_ngaysinh").val(response.ngaysinh);
+        $("#user_ngaysinh").val(response.ngaysinh);
         $("#user_email").val(response.email);
         $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
         $("#user_status").prop("checked", response.trangthai);

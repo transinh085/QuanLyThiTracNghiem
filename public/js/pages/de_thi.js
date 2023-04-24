@@ -74,21 +74,21 @@ $(document).ready(function () {
     }
 
     $.when(getQuestion()).done(function () {
-        if (localStorage.getItem("dethi") == null) {
-            localStorage.setItem("dethi", JSON.stringify(questions));
+        if (localStorage.getItem("dethi"+made) == null) {
+            localStorage.setItem("dethi"+made, JSON.stringify(questions));
         }
-        if (localStorage.getItem("cautraloi") == null) {
+        if (localStorage.getItem("cautraloi"+made) == null) {
             localStorage.setItem(
-                "cautraloi",
+                "cautraloi"+made,
                 JSON.stringify(initListAnswer(questions))
             );
         }
-        if (localStorage.getItem("solanchuyentab") == null) {
-            localStorage.setItem("solanchuyentab", 0);
+        if (localStorage.getItem("solanchuyentab"+made) == null) {
+            localStorage.setItem("solanchuyentab"+made, 0);
         }
 
-        let listQues = JSON.parse(localStorage.getItem("dethi"));
-        let listAns = JSON.parse(localStorage.getItem("cautraloi"));
+        let listQues = JSON.parse(localStorage.getItem("dethi"+made));
+        let listAns = JSON.parse(localStorage.getItem("cautraloi"+made));
         showListQuestion(listQues, listAns);
         showBtnSideBar(listQues, listAns);
     });
@@ -129,15 +129,15 @@ $(document).ready(function () {
             type: "post",
             url: "./test/submit",
             data: {
-                listCauTraLoi: JSON.parse(localStorage.getItem("cautraloi")),
+                listCauTraLoi: JSON.parse(localStorage.getItem("cautraloi"+made)),
                 thoigianlambai: thoigian,
-                solanchuyentad: localStorage.getItem("solanchuyentab"),
+                solanchuyentad: localStorage.getItem("solanchuyentab"+made),
                 made: dethi,
             },
             success: function (response) {
-                localStorage.removeItem("cautraloi");
-                localStorage.removeItem("dethi");
-                localStorage.removeItem("solanchuyentab");
+                localStorage.removeItem("cautraloi"+made);
+                localStorage.removeItem("dethi"+made);
+                localStorage.removeItem("solanchuyentab"+made);
                 location.href = `./test/start/${made}`;
             },
         });
@@ -218,9 +218,9 @@ $(document).ready(function () {
 });
 
 $(window).blur(function () {
-    if(localStorage.getItem("solanchuyentab")!==null){
-        let sl = localStorage.getItem("solanchuyentab");
+    if(localStorage.getItem("solanchuyentab"+made)!==null){
+        let sl = localStorage.getItem("solanchuyentab"+made);
         sl++
-        localStorage.setItem("solanchuyentab", sl)
+        localStorage.setItem("solanchuyentab"+made, sl)
     }
 });

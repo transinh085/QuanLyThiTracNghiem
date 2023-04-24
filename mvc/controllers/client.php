@@ -79,7 +79,6 @@ class Client extends Controller{
     public function loadDataGroups() {
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             $manguoidung = $_SESSION['user_id'];
-            // $hienthi = $_GET['hienthi'];
             $result = $this->nhommodel->getAllGroup_User($manguoidung);
             echo json_encode($result);
         }

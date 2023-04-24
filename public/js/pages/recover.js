@@ -10,6 +10,7 @@ $(document).submit(function (e) {
             email: mail
         },
         success: function (response) {
+            console.log(response)
             if(response == '1'){
                 alert("tai khoan kko ton tai")
             } else {

@@ -376,7 +376,7 @@ class Test extends Controller
         return $result;
     }
 
-    public function getStatictical() 
+    public function getStatictical()
     {
         $made = $_POST['made'];
         $manhom = $_POST['manhom'];
@@ -490,7 +490,7 @@ class Test extends Controller
         $excel->getActiveSheet()->setCellValue('B1', 'Giới Tính');
         $excel->getActiveSheet()->setCellValue('C1', 'Đơn giá(/shoot)');
         // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
-// dòng bắt đầu = 2
+        // dòng bắt đầu = 2
         $numRow = 2;
         foreach ($data as $row) {
             $excel->getActiveSheet()->setCellValue('A' . $numRow, $row[0]);
@@ -498,12 +498,16 @@ class Test extends Controller
             $excel->getActiveSheet()->setCellValue('C' . $numRow, $row[2]);
             $numRow++;
         }
-        $objWriter = new PHPExcel_Writer_Excel2007($excel);
-
-        header('Content-Type: application/vnd.ms-excel'); //mime type
-        header('Content-Disposition: attachment;filename="you-file-name.xlsx"'); //tell browser what's the file name
-        header('Cache-Control: max-age=0'); //no cache
-        $objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $objWriter->save('php://output');
+        ob_start();
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+        $xlsData = ob_get_contents();
+        ob_end_clean();
+        $response =  array(
+            'status' => TRUE,
+            'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
+        );
+    
+        die(json_encode($response));
     }
 }

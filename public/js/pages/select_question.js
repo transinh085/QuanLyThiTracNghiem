@@ -27,7 +27,7 @@ function getInfoTest() {
 function getQuestionOfTest() {
     return $.ajax({
         type: "post",
-        url: "./test/getQuestion",
+        url: "./test/getQuestionOfTestManual",
         data: {made: made},
         dataType: "json",
         success: function (response) {

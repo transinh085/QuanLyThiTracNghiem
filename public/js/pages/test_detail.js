@@ -386,12 +386,12 @@ $(document).ready(function () {
         manhom: $(".filtered-by-static.active").data("id")
       },
       success: function (response) {
-        // var $a = $("<a>");
-        // $a.attr("href", data.file);
-        // $("body").append($a);
-        // $a.attr("download", "file.xls");
-        // $a[0].click();
-        // $a.remove();
+        var $a = $("<a>");
+        $a.attr("href", response.file);
+        $("body").append($a);
+        $a.attr("download", "file.xls");
+        $a[0].click();
+        $a.remove();
       },
     });
   });

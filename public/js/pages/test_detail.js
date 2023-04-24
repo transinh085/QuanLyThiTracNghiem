@@ -381,8 +381,11 @@ $(document).ready(function () {
       method: "post",
       url: "./test/exportExcel",
       dataType: "json",
+      data: {
+        made: made,
+        manhom: $(".filtered-by-static.active").data("id")
+      },
       success: function (response) {
-        console.log($("#dropdown-filter-group").val());
         // var $a = $("<a>");
         // $a.attr("href", data.file);
         // $("body").append($a);

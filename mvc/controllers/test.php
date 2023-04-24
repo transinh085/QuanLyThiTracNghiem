@@ -458,6 +458,9 @@ class Test extends Controller
 
     public function exportExcel()
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $manhom = $_POST['manhom'];
         $data = [
             ['Nguyễn Khánh Linh', 'Nữ', '500k'],
             ['Ngọc Trinh', 'Nữ', '700k'],
@@ -509,5 +512,6 @@ class Test extends Controller
         );
     
         die(json_encode($response));
+        }
     }
 }

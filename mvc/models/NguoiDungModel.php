@@ -96,7 +96,6 @@ class NguoiDungModel extends DB
         } else {
             return false;
         }
-        
     }
 
     public function changePassword($email, $new_password)

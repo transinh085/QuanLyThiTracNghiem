@@ -49,20 +49,6 @@ $(document).ready(function () {
                 console.log(data)
             }
         );
-
-        // $.ajax({
-        //     type: "get",
-        //     url: "./client/loadDataGroups",
-        //     data: {
-        //         hienthi: hienthi
-        //     },
-        //     dataType: "json",
-        //     success: function (data) {
-        //         groups = data;
-        //         showListGroup(data)
-        //         console.log(data)
-        //     }
-        // });
     }
 
     loadDataGroups()
@@ -77,13 +63,14 @@ $(document).ready(function () {
                     <div class="block block-rounded h-100 mb-0">
                         <div class="block-header">
                             <div class="flex-grow-1 text-muted fs-sm fw-semibold">
-                                <i class="fa fa-user me-2"></i>${group.hoten}
+                                <img class="img-avatar img-avatar32 img-avatar-thumb me-2" src="./public/media/avatars/${group.avatar}">
+                                <span>${group.hoten}</span>
                             </div>
                             <div class="block-options">
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-gears"></i>
+                                        <i class="si si-settings"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)">
@@ -100,9 +87,9 @@ $(document).ready(function () {
                         </div>
                         <div class="block-content bg-body-light text-center">
                             <h3 class="fs-4 mb-3">
-                                <a href="javascript:void(0)" class="link-fx">${group.mamonhoc} - ${group.tenmonhoc}</a>
+                                <a href="javascript:void(0)" class="link-fx">${group.tenmonhoc}</a>
                             </h3>
-                            <h5 class="fs-6 text-muted mb-3">NH${group.namhoc} - HK${group.hocky}</h5>
+                            <h5 class="text-muted mb-3" style="font-size:13px">NĂM HỌC ${group.namhoc} - HỌC KỲ ${group.hocky}</h5>
                             <div class="push">
                                 <span class="badge bg-info text-uppercase fw-bold py-2 px-3">${group.tennhom}</span>
                             </div>

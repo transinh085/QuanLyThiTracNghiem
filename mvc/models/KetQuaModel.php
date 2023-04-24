@@ -122,22 +122,38 @@ class KetQuaModel extends DB{
     }
 
     // Lấy điểm để thống kê 
-    public function getMarkForStatictical($made, $manhom)
+    public function getStatictical($made, $manhom)
     {
-        $sql = "SELECT DISTINCT chitietnhom.manguoidung,ketqua.manguoidung,makq,ketqua.made, diemthi
+        $sql = "SELECT DISTINCT chitietnhom.manguoidung,ketqua.manguoidung AS mandkq,makq,ketqua.made, diemthi
         FROM chitietnhom LEFT JOIN ketqua ON ketqua.manguoidung = chitietnhom.manguoidung AND ketqua.made = '$made'
         WHERE manhom = '$manhom'";
         $result = mysqli_query($this->con, $sql);
-        $diemthi = array_fill(1, 9, 0);
-        $tong = 0;
-        $danop = 0;
+        $diemthi = array_fill(0, 10, 0);
+        $tongdiem = 0;
+        $soluong = 0;
+        $max = 0;
         $chuanop = 0;
         $khongthi = 0;
-        
         while($row = mysqli_fetch_assoc($result)){
-            
+            if($row['diemthi'] != null) {
+                $tongdiem += $row['diemthi'];
+                $soluong++;
+                $diemthi[ceil($row['diemthi']) - 1]++;
+                if($row['diemthi'] > $max) $max = $row['diemthi'];
+            } else {
+                if($row['mandkq'] != null) $chuanop++;
+                else $khongthi++; 
+            }
         }
-        return $rows;
+        $rs = array(
+            "diem_trung_binh" => $tongdiem/$soluong,
+            "da_nop_bai" => $soluong,
+            "chua_nop_bai" => $chuanop,
+            "khong_thi" => $khongthi,
+            "diem_cao_nhat" => $max,
+            "thong_ke_diem" => $diemthi
+        );
+        return $rs;
     }
     
     // Tìm kiếm & phân trang & sắp xếp

@@ -278,6 +278,15 @@ class Test extends Controller
         }
     }
 
+    public function getQuestionOfTestManual()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $result = $this->dethimodel->getQuestionOfTestManual($made);
+            echo json_encode($result);
+        }
+    }
+
     public function getResultDetail()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -365,6 +374,14 @@ class Test extends Controller
     {
         $result = $this->ketquamodel->getQuery($filter, $input, $args);
         return $result;
+    }
+
+    public function getStatictical() 
+    {
+        $made = $_POST['made'];
+        $manhom = $_POST['manhom'];
+        $result = $this->ketquamodel->getStatictical($made, $manhom);
+        echo json_encode($result);
     }
 
     public function exportPdf($makq)
@@ -481,27 +498,12 @@ class Test extends Controller
             $excel->getActiveSheet()->setCellValue('C' . $numRow, $row[2]);
             $numRow++;
         }
-        // Khởi tạo đối tượng PHPExcel_IOFactory để thực hiện ghi file
-// ở đây mình lưu file dưới dạng excel2007
-        // Thiết lập header cho phản hồi HTTP
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="data.xlsx"');
-        header('Cache-Control: max-age=0');
+        $objWriter = new PHPExcel_Writer_Excel2007($excel);
 
-        // Lưu file vào bộ đệm đầu ra
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Booking Report.xlsx"');
-        header('Cache-Control: max-age=0');
-        // If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
-    
-        // If you're serving to IE over SSL, then the following may be needed
-        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header ('Pragma: public'); // HTTP/1.0
+        header('Content-Type: application/vnd.ms-excel'); //mime type
+        header('Content-Disposition: attachment;filename="you-file-name.xlsx"'); //tell browser what's the file name
+        header('Cache-Control: max-age=0'); //no cache
         $objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
         $objWriter->save('php://output');
-        exit;
     }
 }

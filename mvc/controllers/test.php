@@ -367,6 +367,14 @@ class Test extends Controller
         return $result;
     }
 
+    public function getStatictical() 
+    {
+        $made = $_POST['made'];
+        $manhom = $_POST['manhom'];
+        $result = $this->ketquamodel->getStatictical($made, $manhom);
+        echo json_encode($result);
+    }
+
     public function exportPdf($makq)
     {
         $dompdf = new Dompdf();
@@ -482,7 +490,7 @@ class Test extends Controller
             $numRow++;
         }
         // Khởi tạo đối tượng PHPExcel_IOFactory để thực hiện ghi file
-// ở đây mình lưu file dưới dạng excel2007
+        // ở đây mình lưu file dưới dạng excel2007
         // Thiết lập header cho phản hồi HTTP
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="data.xlsx"');

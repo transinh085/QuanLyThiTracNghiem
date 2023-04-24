@@ -382,12 +382,13 @@ $(document).ready(function () {
       url: "./test/exportExcel",
       dataType: "json",
       success: function (response) {
-        var $a = $("<a>");
-        $a.attr("href", response.file);
-        $("body").append($a);
-        $a.attr("download", "file.xls");
-        $a[0].click();
-        $a.remove();
+        console.log($("#dropdown-filter-group").val());
+        // var $a = $("<a>");
+        // $a.attr("href", data.file);
+        // $("body").append($a);
+        // $a.attr("download", "file.xls");
+        // $a[0].click();
+        // $a.remove();
       },
     });
   });

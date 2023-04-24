@@ -202,19 +202,13 @@ class NhomModel extends DB
         return $valid;
     }
 
+    // Hàm cập nhật sỉ số khi sv tham gia bằng mã mời
     public function updateSiso1($mamoi)
     {
         $result = $this->getIdFromInvitedCode($mamoi);
         $manhom = $result['manhom'];
         $valid = $this->updateSiso($manhom);
         return $valid;
-    }
-
-    public function addSV()
-    {
-        // $sql = "";
-        // $result = ;
-        // return  ;
     }
 }
 ?>

@@ -104,21 +104,30 @@ class Auth extends Controller{
         }
     }
 
-    public function checkEmail(){
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $mail = $_POST['email'];
-            $check = $this->userModel->getByEmail($mail);
-            echo $check == '';
-        }
-    }
+    // public function checkEmail(){
+    //     if($_SERVER["REQUEST_METHOD"] == "POST"){
+    //         $mail = $_POST['email'];
+    //         $check = $this->userModel->getByEmail($mail);
+    //         echo $check == '';
+    //     }
+    // }
     
 
     public function sendOptAuth(){
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $opt = rand(111111,999999);
             $email = $_POST['email'];
-            $this->mailAuth->sendOpt($email,$opt);
-            $this->userModel->updateOpt($email,$opt);
+            $check = $this->userModel->getByEmail($email);
+            if (!($check == '')) {
+                $sendOTP = $this->mailAuth->sendOpt($email,$opt);
+                if ($sendOTP) {
+                    $hash = password_hash($opt, PASSWORD_DEFAULT);
+                    $resultOTP = $this->userModel->updateOpt($email,$opt);
+                    echo $resultOTP;
+                }
+            } else {
+                echo $check == '';
+            }
         }
     }
 

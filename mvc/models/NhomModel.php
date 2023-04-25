@@ -225,7 +225,6 @@ class NhomModel extends DB
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$hoten','$gioitinh','$ngaysinh','$password','1', '11')";
-        return $sql;
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) {

@@ -127,6 +127,7 @@ $("#update-profile").click(function (e) {
     let newName = $("#dm-profile-edit-name").val();
     console.log(newName)
     let newBirthDay = $("#user_ngaysinh").val();
+    console.log(newBirthDay)
     let newGender = $('input[name="user_gender"]:checked').val(); 
     let newAvatar = $('input[name="file-img"]').val();
     let check = (newName != oldName && newName != '') || newGender != oldGender || newBirthDay != oldBirthDay || newAvatar != '';

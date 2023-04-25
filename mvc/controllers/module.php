@@ -153,14 +153,17 @@ class Module extends Controller
     public function addSV()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
             $mssv = $_POST['mssv'];
             $hoten = $_POST['hoten'];
             $sdt = $_POST['sdt'];
             $email = $_POST['email'];
             $ngaysinh = $_POST['ngaysinh'];
+            $bd = date("Y-m-d", strtotime($ngaysinh));
             $password = $_POST['password'];
             $gioitinh = $_POST['gioitinh'];
-            $result = $this->nhomModel->addSV($mssv,$hoten,$sdt,$email,$ngaysinh,$password,$gioitinh);
+            $result = $this->nhomModel->addSV($mssv,$hoten,$sdt,$email,$bd,$password,$gioitinh);
+            $joinGroup = $this->nhomModel->join($manhom,$mssv);
             echo json_encode($result);
         }
     }

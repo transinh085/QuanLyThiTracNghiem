@@ -55,62 +55,13 @@ $(document).ready(function () {
     var mssv = $(this).data("id");
 
     let e = Swal.mixin({
-        buttonsStyling: !1,
-        target: "#page-container",
-        customClass: {
-            cancelButton: "btn btn-danger m-1",
-            input: "form-control",
-        },
-    });
-
-    e.fire({
-        title: "Are you sure?",
-        text: "Bạn có chắc chắn muốn xóa người dùng này ra khỏi nhóm?",
-        icon: "warning",
-        showCancelButton: !0,
-        customClass: {
-            confirmButton: "btn btn-danger m-1",
-            cancelButton: "btn btn-secondary m-1",
-        },
-        confirmButtonText: "Vâng, tôi chắc chắn!",
-        html: !1,
-        preConfirm: (e) =>
-            new Promise((e) => {
-                setTimeout(() => {
-                    e();
-                }, 50);
-            }),
-        }).then((t) => {
-            if (t.value == true) {
-            $.ajax({
-                type: "post",
-                url: "./client/delete",
-                data: {
-                    manhom: manhom, 
-                    manguoidung: mssv,
-                },
-                success: function (response) {
-                e.fire("Deleted!", "Xóa người dùng thành công!", "success");
-                },
-            });
-            } else {
-            e.fire("Cancelled", "Bạn đã không xóa người dùng, bạn là một người tốt :)", "error");
-            }
-    });  
-
-})
-
-function loadList() {
-    $.ajax({
-        type: "post",
-        url: "./module/getSvList",
-        data: {
-            manhom: manhom
-        },
-        dataType: "json",
-        success: function (response) {
-            showList(response);
-        }
+      buttonsStyling: !1,
+      target: "#page-container",
+      customClass: {
+        confirmButton: "btn btn-success m-1",
+        cancelButton: "btn btn-danger m-1",
+        input: "form-control",
+      },
     });
 
     e.fire({

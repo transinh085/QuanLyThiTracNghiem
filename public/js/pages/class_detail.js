@@ -19,7 +19,7 @@ $(document).ready(function () {
                         }"
                             alt="">
                         <div class="d-flex flex-column">
-                            <a class="fw-semibold" href="be_pages_generic_profile.html">${
+                            <a class="fw-semibold" href="javascript:void(0)">${
                               student.hoten
                             }</a>
                             <span class="fw-normal fs-sm text-muted">${
@@ -32,7 +32,6 @@ $(document).ready(function () {
                       student.gioitinh == 1 ? "Nam" : "Nữ"
                     }</td>
                     <td class="text-center fs-sm">${student.ngaysinh}</td>
-                    <td class="text-center">1</td>
                     <td class="text-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-alt-secondary kick-user"

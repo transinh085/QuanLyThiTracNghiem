@@ -40,7 +40,6 @@
                                 <th class="text-center">Mã sinh viên</th>
                                 <th class="text-center">Giới tính</th>
                                 <th class="text-center">Ngày sinh</th>
-                                <th class="text-center">Đề thi đã làm</th>
                                 <th class="text-center" style="width: 150px;">Hành động</th>
                             </tr>
                         </thead>

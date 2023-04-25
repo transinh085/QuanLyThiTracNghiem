@@ -145,22 +145,23 @@ class KetQuaModel extends DB{
         for($i=0;$i<count($arr_sinhvien);$i++) {
             $row = array($arr_sinhvien[$i]['id'],$arr_sinhvien[$i]['hoten']);
             for($j = 0; $j < count($arr_dethi); $j++) {
-                array_push($row,$arr_ketqua[$arr_dethi[$j]['made']][$i]['diemthi']);
+                $row[] = $arr_ketqua[$arr_dethi[$j]['made']][$i]['diemthi'];
             }
             $arr_result[] = $row;
         }
 
         return $arr_result;
-    }
+    } 
 
     public function getMarkOfOneTest($manhom,$made)
     {
-        $sql = "SELECT DISTINCT giaodethi.made, chitietnhom.manguoidung, ketqua.diemthi
+        $sql = "SELECT DISTINCT giaodethi.made,ketqua.diemthi
         FROM giaodethi, chitietnhom LEFT JOIN ketqua ON chitietnhom.manguoidung = ketqua.manguoidung AND ketqua.made = $made 
         WHERE giaodethi.manhom = chitietnhom.manhom AND giaodethi.manhom = $manhom AND giaodethi.made = $made";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
+            if($row['diemthi'] == null) $row['diemthi'] = 0;
             $rows[] = $row;
         }
         return $rows;

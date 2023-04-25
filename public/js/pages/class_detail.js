@@ -222,7 +222,7 @@ $(document).ready(function () {
         var $a = $("<a>");
         $a.attr("href", response.file);
         $("body").append($a);
-        $a.attr("download", "file.xls");
+        $a.attr("download", "Danh sách sinh viên.xls");
         $a[0].click();
         $a.remove();
       },
@@ -241,7 +241,7 @@ $(document).ready(function () {
         var $a = $("<a>");
         $a.attr("href", response.file);
         $("body").append($a);
-        $a.attr("download", "file.xls");
+        $a.attr("download", "Danh sách điểm.xlsx");
         $a[0].click();
         $a.remove();
       }

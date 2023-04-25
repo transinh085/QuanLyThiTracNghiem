@@ -286,6 +286,13 @@ class DeThiModel extends DB
         return $rows;
     }
 
+    public function getNameGroup($manhom){
+        $sql = "SELECT * FROM `nhom` WHERE manhom=$manhom";
+        $result = mysqli_query($this->con,$sql);
+        $nameGroup = mysqli_fetch_assoc($result)['tennhom'];
+        return $nameGroup;
+    }
+
     // Tạo đề thủ công
     public function getQuestionOfTestManual($made)
     {

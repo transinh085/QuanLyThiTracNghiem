@@ -599,6 +599,8 @@ class Test extends Controller
             );;
             $numRow++;
         }
+        $name = $this->dethimodel->getNameGroup($manhom);
+        header("Content-Disposition: attachment;filename=Bảng điểm nhóm ".$name.".xlsx");
         ob_start();
         $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
         $write->save('php://output');

@@ -224,6 +224,7 @@ class DeThiModel extends DB
             $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
             $addCtKq = mysqli_query($this->con,$sql);
         }
+
         return $question;
     }
 
@@ -284,9 +285,6 @@ class DeThiModel extends DB
         }
         return $rows;
     }
-
-
-
 
     // Tạo đề thủ công
     public function getQuestionOfTestManual($made)

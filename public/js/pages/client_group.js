@@ -4,7 +4,6 @@ $(document).ready(function () {
     let groups = [];
     let mode = 1;
     $('.btn-join-group').on("click", function () {
-        let mamoi = $("#mamoi").val();
         $.ajax({
             type: "post",
             url: "./client/joinGroup",
@@ -27,17 +26,23 @@ $(document).ready(function () {
         });
     });
 
-    function loadDataGroups() {
-        $.getJSON("./client/loadDataGroups",
-            function (data) {
+    function loadDataGroups(hienthi) {
+        $.ajax({
+            type: "post",
+            url: "./client/loadDataGroups",
+            data: {
+                hienthi: hienthi
+            },
+            dataType: "json",
+            success: function (data) {
                 groups = data;
                 showListGroup(data)
                 console.log(data)
             }
-        );
+        });
     }
 
-    loadDataGroups()
+    loadDataGroups(mode)
 
     function showListGroup(groups) {
         let html = ``;
@@ -176,7 +181,19 @@ $(document).ready(function () {
         $(".list-friends").html(html);
     }
 
-    console.log(groups)
+    $(".filter-search").click(function (e) { 
+        e.preventDefault();
+        mode = $(this).data("id");
+        $(".btn-filter").text($(this).text());
+        loadDataGroups(mode);
+    });
+
+    $("#form-search-group").on("input", function () {
+        let content = $(this).val().toLowerCase();
+        console.log(content)
+        let result = groups.filter(item => item.mamonhoc.toLowerCase().includes(content) || item.tenmonhoc.toLowerCase().includes(content));
+        showListGroup(result);
+    });
 
     $(document).on("click", ".btn-hide-group", function () {
         let manhom = $(this).data("id");
@@ -197,9 +214,9 @@ $(document).ready(function () {
                         if (index != -1) {
                             groups.splice(index, 1);
                             if (groups.length == 0) groups.splice(i,1);
-                            break;    
-                        }x
-                    } 
+                            break;
+                        }
+                    }
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
                 }
@@ -241,7 +258,7 @@ $(document).ready(function () {
                                     "Bạn đã thoát nhóm thành công",
                                     "success"
                                 );
-                                loadDataGroups();
+                                loadDataGroups(mode);
                             }
                         },
                     });

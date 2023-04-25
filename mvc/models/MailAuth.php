@@ -7,6 +7,8 @@ use PHPMailer\PHPMailer\Exception;
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+require 'vendor/phpmailer/phpmailer/src/OAuth.php';
+require 'vendor/phpmailer/phpmailer/src/POP3.php';
 
 class MailAuth extends DB
 {
@@ -56,5 +58,10 @@ class MailAuth extends DB
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
+    }
+
+    public function sendEmail() 
+    {
+        
     }
 }

@@ -8,9 +8,9 @@
             </div>
         </div>
         <div class="col-8 d-flex align-items-center justify-content-end gap-3">
-            <button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-file me-1"></i>Xuất danh sách
+            <button type="button" class="btn btn-sm btn-primary" id="exportStudents"><i class="fa-solid fa-file me-1"></i>Xuất danh sách
                 HS</button>
-            <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+            <button type="button" class="btn btn-primary btn-sm" id="exportScores"><i class="fa-solid fa-file me-1"></i>Xuất bảng
                 điểm</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Done</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh viên</button>
                 </div>
             </div>
         </div>

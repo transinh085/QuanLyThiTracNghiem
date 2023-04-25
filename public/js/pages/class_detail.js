@@ -189,13 +189,6 @@ $(document).ready(function () {
 
   $(".btn-add-sv").click(function (e) {
     e.preventDefault();
-    console.log(manhom);
-    console.log($("#mssv").val());
-    console.log($("#hoten").val());
-    console.log($("#sdt").val());
-    console.log($("#ngaysinh").val());
-    console.log($("#matkhau").val());
-    console.log($('input[name="gender"]:checked').val());
     $.ajax({
       type: "post",
       url: "./module/addSV",
@@ -210,7 +203,9 @@ $(document).ready(function () {
         gioitinh: $('input[name="gender"]:checked').val(),
       },
       success: function (response) {
-        console.log(response)
+        if(response){
+          loadList();
+        }
       },
     });
   });

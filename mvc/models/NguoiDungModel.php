@@ -203,13 +203,13 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    function addFile($data){
+    function addFile($data,$pass){
         $check = true;
         foreach($data as $user){
             $fullname = $user['fullname'];
             $email = $user['email'];
             $mssv = $user['mssv'];
-            $password = password_hash("123456", PASSWORD_DEFAULT);
+            $password = password_hash($pass, PASSWORD_DEFAULT);
             $trangthai = $user['trangthai'];
             $nhomquyen = $user['nhomquyen'];
             $sql = "INSERT INTO `nguoidung`(`id`,`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$fullname','$password','$trangthai','$nhomquyen')";

@@ -539,4 +539,9 @@ class Test extends Controller
         die(json_encode($response));
         }
     }
+
+    public function getMarkOfAllTest($manhom)
+    {
+        echo json_encode($this->ketquamodel->getMarkOfAllTest($manhom));
+    }
 }

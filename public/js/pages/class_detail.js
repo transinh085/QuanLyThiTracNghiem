@@ -228,6 +228,25 @@ $(document).ready(function () {
       },
     });
   })
+
+  $("#exportScores").click(function(){
+    $.ajax({
+      type: "post",
+      url: "./test/getMarkOfAllTest",
+      data: {
+        manhom: manhom,
+      },
+      dataType: "json",
+      success: function (response) {
+        var $a = $("<a>");
+        $a.attr("href", response.file);
+        $("body").append($a);
+        $a.attr("download", "file.xls");
+        $a[0].click();
+        $a.remove();
+      }
+    });
+  })
   
 });
 

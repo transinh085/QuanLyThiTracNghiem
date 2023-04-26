@@ -15,7 +15,18 @@ $(document).submit(function (e) {
                 Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Tài khoản của bạn chưa được đăng ký!` });
             } else {
                 Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Đã gửi mã thành công mã OTP!` });
+                codeOTP();
             }
         }
     });
 })
+
+function codeOTP() {
+    html = "";
+    html += `
+                <a class="btn btn-otp btn-sm btn-info" href="./auth/otp">
+                    Nhập OTP
+                </a>
+    `;
+    $(".add-btn-otp").html(html);
+}

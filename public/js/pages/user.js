@@ -230,7 +230,7 @@ $(document).ready(function () {
             "checked",
             true
           ),
-          $("#user_ngaysinh").val(response.ngaysinh);
+        $("#user_ngaysinh").val(response.ngaysinh);
         $("#user_email").val(response.email);
         $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
         $("#user_status").prop("checked", response.trangthai);
@@ -317,42 +317,54 @@ $(document).ready(function () {
 
   $("#nhap-file").click(function (e) {
     e.preventDefault();
-    var file = $("#file-cau-hoi")[0].files[0];
-    var formData = new FormData();
-    formData.append("fileToUpload", file);
-    $.ajax({
-      type: "post",
-      url: "./user/addExcel",
-      data: formData,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      beforeSend: function () {
-        Dashmix.layout("header_loader_on");
-      },
-      success: function (response) {
-        console.log(response)
-        addExcel(response);
-      },
-      complete: function () {
-        Dashmix.layout("header_loader_off");
-      },
-    });
+    let password = $("#ps_user_group").val();
+    let file_cauhoi = $("#file-cau-hoi").val();
+    if(password==""||file_cauhoi==""){
+      Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Vui lòng điền đầy đủ thông tin!` });
+    } else {
+      var file = $("#file-cau-hoi")[0].files[0];
+      var formData = new FormData();
+      formData.append("fileToUpload", file);
+      $.ajax({
+        type: "post",
+        url: "./user/addExcel",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        beforeSend: function () {
+          Dashmix.layout("header_loader_on");
+        },
+        success: function (response) {
+          addExcel(response,password);
+        },
+        complete: function () {
+          Dashmix.layout("header_loader_off");
+        },
+      });
+    }
   });
 
-  function addExcel(data) {
+  function addExcel(data,password) {
     $.ajax({
       type: "post",
       url: "./user/addFileExcel",
       data: {
         listuser: data,
+        password: password
       },
       success: function (response) {
         getPagination(currentPaginationOptions, valuePage.curPage);
+        $("#ps_user_group").val("");
+        $("#file-cau-hoi").val("");
         $("#modal-add-user").modal("hide");
       },
     });
   }
+
+  $("#btn-and").click(function(){
+    $("#btabs-static-home-tab").tab("show")
+  })
 
 });
 

@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 require_once 'vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
 use Dompdf\Dompdf;
+use Sabberworm\CSS\Value\Size;
 
 class Test extends Controller
 {
@@ -458,44 +459,127 @@ class Test extends Controller
 
     public function exportExcel()
     {
-        $data = [
-            ['Nguyễn Khánh Linh', 'Nữ', '500k'],
-            ['Ngọc Trinh', 'Nữ', '700k'],
-            ['Tùng Sơn', 'Không xác định', 'Miễn phí'],
-            ['Kenny Sang', 'Không xác định', 'Miễn phí']
-        ];
-        //Khởi tạo đối tượng
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $made = $_POST['made'];
+            $manhom = $_POST['manhom'];
+            $result = $this->ketquamodel->getTestScoreGroup($made,$manhom);
+            //Khởi tạo đối tượng
+            $excel = new PHPExcel();
+            //Chọn trang cần ghi (là số từ 0->n)
+            $excel->setActiveSheetIndex(0);
+            //Tạo tiêu đề cho trang. (có thể không cần)
+            $excel->getActiveSheet()->setTitle("Danh sách kết quả");
+
+            //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
+            $excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+            $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+            $excel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+            $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+
+
+            //Xét in đậm cho khoảng cột
+            $phpColor = new PHPExcel_Style_Color();
+            $phpColor->setRGB('FFFFFF'); 
+            $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+            $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setColor( $phpColor );
+            $excel->getActiveSheet()->getStyle('A1:G1')->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '33FF33')
+                    )
+                )
+            );
+            $excel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+            );
+            $excel->getActiveSheet()->setCellValue('A1', 'MSSV');
+            $excel->getActiveSheet()->setCellValue('B1', 'Họ và tên');
+            $excel->getActiveSheet()->setCellValue('C1', 'Điểm thi');
+            $excel->getActiveSheet()->setCellValue('D1', 'Thời gian vào thi');
+            $excel->getActiveSheet()->setCellValue('E1', 'Thời gian làm bài');
+            $excel->getActiveSheet()->setCellValue('F1', 'Số câu đúng');
+            $excel->getActiveSheet()->setCellValue('G1', 'Số lần chuyển Tab');
+            // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
+            // dòng bắt đầu = 2
+            $numRow = 2;
+            foreach ($result as $row) {
+                $excel->getActiveSheet()->setCellValue('A' . $numRow, $row["manguoidung"]);
+                $excel->getActiveSheet()->setCellValue('B' . $numRow, $row["hoten"]);
+                $excel->getActiveSheet()->setCellValue('C' . $numRow, $row["diemthi"]);
+                $excel->getActiveSheet()->setCellValue('D' . $numRow, $row["thoigianvaothi"]);
+                $excel->getActiveSheet()->setCellValue('E' . $numRow, $row["thoigianlambai"]);
+                $excel->getActiveSheet()->setCellValue('F' . $numRow, $row["socaudung"]);
+                $excel->getActiveSheet()->setCellValue('G' . $numRow, $row["solanchuyentab"]);
+                $excel->getActiveSheet()->getStyle("A".$numRow.":G"."$numRow")->getAlignment()->applyFromArray(
+                    array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+                );;
+                $numRow++;
+            }
+            ob_start();
+            $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+            $write->save('php://output');
+            $xlsData = ob_get_contents();
+            ob_end_clean();
+            $response =  array(
+                'status' => TRUE,
+                'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
+            );
+        
+            die(json_encode($response));
+        }
+    }
+
+    public function getMarkOfAllTest()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $manhom = $_POST['manhom'];
+        $result = $this->ketquamodel->getMarkOfAllTest($manhom);
         $excel = new PHPExcel();
         //Chọn trang cần ghi (là số từ 0->n)
         $excel->setActiveSheetIndex(0);
         //Tạo tiêu đề cho trang. (có thể không cần)
-        $excel->getActiveSheet()->setTitle('demo ghi dữ liệu');
+        $excel->getActiveSheet()->setTitle("Danh sách kết quả");
 
         //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
-        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-
+        $end = $this->toAlpha(count($result[0])-1);
+        for($x = 0; $x < count($result[0]); $x++) {
+            $excel->getActiveSheet()->getColumnDimension($this->toAlpha($x))->setWidth(25);
+        }
         //Xét in đậm cho khoảng cột
-        $excel->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
-        //Tạo tiêu đề cho từng cột
-//Vị trí có dạng như sau:
-        /**
-         * |A1|B1|C1|..|n1|
-         * |A2|B2|C2|..|n1|
-         * |..|..|..|..|..|
-         * |An|Bn|Cn|..|nn|
-         */
-        $excel->getActiveSheet()->setCellValue('A1', 'Tên');
-        $excel->getActiveSheet()->setCellValue('B1', 'Giới Tính');
-        $excel->getActiveSheet()->setCellValue('C1', 'Đơn giá(/shoot)');
+        $phpColor = new PHPExcel_Style_Color();
+        $phpColor->setRGB('FFFFFF'); 
+        $excel->getActiveSheet()->getStyle("A1:".($end)."1")->getFont()->setBold(true);
+        $excel->getActiveSheet()->getStyle("A1:".($end)."1")->getFont()->setColor( $phpColor );
+        $excel->getActiveSheet()->getStyle("A1:".($end)."1")->applyFromArray(
+            array(
+                'fill' => array(
+                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => '33FF33')
+                )
+            )
+        );
+        
+        $excel->getActiveSheet()->getStyle("A1:".($end)."1")->getAlignment()->applyFromArray(
+            array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+        );
+
+        for($x = 0; $x <count($result[0]); $x++) {
+            $excel->getActiveSheet()->setCellValue($this->toAlpha($x)."1", $result[0][$x]);
+        }
+
         // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
         // dòng bắt đầu = 2
         $numRow = 2;
-        foreach ($data as $row) {
-            $excel->getActiveSheet()->setCellValue('A' . $numRow, $row[0]);
-            $excel->getActiveSheet()->setCellValue('B' . $numRow, $row[1]);
-            $excel->getActiveSheet()->setCellValue('C' . $numRow, $row[2]);
+        for($x=1; $x<count($result); $x++){
+            for($y=0;$y<count($result[$x]);$y++){
+                $excel->getActiveSheet()->setCellValue($this->toAlpha($y) . $numRow, $result[$x][$y]);
+            }
+            $excel->getActiveSheet()->getStyle("A".$numRow.":G"."$numRow")->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+            );;
             $numRow++;
         }
         ob_start();
@@ -507,7 +591,18 @@ class Test extends Controller
             'status' => TRUE,
             'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
         );
-    
         die(json_encode($response));
+        }
     }
+
+    function toAlpha($num){
+        return chr(substr("000".($num+65),-3));
+    }
+
+    public function check(){
+        $result = $this->ketquamodel->getMarkOfAllTest(2);
+        echo "</br>";
+        print_r($result);
+    }
+
 }

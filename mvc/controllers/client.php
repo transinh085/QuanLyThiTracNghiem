@@ -77,9 +77,10 @@ class Client extends Controller{
     }
     
     public function loadDataGroups() {
-        if($_SERVER["REQUEST_METHOD"] == "GET") {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manguoidung = $_SESSION['user_id'];
-            $result = $this->nhommodel->getAllGroup_User($manguoidung);
+            $hienthi = $_POST['hienthi'];
+            $result = $this->nhommodel->getAllGroup_User($manguoidung,$hienthi);
             echo json_encode($result);
         }
     }
@@ -104,10 +105,11 @@ class Client extends Controller{
 
     public function hide()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan","create")) {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $giatri =$_POST['giatri'];
-            $result = $this->nhommodel->hide($manhom,$giatri);
+            $manguoidung = $_SESSION['user_id'];
+            $result = $this->nhommodel->sv_hide($manhom,$manguoidung,$giatri);
             echo $result;
         } else echo json_encode(false);
     }

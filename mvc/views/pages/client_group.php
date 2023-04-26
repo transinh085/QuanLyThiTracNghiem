@@ -6,8 +6,8 @@
                     <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button"
                         data-bs-toggle="dropdown" aria-expanded="false">Đang học tập</button>
                     <ul class="dropdown-menu mt-1">
-                        <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Đang học tập</a></li>
-                        <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Đã ẩn</a>
+                        <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-id="1">Đang học tập</a></li>
+                        <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-id="0">Đã ẩn</a>
                         </li>
                     </ul>
                     <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="form-search-group">

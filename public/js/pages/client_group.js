@@ -4,7 +4,6 @@ $(document).ready(function () {
     let groups = [];
     let mode = 1;
     $('.btn-join-group').on("click", function () {
-        let mamoi = $("#mamoi").val();
         $.ajax({
             type: "post",
             url: "./client/joinGroup",
@@ -27,17 +26,23 @@ $(document).ready(function () {
         });
     });
 
-    function loadDataGroups() {
-        $.getJSON("./client/loadDataGroups",
-            function (data) {
+    function loadDataGroups(hienthi) {
+        $.ajax({
+            type: "post",
+            url: "./client/loadDataGroups",
+            data: {
+                hienthi: hienthi
+            },
+            dataType: "json",
+            success: function (data) {
                 groups = data;
                 showListGroup(data)
                 console.log(data)
             }
-        );
+        });
     }
 
-    loadDataGroups()
+    loadDataGroups(mode)
 
     function showListGroup(groups) {
         let html = ``;
@@ -45,6 +50,8 @@ $(document).ready(function () {
             html += `<p class="text-center">Chưa tham gia lớp nào </p>`
         } else {
             groups.forEach(group => {
+                let btn_hide = group.hienthi == 1 ? `<a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-eye me-2 text-dark"></i> Ẩn nhóm</a>` 
+                : `<a class="dropdown-item btn-unhide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i> Huỷ ẩn</a>`
                 html += `<div class="col-md-6 col-xl-4">
                     <div class="block block-rounded h-100 mb-0">
                         <div class="block-header">
@@ -59,10 +66,7 @@ $(document).ready(function () {
                                         <i class="si si-settings"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)">
-                                            <i class="nav-main-link-icon si si-eye me-2 text-dark"></i> 
-                                            Ẩn nhóm
-                                        </a>
+                                        ${btn_hide}
                                         <a class="dropdown-item btn-delete-group" data-id="${group.manhom}" href="javascript:void(0)">
                                             <i class="si si-logout me-2 fa-fw icon-dropdown-item"></i> 
                                             Thoát nhóm
@@ -176,36 +180,48 @@ $(document).ready(function () {
         $(".list-friends").html(html);
     }
 
-    console.log(groups)
+    $(".filter-search").click(function (e) { 
+        e.preventDefault();
+        mode = $(this).data("id");
+        $(".btn-filter").text($(this).text());
+        loadDataGroups(mode);
+    });
+
+    $("#form-search-group").on("input", function () {
+        let content = $(this).val().toLowerCase();
+        console.log(content)
+        let result = groups.filter(item => item.mamonhoc.toLowerCase().includes(content) || item.tenmonhoc.toLowerCase().includes(content));
+        showListGroup(result);
+    });
 
     $(document).on("click", ".btn-hide-group", function () {
         let manhom = $(this).data("id");
+        actionHide(manhom,0,"Ẩn nhóm thành công");
+    });
+
+    $(document).on("click", ".btn-unhide-group", function () {
+        let manhom = $(this).data("id");
+        actionHide(manhom,1,"Huỷ ẩn nhóm thành công");
+    });
+
+    function actionHide(manhom,value,message) {
         $.ajax({
             type: "post",
             url: "./client/hide",
             data: {
                 manhom: manhom,
-                giatri: 0
+                giatri: value
             },
             success: function (response) {
-                console.log(groups)
                 if (response) {
-                    for(let i = 0; i < groups.length; i++) {
-                        let index = groups.findIndex(item => item.manhom == manhom)
-                        console.log(index)
-                        console.log(groups[0])
-                        if (index != -1) {
-                            groups.splice(index, 1);
-                            if (groups.length == 0) groups.splice(i,1);
-                            break;    
-                        }x
-                    } 
+                    let index = groups.findIndex(item => item.manhom == manhom)
+                    groups.splice(index,1);
                     showListGroup(groups);
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: message });
                 }
             },
         });
-    });
+    }
 
     $(document).on("click", ".btn-delete-group", function () {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -241,7 +257,7 @@ $(document).ready(function () {
                                     "Bạn đã thoát nhóm thành công",
                                     "success"
                                 );
-                                loadDataGroups();
+                                loadDataGroups(mode);
                             }
                         },
                     });

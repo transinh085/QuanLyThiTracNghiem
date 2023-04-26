@@ -62,7 +62,7 @@ Dashmix.onLoad((() => class {
           },
           "kho": {
             required: "Vui lòng cho biết số câu khó",
-          },
+          }, 
         }
       })
     }

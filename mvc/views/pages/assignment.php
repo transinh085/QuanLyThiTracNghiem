@@ -36,22 +36,7 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Photos Search Navigation">
-                <ul class="pagination pagination-sm justify-content-center mt-2" id="pagination">
-                    <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0)">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)">4</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
         </div>
     </div>
 </div>
@@ -117,6 +102,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
                             </div>
                             <div class="mb-4 d-flex flex-row-reverse">
                                 <button type="submit" class="btn btn-alt-primary" id="btn_assignment"><i

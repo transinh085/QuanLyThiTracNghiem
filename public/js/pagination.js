@@ -215,3 +215,13 @@ const defaultPaginationOptions = {
   custom: {},
 };
 let currentPaginationOptions = defaultPaginationOptions;
+
+// Multiple paginations
+// Get class names
+const divClassName = document.getElementsByClassName("pagination-class-name");
+const classNameJSON = divClassName[0].dataset.paginationClassName;
+const paginationClassName = JSON.parse(classNameJSON);
+
+Array.from(divClassName).forEach(div => {
+  div.remove();
+});

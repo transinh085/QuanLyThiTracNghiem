@@ -110,7 +110,7 @@ class Test extends Controller
                 "Test" => $this->dethimodel->getInfoTestBasic($made),
                 "Script" => "test_detail",
                 "Plugin" => [
-                    "pagination" => 1,
+                    "pagination" => [],
                     "chart" => 1
                 ]
             ]);

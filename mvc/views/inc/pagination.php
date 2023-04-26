@@ -1,3 +1,4 @@
+<div class="pagination-class-name" data-pagination-class-name='<?php echo json_encode($data['Plugin']['pagination']) ?>'></div>
 <nav class="pagination-container">
     <ul class="pagination justify-content-end mt-2">
         <li class="page-item">

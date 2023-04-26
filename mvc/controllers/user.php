@@ -24,7 +24,7 @@ class User extends Controller{
                     "notify" => 1,
                     "jquery-validate" => 1,
                     "select" => 1,
-                    "pagination" => 1,
+                    "pagination" => [],
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);

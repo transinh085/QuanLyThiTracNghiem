@@ -40,7 +40,7 @@ class Client extends Controller{
             "Script" => "test_schedule",
             "user_id" => $_SESSION['user_id'],
             "Plugin" => [
-                "pagination" => 1,
+                "pagination" => [],
             ],
         ]);
     }

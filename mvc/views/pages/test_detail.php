@@ -72,7 +72,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <?php if (isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php" ?>
+                    <?php if (isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php" ?>
                 </div>
                 <div class="tab-pane" id="thong-ke" role="tabpanel" aria-labelledby="thong-ke-tab" tabindex="0">
                     <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-static mb-3" id="dropdown-filter-static" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>

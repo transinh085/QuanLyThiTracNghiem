@@ -97,8 +97,9 @@ class CauHoiModel extends DB{
         return count($rows)/$limit;
     }
 
-    public function getQuery($filter, $input, $args) {
-        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE 1";
+    public function getQueryWithInput($filter, $input, $args) {
+        $input_entity_encode = htmlentities($input);
+        $query = "SELECT *, fnStripTags(noidung) FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE (noidung LIKE N'%${input}%' OR fnStripTags(noidung) LIKE N'%${input_entity_encode}%')";
         if (isset($filter)) {
             if (isset($filter['mamonhoc'])) {
                 $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];
@@ -110,9 +111,24 @@ class CauHoiModel extends DB{
                 $query .= " AND dokho = ".$filter['dokho'];
             }
         }
+        return $query;
+    }
+
+    public function getQuery($filter, $input, $args) {
         if ($input) {
-            $input_entity_encode = htmlentities($input);
-            $query .= " AND (noidung LIKE N'%${input}%' OR noidung LIKE N'%${input_entity_encode}%')";
+            return $this->getQueryWithInput($filter, $input, $args);
+        }
+        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE 1";
+        if (isset($filter)) {
+            if (isset($filter['mamonhoc'])) {
+                $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];
+            }
+            if (isset($filter['machuong'])) {
+                $query .= " AND machuong = ".$filter['machuong'];
+            }
+            if (isset($filter['dokho']) && $filter['dokho'] != 0) {
+                $query .= " AND dokho = ".$filter['dokho'];
+            }
         }
         return $query;
     }

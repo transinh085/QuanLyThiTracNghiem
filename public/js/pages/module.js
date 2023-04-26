@@ -75,8 +75,6 @@ $(document).ready(function () {
 
     loadDataGroup(mode);
 
-
-
     function showGroup(list) {
         let html = "";
         let d = 0;
@@ -320,7 +318,7 @@ $(document).ready(function () {
                 hocky: $("#hoc-ky").val()
             },
             success: function (response) {
-                if (response === true) {
+                if (response == true) {
                     $("#modal-add-group").modal("hide");
                     loadDataGroup(mode);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm thành công!' });

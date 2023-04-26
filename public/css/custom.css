@@ -279,6 +279,11 @@ td p {
         flex: none;
         width: auto;
     }
+
+    .col-6 {
+        flex: none;
+        width: 100%;
+    }
     
 }
 
@@ -298,6 +303,15 @@ td p {
 
     #btn-thoat {
         margin-right: 1.25rem;
+    }
+
+    .row:not(.g-sm):not(.g-0) {
+        --bs-gutter-x: none;
+    }
+
+    .col-6 {
+        flex: none;
+        width: 100%;
     }
     
 }

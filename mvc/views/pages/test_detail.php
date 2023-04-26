@@ -1,50 +1,34 @@
-<style>
-footer {
-    display: none !important
-}
-</style>
-<!-- <?php echo "<pre>";
-        var_dump($data["Test"]) ?> -->
 <div class="row g-0 flex-md-grow-1" id="chitietdethi" data-id="<?php echo $data["Test"]["made"] ?>">
     <div class="content content-full">
         <div class="block block-rounded">
             <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
                 <li class="nav-item">
-                    <button class="nav-link active" id="bang-diem-tab" data-bs-toggle="tab" data-bs-target="#bang-diem"
-                        role="tab" aria-controls="bang-diem" aria-selected="true">Bảng
+                    <button class="nav-link active" id="bang-diem-tab" data-bs-toggle="tab" data-bs-target="#bang-diem" role="tab" aria-controls="bang-diem" aria-selected="true">Bảng
                         điểm</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="thong-ke-tab" data-bs-toggle="tab" data-bs-target="#thong-ke"
-                        role="tab" aria-controls="thong-ke" aria-selected="false">Thống kê</button>
+                    <button class="nav-link" id="thong-ke-tab" data-bs-toggle="tab" data-bs-target="#thong-ke" role="tab" aria-controls="thong-ke" aria-selected="false">Thống kê</button>
                 </li>
                 <li class="nav-item ms-auto">
                     <div class="block-options ps-3 pe-2">
-                        <button type="button" class="btn-block-option" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">
+                        <button type="button" class="btn-block-option" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">
                             <i class="si si-info"></i>
                         </button>
-                        <a name="" id="" class="btn-block-option" href="#" role="button"><i
-                                class="si si-pencil"></i></a>
-                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                            data-action="fullscreen_toggle"></button>
-                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                            data-action="state_toggle" data-action-mode="demo">
+                        <a name="" id="" class="btn-block-option" href="#" role="button"><i class="si si-pencil"></i></a>
+                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                             <i class="si si-refresh"></i>
                         </button>
                     </div>
                 </li>
             </ul>
             <div class="block-content tab-content">
-                <div class="tab-pane active" id="bang-diem" role="tabpanel" aria-labelledby="bang-diem-tab"
-                    tabindex="0">
+                <div class="tab-pane active" id="bang-diem" role="tabpanel" aria-labelledby="bang-diem-tab" tabindex="0">
                     <form action="#" method="POST" id="search-form" onsubmit="return false;">
                         <div class="row mb-4">
                             <div class="input-group">
                                 <div class="col-md-6 d-flex gap-3">
-                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group"
-                                        id="dropdown-filter-group" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
                                         <?php
                                         foreach ($data["Test"]["nhom"] as $nhom) {
@@ -59,15 +43,14 @@ footer {
                                         <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="absent">Vắng thi</a></li>
                                         <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-state="interrupted">Chưa nộp bài</a></li>
                                     </ul>
-                                    <input type="text" class="form-control form-control-alt" id="search-input"
-                                        name="search-input" placeholder="Tìm kiếm sinh viên...">
+                                    <input type="text" class="form-control form-control-alt" id="search-input" name="search-input" placeholder="Tìm kiếm sinh viên...">
                                     <!-- <span class="input-group-text bg-body border-0">
                                         <i class="fa fa-search"></i>
                                     </span> -->
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-sm" id="export_excel"><i class="fa-solid fa-file me-1"></i>Xuất bảng
-                điểm</button>
+                                    <button type="button" class="btn btn-primary btn-sm" id="export_excel"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+                                        điểm</button>
                                 </div>
                             </div>
                         </div>
@@ -76,17 +59,12 @@ footer {
                         <table class="table table-vcenter">
                             <thead>
                                 <tr class="table-col-title">
-                                    <th class="text-center col-sort" data-sort-column="manguoidung"
-                                        data-sort-order="default">MSSV</th>
+                                    <th class="text-center col-sort" data-sort-column="manguoidung" data-sort-order="default">MSSV</th>
                                     <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
-                                    <th class="text-center col-sort" data-sort-column="diemthi"
-                                        data-sort-order="default">Điểm</th>
-                                    <th class="text-center col-sort" data-sort-column="thoigianvaothi"
-                                        data-sort-order="default">Thời gian vào thi</th>
-                                    <th class="text-center col-sort" data-sort-column="thoigianlambai"
-                                        data-sort-order="default">Thời gian thi</th>
-                                    <th class="text-center col-sort" data-sort-column="solanchuyentab"
-                                        data-sort-order="default">Số lần thoát</th>
+                                    <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
+                                    <th class="text-center col-sort" data-sort-column="thoigianvaothi" data-sort-order="default">Thời gian vào thi</th>
+                                    <th class="text-center col-sort" data-sort-column="thoigianlambai" data-sort-order="default">Thời gian thi</th>
+                                    <th class="text-center col-sort" data-sort-column="solanchuyentab" data-sort-order="default">Số lần thoát</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -97,23 +75,21 @@ footer {
                     <?php if (isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php" ?>
                 </div>
                 <div class="tab-pane" id="thong-ke" role="tabpanel" aria-labelledby="thong-ke-tab" tabindex="0">
-                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group mb-3"
-                        id="dropdown-filter-group" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
-                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
+                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-static mb-3" id="dropdown-filter-static" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
+                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-static">
                         <?php
-                                foreach ($data["Test"]["nhom"] as $nhom) {
-                                    echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-id="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
-                                }
-                                ?>
+                        foreach ($data["Test"]["nhom"] as $index => $nhom) {
+                            $isactive = $index==0?' active':'';
+                            echo '<li><a class="dropdown-item filtered-by-static'.$isactive.'" href="javascript:void(0)" data-id="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
+                        }
+                        ?>
                     </ul>
                     <div class="row">
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">40</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="da_nop">40</p>
                                         <p class="text-muted mb-0">Thí sinh đã nộp</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -124,10 +100,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">31</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="chua_nop">31</p>
                                         <p class="text-muted mb-0">Thí sinh chưa nộp</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -138,10 +113,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">12</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="khong_thi">12</p>
                                         <p class="text-muted mb-0">Thí sinh không thi</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -152,10 +126,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">3.1</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="diem_trung_binh">3.1</p>
                                         <p class="text-muted mb-0">Điểm trung bình</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -166,10 +139,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">1</p>
+                                        <p class="fs-lg fw-semibold mb-0"id="diem_duoi_1">1</p>
                                         <p class="text-muted mb-0">Số thí sinh điểm <= 1</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -180,10 +152,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">80</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="diem_duoi_5">80</p>
                                         <p class="text-muted mb-0">Số thí sinh điểm <= 5</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -194,10 +165,9 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">80</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="diem_lon_5">80</p>
                                         <p class="text-muted mb-0">Số thí sinh điểm >= 5</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
@@ -208,11 +178,10 @@ footer {
                         </div>
                         <div class="col-md-6 col-xl-3">
                             <div class="block block-rounded block-fx-shadow">
-                                <div
-                                    class="block-content block-content-full d-flex align-items-center justify-content-between">
+                                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <p class="fs-lg fw-semibold mb-0">7</p>
-                                        <p class="text-muted mb-0">Điểm nhiều nhất</p>
+                                        <p class="fs-lg fw-semibold mb-0" id="diem_cao_nhat">7</p>
+                                        <p class="text-muted mb-0">Điểm cao nhất</p>
                                     </div>
                                     <div class="item item-circle bg-body-light">
                                         <i class="fa fa-users text-primary"></i>
@@ -231,8 +200,7 @@ footer {
 </div>
 </div>
 
-<div class="modal fade" id="modal-cau-hoi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi"
-    aria-hidden="true">
+<div class="modal fade" id="modal-cau-hoi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -243,8 +211,7 @@ footer {
                 <div id="list-question"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -293,8 +260,7 @@ footer {
     </div>
 </div>
 
-<div class="modal fade" id="modal-show-test" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi"
-    aria-hidden="true">
+<div class="modal fade" id="modal-show-test" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hoi" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">

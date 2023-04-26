@@ -109,16 +109,15 @@ class User extends Controller{
             $LastColumn = $sheet->getHighestColumn();
             $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
             $data = [];
-            for ($i = 2; $i <= $Totalrow; $i++) {
+            for ($i = 3; $i <= $Totalrow; $i++) {
                 $fullname = "";
                 $email = "";
                 $mssv = "";
                 for ($j = 0; $j < $TotalCol; $j++) {
-                    if($j==1) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
-                    if($j==2) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
-                    if($j==3) $fullname.=" ".$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==0) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==1) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==2) $fullname.=" ".$sheet->getCellByColumnAndRow($j, $i)->getValue();
                     if($j==7) $email = $sheet->getCellByColumnAndRow($j, $i)->getValue();
-                    
                 }
                 $data[$i]['fullname'] = $fullname;
                 $data[$i]['email'] = $email;
@@ -133,6 +132,7 @@ class User extends Controller{
     public function addFileExcel(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $listUser = $_POST['listuser'];
+            $password = $_POST['password'];
             $result = $this->NguoiDungModel->addFile($listUser);
             echo $result;
         }

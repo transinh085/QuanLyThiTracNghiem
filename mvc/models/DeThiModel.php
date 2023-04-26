@@ -218,12 +218,13 @@ class DeThiModel extends DB
         } else {
             $question = $this->getQuestionTestAuto($made);
         }
-        // $makq = $this->getMaDe($made,$_SESSION['user_id']);
-        // foreach ($question as $data) {
-        //     $macauhoi = $data['macauhoi'];
-        //     $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
-        //     $addCtKq = mysqli_query($this->con,$sql);
-        // }
+        $makq = $this->getMaDe($made,$_SESSION['user_id']);
+        foreach ($question as $data) {
+            $macauhoi = $data['macauhoi'];
+            $sql = "INSERT INTO `chitietketqua`(`makq`, `macauhoi`) VALUES ('$makq','$macauhoi')";
+            $addCtKq = mysqli_query($this->con,$sql);
+        }
+
         return $question;
     }
 
@@ -235,9 +236,19 @@ class DeThiModel extends DB
         $sql_question = "SELECT * FROM chitietketqua ctkq JOIN cauhoi ch on ctkq.macauhoi = ch.macauhoi WHERE makq = '$ketqua'";
         $data_question = mysqli_query($this->con,$sql_question);
         $ctlmodel = new CauTraLoiModel();
+        $trondapan = $data_ketqua['trondapan'];
         foreach ($data_question as $row) {
-            $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+            if($trondapan==1){
+                $arr= $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+                $row['cautraloi'] = shuffle($arr);
+            } else {
+                $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+            }
             $rows[] = $row;
+        }
+        $troncauhoi = $data_ketqua['troncauhoi'];
+        if($troncauhoi==1){
+            shuffle($rows);
         }
         return $rows;
     }
@@ -285,8 +296,12 @@ class DeThiModel extends DB
         return $rows;
     }
 
-
-
+    public function getNameGroup($manhom){
+        $sql = "SELECT * FROM `nhom` WHERE manhom=$manhom";
+        $result = mysqli_query($this->con,$sql);
+        $nameGroup = mysqli_fetch_assoc($result)['tennhom'];
+        return $nameGroup;
+    }
 
     // Tạo đề thủ công
     public function getQuestionOfTestManual($made)

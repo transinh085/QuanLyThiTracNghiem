@@ -45,6 +45,14 @@ class NhomModel extends DB
         return $valid;
     }
 
+    public function sv_hide($manhom,$masv,$giatri) {
+        $valid = true;
+        $sql = "UPDATE `chitietnhom` SET `hienthi`= '$giatri' WHERE `manhom`='$manhom' AND `manguoidung`='$masv'";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $valid = false;
+        return $valid;
+    }
+
     public function getById($manhom)
     {
         $sql = "SELECT * FROM `nhom` WHERE `manhom` = $manhom";
@@ -130,6 +138,7 @@ class NhomModel extends DB
         $valid = true;
         $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
         $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
@@ -139,19 +148,18 @@ class NhomModel extends DB
         $valid = true;
         $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung'";
         $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
 
-    
-    
-
     // Lấy các nhóm mà sinh viên tham gia
-    public function getAllGroup_User($user_id) 
+    public function getAllGroup_User($user_id,$hienthi) 
     {
-        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten
+        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten, nguoidung.avatar,chitietnhom.hienthi
         FROM chitietnhom, nhom, nguoidung, monhoc
-        WHERE chitietnhom.manhom = nhom.manhom AND nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND chitietnhom.manguoidung = $user_id";
+        WHERE chitietnhom.manhom = nhom.manhom AND nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND chitietnhom.manguoidung = $user_id
+        AND chitietnhom.hienthi = $hienthi";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -163,7 +171,7 @@ class NhomModel extends DB
     // Lấy chi tiết một nhóm mà sinh viên tham gia
     public function getDetailGroup($manhom)
     {
-        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten
+        $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten, nguoidung.avatar
         FROM nhom, nguoidung, monhoc
         WHERE nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND nhom.manhom = $manhom";
         $result = mysqli_query($this->con, $sql);
@@ -181,15 +189,6 @@ class NhomModel extends DB
         return $rows;
     }
 
-    // Kick người dùng ra khỏi nhóm
-    public function kickUser($manhom, $manguoidung) 
-    {
-        $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung' ";
-        $result = mysqli_query($this->con, $sql);
-        if (!$result) $check = false;
-        return $check;
-    }
-
     // hàm update sỉ số sinh viên trong nhóm
     public function updateSiso($manhom)
     {
@@ -202,6 +201,7 @@ class NhomModel extends DB
         return $valid;
     }
 
+    // Hàm cập nhật sỉ số khi sv tham gia bằng mã mời
     public function updateSiso1($mamoi)
     {
         $result = $this->getIdFromInvitedCode($mamoi);
@@ -210,11 +210,27 @@ class NhomModel extends DB
         return $valid;
     }
 
-    public function addSV()
+    // Hàm lấy sinh viên ra từ nhóm
+    public function getStudentByGroup($group){
+        $sql = "SELECT ng.id,ng.hoten,ng.email,ng.ngaythamgia,ng.ngaysinh,ng.gioitinh FROM chitietnhom ctn JOIN nguoidung ng ON ctn.manguoidung=ng.id WHERE ctn.manhom = $group";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[]=$row;
+        }
+        return $rows;
+    }
+
+    public function addSV($mssv, $hoten, $sdt, $email, $ngaysinh, $password, $gioitinh)
     {
-        // $sql = "";
-        // $result = ;
-        // return  ;
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$hoten','$gioitinh','$ngaysinh','$password','1', '11')";
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) {
+            $check = false;
+        }
+        return $check;
     }
 }
 ?>

@@ -315,3 +315,8 @@ td p {
     }
     
 }
+
+/* btn-otp */
+.btn-otp {
+    display: inline;
+}

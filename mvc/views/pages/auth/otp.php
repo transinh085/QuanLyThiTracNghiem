@@ -7,10 +7,12 @@
                 <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-body-extra-light">
                     <!-- Header -->
                     <div class="mb-2 text-center">
-                        <a class="link-fx fw-bold fs-1" href="index.html">
-                            <span class="text-dark">Dash</span><span class="text-primary">mix</span>
-                        </a>
-                        <p class="text-uppercase fw-bold fs-sm text-muted">Password Reminder</p>
+                        <div class="link-fx fw-bold fs-1">
+                            <!-- <span class="text-dark">Dash</span> -->
+                            <span class="text-primary">OTP</span>
+                        </div>
+                        <p class="text-uppercase fw-bold fs-sm text-dark">Verification Code</p>
+                        <p class="fw-bold fs-sm text-muted">We have sent a verification code to your gmail</p>
                     </div>
                     <!-- END Header -->
 
@@ -21,16 +23,12 @@
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control" id="reminder-credential"
-                                    name="reminder-credential" placeholder="Username or Email">
-                                <span class="input-group-text">
-                                    <i class="fa fa-user-circle"></i>
-                                </span>
+                                    name="reminder-credential" placeholder="Enter confirmation code">
                             </div>
                         </div>
                         <div class="text-center mb-4 add-btn-otp">
                             <button type="submit" class="btn btn-hero btn-primary">
-                                <i class="fa fa-fw fa-reply opacity-50 me-1"></i>
-                                Reset Password
+                                verify
                             </button>
                         </div>
                     </form>

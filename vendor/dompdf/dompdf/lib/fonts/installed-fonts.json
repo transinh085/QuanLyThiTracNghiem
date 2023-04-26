@@ -1,8 +1,8 @@
 {
     "times new roman": {
-        "normal": "C:\\xampp\\htdocs\\Quanlythitracnghiem\\vendor\\dompdf\\dompdf\/lib\/fonts\/times",
-        "bold": "C:\\xampp\\htdocs\\Quanlythitracnghiem\\vendor\\dompdf\\dompdf\/lib\/fonts\/timesbd",
-        "italic": "C:\\xampp\\htdocs\\Quanlythitracnghiem\\vendor\\dompdf\\dompdf\/lib\/fonts\/timesi",
-        "bold_italic": "C:\\xampp\\htdocs\\Quanlythitracnghiem\\vendor\\dompdf\\dompdf\/lib\/fonts\/timesbi"
+        "normal": ".\/vendor\/dompdf\/dompdf\/lib\/fonts\/times",
+        "bold": ".\/vendor\/dompdf\/dompdf\/lib\/fonts\/timesbd",
+        "italic": ".\/vendor\/dompdf\/dompdf\/lib\/fonts\/timesi",
+        "bold_italic": ".\/vendor\/dompdf\/dompdf\/lib\/fonts\/timesbi"
     }
 }

@@ -222,6 +222,50 @@ class NguoiDungModel extends DB
         return $check;
     }
 
+    function addFileGroup($data,$pass,$group){
+        $check = true;
+        foreach($data as $user){
+            $fullname = $user['fullname'];
+            $email = $user['email'];
+            $mssv = $user['mssv'];
+            $password = password_hash($pass, PASSWORD_DEFAULT);
+            $trangthai = $user['trangthai'];
+            $nhomquyen = $user['nhomquyen'];
+            $sql = "INSERT INTO `nguoidung`(`id`,`email`, `hoten`, `matkhau`, `trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$fullname','$password','$trangthai','$nhomquyen')";
+            $result = mysqli_query($this->con,$sql);
+            $joinGroup = $this->join($group,$mssv);
+            if($result){
+            } else {
+                $check = false;
+            }
+        }
+        return $check;
+    }
+
+    public function join($manhom, $manguoidung) {
+        $valid = true;
+        $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
+        $result = mysqli_query($this->con, $sql);
+        $this->updateSiso($manhom);
+        if(!$result){
+            $valid = false;
+        } else {
+            $this->updateSiso($manhom);
+        }
+        return $valid;
+    }
+
+    public function updateSiso($manhom)
+    {
+        $valid = true;
+        $sql = "UPDATE `nhom` SET `siso`= (SELECT count(*) FROM `chitietnhom` where manhom = $manhom ) WHERE `manhom` = $manhom";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) {
+            $valid = false;
+        }
+        return $valid;
+    } 
+
     public function getQuery($filter, $input, $args) {
         $query = "SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen";
         if ($input) {

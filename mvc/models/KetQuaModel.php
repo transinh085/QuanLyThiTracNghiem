@@ -145,7 +145,7 @@ class KetQuaModel extends DB{
         for($i=0;$i<count($arr_sinhvien);$i++) {
             $row = array($arr_sinhvien[$i]['id'],$arr_sinhvien[$i]['hoten']);
             for($j = 0; $j < count($arr_dethi); $j++) {
-                $row[] = $arr_ketqua[$arr_dethi[$j]['made']][$i]['diemthi'];
+                array_push($row,$arr_ketqua[$arr_dethi[$j]['made']][$i]['diemthi']);
             }
             $arr_result[] = $row;
         }

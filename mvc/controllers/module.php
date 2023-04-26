@@ -41,6 +41,7 @@ class Module extends Controller
                     "datepicker" => 1,
                     "flatpickr" => 1,
                     "sweetalert2" => 1,
+                    "notify" => 1,
                 ],
                 "Script" => "class_detail",
                 "Detail" => $this->nhomModel->getDetailGroup($manhom)

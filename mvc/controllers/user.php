@@ -138,6 +138,16 @@ class User extends Controller{
         }
     }
 
+    public function addFileExcelGroup(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $listUser = $_POST['listuser'];
+            $password = $_POST['password'];
+            $manhom = $_POST['group'];
+            $result = $this->NguoiDungModel->addFileGroup($listUser,$password,$manhom);
+            echo $result;
+        }
+    }
+
     public function getQuery($filter, $input, $args) {
         $query = $this->NguoiDungModel->getQuery($filter, $input, $args);
         return $query;

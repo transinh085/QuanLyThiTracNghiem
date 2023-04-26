@@ -114,14 +114,14 @@ class User extends Controller{
                 $email = "";
                 $mssv = "";
                 for ($j = 0; $j < $TotalCol; $j++) {
-                    if($j==0) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
-                    if($j==1) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
-                    if($j==2) $fullname.=" ".$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==1) $mssv = $sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==2) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
+                    if($j==3) $fullname.=$sheet->getCellByColumnAndRow($j, $i)->getValue();
                     if($j==7) $email = $sheet->getCellByColumnAndRow($j, $i)->getValue();
                 }
-                $data[$i]['fullname'] = $fullname;
-                $data[$i]['email'] = $email;
-                $data[$i]['mssv'] = $mssv;
+                $data[$i]['fullname'] = trim($fullname);
+                $data[$i]['email'] = trim($email);
+                $data[$i]['mssv'] = trim($mssv);
                 $data[$i]['nhomquyen'] = 11;
                 $data[$i]['trangthai'] = 1;
             }
@@ -133,7 +133,7 @@ class User extends Controller{
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $listUser = $_POST['listuser'];
             $password = $_POST['password'];
-            $result = $this->NguoiDungModel->addFile($listUser);
+            $result = $this->NguoiDungModel->addFile($listUser,$password);
             echo $result;
         }
     }

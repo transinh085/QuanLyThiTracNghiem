@@ -167,6 +167,97 @@ class Module extends Controller
             echo json_encode($result);
         }
     }
+
+    public function exportExcelStudentS()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $result = $this->nhomModel->getStudentByGroup($manhom);
+            //Khởi tạo đối tượng
+            $excel = new PHPExcel();
+            //Chọn trang cần ghi (là số từ 0->n)
+            $excel->setActiveSheetIndex(0);
+            //Tạo tiêu đề cho trang. (có thể không cần)
+            $excel->getActiveSheet()->setTitle("Danh sách kết quả");
+
+            //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
+            $excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+            $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+            $excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+            $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+
+
+            //Xét in đậm cho khoảng cột
+            $phpColor = new PHPExcel_Style_Color();
+            $phpColor->setRGB('FFFFFF');
+            $excel->getActiveSheet()->getStyle('A1:F1')->getFont()->setBold(true);
+            $excel->getActiveSheet()->getStyle('A1:F1')->getFont()->setColor($phpColor);
+            $excel->getActiveSheet()->getStyle('A1:F1')->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '33FF33')
+                    )
+                )
+            );
+            $excel->getActiveSheet()->getStyle('A1:F1')->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                )
+            );
+            ;
+            //Tạo tiêu đề cho từng cột
+//Vị trí có dạng như sau:
+            /**
+             * |A1|B1|C1|..|n1|
+             * |A2|B2|C2|..|n1|
+             * |..|..|..|..|..|
+             * |An|Bn|Cn|..|nn|
+             */
+            $excel->getActiveSheet()->setCellValue('A1', 'MSSV');
+            $excel->getActiveSheet()->setCellValue('B1', 'Họ và tên');
+            $excel->getActiveSheet()->setCellValue('C1', 'Email');
+            $excel->getActiveSheet()->setCellValue('D1', 'Ngày tham gia');
+            $excel->getActiveSheet()->setCellValue('E1', 'Ngày Sinh');
+            $excel->getActiveSheet()->setCellValue('F1', 'Giới tính');
+            // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
+            // dòng bắt đầu = 2
+            $numRow = 2;
+            foreach ($result as $row) {
+                $excel->getActiveSheet()->setCellValue('A' . $numRow, $row["id"]);
+                $excel->getActiveSheet()->setCellValue('B' . $numRow, $row["hoten"]);
+                $excel->getActiveSheet()->setCellValue('C' . $numRow, $row["email"]);
+                $excel->getActiveSheet()->setCellValue('D' . $numRow, $row["ngaythamgia"]);
+                $excel->getActiveSheet()->setCellValue('E' . $numRow, $row["ngaysinh"]);
+                if ($row["gioitinh"] == 0) {
+                    $excel->getActiveSheet()->setCellValue('F' . $numRow, "Nữ");
+                } else if ($row["gioitinh"] == 1) {
+                    $excel->getActiveSheet()->setCellValue('F' . $numRow, "Nam");
+                } else {
+                    $excel->getActiveSheet()->setCellValue('F' . $numRow, "Null");
+                }
+
+                $excel->getActiveSheet()->getStyle("A" . $numRow . ":F" . "$numRow")->getAlignment()->applyFromArray(
+                    array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                    )
+                );
+                ;
+                $numRow++;
+            }
+            ob_start();
+            $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+            $write->save('php://output');
+            $xlsData = ob_get_contents();
+            ob_end_clean();
+            $response = array(
+                'status' => TRUE,
+                'file' => "data:application/vnd.ms-excel;base64," . base64_encode($xlsData)
+            );
+
+            die(json_encode($response));
+        }
+    }
 }
 
 ?>

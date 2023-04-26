@@ -336,6 +336,7 @@ $(document).ready(function () {
           Dashmix.layout("header_loader_on");
         },
         success: function (response) {
+          console.log(response)
           addExcel(response,password);
         },
         complete: function () {
@@ -358,6 +359,7 @@ $(document).ready(function () {
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
         $("#modal-add-user").modal("hide");
+        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
       },
     });
   }

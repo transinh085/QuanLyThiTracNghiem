@@ -200,7 +200,7 @@ class NhomModel extends DB
             $valid = false;
         }
         return $valid;
-    }
+    } 
 
     // Hàm cập nhật sỉ số khi sv tham gia bằng mã mời
     public function updateSiso1($mamoi)

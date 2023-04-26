@@ -19,3 +19,7 @@ $(document).submit(function (e) {
         }
     });
 })
+
+function codeOTP() {
+    
+}

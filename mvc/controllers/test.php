@@ -463,7 +463,6 @@ class Test extends Controller
             $made = $_POST['made'];
             $manhom = $_POST['manhom'];
             $result = $this->ketquamodel->getTestScoreGroup($made,$manhom);
-            echo json_encode($result);
         //Khởi tạo đối tượng
         $excel = new PHPExcel();
         //Chọn trang cần ghi (là số từ 0->n)
@@ -599,8 +598,6 @@ class Test extends Controller
             );;
             $numRow++;
         }
-        $name = $this->dethimodel->getNameGroup($manhom);
-        header("Content-Disposition: attachment;filename=Bảng điểm nhóm ".$name.".xlsx");
         ob_start();
         $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
         $write->save('php://output');
@@ -610,7 +607,6 @@ class Test extends Controller
             'status' => TRUE,
             'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
         );
-    
         die(json_encode($response));
         }
     }
@@ -619,9 +615,10 @@ class Test extends Controller
         return chr(substr("000".($num+65),-3));
     }
 
-    function getResult(){
+    public function check(){
         $result = $this->ketquamodel->getMarkOfAllTest(2);
         echo "</br>";
         print_r($result);
     }
+
 }

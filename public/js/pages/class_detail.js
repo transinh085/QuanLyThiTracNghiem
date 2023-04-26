@@ -240,7 +240,7 @@ $(document).ready(function () {
         var $a = $("<a>");
         $a.attr("href", response.file);
         $("body").append($a);
-        $a.attr("download", "Danh sách điểm.xlsx");
+        $a.attr("download", "Danh sách điểm.xls");
         $a[0].click();
         $a.remove();
       }

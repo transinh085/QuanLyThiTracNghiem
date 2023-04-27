@@ -8,7 +8,7 @@
                 <div class="space-x-1 d-flex align-items-center space-x-2">
                     <a class="link-fx fw-bold" href="home">
                         <i class="fa fa-fire text-primary"></i>
-                        <span class="fs-4 text-dual">OnTest</span><span class="fs-4 text-primary">VN</span>
+                        <span class="fs-4 text-dual">SGU Test</span><span class="fs-4 text-primary"></span>
                     </a>
                     <span class="d-inline-block fs-xs fw-medium bg-primary-dark text-white rounded-pill py-1 px-2">5.4</span>
                 </div>
@@ -220,10 +220,10 @@
                                     Sử dụng nhiều công cụ trong việc dạy học, nhưng OnTest VN là công cụ mình yêu thích nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên sẽ biết đến OnTest hơn.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
-                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <img src="./public/media/avatars/avtar.png" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Hoàng Gia Bảo</span>
+                                        <span class="testimonial__location">3121410069</span>
                                     </div>
                                 </div>
                             </div>
@@ -236,8 +236,8 @@
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Trần Nhật Sinh</span>
+                                        <span class="testimonial__location">3211410042</span>
                                     </div>
                                 </div>
                             </div>
@@ -250,8 +250,22 @@
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Âu Hạo Nhiên</span>
+                                        <span class="testimonial__location">3121410055</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide slide--3">
+                            <div class="testimonial">
+                                <blockquote class="testimonial__text">
+                                    Nhờ có OnTest VN mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
+                                </blockquote>
+                                <div class="d-flex align-items-center testimonial__author">
+                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="testimonial__name">Đăng Lê Anh Huy</span>
+                                        <span class="testimonial__location">3121410044</span>
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +317,7 @@
                         <h3 class="fw-semibold">Kết nối</h3>
                             <ul class="list list-simple-mini">
                                 <li>
-                                    <a class="fw-semibold" href="#">
+                                    <a class="fw-semibold" href="https://www.facebook.com/hgbaodev/">
                                         <i class="fab fa-1x fa-facebook-f me-2 text-dark"></i>
                                     </a>
                                     <a class="fw-semibold" href="#">

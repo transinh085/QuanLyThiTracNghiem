@@ -14,6 +14,7 @@ class Dashboard extends Controller{
             "Title" => "Trang tổng quan",
             "Plugin" => [
                 "chart" => 1,
+                "slick" => 1
             ],
             "Script" => "dashboard"
         ]);

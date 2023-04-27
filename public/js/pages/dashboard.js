@@ -1,6 +1,73 @@
-/*!
- * dashmix - v5.5.0
- * @author pixelcave - https://pixelcave.com
- * Copyright (c) 2022
- */
-Dashmix.onLoad((()=>class{static initChartsBars(){Chart.defaults.color="#818d96",Chart.defaults.scale.grid.color="transparent",Chart.defaults.scale.grid.zeroLineColor="transparent",Chart.defaults.scale.beginAtZero=!0,Chart.defaults.elements.line.borderWidth=1,Chart.defaults.plugins.legend.labels.boxWidth=12;let r,a,o=document.getElementById("js-chartjs-analytics-bars");a={labels:["MON","TUE","WED","THU","FRI","SAT","SUN"],datasets:[{label:"This Week",fill:!0,backgroundColor:"rgba(6, 101, 208, .6)",borderColor:"transparent",pointBackgroundColor:"rgba(6, 101, 208, 1)",pointBorderColor:"#fff",pointHoverBackgroundColor:"#fff",pointHoverBorderColor:"rgba(6, 101, 208, 1)",data:[73,68,69,53,60,72,82]},{label:"Last Week",fill:!0,backgroundColor:"rgba(6, 101, 208, .2)",borderColor:"transparent",pointBackgroundColor:"rgba(6, 101, 208, .2)",pointBorderColor:"#fff",pointHoverBackgroundColor:"#fff",pointHoverBorderColor:"rgba(6, 101, 208, .2)",data:[62,32,59,55,52,56,73]}]},null!==o&&(r=new Chart(o,{type:"bar",data:a,options:{plugins:{tooltip:{callbacks:{label:function(r){return r.dataset.label+": "+r.parsed.y+" Customers"}}}}}}))}static init(){this.initChartsBars()}}.init()));
+Dashmix.helpers("jq-slick") 
+$(document).ready(function(){
+    $.ajax({
+        type: "post",
+        url: "./dashboard/checkEmail",
+        success: function (response) {
+            console.log(response)
+            if(response == ""){
+                let i = document.getElementById("modal-onboarding");
+                new bootstrap.Modal(i).show(), 
+                i.addEventListener("shown.bs.modal", (i => {
+                    document.querySelector("#modal-onboarding .js-slider").classList.remove("js-slider-enabled")
+                    Dashmix.helpers("jq-slick") 
+                }))    
+            }
+        }
+    });
+    
+})
+
+function validateEmail($email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test( $email );
+}
+
+function checkEmailExist(email){
+    $.ajax({
+        type: "post",
+        url: "./dashboard/checkEmailExist",
+        data: {
+            email: email
+        },
+        success: function (response) {
+            let check = response
+            if(check == 0){
+                updateEmail(email)
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Email đã tồn tài trong hệ thống!` });
+            }
+        }
+    });
+}
+
+function updateEmail(email){
+    $.ajax({
+        type: "post",
+        url: "./dashboard/updateEmail",
+        data: {
+            email: email
+        },
+        success: function (response) {
+            if(response){
+                Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Cập nhật email thành công bạn có thể đăng nhập bằng tài khoản google` });
+                $("#modal-onboarding").modal("hide");
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Cập nhật email không thành công` });
+            }
+        }
+    });
+}
+
+$("#btn-email").click(function(){
+    let email = $("#email").val();
+    if(email == ""){
+        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Vui lòng không để trống email!` });
+    }
+    else if(validateEmail(email)){
+       checkEmailExist(email)
+    } else {
+        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Vui lòng điền đúng định dạng email` });
+    }
+})
+

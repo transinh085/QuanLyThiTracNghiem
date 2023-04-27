@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let questions = [];
     const made = $("#dethicontent").data("id");
-    const tende = "dethi" + made;
+    const dethi = "dethi" + made;
     const cautraloi = "cautraloi" + made;
     const solanchuyentab = "solanchuyentab" + made;
     function getQuestion() {
@@ -13,6 +13,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log(response)
                 questions = response;
             },
         });

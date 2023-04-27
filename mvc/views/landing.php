@@ -8,27 +8,26 @@
                 <div class="space-x-1 d-flex align-items-center space-x-2">
                     <a class="link-fx fw-bold" href="home">
                         <i class="fa fa-fire text-primary"></i>
-                        <span class="fs-4 text-dual">OnTest</span><span class="fs-4 text-primary">VN</span>
+                        <span class="fs-4 text-dual">SGU </span><span class="fs-4 text-primary">Test</span>
                     </a>
-                    <span class="d-inline-block fs-xs fw-medium bg-primary-dark text-white rounded-pill py-1 px-2">5.4</span>
                 </div>
                 <div class="space-x-1">
                     <ul class="nav-main nav-main-horizontal nav-main-hover nav">
                         <li class="nav-main-item">
-                            <a class="btn btn-alt-secondary px-3" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
+                            <a class="btn rounded-pill btn-alt-secondary px-3" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
                                 <i class="fa fa-burn"></i>
                             </a>
                         </li>
                         <?php 
                         if(!isset($_SESSION['user_id'])) {
                             echo '<li class="nav-main-item">
-                                <a class="btn btn-light" href="auth/signin">
+                                <a class="btn btn-light rounded-pill" href="auth/signin">
                                     Đăng nhập
                                 </a>
                             </li>';
                         } else {
                             echo '<li class="nav-main-item">
-                                <a class="btn btn-primary" href="dashboard">
+                                <a class="btn btn-primary rounded-pill" href="dashboard">
                                     <i class="fa fa-rocket me-2"></i>Dashboard
                                 </a>
                             </li>';
@@ -47,7 +46,7 @@
                     <div class="content content-full">
                         <div class="row g-6 w-100 py-7 overflow-hidden">
                             <div class="col-md-7 order-md-last py-4 d-md-flex align-items-md-center justify-content-md-end">
-                                <img class="img-fluid" src="./public/media/various/landing-promo-hero.png" alt="Hero Promo">
+                                <img class="img-fluid" src="./public/media/various/landing.png" alt="Hero Promo">
                             </div>
                             <div class="col-md-5 py-4 d-flex align-items-center">
                                 <div class="text-center text-md-start">
@@ -82,8 +81,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-corporate-lighter rounded p-4">
-                                <i class="fa fa-cubes fa-2x text-corporate"></i>
+                            <div class="d-inline-block bg-xinspire-light rounded p-4">
+                                <i class="fa fa-cubes fa-2x text-xinspire-dark"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -97,8 +96,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-pulse-lighter rounded p-4">
-                                <i class="fa fa-code fa-2x text-pulse"></i>
+                            <div class="d-inline-block bg-xplay-lighter rounded p-4">
+                                <i class="fa fa-code fa-2x text-xplay"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -112,8 +111,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-elegance-lighter rounded p-4">
-                                <i class="fa fa-rocket fa-2x text-elegance"></i>
+                            <div class="d-inline-block bg-xpro-lighter rounded p-4">
+                                <i class="fa fa-rocket fa-2x text-xpro"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -139,18 +138,15 @@
                             </div>
                             <div class="order-md-0 col-md-6 d-flex align-items-center">
                                 <div>
-                                    <h2 class="h2 mb-2">
-                                        Dễ dàng tạo bài thi online với nhiều dạng câu hỏi
-                                    </h2>
-                                    <p class=" text-dark mb-4">
-                                        <i class="fa-solid fa-circle-check"></i> Tạo bài kiểm tra với nhiều dạng câu hỏi
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Câu hỏi chọn 1 kết quả
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời đoạn văn ngắn
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời bằng cách upload file (Hình ảnh, word, video)
-                                    </p>
+                                    <h3 class="h3 mb-4 fw-bolder">
+                                        Dễ dàng tạo bài thi online
+                                    </h3>
+                                    <ul class="text-dark mb-4 m-0 list-unstyled">
+                                        <li class="list-landing">Tạo bài kiểm tra với nhiều dạng câu hỏi</li>
+                                        <li class="list-landing">Câu hỏi chọn 1 kết quả</li>
+                                        <li class="list-landing">Trả lời đoạn văn ngắn</li>
+                                        <li class="list-landing">Trả lời bằng cách upload file (Hình ảnh, word, video)</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -217,13 +213,13 @@
                         <div class="slide slide--1">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Sử dụng nhiều công cụ trong việc dạy học, nhưng OnTest VN là công cụ mình yêu thích nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên sẽ biết đến OnTest hơn.
+                                    Sử dụng nhiều công cụ trong việc dạy học, nhưng SGU Test là công cụ mình yêu thích nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên sẽ biết đến OnTest hơn.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
-                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <img src="./public/media/avatars/avtar.png" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Hoàng Gia Bảo</span>
+                                        <span class="testimonial__location">3121410069</span>
                                     </div>
                                 </div>
                             </div>
@@ -231,13 +227,13 @@
                         <div class="slide slide--2">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Ứng dụng OnTest VN có giao diện trực quan, dễ dùng và có đầy đủ các tính năng phục vụ cho dạy và học thời đại 4.0. Ngoài ra ứng dụng luôn được cập nhật và đổi mới từng ngày theo nhu cầu của các thầy cô giáo và học sinh.
+                                    Ứng dụng SGU Test có giao diện trực quan, dễ dùng và có đầy đủ các tính năng phục vụ cho dạy và học thời đại 4.0. Ngoài ra ứng dụng luôn được cập nhật và đổi mới từng ngày theo nhu cầu của các thầy cô giáo và học sinh.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Trần Nhật Sinh</span>
+                                        <span class="testimonial__location">3211410042</span>
                                     </div>
                                 </div>
                             </div>
@@ -245,13 +241,27 @@
                         <div class="slide slide--3">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Nhờ có OnTest VN mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
+                                    Nhờ có SGU Test mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="testimonial__name">asd</span>
-                                        <span class="testimonial__location">asdasd</span>
+                                        <span class="testimonial__name">Âu Hạo Nhiên</span>
+                                        <span class="testimonial__location">3121410055</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide slide--3">
+                            <div class="testimonial">
+                                <blockquote class="testimonial__text">
+                                    Nhờ có SGU Test mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
+                                </blockquote>
+                                <div class="d-flex align-items-center testimonial__author">
+                                    <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="testimonial__name">Đăng Lê Anh Huy</span>
+                                        <span class="testimonial__location">3121410044</span>
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +313,7 @@
                         <h3 class="fw-semibold">Kết nối</h3>
                             <ul class="list list-simple-mini">
                                 <li>
-                                    <a class="fw-semibold" href="#">
+                                    <a class="fw-semibold" href="https://www.facebook.com/hgbaodev/">
                                         <i class="fab fa-1x fa-facebook-f me-2 text-dark"></i>
                                     </a>
                                     <a class="fw-semibold" href="#">

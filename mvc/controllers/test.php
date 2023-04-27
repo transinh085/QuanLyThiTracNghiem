@@ -291,7 +291,6 @@ class Test extends Controller
     public function getResultDetail()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $made = $_POST['made'];
             $makq = $_POST['makq'];
             $result = $this->dethimodel->getResultDetail($makq);
             echo json_encode($result);

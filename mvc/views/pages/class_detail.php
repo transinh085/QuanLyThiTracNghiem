@@ -1,4 +1,4 @@
-<div class="content" data-id="<?php echo $data['Detail']['manhom']?>">
+<div class="content" data-id="<?php echo $data['Detail']['manhom'] ?>">
     <div class="row">
         <div class="col-4 flex-grow-1">
             <div class="input-group">
@@ -8,9 +8,11 @@
             </div>
         </div>
         <div class="col-8 d-flex align-items-center justify-content-end gap-3">
-            <button type="button" class="btn btn-sm btn-primary" id="exportStudents"><i class="fa-solid fa-file me-1"></i>Xuất danh sách
+            <button type="button" class="btn btn-sm btn-primary" id="exportStudents"><i
+                    class="fa-solid fa-file me-1"></i>Xuất danh sách
                 HS</button>
-            <button type="button" class="btn btn-primary btn-sm" id="exportScores"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+            <button type="button" class="btn btn-primary btn-sm" id="exportScores"><i
+                    class="fa-solid fa-file me-1"></i>Xuất bảng
                 điểm</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
@@ -23,7 +25,7 @@
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
                     <h3 class="block-title">
-                        <?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom']?>
+                        <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
                     </h3>
                     <div class="block-options">
                         <div class="block-options-item">
@@ -46,32 +48,34 @@
                         <tbody id="list-student">
                         </tbody>
                     </table>
-                    
+
                     <nav>
-                <ul class="pagination justify-content-end mt-2" id="getNumberPage"><li class="page-item disabled">
-                            <a class="page-link" id="1" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
-                                Prev
-                            </a>
-                        </li>
-                
-                    <li class="page-item active">
-                        <a class="page-link" id="1" href="javascript:void(0)">1</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="2" href="javascript:void(0)">2</a>
-                    </li>
-                    
-                    <li class="page-item ">
-                        <a class="page-link" id="3" href="javascript:void(0)">3</a>
-                    </li>
-                <li class="page-item active">
-                    <a class="page-link" id="2" href="javascript:void(0)" aria-label="Next">
-                        Next
-                    </a>
-                </li>
-                </ul>
-            </nav>
+                        <ul class="pagination justify-content-end mt-2" id="getNumberPage">
+                            <li class="page-item disabled">
+                                <a class="page-link" id="1" href="javascript:void(0)" tabindex="-1"
+                                    aria-label="Previous">
+                                    Prev
+                                </a>
+                            </li>
+
+                            <li class="page-item active">
+                                <a class="page-link" id="1" href="javascript:void(0)">1</a>
+                            </li>
+
+                            <li class="page-item ">
+                                <a class="page-link" id="2" href="javascript:void(0)">2</a>
+                            </li>
+
+                            <li class="page-item ">
+                                <a class="page-link" id="3" href="javascript:void(0)">3</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" id="2" href="javascript:void(0)" aria-label="Next">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
 
                 </div>
             </div>
@@ -115,7 +119,8 @@
                         aria-labelledby="them-thu-cong-tab" tabindex="0">
                         <form action="" method="post">
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="mssv" id="mssv" placeholder="Mã sinh viên">
+                                <input type="text" class="form-control" name="mssv" id="mssv"
+                                    placeholder="Mã sinh viên">
                             </div>
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và tên">
@@ -127,11 +132,12 @@
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="js-flatpickr form-control" id="ngaysinh"
-                                    name="ngaysinh" placeholder="Ngày sinh" data-date-format="d-m-Y">
+                                <input type="text" class="js-flatpickr form-control" id="ngaysinh" name="ngaysinh"
+                                    placeholder="Ngày sinh" data-date-format="d-m-Y">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" name="matkhau" id="matkhau" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="matkhau" id="matkhau"
+                                    placeholder="Mật khẩu">
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-2" for="">Giới tính</label>
@@ -148,33 +154,62 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="block-content block-content-full text-end">
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh
+                        viên</button>
+                </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
                         tabindex="0">
                         <h2 class="display-1 text-center py-6" id="show-ma-moi"></h2>
                         <div class="d-flex align-items-center justify-content-between mb-2">
-                            <p class="text-center mb-0"><?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom'] ?></p>
+                            <p class="text-center mb-0">
+                                <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
+                            </p>
                             <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
                                     class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
+                        <div class="block-content block-content-full text-end">
+                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh
+                        viên</button>
+                </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"
                         aria-labelledby="them-file-excel-tab" tabindex="0">
-                        <h4 class="fw-normal">Profile Content</h4>
-                        <p>...</p>
+                        <form id="form-upload" method="POST" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label for="user_password" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control form-control-alt" name="user_password"
+                                    id="ps_user_group" placeholder="Nhập mật khẩu cho sinh viên!">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor">Nội dung</label>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".xlsx, .xls, .csv"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="">Tải về file mẫu
+                                        Docx</a></em>
+                            </div>
+                            <div class="mb-4 d-flex justify-content-between">
+                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i
+                                        class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh viên</button>
-                </div>
+                
             </div>
         </div>
     </div>
 </div>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel"><?php echo $data['Detail']['mamonhoc']." - ".$data['Detail']['tenmonhoc']." - NH".$data['Detail']['namhoc']." - HK".$data['Detail']['hocky']." - ".$data['Detail']['tennhom'] ?></h5>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+            <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
+        </h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body content-side">

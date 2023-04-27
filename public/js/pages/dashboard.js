@@ -1,4 +1,3 @@
-Dashmix.helpersOnLoad(['jq-slick']);
 $(document).ready(function(){
     $.ajax({
         type: "post",
@@ -6,11 +5,14 @@ $(document).ready(function(){
         success: function (response) {
             console.log(response);
             let i = document.getElementById("modal-onboarding");
-            new bootstrap.Modal(i).show(), i.addEventListener("shown.bs.modal", (i => {
-                document.querySelector("#modal-onboarding .js-slider").classList.remove("js-slider-enabled"), Dashmix.helpers("jq-slick")
-            }))            
+            new bootstrap.Modal(i).show(), 
+            i.addEventListener("shown.bs.modal", (i => {
+                document.querySelector("#modal-onboarding .js-slider").classList.remove("js-slider-enabled")
+                Dashmix.helpers("jq-slick") 
+            }))        
         }
     });
+    
 })
 
 function validateEmail($email) {

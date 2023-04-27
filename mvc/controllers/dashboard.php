@@ -17,7 +17,6 @@ class Dashboard extends Controller{
             "Title" => "Trang tổng quan",
             "User" => $this->nguoidung->getById($_SESSION['user_id']),
             "Plugin" => [
-                "chart" => 1,
                 "slick" => 1,
                 "notify" => 1,
             ],

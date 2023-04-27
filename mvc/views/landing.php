@@ -8,27 +8,26 @@
                 <div class="space-x-1 d-flex align-items-center space-x-2">
                     <a class="link-fx fw-bold" href="home">
                         <i class="fa fa-fire text-primary"></i>
-                        <span class="fs-4 text-dual">SGU Test</span><span class="fs-4 text-primary"></span>
+                        <span class="fs-4 text-dual">SGU </span><span class="fs-4 text-primary">Test</span>
                     </a>
-                    <span class="d-inline-block fs-xs fw-medium bg-primary-dark text-white rounded-pill py-1 px-2">5.4</span>
                 </div>
                 <div class="space-x-1">
                     <ul class="nav-main nav-main-horizontal nav-main-hover nav">
                         <li class="nav-main-item">
-                            <a class="btn btn-alt-secondary px-3" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
+                            <a class="btn rounded-pill btn-alt-secondary px-3" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
                                 <i class="fa fa-burn"></i>
                             </a>
                         </li>
                         <?php 
                         if(!isset($_SESSION['user_id'])) {
                             echo '<li class="nav-main-item">
-                                <a class="btn btn-light" href="auth/signin">
+                                <a class="btn btn-light rounded-pill" href="auth/signin">
                                     Đăng nhập
                                 </a>
                             </li>';
                         } else {
                             echo '<li class="nav-main-item">
-                                <a class="btn btn-primary" href="dashboard">
+                                <a class="btn btn-primary rounded-pill" href="dashboard">
                                     <i class="fa fa-rocket me-2"></i>Dashboard
                                 </a>
                             </li>';
@@ -47,7 +46,7 @@
                     <div class="content content-full">
                         <div class="row g-6 w-100 py-7 overflow-hidden">
                             <div class="col-md-7 order-md-last py-4 d-md-flex align-items-md-center justify-content-md-end">
-                                <img class="img-fluid" src="./public/media/various/landing-promo-hero.png" alt="Hero Promo">
+                                <img class="img-fluid" src="./public/media/various/landing.png" alt="Hero Promo">
                             </div>
                             <div class="col-md-5 py-4 d-flex align-items-center">
                                 <div class="text-center text-md-start">
@@ -82,8 +81,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-corporate-lighter rounded p-4">
-                                <i class="fa fa-cubes fa-2x text-corporate"></i>
+                            <div class="d-inline-block bg-xinspire-light rounded p-4">
+                                <i class="fa fa-cubes fa-2x text-xinspire-dark"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -97,8 +96,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-pulse-lighter rounded p-4">
-                                <i class="fa fa-code fa-2x text-pulse"></i>
+                            <div class="d-inline-block bg-xplay-lighter rounded p-4">
+                                <i class="fa fa-code fa-2x text-xplay"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -112,8 +111,8 @@
                         <div class="col-xl-4">
                         <div class="w-100 py-4">
                             <div class="d-inline-block bg-body-extra-light rounded p-1 mb-4">
-                            <div class="d-inline-block bg-elegance-lighter rounded p-4">
-                                <i class="fa fa-rocket fa-2x text-elegance"></i>
+                            <div class="d-inline-block bg-xpro-lighter rounded p-4">
+                                <i class="fa fa-rocket fa-2x text-xpro"></i>
                             </div>
                             </div>
                             <h3 class="h4 fw-bold mb-1">
@@ -139,18 +138,15 @@
                             </div>
                             <div class="order-md-0 col-md-6 d-flex align-items-center">
                                 <div>
-                                    <h2 class="h2 mb-2">
-                                        Dễ dàng tạo bài thi online với nhiều dạng câu hỏi
-                                    </h2>
-                                    <p class=" text-dark mb-4">
-                                        <i class="fa-solid fa-circle-check"></i> Tạo bài kiểm tra với nhiều dạng câu hỏi
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Câu hỏi chọn 1 kết quả
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời đoạn văn ngắn
-
-                                        <br> <i class="fa-solid fa-circle-check"></i> Trả lời bằng cách upload file (Hình ảnh, word, video)
-                                    </p>
+                                    <h3 class="h3 mb-4 fw-bolder">
+                                        Dễ dàng tạo bài thi online
+                                    </h3>
+                                    <ul class="text-dark mb-4 m-0 list-unstyled">
+                                        <li class="list-landing">Tạo bài kiểm tra với nhiều dạng câu hỏi</li>
+                                        <li class="list-landing">Câu hỏi chọn 1 kết quả</li>
+                                        <li class="list-landing">Trả lời đoạn văn ngắn</li>
+                                        <li class="list-landing">Trả lời bằng cách upload file (Hình ảnh, word, video)</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

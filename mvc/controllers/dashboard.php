@@ -39,5 +39,13 @@ class Dashboard extends Controller{
             echo $result;
         }
     }
+    public function updateEmail(){
+        if ($_SERVER['REQUEST_METHOD'] == "POST"){
+            $id = $_SESSION['user_id'];
+            $email = $_POST['email'];
+            $result = $this->nguoidung->updateEmail($id,$email);
+            echo $result;
+        }
+    }
 }
 ?>

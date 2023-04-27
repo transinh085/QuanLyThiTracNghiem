@@ -227,11 +227,7 @@
                         <div class="slide slide--1">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Sử dụng nhiều công cụ trong việc dạy học, nhưng OnTest VN là công cụ mình yêu thích
-                                    nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao
-                                    giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải
-                                    nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên
-                                    sẽ biết đến OnTest hơn.
+                                    Sử dụng nhiều công cụ trong việc dạy học, nhưng SGU Test là công cụ mình yêu thích nhất. Việc thiết kế bài kiểm tra và quản lí, đánh giá kết quả của học sinh chưa bao giờ đơn giản và hiệu quả đến vậy. Đội ngũ luôn lắng nghe góp ý để đem lại trải nghiệm tốt nhất cho người dùng. Chúc OnTest ngày càng phát triển và nhiều giáo viên sẽ biết đến OnTest hơn.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avtar.png" alt="" class="testimonial__photo" />
@@ -245,9 +241,7 @@
                         <div class="slide slide--2">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Ứng dụng OnTest VN có giao diện trực quan, dễ dùng và có đầy đủ các tính năng phục
-                                    vụ cho dạy và học thời đại 4.0. Ngoài ra ứng dụng luôn được cập nhật và đổi mới từng
-                                    ngày theo nhu cầu của các thầy cô giáo và học sinh.
+                                    Ứng dụng SGU Test có giao diện trực quan, dễ dùng và có đầy đủ các tính năng phục vụ cho dạy và học thời đại 4.0. Ngoài ra ứng dụng luôn được cập nhật và đổi mới từng ngày theo nhu cầu của các thầy cô giáo và học sinh.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
@@ -261,10 +255,7 @@
                         <div class="slide slide--3">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Nhờ có OnTest VN mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp
-                                    học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn
-                                    giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng
-                                    mắc.
+                                    Nhờ có SGU Test mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />
@@ -278,10 +269,7 @@
                         <div class="slide slide--3">
                             <div class="testimonial">
                                 <blockquote class="testimonial__text">
-                                    Nhờ có OnTest VN mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp
-                                    học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn
-                                    giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng
-                                    mắc.
+                                    Nhờ có SGU Test mà tôi đã tiết kiệm được rất nhiều thời gian trong việc quản lý lớp học của mình. Việc soạn bài, tạo các đề thi để cho học sinh thi chưa bao giờ đơn giản đến thế. Đặc biệt các bạn tư vấn và hỗ trợ rất nhiệt tình khi mình gặp vướng mắc.
                                 </blockquote>
                                 <div class="d-flex align-items-center testimonial__author">
                                     <img src="./public/media/avatars/avatar0.jpg" alt="" class="testimonial__photo" />

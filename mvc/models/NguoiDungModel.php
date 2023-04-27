@@ -298,4 +298,11 @@ class NguoiDungModel extends DB
         $row = $result->num_rows;
         return $row;
     }
+
+    public function updateEmail($id,$email)
+    {
+        $sql = "UPDATE `nguoidung` SET `email`='$email' WHERE `id`='$id'";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+    }
 }

@@ -6,7 +6,8 @@ class Home extends Controller{
             "Title"=>"SGU Test - Hệ thống thi trực tuyến",
             "Script"=>"landing",
             "Plugin" => [
-                "jq-appear" => 1
+                "jq-appear" => 1,
+                "slick" => 1
             ]
         ]);
     }

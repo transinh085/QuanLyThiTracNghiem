@@ -8,9 +8,9 @@
                     <!-- Header -->
                     <div class="mb-2 text-center">
                         <a class="link-fx fw-bold fs-1" href="index.html">
-                            <span class="text-dark">Dash</span><span class="text-primary">mix</span>
+                            <span class="text-dark">SGU </span><span class="text-primary">Test</span>
                         </a>
-                        <p class="text-uppercase fw-bold fs-sm text-muted">Password Reminder</p>
+                        <p class="text-uppercase fw-bold fs-sm text-muted">Quên mật khẩu</p>
                     </div>
                     <!-- END Header -->
 
@@ -21,7 +21,7 @@
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control" id="reminder-credential"
-                                    name="reminder-credential" placeholder="Username or Email">
+                                    name="reminder-credential" placeholder="Mã số sinh viên">
                                 <span class="input-group-text">
                                     <i class="fa fa-user-circle"></i>
                                 </span>
@@ -30,7 +30,7 @@
                         <div class="text-center mb-4 add-btn-otp">
                             <button type="submit" class="btn btn-hero btn-primary">
                                 <i class="fa fa-fw fa-reply opacity-50 me-1"></i>
-                                Reset Password
+                                Khôi phục mật khẩu
                             </button>
                         </div>
                     </form>

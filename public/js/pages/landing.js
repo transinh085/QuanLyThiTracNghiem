@@ -1,4 +1,5 @@
 Dashmix.helpersOnLoad(['jq-appear']);
+Dashmix.helpersOnLoad(['jq-slick'])
 "use strict";
 
 const btnScrollTo = document.querySelector(".btn--scroll-to");

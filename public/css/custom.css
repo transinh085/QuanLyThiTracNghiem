@@ -83,9 +83,8 @@ td p {
 /* Feature images */
 .feature__img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 /* Slider */
@@ -199,7 +198,7 @@ td p {
 }
 
 .testimonial__text {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-bottom: 3rem;
 }
 
@@ -305,6 +304,14 @@ td p {
     }
 }
 
+
+.hero-bubbles{position:relative;overflow:hidden}.hero-bubbles 
+.hero-bubble{position:absolute;display:inline-block;border-radius:100%;opacity:.1;z-index:0;width:2rem;height:2rem;filter:blur(1rem)}
+.hero-bubbles .hero-bubble .hero-bubble-sm{width:1.5rem;height:1.5rem}
+.hero-bubbles .hero-bubble .hero-bubble-lg{width:2.75rem;height:2.75rem}
+.hero-bubbles .hero-bubble:nth-child(odd){animation:hero-bubble 20s infinite ease-in}
+.hero-bubbles .hero-bubble:nth-child(even){animation:hero-bubble 20s infinite ease-in reverse}
+@keyframes hero-bubble{0%{transform:scale(1)}33%{transform:scale(1.5) translateY(1rem)}50%{opacity:.5}66%{transform:scale(.5) translateY(0)}100%{transform:scale(1);opacity:.2}}
 
 /* Responsive Test */
 @media (max-width: 480px) {

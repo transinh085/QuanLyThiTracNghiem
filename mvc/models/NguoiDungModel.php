@@ -284,4 +284,18 @@ class NguoiDungModel extends DB
         }
         return $rows;
     }
+
+    public function checkEmail($id){
+        $sql = "SELECT * FROM nguoidung where id = '$id'";
+        $result = mysqli_query($this->con,$sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['email'];
+    }
+
+    public function checkEmailExist($email){
+        $sql = "SELECT * FROM nguoidung where email = '$email'";
+        $result = mysqli_query($this->con,$sql);
+        $row = $result->num_rows;
+        return $row;
+    }
 }

@@ -13,7 +13,7 @@ class Dashboard extends Controller{
             "Page" => "dashboard" ,
             "Title" => "Trang tổng quan",
             "Plugin" => [
-                "chart" => 1
+                "chart" => 1,
             ],
             "Script" => "dashboard"
         ]);

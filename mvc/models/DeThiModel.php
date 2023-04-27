@@ -236,17 +236,20 @@ class DeThiModel extends DB
         $sql_question = "SELECT * FROM chitietketqua ctkq JOIN cauhoi ch on ctkq.macauhoi = ch.macauhoi WHERE makq = '$ketqua'";
         $data_question = mysqli_query($this->con,$sql_question);
         $ctlmodel = new CauTraLoiModel();
-        $trondapan = $data_ketqua['trondapan'];
+        $sql_dethi = "SELECT * FROM dethi where made='$made'";
+        $result_dethi = mysqli_query($this->con,$sql_dethi);
+        $data_dethi = mysqli_fetch_assoc($result_dethi);
+        $trondapan = $data_dethi['trondapan'];
         foreach ($data_question as $row) {
             if($trondapan==1){
-                $arr= $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
-                $row['cautraloi'] = shuffle($arr);
+                $row['cautraloi']= $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+                shuffle($row['cautraloi']);
             } else {
                 $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             }
             $rows[] = $row;
         }
-        $troncauhoi = $data_ketqua['troncauhoi'];
+        $troncauhoi = $data_dethi['troncauhoi'];
         if($troncauhoi==1){
             shuffle($rows);
         }

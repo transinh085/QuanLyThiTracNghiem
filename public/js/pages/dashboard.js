@@ -1,8 +1,10 @@
+Dashmix.helpers("jq-slick") 
 $(document).ready(function(){
     $.ajax({
         type: "post",
         url: "./dashboard/checkEmail",
         success: function (response) {
+            console.log(response)
             if(response == ""){
                 let i = document.getElementById("modal-onboarding");
                 new bootstrap.Modal(i).show(), 

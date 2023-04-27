@@ -25,20 +25,20 @@ Dashmix.onLoad(() =>
           },
           messages: {
             mamonhoc: {
-              required: "Please provide your code subject",
-              digits: "Please enter alphanumeric characters",
+              required: "Vui lòng nhập mã môn học",
+              digits: "Mã môn học phải là các ký tự số",
             },
             tenmonhoc: {
-              required: "Please provide course name",
+              required: "Vui lòng cung cấp tên môn học",
             },
             sotinchi: {
-              required: "Please provide the number of course credits",
+              required: "Vui lòng cho biết số tín chỉ",
             },
             sotiet_lt: {
-              required: "Please enter the number of theory periods",
+              required: "Vui lòng nhập số tiết lý thuyết",
             },
             sotiet_th: {
-              required: "Please enter the number of practice periods",
+              required: "Vui lòng nhập số tiết thực hành",
             },
           },
         });

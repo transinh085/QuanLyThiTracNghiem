@@ -257,6 +257,55 @@ td p {
     content: "\f107";
 }
 
+.list-landing{
+    position: relative;
+    margin-bottom: 6px;
+    padding-left: 25px;
+    font-weight: 600;
+}
+
+.list-landing::before{
+    position: absolute;
+    content: "\f192";
+    left:0;
+    font-family: "Font Awesome 6 Free";
+    color: var(--bs-primary);
+}
+
+.moveUpDown{
+    -webkit-animation-name: MoveUpDown;
+    -moz-animation-name: MoveUpDown;
+    animation-name: MoveUpDown;
+    -webkit-animation-duration: 3s;
+    -moz-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+@keyframes MoveUpDown {
+    0% {
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    100% {
+        -webkit-transform: translateY(30px);
+        -moz-transform: translateY(30px);
+        -ms-transform: translateY(30px);
+        -o-transform: translateY(30px);
+        transform: translateY(30px);
+    }
+}
+
+
 /* Responsive Test */
 @media (max-width: 480px) {
     .sidebar-answer {

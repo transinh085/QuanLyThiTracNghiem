@@ -1,4 +1,18 @@
 <div class="content">
+
+    <div class="js-slider slick-dotted-inner slick-dotted-white" data-dots="true" data-autoplay="true"
+        data-autoplay-speed="3000">
+        <div>
+            <img class="img-fluid" src="assets/media/photos/photo13.jpg" alt="">
+        </div>
+        <div>
+            <img class="img-fluid" src="assets/media/photos/photo14.jpg" alt="">
+        </div>
+        <div>
+            <img class="img-fluid" src="assets/media/photos/photo24.jpg" alt="">
+        </div>
+    </div>
+
     <div class="block block-rounded bg-gd-primary">
         <div class="block-content bg-white-5">
             <div class="py-4 text-center">

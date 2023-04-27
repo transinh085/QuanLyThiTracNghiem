@@ -30,6 +30,10 @@
     if(isset($data["Plugin"]["select"]) && $data["Plugin"]["select"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/select2/css/select2.min.css">';
     }
+    if(isset($data["Plugin"]["slick"]) && $data["Plugin"]["slick"] == 1) {
+        echo '<link rel="stylesheet" href="./public/js/plugins/slick-carousel/slick.css">';
+        echo '<link rel="stylesheet" href="./public/js/plugins/slick-carousel/slick-theme.css">';
+    }
     if(isset($data["Plugin"]["sweetalert2"]) && $data["Plugin"]["sweetalert2"] == 1) {
         echo "<link rel=\"stylesheet\" href=\"./public/js/plugins/sweetalert2/sweetalert2.min.css\">\n";
     }

@@ -15,7 +15,6 @@ $(document).ready(function(){
             }
         }
     });
-    
 })
 
 function validateEmail($email) {

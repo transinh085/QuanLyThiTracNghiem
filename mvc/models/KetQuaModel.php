@@ -44,7 +44,7 @@ class KetQuaModel extends DB{
         return $socaudung;
     }
 
-    public function submit($made,$nguoidung,$list,$thoigian,$slct){
+    public function submit($made,$nguoidung,$list,$thoigian){
         $sql_ketqua = "Select * from ketqua where made = '$made' and manguoidung = '$nguoidung'";
         $result_ketqua = mysqli_query($this->con,$sql_ketqua);
         $data = mysqli_fetch_assoc($result_ketqua);
@@ -54,7 +54,7 @@ class KetQuaModel extends DB{
         $socaudung = $this->socaudung($list);
         $socau = count($list);
         $diem = round((10/$socau * $socaudung),2);
-        $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung',`solanchuyentab`='$slct' WHERE manguoidung = '$nguoidung' and made = '$made'";
+        $sql = "UPDATE `ketqua` SET `diemthi`='$diem',`thoigianlambai`='$thoigianlambai',`socaudung`='$socaudung' WHERE manguoidung = '$nguoidung' and made = '$made'";
         $result = mysqli_query($this->con,$sql);
         if(!$result) $valid = false;
         $makq = $data['makq'];
@@ -263,5 +263,19 @@ class KetQuaModel extends DB{
             $rows[] = $row;
         }
         return $rows;
+    }
+
+    public function chuyentab($made,$id){
+        $sql_dethi = "SELECT * FROM ketqua WHERE made='$made' AND manguoidung='$id'";
+        $result = mysqli_query($this->con, $sql_dethi);
+        $data_dethi = mysqli_fetch_assoc($result);
+        $solan = $data_dethi['solanchuyentab'];
+        $solan++;
+        $sql_update = "UPDATE ketqua SET solanchuyentab = '$solan' WHERE made='$made' AND manguoidung='$id'";
+        $result_update = mysqli_query($this->con,$sql_update);
+        $sql_check = "SELECT * FROM dethi where made = '$made'";
+        $result_check = mysqli_query($this->con,$sql_check);
+        $data_check = mysqli_fetch_assoc($result_check);
+        return $data_check['nopbaichuyentab'];
     }
 }

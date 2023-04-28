@@ -67,9 +67,7 @@ $(document).ready(function () {
                     i + 65
                 )}</button>`;
             });
-            data +=
-                dadung.macautl == item.dapanchon
-                    ? `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>`
+            data += dadung != null && dadung.macautl == item.dapanchon ? `<span class="h2 mb-0 ms-1"><i class="fa fa-check" style="color:#76BB68;"></i></span>`
                     : `<span class="h2 mb-0 ms-1"><i class="fa fa-xmark" style="color:#FF5A5F;"></i></span><span class="mx-2 text-white">Đáp án đúng: ${String.fromCharCode(
                         item.cautraloi.indexOf(dadung) + 65
                     )}</span>`;

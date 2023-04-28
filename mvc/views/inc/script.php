@@ -33,6 +33,9 @@ if(isset($data["Plugin"]["jquery-validate"]) && $data["Plugin"]["jquery-validate
 if(isset($data["Plugin"]["slick"]) && $data["Plugin"]["slick"] == 1) {
     echo '<script src="./public/js/plugins/slick-carousel/slick.min.js"></script>';
 }
+if(isset($data["Plugin"]["jq-appear"]) && $data["Plugin"]["jq-appear"] == 1) {
+    echo '<script src="./public/js/plugins/jquery-appear/jquery.appear.min.js"></script>';
+}
 if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) {
     echo '<script src="./public/js/pagination.js"></script>';
 } 

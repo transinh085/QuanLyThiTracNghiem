@@ -7,6 +7,7 @@ class Assignment extends Controller
     {
         $this->PhanCongModel = $this->model("PhanCongModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     function default()
@@ -80,5 +81,10 @@ class Assignment extends Controller
             $result = $this->PhanCongModel->getAssignmentByUser($id);
             echo json_encode($result);
         }
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $query = $this->PhanCongModel->getQuery($filter, $input, $args);
+        return $query;
     }
 }

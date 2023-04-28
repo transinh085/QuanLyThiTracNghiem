@@ -11,7 +11,7 @@
                 <i class="fas fa-angle-left"></i>
             </a>
         </li>
-        <div class="d-flex" id="list-page"></div>
+        <div class="d-flex list-page"></div>
         <li class="page-item">
             <a class="page-link next-page disabled" href="javascript:void(0)" tabindex="-1" aria-label="Next">
                 <i class="fas fa-angle-right"></i>

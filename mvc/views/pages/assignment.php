@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="block-content">
-            <form action="#" id="search-form" onsubmit="return false;">
+            <form action="#" id="main-page-search-form" onsubmit="return false;">
                 <div class="mb-4">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
@@ -67,50 +67,62 @@
                 <div class="block-content tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
-                        <form method="POST" onsubmit="return false;">
-                            <div class="mb-4">
-                                <div class="row">
-                                    <div class="col-6 d-flex flex-row">
-                                        <div class="d-flex align-items-center">
-                                            <label for="giang-vien" class="form-label" style="width: 100px">
-                                                Giảng viên
-                                            </label>
-                                        </div>
-                                        <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien"
-                                            name="giang-vien" style="width: 100%;" data-placeholder="Choose one.."
-                                            required>
-                                            <option value=""></option>
-                                        </select>
+                        <div class="mb-4">
+                            <div class="row">
+                                <div class="col-6 d-flex flex-row">
+                                    <div class="d-flex align-items-center">
+                                        <label for="giang-vien" class="form-label" style="width: 100px">
+                                            Giảng viên
+                                        </label>
                                     </div>
+                                    <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien"
+                                        name="giang-vien" style="width: 100%;" data-placeholder="Choose one.."
+                                        required>
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="mb-4 row">
-                                <div class="table-responsive">
-                                    <table class="table table-vcenter">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 100px;">Chọn</th>
-                                                <th class="text-center">Mã môn học</th>
-                                                <th>Tên môn học</th>
-                                                <th class="text-center">Số tín chỉ</th>
-                                                <th class="text-center">Số tiết lý thuyết</th>
-                                                <th class="text-center">Số tiết thực hành</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="list-subject">
+                        </div>
 
-                                        </tbody>
-                                    </table>
+                        <form action="#" id="modal-add-assignment-search-form" onsubmit="return false;">
+                            <div class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                                        placeholder="Tìm kiếm môn học...">
+                                    <button class="input-group-text bg-body border-0 btn-search">
+                                        <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
-                                <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
-                            </div>
-                            <div class="mb-4 d-flex flex-row-reverse">
-                                <button type="submit" class="btn btn-alt-primary" id="btn_assignment"><i
-                                        class="fa fa-fw fa-plus me-1"></i> Lưu phân công</button>
-                                <!-- <button class="btn btn-alt-primary" id="edit_assignment"><i class="fa fa-fw fa-plus me-1"></i> Sửa phân công</button> -->
-                                <input type="hidden" value="" id="question_id">
                             </div>
                         </form>
+                        <div class="mb-4 row">
+                            <div class="table-responsive">
+                                <table class="table table-vcenter">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 100px;">Chọn</th>
+                                            <th class="text-center">Mã môn học</th>
+                                            <th>Tên môn học</th>
+                                            <th class="text-center">Số tín chỉ</th>
+                                            <th class="text-center">Số tiết lý thuyết</th>
+                                            <th class="text-center">Số tiết thực hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="list-subject">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
+                        </div>
+                        <div class="mb-4 d-flex flex-row-reverse">
+                            <button type="submit" class="btn btn-alt-primary" id="btn_assignment"><i
+                                    class="fa fa-fw fa-plus me-1"></i> Lưu phân công</button>
+                            <!-- <button class="btn btn-alt-primary" id="edit_assignment"><i class="fa fa-fw fa-plus me-1"></i> Sửa phân công</button> -->
+                            <input type="hidden" value="" id="question_id">
+                        </div>
+                        <!-- <form method="POST" onsubmit="return false;">
+                        </form> -->
                     </div>
                     <div class="tab-pane" id="btabs-alt-static-profile" role="tabpanel"
                         aria-labelledby="btabs-static-profile-tab" tabindex="0">

@@ -1,4 +1,75 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
+let subject = [];
+function showData(data) {
+    
+}
+
+function showAssignment(data) {
+    if (data.length === 0) {
+        $("#listAssignment").html("");
+        $('[data-bs-toggle="tooltip"]').tooltip();
+        return;
+    }
+    let html = '';
+    let index = 1;
+    data.forEach(element => {
+        html += `<tr>
+        <td class="text-center fs-sm">
+            <a class="fw-semibold" href="#">
+                <strong>${index++}</strong>
+            </a>
+        </td>
+        <td>
+            ${element['hoten']}
+        </td>
+        <td class="text-center">
+            ${element['mamonhoc']}
+        </td>
+        <td>
+            <a class="fw-semibold">${element['tenmonhoc']}</a>
+        </td>
+        <td class="text-center">
+            <a class="btn btn-sm btn-alt-secondary btn-delete-assignment" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
+                <i class="fa fa-fw fa-times"></i>
+            </a>
+        </td>
+    </tr>`
+    });
+    $("#listAssignment").html(html);
+    $('[data-bs-toggle="tooltip"]').tooltip();
+}
+
+function showSubject(data) {
+    if (data.length == 0) {
+        $("#list-subject").html("");
+        return;
+    }
+    let html = "";
+    data.forEach(element => {
+        html += `<tr>
+        <td class="text-center">
+            <input class="form-check-input" type="checkbox" name="selectSubject" value="${element['mamonhoc']}">
+        </td>
+        <td class="text-center">${element['mamonhoc']}</td>
+        <td>${element['tenmonhoc']}</td>
+        <td class="text-center">${element['sotinchi']}</td>
+        <td class="text-center">${element['sotietlythuyet']}</td>
+        <td class="text-center">${element['sotietthuchanh']}</td>
+    </tr>`
+    });
+    $("#list-subject").html(html);
+
+    if ($("#giang-vien").val() !== '') {
+        updateCheckmarkSubject(subject);
+    }
+}
+
+function updateCheckmarkSubject(checkedSubjects) {
+    $("input:checkbox[name=selectSubject]:checked").removeAttr('checked');
+    checkedSubjects.forEach(function (subject) {
+        $(`input:checkbox[value=${subject}]`).attr("checked", "checked");
+    });
+}
 
 $(document).ready(function(){
 
@@ -9,39 +80,13 @@ $(document).ready(function(){
     function loadAssignment(){
         $.get("./assignment/getAssignment",
             function (data) {
-                let html = '';
-                let index = 1;
-                data.forEach(element => {
-                    html += `<tr>
-                    <td class="text-center fs-sm">
-                        <a class="fw-semibold" href="#">
-                            <strong>${index++}</strong>
-                        </a>
-                    </td>
-                    <td>
-                        ${element['hoten']}
-                    </td>
-                    <td class="text-center">
-                        ${element['mamonhoc']}
-                    </td>
-                    <td>
-                        <a class="fw-semibold">${element['tenmonhoc']}</a>
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-alt-secondary btn-delete-assignment" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
-                            <i class="fa fa-fw fa-times"></i>
-                        </a>
-                    </td>
-                </tr>`
-                });
-                $("#listAssignment").html(html);
-                $('[data-bs-toggle="tooltip"]').tooltip();
+                showData(data);
             },
             "json"
         );
     }
 
-    loadAssignment();
+    // loadAssignment();
     
     $.get("./assignment/getGiangVien",
         function (data) {
@@ -56,45 +101,36 @@ $(document).ready(function(){
 
     $("#add_assignment").click(function(){
         $("#giang-vien").val("").trigger("change");
-        $.get("./assignment/getMonHoc",
-        function (data) {
-            console.log(data)
-            let html = "";
-            data.forEach(element => {
-                html += `<tr>
-                <td class="text-center">
-                    <input class="form-check-input" type="checkbox" name="selectSubject" value="${element['mamonhoc']}">
-                </td>
-                <td class="text-center">${element['mamonhoc']}</td>
-                <td>${element['tenmonhoc']}</td>
-                <td class="text-center">${element['sotinchi']}</td>
-                <td class="text-center">${element['sotietlythuyet']}</td>
-                <td class="text-center">${element['sotietthuchanh']}</td>
-            </tr>`
-            });
-            $("#list-subject").html(html);
-        },
-        "json"
-    );
-    })
+        // $.get("./assignment/getMonHoc",
+        // function (data) {
+        //     showData(data);
+        // },
+        // "json"
+        // };
+        modalAddAssignmentPagination.getPagination(modalAddAssignmentPagination.option, modalAddAssignmentPagination.valuePage.curPage);
+    });
+
+    $("#modal-add-assignment").on("hidden.bs.modal", function () {
+        subject.clear();
+    });
 
     $("#btn_assignment").click(function(){
-        let listAssignment = [];
-        $("input:checkbox[name=selectSubject]:checked").each(function(){
-            let subject = {
-                mamonhoc: $(this).val()
-            }
-            listAssignment.push(subject);
-        });
+        // let listAssignment = [];
+        // $("input:checkbox[name=selectSubject]:checked").each(function(){
+        //     let subject = {
+        //         mamonhoc: $(this).val()
+        //     }
+        //     listAssignment.push(subject);
+        // });
         let giangvien = $("#giang-vien").val();
-        if(listAssignment.length === 0){
+        if(subject.size === 0){
             delteAssignmentUser(giangvien)
-            loadAssignment();
+            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             $("#modal-add-assignment").modal("hide");
             Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
         } else {
             delteAssignmentUser(giangvien)
-            addAssignment(giangvien,listAssignment);
+            addAssignment(giangvien, [...subject]);
         }
     })
 
@@ -108,20 +144,32 @@ $(document).ready(function(){
             },
             dataType: "json",
             success: function (response) {
-                $("input:checkbox[name=selectSubject]:checked").removeAttr('checked');
-                let data = response;
-                data.forEach(element => {
-                    $(`input:checkbox[value=${element['mamonhoc']}]`).attr("checked", "checked");
-                });
-                
+                subject = new Set(response.map(el => el.mamonhoc));
+                modalAddAssignmentPagination.valuePage.curPage = 1;
+                modalAddAssignmentPagination.getPagination(modalAddAssignmentPagination.option, modalAddAssignmentPagination.valuePage.curPage);
+                // updateCheckmarkSubject(subject);
+            }, error: function (err) {
+                console.error(err.responseText);
             }
         });
-        
     })
 
+    $("#list-subject").click(function (e) {
+        if (!e.target.closest('input[type=checkbox][name="selectSubject"]')) {
+            return;
+        }
+        const el = e.target;
+        const mamonhoc = el.value;
+        if (el.checked) {
+            subject.add(mamonhoc);
+            el.setAttribute("checked", "checked");
+        } else {
+            subject.delete(mamonhoc);
+            el.removeAttribute("checked");
+        }
+    });
 
     function addAssignment(giangvien,listSubject){
-        
         $.ajax({
             type: "post",
             url: "./assignment/addAssignment",
@@ -140,7 +188,10 @@ $(document).ready(function(){
                         Dashmix.helpers('jq-notify', {type: 'danger', icon: 'fa fa-times me-1', message: 'Phân công chưa thành công!'});
                     },10)
                 }
-                loadAssignment();
+                mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);;
+            },
+            error: function (err) {
+                console.error(err.responseText);
             }
         });
     }
@@ -198,7 +249,7 @@ $(document).ready(function(){
                     success: function (response) {
                         if(response) {
                             e.fire("Deleted!", "Xóa phân công thành công!", "success")
-                            loadAssignment();
+                            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
                         } else {
                             e.fire("Lỗi !", "Xoá phân công thành công !)", "error")
                         }
@@ -206,8 +257,21 @@ $(document).ready(function(){
                 });
             }
         }))
-      });
+    });
 
       
 })
 
+const paginationContainer = document.querySelectorAll(".pagination-container");
+paginationContainer[0].classList.add(paginationClassName[0]);
+paginationContainer[1].classList.add(paginationClassName[1]);
+
+const mainPagePagination = new Pagination(document.querySelector(`.${paginationClassName[0]}`), document.getElementById("main-page-search-form"), showAssignment);
+mainPagePagination.option.controller = "assignment";
+mainPagePagination.option.model = "PhanCongModel";
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+
+const modalAddAssignmentPagination = new Pagination(document.querySelector(`.${paginationClassName[1]}`), document.getElementById("modal-add-assignment-search-form"), showSubject);
+modalAddAssignmentPagination.option.controller = "assignment";
+modalAddAssignmentPagination.option.model = "PhanCongModel";
+modalAddAssignmentPagination.option.custom.function = "monhoc";

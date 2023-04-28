@@ -368,12 +368,12 @@ $(document).ready(function () {
     $("#btabs-static-home-tab").tab("show")
   })
 
-  // Pagination
-  const mainPagePagination = new Pagination();
-  mainPagePagination.option.controller = "user";
-  mainPagePagination.option.model = "NguoiDungModel";
-  mainPagePagination.option.limit = 10;
-  mainPagePagination.option.filter = {};
-  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-  
 });
+
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "user";
+mainPagePagination.option.model = "NguoiDungModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.option.filter = {};
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

@@ -269,25 +269,25 @@ $(document).ready(function(){
         }))
     });
 
-    // Pagination
-    const paginationContainer = document.querySelectorAll(".pagination-container");
-    paginationContainer[0].classList.add(paginationClassName[0]);
-    paginationContainer[1].classList.add(paginationClassName[1]);
-
-    const mainPageNav = document.querySelector(`.${paginationClassName[0]}`);
-    const mainPageSearchForm = document.getElementById("main-page-search-form");
-    const modalAssignmentNav = document.querySelector(`.${paginationClassName[1]}`);
-    const modalAssignmentSearchForm = document.getElementById("modal-add-assignment-search-form");
-
-    const mainPagePagination = new Pagination(mainPageNav, mainPageSearchForm, showAssignment);
-    mainPagePagination.option.controller = "assignment";
-    mainPagePagination.option.model = "PhanCongModel";
-    mainPagePagination.option.limit = 10;
-    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-
-    const modalAddAssignmentPagination = new Pagination(modalAssignmentNav, modalAssignmentSearchForm, showSubject);
-    modalAddAssignmentPagination.option.controller = "assignment";
-    modalAddAssignmentPagination.option.model = "PhanCongModel";
-    modalAddAssignmentPagination.option.custom.function = "monhoc";
-
 })
+
+// Pagination
+const paginationContainer = document.querySelectorAll(".pagination-container");
+paginationContainer[0].classList.add(paginationClassName[0]);
+paginationContainer[1].classList.add(paginationClassName[1]);
+
+const mainPageNav = document.querySelector(`.${paginationClassName[0]}`);
+const mainPageSearchForm = document.getElementById("main-page-search-form");
+const modalAssignmentNav = document.querySelector(`.${paginationClassName[1]}`);
+const modalAssignmentSearchForm = document.getElementById("modal-add-assignment-search-form");
+
+const mainPagePagination = new Pagination(mainPageNav, mainPageSearchForm, showAssignment);
+mainPagePagination.option.controller = "assignment";
+mainPagePagination.option.model = "PhanCongModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+
+const modalAddAssignmentPagination = new Pagination(modalAssignmentNav, modalAssignmentSearchForm, showSubject);
+modalAddAssignmentPagination.option.controller = "assignment";
+modalAddAssignmentPagination.option.model = "PhanCongModel";
+modalAddAssignmentPagination.option.custom.function = "monhoc";

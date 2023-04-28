@@ -1,5 +1,8 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
 
+// Store assigned (checked) subjects while modal is opening
+let subject = new Set();
+
 function showAssignment(data) {
     if (data.length === 0) {
         $("#listAssignment").html("");
@@ -8,11 +11,12 @@ function showAssignment(data) {
     }
     let html = '';
     let index = 1;
+    let offset = (this.valuePage.curPage - 1) * (this.option.limit || 5);
     data.forEach(element => {
         html += `<tr>
         <td class="text-center fs-sm">
             <a class="fw-semibold" href="#">
-                <strong>${index++}</strong>
+                <strong>${offset + index++}</strong>
             </a>
         </td>
         <td>
@@ -253,27 +257,26 @@ $(document).ready(function(){
             }
         }))
     });
+
+    // Pagination
+    const paginationContainer = document.querySelectorAll(".pagination-container");
+    paginationContainer[0].classList.add(paginationClassName[0]);
+    paginationContainer[1].classList.add(paginationClassName[1]);
+
+    const mainPageNav = document.querySelector(`.${paginationClassName[0]}`);
+    const mainPageSearchForm = document.getElementById("main-page-search-form");
+    const modalAssignmentNav = document.querySelector(`.${paginationClassName[1]}`);
+    const modalAssignmentSearchForm = document.getElementById("modal-add-assignment-search-form");
+
+    const mainPagePagination = new Pagination(mainPageNav, mainPageSearchForm, showAssignment);
+    mainPagePagination.option.controller = "assignment";
+    mainPagePagination.option.model = "PhanCongModel";
+    mainPagePagination.option.limit = 10;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+
+    const modalAddAssignmentPagination = new Pagination(modalAssignmentNav, modalAssignmentSearchForm, showSubject);
+    modalAddAssignmentPagination.option.controller = "assignment";
+    modalAddAssignmentPagination.option.model = "PhanCongModel";
+    modalAddAssignmentPagination.option.custom.function = "monhoc";
+
 })
-
-// Store assigned (checked) subjects while modal is opening
-let subject = new Set();
-
-// Pagination
-const paginationContainer = document.querySelectorAll(".pagination-container");
-paginationContainer[0].classList.add(paginationClassName[0]);
-paginationContainer[1].classList.add(paginationClassName[1]);
-
-const mainPageNav = document.querySelector(`.${paginationClassName[0]}`);
-const mainPageSearchForm = document.getElementById("main-page-search-form");
-const modalAssignmentNav = document.querySelector(`.${paginationClassName[1]}`);
-const modalAssignmentSearchForm = document.getElementById("modal-add-assignment-search-form");
-
-const mainPagePagination = new Pagination(mainPageNav, mainPageSearchForm, showAssignment);
-mainPagePagination.option.controller = "assignment";
-mainPagePagination.option.model = "PhanCongModel";
-mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-
-const modalAddAssignmentPagination = new Pagination(modalAssignmentNav, modalAssignmentSearchForm, showSubject);
-modalAddAssignmentPagination.option.controller = "assignment";
-modalAddAssignmentPagination.option.model = "PhanCongModel";
-modalAddAssignmentPagination.option.custom.function = "monhoc";

@@ -98,7 +98,6 @@ $(document).ready(function(){
         },
         "json"
     );
-  }
 
     $("#add_assignment").click(function(){
         $("#giang-vien").val("").trigger("change");
@@ -169,7 +168,7 @@ $(document).ready(function(){
         }
     });
 
-    function addAssignment(giangvien,listSubject){
+    function addAssignment(giangvien, listSubject) {
         $.ajax({
             type: "post",
             url: "./assignment/addAssignment",
@@ -197,22 +196,13 @@ $(document).ready(function(){
     }
 
     function deleteAssignmentUser(giangvien){
-
         $.ajax({
-          type: "post",
-          url: "./assignment/delete",
-          data: {
-            id: id,
-            mamon: mamon,
-          },
-          success: function (response) {
-            if (response) {
-              e.fire("Deleted!", "Xóa phân công thành công!", "success");
-              loadAssignment();
-            } else {
-              e.fire("Lỗi !", "Xoá phân công thành công !)", "error");
-            }
-          },
+            type: "post",
+            url: "./assignment/deleteAll",
+            data: {
+              id: giangvien,
+            },
+            success: function (response) {},
         });
     }
 

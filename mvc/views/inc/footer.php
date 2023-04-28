@@ -14,3 +14,10 @@
     </div>
 </footer>
 <!-- END Footer -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="SGUBot"
+  agent-id="70ce2c3a-8f60-43f2-ab60-a0be4f03d47d"
+  language-code="vi"
+></df-messenger>

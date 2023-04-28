@@ -1,4 +1,3 @@
-Dashmix.helpers("jq-slick") 
 $(document).ready(function(){
     $.ajax({
         type: "post",
@@ -10,8 +9,10 @@ $(document).ready(function(){
                 new bootstrap.Modal(i).show(), 
                 i.addEventListener("shown.bs.modal", (i => {
                     document.querySelector("#modal-onboarding .js-slider").classList.remove("js-slider-enabled")
-                    Dashmix.helpers("jq-slick") 
+                    Dashmix.helpers("jq-slick")
                 }))    
+            } else {
+                Dashmix.helpers("jq-slick") 
             }
         }
     });

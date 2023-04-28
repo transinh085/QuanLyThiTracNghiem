@@ -30,8 +30,10 @@ class Test extends Controller
                 "Plugin" => [
                     "notify" => 1,
                     "sweetalert2" => 1,
+                    "pagination" => [],
                 ],
-                "Script" => "test"
+                "Script" => "test",
+                "user_id" => $_SESSION['user_id'],
             ]);
         } else {
             $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
@@ -610,4 +612,11 @@ class Test extends Controller
         print_r($result);
     }
 
+    public function getGroupsTakeTests() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $tests = $_POST["tests"];
+            $result = $this->dethimodel->getGroupsTakeTests($tests);
+            echo json_encode($result);
+        }
+    }
 }

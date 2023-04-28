@@ -718,12 +718,12 @@ $(document).ready(function () {
     loadPagination();
   }
 
-  // Pagination
-  const mainPagePagination = new Pagination();
-  mainPagePagination.option.controller = "question";
-  mainPagePagination.option.model = "CauHoiModel";
-  mainPagePagination.option.limit = 10;
-  mainPagePagination.option.filter = {};
-  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-
 });
+
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "question";
+mainPagePagination.option.model = "CauHoiModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.option.filter = {};
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

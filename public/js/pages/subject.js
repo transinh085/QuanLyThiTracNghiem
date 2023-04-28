@@ -434,12 +434,12 @@ $(document).ready(function () {
       },
     });
   });
-
-  // Pagination
-  const mainPagePagination = new Pagination();
-  mainPagePagination.option.controller = "subject";
-  mainPagePagination.option.model = "MonHocModel";
-  // mainPagePagination.option.limit = 10;
-  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-
+  
 });
+
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "subject";
+mainPagePagination.option.model = "MonHocModel";
+// mainPagePagination.option.limit = 10;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

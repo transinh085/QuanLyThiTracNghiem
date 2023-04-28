@@ -1,8 +1,4 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
-let subject = [];
-function showData(data) {
-    
-}
 
 function showAssignment(data) {
     if (data.length === 0) {
@@ -77,14 +73,14 @@ $(document).ready(function(){
         dropdownParent: $("#modal-add-assignment"),
     });
 
-    function loadAssignment(){
-        $.get("./assignment/getAssignment",
-            function (data) {
-                showData(data);
-            },
-            "json"
-        );
-    }
+    // function loadAssignment(){
+    //     $.get("./assignment/getAssignment",
+    //         function (data) {
+    //             showData(data);
+    //         },
+    //         "json"
+    //     );
+    // }
 
     // loadAssignment();
     
@@ -124,12 +120,12 @@ $(document).ready(function(){
         // });
         let giangvien = $("#giang-vien").val();
         if(subject.size === 0){
-            delteAssignmentUser(giangvien)
+            deleteAssignmentUser(giangvien)
             mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             $("#modal-add-assignment").modal("hide");
             Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
         } else {
-            delteAssignmentUser(giangvien)
+            deleteAssignmentUser(giangvien)
             addAssignment(giangvien, [...subject]);
         }
     })
@@ -147,7 +143,6 @@ $(document).ready(function(){
                 subject = new Set(response.map(el => el.mamonhoc));
                 modalAddAssignmentPagination.valuePage.curPage = 1;
                 modalAddAssignmentPagination.getPagination(modalAddAssignmentPagination.option, modalAddAssignmentPagination.valuePage.curPage);
-                // updateCheckmarkSubject(subject);
             }, error: function (err) {
                 console.error(err.responseText);
             }
@@ -196,7 +191,7 @@ $(document).ready(function(){
         });
     }
 
-    function delteAssignmentUser(giangvien){
+    function deleteAssignmentUser(giangvien){
         $.ajax({
             type: "post",
             url: "./assignment/deleteAll",
@@ -258,20 +253,27 @@ $(document).ready(function(){
             }
         }))
     });
-
-      
 })
 
+// Store assigned (checked) subjects while modal is opening
+let subject = new Set();
+
+// Pagination
 const paginationContainer = document.querySelectorAll(".pagination-container");
 paginationContainer[0].classList.add(paginationClassName[0]);
 paginationContainer[1].classList.add(paginationClassName[1]);
 
-const mainPagePagination = new Pagination(document.querySelector(`.${paginationClassName[0]}`), document.getElementById("main-page-search-form"), showAssignment);
+const mainPageNav = document.querySelector(`.${paginationClassName[0]}`);
+const mainPageSearchForm = document.getElementById("main-page-search-form");
+const modalAssignmentNav = document.querySelector(`.${paginationClassName[1]}`);
+const modalAssignmentSearchForm = document.getElementById("modal-add-assignment-search-form");
+
+const mainPagePagination = new Pagination(mainPageNav, mainPageSearchForm, showAssignment);
 mainPagePagination.option.controller = "assignment";
 mainPagePagination.option.model = "PhanCongModel";
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
 
-const modalAddAssignmentPagination = new Pagination(document.querySelector(`.${paginationClassName[1]}`), document.getElementById("modal-add-assignment-search-form"), showSubject);
+const modalAddAssignmentPagination = new Pagination(modalAssignmentNav, modalAssignmentSearchForm, showSubject);
 modalAddAssignmentPagination.option.controller = "assignment";
 modalAddAssignmentPagination.option.model = "PhanCongModel";
 modalAddAssignmentPagination.option.custom.function = "monhoc";

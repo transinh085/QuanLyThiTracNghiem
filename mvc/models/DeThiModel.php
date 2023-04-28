@@ -242,8 +242,10 @@ class DeThiModel extends DB
         $trondapan = $data_dethi['trondapan'];
         foreach ($data_question as $row) {
             if($trondapan==1){
-                $row['cautraloi']= $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
-                shuffle($row['cautraloi']);
+                $arrDapAn = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
+                shuffle($arrDapAn);
+                $row['cautraloi']= $arrDapAn;
+                
             } else {
                 $row['cautraloi'] = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);
             }

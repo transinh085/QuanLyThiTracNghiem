@@ -3,7 +3,6 @@ $(document).ready(function () {
     const made = $("#dethicontent").data("id");
     const dethi = "dethi" + made;
     const cautraloi = "cautraloi" + made;
-    const solanchuyentab = "solanchuyentab" + made;
     function getQuestion() {
         return $.ajax({
             type: "post",
@@ -13,7 +12,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response)
                 questions = response;
             },
         });
@@ -84,9 +82,7 @@ $(document).ready(function () {
                 JSON.stringify(initListAnswer(questions))
             );
         }
-        if (localStorage.getItem(solanchuyentab) == null) {
-            localStorage.setItem(solanchuyentab, 0);
-        }
+        
 
         let listQues = JSON.parse(localStorage.getItem(dethi));
         let listAns = JSON.parse(localStorage.getItem(cautraloi));
@@ -132,13 +128,11 @@ $(document).ready(function () {
             data: {
                 listCauTraLoi: JSON.parse(localStorage.getItem(cautraloi)),
                 thoigianlambai: thoigian,
-                solanchuyentad: localStorage.getItem(solanchuyentab),
                 made: dethi,
             },
             success: function (response) {
                 localStorage.removeItem(cautraloi);
                 localStorage.removeItem(dethi);
-                localStorage.removeItem(solanchuyentab);
                 location.href = `./test/start/${made}`;
             },
         });
@@ -216,12 +210,21 @@ $(document).ready(function () {
     $(window).on("beforeunload", function () {
         countDown();
     });
+
+    $(window).on("blur",(function () {
+        console.log("chuyentab")
+        $.ajax({
+            type: "post",
+            url: "./test/chuyentab",
+            data: {
+                made: $("#dethicontent").data("id"),
+            },
+            success: function (response) {
+                if(response === 1){
+                    nopbai();
+                }
+            }
+        });
+    }))
 });
 
-$(window).blur(function () {
-    if(localStorage.getItem(solanchuyentab)!==null){
-        let sl = localStorage.getItem(solanchuyentab);
-        sl++
-        localStorage.setItem(solanchuyentab, sl)
-    }
-});

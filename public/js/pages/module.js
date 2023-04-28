@@ -22,20 +22,19 @@ Dashmix.onLoad((() => class {
         },
         messages: {
           "ten-nhom": {
-            required: "Please provide your code student",
-            digits: "Please enter alphanumeric characters"
+            required: "Vui lòng nhập tên nhóm",
           },
           "ghi-chu": {
-            required: "Please not be blank",
+            required: "Vui lòng không để trống trường này",
           },
           "mon-hoc": {
-            required: "Please select a subject",
+            required: "Vui lòng chọn môn học",
           },
           "nam-hoc": {
-            required: "Please select a shool year",
+            required: "Vui lòng chọn năm học",
           },
           "hoc-ky": {
-            required: "Please select semester",
+            required: "Vui lòng chọn học kỳ",
           },
         }
       })
@@ -68,7 +67,6 @@ $(document).ready(function () {
             success: function (response) {
                 showGroup(response);
                 groups = response;
-                console.log(response)
             }
         });
     }
@@ -318,6 +316,7 @@ $(document).ready(function () {
                 hocky: $("#hoc-ky").val()
             },
             success: function (response) {
+                console.log(response)
                 if (response == true) {
                     $("#modal-add-group").modal("hide");
                     loadDataGroup(mode);

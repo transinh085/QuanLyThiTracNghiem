@@ -64,7 +64,7 @@
     </div>
 </div>
 <?php
-if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
+if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != '' && $data["Test"]['xemdiemthi'] == 1){?>
 <div class="content row justify-content-center align-items-center">
     <div class="col-lg-6 col-md-12 p-0">
         <a class="fw-bold text-dark" data-bs-toggle="collapse" href="#xemkq" role="button" aria-expanded="false" aria-controls="xemkq">Kết quả bài thi <i class="fa fa-angle-down"></i></a>
@@ -109,9 +109,32 @@ if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){?>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-hero btn-info w-100" id="show-exam-detail" role="button">Xem chi tiết bài thi</button>
+            <?php
+            if($data["Test"]['hienthibailam'] == 1){
+            ?>
+            <button data-id="<?php echo $data["Check"]['makq']?>" type="button" class="btn btn-hero btn-primary w-100" id="show-exam-detail">Xem chi tiết bài thi</button>
+            <?php
+            }
+            ?>
+            </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-show-test" tabindex="-1" role="dialog" aria-labelledby="modal-view-test" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết kết quả</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+                <div id="content-file">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+            </div>
         </div>
-
     </div>
 </div>
 <?php }?>

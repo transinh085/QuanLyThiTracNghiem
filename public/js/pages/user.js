@@ -31,28 +31,28 @@ Dashmix.onLoad((() => class {
       },
       messages: {
         "masinhvien": {
-          required: "Please provide your code student",
-          digits: "Please enter alphanumeric characters"
+          required: "Vui lòng nhập mã sinh viên của bạn",
+          digits: "Mã sinh viên phải là các ký tự số"
         },
         "user_email": {
-          required: "Please provide your email",
-          emailWithDot: "Nhap dung dinh dang email"
+          required: "Vui lòng cung cấp email của bạn",
+          emailWithDot: "Phải nhập đúng định dạng email"
         },
         "user_name": {
-          required: "Please provide your full name",
+          required: "Cung cấp đầy đủ họ tên",
         },
         "user_gender": {
-          required: "Please tick 1 out of 2",
+          required: "Tích chọn 1 trong 2",
         },
         "user_ngaysinh": {
-          required: "Please provide your date of birth",
+          required: "Vui lòng cho biết ngày sinh của bạn",
         },
         "user_nhomquyen": {
-          required: "Please select the group with permissions",
+          required: "Vui lòng chọn nhóm quyền",
         },
         "user_password": {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long"
+          required: "Nhập mật khẩu",
+          minlength: "Mật khẩu phải có ít nhất 5 ký tự!"
         },
       }
     })
@@ -336,6 +336,7 @@ $(document).ready(function () {
           Dashmix.layout("header_loader_on");
         },
         success: function (response) {
+          console.log(response)
           addExcel(response,password);
         },
         complete: function () {
@@ -358,6 +359,7 @@ $(document).ready(function () {
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
         $("#modal-add-user").modal("hide");
+        Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
       },
     });
   }

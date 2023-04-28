@@ -291,7 +291,6 @@ class Test extends Controller
     public function getResultDetail()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $made = $_POST['made'];
             $makq = $_POST['makq'];
             $result = $this->dethimodel->getResultDetail($makq);
             echo json_encode($result);
@@ -332,13 +331,12 @@ class Test extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $listtr = $_POST['listCauTraLoi'];
-            $sl = $_POST['solanchuyentad'];
             $thoigian = $_POST['thoigianlambai'];
             str_replace("(Indochina Time)", "(UTC+7:00)", $thoigian);
             $date = DateTime::createFromFormat('D M d Y H:i:s e+', $thoigian);
             $made = $_POST['made'];
             $nguoidung = $_SESSION['user_id'];
-            $result = $this->ketquamodel->submit($made, $nguoidung, $listtr, $date->format('Y-m-d H:i:s'), $sl);
+            $result = $this->ketquamodel->submit($made, $nguoidung, $listtr, $date->format('Y-m-d H:i:s'));
             echo $result;
         }
     }
@@ -383,6 +381,13 @@ class Test extends Controller
         $manhom = $_POST['manhom'];
         $result = $this->ketquamodel->getStatictical($made, $manhom);
         echo json_encode($result);
+    }
+
+    public function chuyentab(){
+        $made = $_POST['made'];
+        $id = $_SESSION['user_id'];
+        $result = $this->ketquamodel->chuyentab($made,$id);
+        echo $result;
     }
 
     public function exportPdf($makq)

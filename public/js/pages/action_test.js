@@ -16,10 +16,13 @@ Dashmix.onLoad((() => class {
           "exam-time": {
             required: !0,
           },
-          "select2-nhom-hp-container": {
+          "nhom-hp": {
             required: !0,
           },
           "user_nhomquyen": {
+            required: !0,
+          },
+          "chuong": {
             required: !0,
           },
           "coban": {
@@ -34,27 +37,32 @@ Dashmix.onLoad((() => class {
         },
         messages: {
           "name-exam": {
-            required: "Please provide your test name",
+            required: "Vui lòng nhập tên đề kiểm tra",
           },
           "time-start": {
-            required: "Please select your start time test",
+            required: "Vui lòng chọn thời điểm bắt đầu của bài kiểm tra",
           },
           "time-end": {
-            required: "Please select your end time test",
+            required: "Vui lòng chọn thời điểm kết thúc của bài kiểm tra",
           },
           "exam-time": {
-            required: "Please select your time exam",
+            required: "Vui lòng chọn thời gian làm bài kiểm tra",
           },
-          "select2-nhom-hp-container": {
-            required: "Please select ",
+          "nhom-hp": {
+            required: "Vui lòng chọn nhóm học phần giảng dạy",
           },
-          "user_nhomquyen": {
-            required: "Please select the group with permissions",
+          "chuong": {
+            required: "Vui lòng chọn số chương cho đề kiểm tra"
           },
-          "user_password": {
-            required: "Please provide a password",
-            minlength: "Your password must be at least 5 characters long"
+          "coban": {
+            required: "Vui lòng cho biết số câu dễ",
           },
+          "trungbinh": {
+            required: "Vui lòng cho biết số câu trung bình",
+          },
+          "kho": {
+            required: "Vui lòng cho biết số câu khó",
+          }, 
         }
       })
     }
@@ -175,38 +183,40 @@ $(document).ready(function () {
     // Xừ lý sự kiện nhấn nút tạo đề
     $("#btn-add-test").click(function (e) { 
         e.preventDefault();
-        $.ajax({
-            type: "post",
-            url: "./test/addTest",
-            data: {
-                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                tende: $("#name-exam").val(),
-                thoigianthi: $("#exam-time").val(),
-                thoigianbatdau: $("#time-start").val(),
-                thoigianketthuc: $("#time-end").val(),
-                socaude: $("#coban").val(),
-                socautb: $("#trungbinh").val(),
-                socaukho: $("#kho").val(),
-                chuong: $("#chuong").val(),
-                loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
-                xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
-                xemdapan: $("#xemda").prop("checked") ? 1 : 0,
-                xembailam: $("#xembailam").prop("checked") ? 1 : 0,
-                daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
-                daodapan: $("#daodapan").prop("checked") ? 1 : 0,
-                tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
-                manhom: getGroupSelected()
-            },
-            success: function (response) {
-                console.log(response)
-                if(response) {
-                    if($("#tudongsoande").prop("checked")) location.href = "./test";
-                    else location.href = `./test/select/${response}`;
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+        if ($(".form-taodethi").valid()) {
+            $.ajax({
+                type: "post",
+                url: "./test/addTest",
+                data: {
+                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                    tende: $("#name-exam").val(),
+                    thoigianthi: $("#exam-time").val(),
+                    thoigianbatdau: $("#time-start").val(),
+                    thoigianketthuc: $("#time-end").val(),
+                    socaude: $("#coban").val(),
+                    socautb: $("#trungbinh").val(),
+                    socaukho: $("#kho").val(),
+                    chuong: $("#chuong").val(),
+                    loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                    xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                    xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                    xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                    daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                    daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                    tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                    manhom: getGroupSelected()
+                },
+                success: function (response) {
+                    console.log(response)
+                    if(response) {
+                        if($("#tudongsoande").prop("checked")) location.href = "./test";
+                        else location.href = `./test/select/${response}`;
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+                    }
                 }
-            }
-        });
+            });
+        }
         // if ($(".form-tao-de").valid()) {
         // }
     });

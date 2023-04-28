@@ -75,6 +75,19 @@ class Auth extends Controller{
         ]);
     }
 
+    function otp(){
+        AuthCore::onLogin();
+        $this->view("single_layout", [
+            "Page" => "auth/otp",
+            "Title" => "Nhập mã OTP",
+            "Script" => "recover",
+            "Plugin" => [
+                "jquery-validate" => 1,
+                "notify" => 1
+            ]
+        ]);
+    }
+
 
     public function addUser()
     {   

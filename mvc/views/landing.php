@@ -258,7 +258,7 @@
                         <div class="row">
                             <div class="js-slider text-center" data-autoplay="true" data-dots="true" data-arrows="true"
                                 data-slides-to-show="4">
-                                <div class="p-3">
+                                <div class="p-3 invisible" data-toggle="appear" data-class="animated flipInX">
                                     <a class="block block-rounded bg-gd-primary text-center"
                                         href="https://github.com/transinh085">
                                         <div class="block-content block-content-full bg-gd-sea">
@@ -273,7 +273,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="p-3">
+                                <div class="p-3 invisible" data-toggle="appear" data-class="animated flipInX">
                                     <a class="block block-rounded bg-gd-primary text-center"
                                         href="https://github.com/hgbaodev">
                                         <div class="block-content block-content-full bg-gd-sea">
@@ -288,7 +288,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="p-3">
+                                <div class="p-3 invisible" data-toggle="appear" data-class="animated flipInX">
                                     <a class="block block-rounded bg-gd-primary text-center"
                                         href="https://github.com/nhienau">
                                         <div class="block-content block-content-full bg-gd-sea">
@@ -303,7 +303,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="p-3">
+                                <div class="p-3 invisible" data-toggle="appear" data-class="animated flipInX">
                                     <a class="block block-rounded bg-gd-primary text-center"
                                         href="https://github.com/HuySimon">
                                         <div class="block-content block-content-full bg-gd-sea">

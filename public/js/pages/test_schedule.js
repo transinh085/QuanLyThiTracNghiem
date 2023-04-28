@@ -74,10 +74,13 @@ const currentUser = container.dataset.id;
 delete container.dataset.id;
 
 $(document).ready(function () {
-  // Pagination
-  const mainPagePagination = new Pagination();
-  mainPagePagination.option.controller = "client";
-  mainPagePagination.option.model = "DeThiModel";
-  mainPagePagination.option.manguoidung = currentUser;
-  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+
 });
+
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "client";
+mainPagePagination.option.model = "DeThiModel";
+mainPagePagination.option.manguoidung = currentUser;
+mainPagePagination.option.custom.function = "getUserTestSchedule";
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

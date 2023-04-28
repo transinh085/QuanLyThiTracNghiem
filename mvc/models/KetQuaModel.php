@@ -193,7 +193,8 @@ class KetQuaModel extends DB{
             if($row['diemthi'] != null) {
                 $tongdiem += $row['diemthi'];
                 $soluong++;
-                $diemthi[ceil($row['diemthi']) - 1]++;
+                $index = ceil($row['diemthi']) > 0 ? ceil($row['diemthi']) - 1 : 0;
+                $diemthi[$index]++;
                 if($row['diemthi'] > $max) $max = $row['diemthi'];
             } else {
                 if($row['mandkq'] != null) $chuanop++;

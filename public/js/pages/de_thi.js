@@ -220,7 +220,7 @@ $(document).ready(function () {
                 made: $("#dethicontent").data("id"),
             },
             success: function (response) {
-                if(response === 1){
+                if(response == 1){
                     nopbai();
                 }
             }

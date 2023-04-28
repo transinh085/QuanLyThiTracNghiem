@@ -108,9 +108,9 @@ class NguoiDungModel extends DB
         return $check;
     }
 
-    public function checkPassword($email, $password)
+    public function checkPassword($masv, $password)
     {
-        $user = $this->getByEmail($email);
+        $user = $this->getById($masv);
         $result = password_verify($password, $user['matkhau']);
         return $result;
     }
@@ -123,11 +123,11 @@ class NguoiDungModel extends DB
         } else if ($user['trangthai'] == 0) {
             return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
         } else {
-            $result = $this->checkPassword($user['email'], $password);
+            $result = $this->checkPassword($user['id'], $password);
             if ($result) {
-                $email = $user['email'];
-                $token = time() . password_hash($email, PASSWORD_DEFAULT);
-                $resultToken = $this->updateToken($email, $token);
+                $masv = $user['id'];
+                $token = time() . password_hash($masv, PASSWORD_DEFAULT);
+                $resultToken = $this->updateToken($masv, $token);
                 if ($resultToken) {
                     setcookie("token", $token, time() + 7 * 24 * 3600, "/");
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
@@ -140,10 +140,10 @@ class NguoiDungModel extends DB
         }
     }
 
-    public function updateToken($email, $token)
+    public function updateToken($masv, $token)
     {
         $valid = true;
-        $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `email` = '$email'";
+        $sql = "UPDATE `nguoidung` SET `token`='$token' WHERE `id` = '$masv'";
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;
         return $valid;

@@ -30,13 +30,15 @@ if(isset($data["Plugin"]["sweetalert2"]) && $data["Plugin"]["sweetalert2"] == 1)
 if(isset($data["Plugin"]["jquery-validate"]) && $data["Plugin"]["jquery-validate"] == 1) {
     echo '<script src="./public/js/plugins/jquery-validation/jquery.validate.min.js"></script>';
 }
+
 if(isset($data["Plugin"]["slick"]) && $data["Plugin"]["slick"] == 1) {
     echo '<script src="./public/js/plugins/slick-carousel/slick.min.js"></script>';
 }
 if(isset($data["Plugin"]["jq-appear"]) && $data["Plugin"]["jq-appear"] == 1) {
     echo '<script src="./public/js/plugins/jquery-appear/jquery.appear.min.js"></script>';
 }
-if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) {
+if(isset($data["Plugin"]["pagination"])) {
+
     echo '<script src="./public/js/pagination.js"></script>';
 } 
 if(isset($data["Script"])) {

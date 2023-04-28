@@ -19,6 +19,6 @@
     </div>
     <div class="list-test"></div>
     <div class="block-content my-3">
-        <?php if(isset($data["Plugin"]["pagination"]) && $data["Plugin"]["pagination"] == 1) require "./mvc/views/inc/pagination.php"?>
+        <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
     </div>
 </div>

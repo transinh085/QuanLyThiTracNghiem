@@ -24,7 +24,7 @@ class Subject extends Controller{
                     "sweetalert2" => 1,
                     "jquery-validate" => 1,
                     "notify" => 1,
-                    "pagination" => 1,
+                    "pagination" => [],
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);

@@ -28,7 +28,7 @@ class Question extends Controller
                     "select" => 1,
                     "notify" => 1,
                     "sweetalert2" => 1,
-                    "pagination" => 1,
+                    "pagination" => [],
                 ],
                 "Script" => "question"
             ]);

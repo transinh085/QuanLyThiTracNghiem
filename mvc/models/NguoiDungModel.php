@@ -123,9 +123,8 @@ class NguoiDungModel extends DB
         } else if ($user['trangthai'] == 0) {
             return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
         } else {
-            $result = $this->checkPassword($user['id'], $password);
+            $result = password_verify($password, $user['matkhau']);
             if ($result) {
-                $masv = $user['id'];
                 $token = time() . password_hash($masv, PASSWORD_DEFAULT);
                 $resultToken = $this->updateToken($masv, $token);
                 if ($resultToken) {

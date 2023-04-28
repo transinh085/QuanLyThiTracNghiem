@@ -495,13 +495,13 @@ function showChart(data) {
     options: options,
   });
 
-  // Pagination
-  const mainPagePagination = new Pagination();
-  mainPagePagination.option.controller = "test";
-  mainPagePagination.option.model = "KetQuaModel";
-  mainPagePagination.option.made = made;
-  mainPagePagination.option.manhom = currentGroupID;
-  // mainPagePagination.option.limit = 10;
-  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-
 }
+
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "test";
+mainPagePagination.option.model = "KetQuaModel";
+mainPagePagination.option.made = made;
+mainPagePagination.option.manhom = currentGroupID;
+// mainPagePagination.option.limit = 10;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

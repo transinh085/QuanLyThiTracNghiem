@@ -129,8 +129,7 @@ $(document).ready(function(){
             $("#modal-add-assignment").modal("hide");
             Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
         } else {
-            deleteAssignmentUser(giangvien)
-            addAssignment(giangvien, [...subject]);
+            clearAllAndAddAssignmentUser(giangvien, [...subject]);
         }
     })
 
@@ -203,6 +202,19 @@ $(document).ready(function(){
               id: giangvien,
             },
             success: function (response) {},
+        });
+    }
+
+    function clearAllAndAddAssignmentUser (giangvien, listSubject) {
+        $.ajax({
+            type: "post",
+            url: "./assignment/deleteAll",
+            data: {
+              id: giangvien,
+            },
+            success: function (response) {
+                addAssignment(giangvien, listSubject);
+            },
         });
     }
 

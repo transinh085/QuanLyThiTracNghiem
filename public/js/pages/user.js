@@ -194,7 +194,7 @@ $(document).ready(function () {
               console.log(response.valid)
               Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
               $("#modal-add-user").modal("hide");
-              getPagination(currentPaginationOptions, valuePage.curPage);
+              mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             },
           });
           
@@ -262,7 +262,7 @@ $(document).ready(function () {
         status: $("#user_status").prop("checked") ? 1 : 0,
       },
       success: function (response) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         $("#modal-add-user").modal("hide");
       },
     });
@@ -306,7 +306,7 @@ $(document).ready(function () {
           },
           success: function (response) {
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
-            getPagination(currentPaginationOptions, valuePage.curPage);
+            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
           },
         });
       } else {
@@ -355,7 +355,7 @@ $(document).ready(function () {
         password: password
       },
       success: function (response) {
-        getPagination(currentPaginationOptions, valuePage.curPage);
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
         $("#modal-add-user").modal("hide");
@@ -368,9 +368,12 @@ $(document).ready(function () {
     $("#btabs-static-home-tab").tab("show")
   })
 
+  // Pagination
+  const mainPagePagination = new Pagination();
+  mainPagePagination.option.controller = "user";
+  mainPagePagination.option.model = "NguoiDungModel";
+  mainPagePagination.option.limit = 10;
+  mainPagePagination.option.filter = {};
+  mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+  
 });
-
-// Pagination
-defaultPaginationOptions.controller = "user";
-defaultPaginationOptions.model = "NguoiDungModel";
-getPagination(currentPaginationOptions, valuePage.curPage);

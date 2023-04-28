@@ -7,6 +7,7 @@ class Assignment extends Controller
     {
         $this->PhanCongModel = $this->model("PhanCongModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     function default()
@@ -21,6 +22,7 @@ class Assignment extends Controller
                     "select" => 1,
                     "notify" => 1,
                     "sweetalert2" => 1,
+                    "pagination" => ["main-page-pagination", "modal-add-assignment-pagination"],
                 ],
                 "Script" => "assignment"
             ]);
@@ -79,5 +81,10 @@ class Assignment extends Controller
             $result = $this->PhanCongModel->getAssignmentByUser($id);
             echo json_encode($result);
         }
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $query = $this->PhanCongModel->getQuery($filter, $input, $args);
+        return $query;
     }
 }

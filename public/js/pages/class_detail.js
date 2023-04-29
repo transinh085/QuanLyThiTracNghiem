@@ -1,55 +1,56 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker"]);
-$(document).ready(function () {
-  const manhom = $(".content").data("id");
-  const showList = function (students) {
-    let html = "";
-    $(".number-participants").html(students.length);
-    if (students.length == 0) {
-      html += `<tr><td colspan="7" class="text-center">Không có dữ liệu</td></tr>`;
-    } else {
-      students.forEach((student, index) => {
-        html += `
-            <tr>
-                <td class="text-center">${index + 1}</td>
-                <td class="fs-sm d-flex align-items-center">
-                        <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
-                          student.avatar == null
-                            ? `avatar2.jpg`
-                            : student.avatar
-                        }"
-                            alt="">
-                        <div class="d-flex flex-column">
-                            <a class="fw-semibold" href="javascript:void(0)">${
-                              student.hoten
-                            }</a>
-                            <span class="fw-normal fs-sm text-muted">${
-                              student.email
-                            }</span>
-                        </div>
-                    </td>
-                <td class="text-center">${student.id}</td>
-                    <td class="text-center fs-sm">${
-                      student.gioitinh == 1 ? "Nam" : "Nữ"
-                    }</td>
-                    <td class="text-center fs-sm">${student.ngaysinh}</td>
-                    <td class="text-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-alt-secondary kick-user"
-                                data-bs-toggle="Delete" title="Delete" data-id="${
-                                  student.id
-                                }">
-                                <i class="fa fa-fw fa-times"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-      });
-    }
-    $("#list-student").html(html);
-    $('[data-bs-toggle="tooltip"]').tooltip();
-  };
 
+const manhom = $(".content").data("id");
+const showData = function (students) {
+  let html = "";
+
+  if (students.length == 0) {
+    html += `<tr><td colspan="7" class="text-center">Không có dữ liệu</td></tr>`;
+  } else {
+    students.forEach((student, index) => {
+      html += `
+          <tr>
+              <td class="text-center">${index + 1}</td>
+              <td class="fs-sm d-flex align-items-center">
+                      <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
+                        student.avatar == null
+                          ? `avatar2.jpg`
+                          : student.avatar
+                      }"
+                          alt="">
+                      <div class="d-flex flex-column">
+                          <a class="fw-semibold" href="javascript:void(0)">${
+                            student.hoten
+                          }</a>
+                          <span class="fw-normal fs-sm text-muted">${
+                            student.email
+                          }</span>
+                      </div>
+                  </td>
+              <td class="text-center">${student.id}</td>
+                  <td class="text-center fs-sm">${
+                    student.gioitinh == 1 ? "Nam" : "Nữ"
+                  }</td>
+                  <td class="text-center fs-sm">${student.ngaysinh}</td>
+                  <td class="text-center">
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-alt-secondary kick-user"
+                              data-bs-toggle="Delete" title="Delete" data-id="${
+                                student.id
+                              }">
+                              <i class="fa fa-fw fa-times"></i>
+                          </button>
+                      </div>
+                  </td>
+              </tr>
+          `;
+    });
+  }
+  $("#list-student").html(html);
+  $('[data-bs-toggle="tooltip"]').tooltip();
+};
+
+$(document).ready(function () {
   $(document).on("click", ".kick-user", function () {
     var mssv = $(this).data("id");
 
@@ -90,6 +91,8 @@ $(document).ready(function () {
             manguoidung: mssv,
           },
           success: function (response) {
+            getGroupSize(manhom);
+            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
           },
         });
@@ -106,14 +109,14 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        showList(response);
+        showData(response);
       },
     });
   }
 
-  loadList();
+  // loadList();
 
-  function showListTest(tests) {
+  function showDataTest(tests) {
     let html = ``;
     if (tests.length != 0) {
       tests.forEach((test) => {
@@ -147,7 +150,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        showListTest(response);
+        showDataTest(response);
       },
     });
   }
@@ -203,7 +206,8 @@ $(document).ready(function () {
       },
       success: function (response) {
         if(response){
-          loadList();
+          getGroupSize(manhom);
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         }
       },
     });
@@ -288,7 +292,8 @@ $(document).ready(function () {
         password: password
       },
       success: function (response) {
-        loadList();
+        getGroupSize(manhom);
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
         Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
@@ -297,5 +302,75 @@ $(document).ready(function () {
     });
   }
 
+  function getGroupSize(id) {
+    $.ajax({
+      type: "post",
+      url: "./module/getGroupSize",
+      data: {
+        manhom: id,
+      },
+      success: function (response) {
+        $(".number-participants").html(+response);
+      },
+      error: function (err) {
+        console.error(err.responseText);
+      }
+    });
+  }
+
+  getGroupSize(manhom);
+
+  function resetSortIcons() {
+    document.querySelectorAll(".col-sort").forEach((column) => {
+      column.dataset.sortOrder = "default";
+    });
+  }
+
+  $(".table-col-title").click(function (e) {
+    if (!e.target.classList.contains("col-sort")) {
+      return;
+    }
+    const column = e.target.dataset.sortColumn;
+    const prevSortOrder = e.target.dataset.sortOrder;
+    let currentSortOrder = "";
+    switch (prevSortOrder) {
+      case "default":
+        currentSortOrder = "asc";
+        break;
+      case "asc":
+        currentSortOrder = "desc";
+        break;
+      case "desc":
+        currentSortOrder = "default";
+        break;
+    }
+
+    if (currentSortOrder === "default") {
+      mainPagePagination.option.custom = {};
+    } else {
+      mainPagePagination.option.custom.function = "sort";
+      mainPagePagination.option.custom.column = column;
+      mainPagePagination.option.custom.order = currentSortOrder;
+    }
+
+    getGroupSize(manhom);
+    
+    // AJAX call (with pagination)
+    mainPagePagination.valuePage.curPage = 1;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+
+    // Display icon
+    resetSortIcons();
+    e.target.dataset.sortOrder = currentSortOrder;
+  });
+
 });
 
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "module";
+mainPagePagination.option.model = "NhomModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.option.manhom = manhom;
+mainPagePagination.option.filter = {};
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

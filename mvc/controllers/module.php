@@ -9,6 +9,7 @@ class Module extends Controller
     {
         $this->nhomModel = $this->model("NhomModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
 
     public function default()
@@ -42,6 +43,7 @@ class Module extends Controller
                     "flatpickr" => 1,
                     "sweetalert2" => 1,
                     "notify" => 1,
+                    "pagination" => [],
                 ],
                 "Script" => "class_detail",
                 "Detail" => $this->nhomModel->getDetailGroup($manhom)
@@ -259,6 +261,14 @@ class Module extends Controller
             die(json_encode($response));
         }
     }
-}
 
+    public function getGroupSize() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $result = $this->nhomModel->getGroupSize($manhom);
+            echo $result;
+        }
+    }
+
+}
 ?>

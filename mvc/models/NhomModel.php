@@ -232,5 +232,49 @@ class NhomModel extends DB
         }
         return $check;
     }
+
+    public function getGroupSize($id) {
+        $sql = "SELECT count(*) FROM chitietnhom WHERE manhom = $id";
+        $result = mysqli_query($this->con, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row['count(*)'];
+    }
+
+    public function getQuerySortByName($filter, $input, $args, $order) {
+        $query = "SELECT ND.id, avatar, hoten, email, gioitinh, ngaysinh, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manhom = " . $args['manhom'];
+        if ($input) {
+            $query .= " AND (ND.hoten LIKE N'%${input}%' OR CTN.manguoidung LIKE N'%${input}%')";
+        }
+        $query .= " ORDER BY firstname $order";
+        return $query;
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT ND.id, avatar, hoten, email, gioitinh, ngaysinh FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manhom = " . $args['manhom'];
+        if ($input) {
+            $query .= " AND (ND.hoten LIKE N'%${input}%' OR CTN.manguoidung LIKE N'%${input}%')";
+        }
+        if (isset($args["custom"]["function"])) {
+            $function = $args["custom"]["function"];
+            switch ($function) {
+                case "sort":
+                    $column = $args["custom"]["column"];
+                    $order = $args["custom"]["order"];
+                    switch ($column) {
+                        case "id":
+                            $query .= " ORDER BY $column $order";
+                            break;
+                        case "hoten":
+                            $query = $this->getQuerySortByName($filter, $input, $args, $order);
+                            break;
+                        default:
+                    }
+                    break;
+                default:
+            }
+        }
+        return $query;
+    }
+    
 }
 ?>

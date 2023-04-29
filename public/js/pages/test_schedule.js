@@ -1,4 +1,9 @@
 function showData(data) {
+  if (data.length === 0) {
+    $(".list-test").html("");
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    return;
+  }
   const format = new Intl.DateTimeFormat(navigator.language, {
     year: "numeric",
     month: "2-digit",
@@ -74,6 +79,18 @@ const currentUser = container.dataset.id;
 delete container.dataset.id;
 
 $(document).ready(function () {
+  $(".filtered-by-state").click(function (e) {
+    e.preventDefault();
+    $(".btn-filtered-by-state").text($(this).text());
+    const state = $(this).data("value");
+    if (state !== "4") {
+        mainPagePagination.option.filter = state;
+    } else {
+        delete mainPagePagination.option.filter;
+    }
+
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+  });
 
 });
 

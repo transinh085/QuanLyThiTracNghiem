@@ -1,4 +1,9 @@
 function showData(data) {
+  if (data.length === 0) {
+    $(".list-test").html("");
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    return;
+  }
   const format = new Intl.DateTimeFormat(navigator.language, {
     year: "numeric",
     month: "2-digit",
@@ -74,13 +79,25 @@ const currentUser = container.dataset.id;
 delete container.dataset.id;
 
 $(document).ready(function () {
-  
+  $(".filtered-by-state").click(function (e) {
+    e.preventDefault();
+    $(".btn-filtered-by-state").text($(this).text());
+    const state = $(this).data("value");
+    if (state !== "4") {
+        mainPagePagination.option.filter = state;
+    } else {
+        delete mainPagePagination.option.filter;
+    }
+
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+  });
+
 });
 
-(function () {
-  // Pagination
-  defaultPaginationOptions.controller = "client";
-  defaultPaginationOptions.model = "DeThiModel";
-  defaultPaginationOptions.manguoidung = currentUser;
-  getPagination(currentPaginationOptions, valuePage.curPage);
-})();
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "client";
+mainPagePagination.option.model = "DeThiModel";
+mainPagePagination.option.manguoidung = currentUser;
+mainPagePagination.option.custom.function = "getUserTestSchedule";
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

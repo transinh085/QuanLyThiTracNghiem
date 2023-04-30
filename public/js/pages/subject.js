@@ -141,7 +141,7 @@ $(document).ready(function () {
                 });
                 $("#modal-add-subject").modal("hide");
                 // loadData();
-                getPagination(currentPaginationOptions, valuePage.curPage);
+                mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
               } else {
                 Dashmix.helpers("jq-notify", {
                   type: "danger",
@@ -214,7 +214,7 @@ $(document).ready(function () {
             message: "Cập nhật môn học thành công!",
           });
           // loadData();
-          getPagination(currentPaginationOptions, valuePage.curPage);
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         } else {
           Dashmix.helpers("jq-notify", {
             type: "danger",
@@ -267,7 +267,7 @@ $(document).ready(function () {
             if (response) {
               e.fire("Deleted!", "Xóa môn học thành công!", "success");
               // loadData();
-              getPagination(currentPaginationOptions, valuePage.curPage);
+              mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             } else {
               e.fire("Lỗi !", "Xoá môn học không thành công !)", "error");
             }
@@ -434,10 +434,12 @@ $(document).ready(function () {
       },
     });
   });
-
+  
 });
 
 // Pagination
-defaultPaginationOptions.controller = "subject";
-defaultPaginationOptions.model = "MonHocModel";
-getPagination(currentPaginationOptions, valuePage.curPage);
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "subject";
+mainPagePagination.option.model = "MonHocModel";
+// mainPagePagination.option.limit = 10;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

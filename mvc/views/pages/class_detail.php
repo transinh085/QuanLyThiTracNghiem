@@ -1,16 +1,17 @@
 <div class="content" data-id="<?php echo $data['Detail']['manhom'] ?>">
     <div class="row">
         <div class="col-4 flex-grow-1">
-            <div class="input-group">
-                <span class="input-group-text bg-white"><i class="si si-magnifier"></i></span>
-                <input type="text" class="form-control" id="example-group1-input1" name="example-group1-input1"
-                    placeholder="Lọc theo tên sinh viên">
-            </div>
+            <form action="#" id="search-form" onsubmit="return false;">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="si si-magnifier"></i></span>
+                    <input type="text" class="form-control" placeholder="Tìm kiếm sinh viên..." id="search-input" name="search-input">
+                </div>
+            </form>
         </div>
         <div class="col-8 d-flex align-items-center justify-content-end gap-3">
             <button type="button" class="btn btn-sm btn-primary" id="exportStudents"><i
                     class="fa-solid fa-file me-1"></i>Xuất danh sách
-                HS</button>
+                SV</button>
             <button type="button" class="btn btn-primary btn-sm" id="exportScores"><i
                     class="fa-solid fa-file me-1"></i>Xuất bảng
                 điểm</button>
@@ -36,10 +37,10 @@
                 <div class="block-content">
                     <table class="table table-vcenter">
                         <thead>
-                            <tr>
+                            <tr class="table-col-title">
                                 <th class="text-center">STT</th>
-                                <th>Họ tên</th>
-                                <th class="text-center">Mã sinh viên</th>
+                                <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
+                                <th class="text-center col-sort" data-sort-column="id" data-sort-order="default">Mã sinh viên</th>
                                 <th class="text-center">Giới tính</th>
                                 <th class="text-center">Ngày sinh</th>
                                 <th class="text-center" style="width: 150px;">Hành động</th>
@@ -48,35 +49,7 @@
                         <tbody id="list-student">
                         </tbody>
                     </table>
-
-                    <nav>
-                        <ul class="pagination justify-content-end mt-2" id="getNumberPage">
-                            <li class="page-item disabled">
-                                <a class="page-link" id="1" href="javascript:void(0)" tabindex="-1"
-                                    aria-label="Previous">
-                                    Prev
-                                </a>
-                            </li>
-
-                            <li class="page-item active">
-                                <a class="page-link" id="1" href="javascript:void(0)">1</a>
-                            </li>
-
-                            <li class="page-item ">
-                                <a class="page-link" id="2" href="javascript:void(0)">2</a>
-                            </li>
-
-                            <li class="page-item ">
-                                <a class="page-link" id="3" href="javascript:void(0)">3</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" id="2" href="javascript:void(0)" aria-label="Next">
-                                    Next
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-
+                    <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
                 </div>
             </div>
         </div>

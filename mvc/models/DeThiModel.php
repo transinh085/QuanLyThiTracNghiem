@@ -322,7 +322,6 @@ class DeThiModel extends DB
         return $rows;
     }
 
-
     // Lấy chi tiết đề thi của sinh viên
     public function getResultDetail($makq)
     {
@@ -360,17 +359,75 @@ class DeThiModel extends DB
         $data_dethi = mysqli_fetch_assoc($result_dethi);
         $thoigianketthuc = date("Y-m-d H:i:s", strtotime($data_dethi['thoigianketthuc']));
         return $thoigianketthuc;
-
     }
 
-    // Lấy danh sách lịch thi đã được giao của người dùng (phân trang)
+    public function getGroupsTakeTests($tests) {
+        $string = implode(', ', $tests);
+        $sql = "SELECT GDT.*, tennhom, namhoc, hocky FROM giaodethi GDT, nhom N WHERE GDT.manhom = N.manhom AND made IN ($string)";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function getQuery($filter, $input, $args)
     {
-        $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '" . $args['manguoidung'] . "') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '" . $args['manguoidung'] . "') T2 ON T1.made = T2.made";
-        if ($input) {
-            $query = $query . " WHERE (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
+        $query = "";
+        if (isset($args["custom"]["function"])) {
+            $func = $args["custom"]["function"];
+            switch ($func) {
+                case "getUserTestSchedule":
+                    // Lấy danh sách lịch thi đã được giao của người dùng
+                    $query = "SELECT T1.*, diemthi FROM (SELECT DT.made, tende, thoigianbatdau, thoigianketthuc, CTN.manhom, tennhom, tenmonhoc, namhoc, hocky FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND DT.trangthai = 1 AND manguoidung = '" . $args['manguoidung'] . "') T1 LEFT JOIN (SELECT DISTINCT DT.made, diemthi FROM chitietnhom CTN, giaodethi GDT, dethi DT, monhoc MH, nhom N, ketqua KQ WHERE N.manhom = CTN.manhom AND CTN.manhom = GDT.manhom AND DT.made = GDT.made AND MH.mamonhoc = DT.monthi AND KQ.made = DT.made AND DT.trangthai = 1 AND KQ.manguoidung = '" . $args['manguoidung'] . "') T2 ON T1.made = T2.made WHERE 1";
+                    if (isset($filter)) {
+                        switch ($filter) {
+                            case "0";
+                                $query .= " AND CURRENT_TIMESTAMP() BETWEEN thoigianbatdau AND thoigianketthuc AND diemthi IS NULL";
+                                break;
+                            case "1";
+                                $query .= " AND CURRENT_TIMESTAMP() > thoigianketthuc AND diemthi IS NULL";
+                                break;
+                            case "2";
+                                $query .= " AND CURRENT_TIMESTAMP() < thoigianbatdau";
+                                break;
+                            case "3";
+                                $query .= " AND diemthi IS NOT NULL";
+                                break;
+                            default:
+                        }
+                    }
+                    if ($input) {
+                        $query .= " AND (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
+                    }
+                    $query .= " ORDER BY made DESC";
+                    break;
+                case "getAllCreatedTest":
+                    // Lấy danh sách các đề thi đã tạo của giảng viên
+                    $query = "SELECT DT.made, tende, tenmonhoc, thoigianbatdau, thoigianketthuc FROM dethi DT, monhoc MH WHERE DT.monthi = MH.mamonhoc AND nguoitao = '".$args['id']."' AND DT.trangthai = 1";
+                    if (isset($filter)) {
+                        switch ($filter) {
+                            case "0";
+                                $query .= " AND CURRENT_TIMESTAMP() < thoigianbatdau";
+                                break;
+                            case "1";
+                                $query .= " AND CURRENT_TIMESTAMP() BETWEEN thoigianbatdau AND thoigianketthuc";
+                                break;
+                            case "2";
+                                $query .= " AND CURRENT_TIMESTAMP() > thoigianketthuc";
+                                break;
+                            default:
+                        }
+                    }
+                    if ($input) {
+                        $query .= " AND (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
+                    }
+                    $query .= " ORDER BY DT.made DESC";
+                    break;
+                default:
+            }
         }
-        $query = $query . " ORDER BY made DESC";
         return $query;
     }
 }

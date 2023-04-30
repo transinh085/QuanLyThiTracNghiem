@@ -119,7 +119,7 @@ $(document).ready(function () {
         });
     });
 
-    function nopbai() {
+function nopbai() {
         let dethi = $("#dethicontent").data("id");
         let thoigian = new Date()
         $.ajax({
@@ -131,6 +131,11 @@ $(document).ready(function () {
                 made: dethi,
             },
             success: function (response) {
+                localStorage.removeItem(cautraloi);
+                localStorage.removeItem(dethi);
+                location.href = `./test/start/${made}`;
+            },
+            error: function (response) {
                 localStorage.removeItem(cautraloi);
                 localStorage.removeItem(dethi);
                 location.href = `./test/start/${made}`;
@@ -220,7 +225,7 @@ $(document).ready(function () {
                 made: $("#dethicontent").data("id"),
             },
             success: function (response) {
-                if(response === 1){
+                if(response == 1){
                     nopbai();
                 }
             }

@@ -91,7 +91,7 @@
                                     <img class="img-avatar" src="./public/media/avatars/<?php echo $data["User"]["avatar"] == '' ? "avatar2.jpg" : $data["User"]["avatar"] ?>" alt="">
                                 </div>
                                 <label class="form-label" for="dm-profile-edit-avatar">Chọn ảnh đại diện mới</label>
-                                <input class="form-control" type="file" id="dm-profile-edit-avatar" name="file-img">
+                                <input class="form-control" type="file" id="dm-profile-edit-avatar" name="file-img" accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-alt-primary" id="update-profile">
                                 <i class="fa fa-check-circle opacity-50 me-1"></i> Cập nhật hồ sơ

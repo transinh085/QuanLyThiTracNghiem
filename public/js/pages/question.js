@@ -4,7 +4,7 @@ CKEDITOR.replace("option-content");
 function showData(data) {
   let html = "";
   let index = 1;
-  let offset = (valuePage.curPage - 1) * defaultPaginationOptions.limit;
+  let offset = (this.valuePage.curPage - 1) * this.option.limit;
   data.forEach((question) => {
     let dokho = "";
     switch (question["dokho"]) {
@@ -21,7 +21,7 @@ function showData(data) {
     html += `<tr>
               <td class="text-center fs-sm">
                   <a class="fw-semibold" href="#">
-                      <strong>${offset + index++}</strong>
+                    <strong>${offset + index++}</strong>
                   </a>
               </td>
               <td>${question["noidung"]}</td>
@@ -240,23 +240,23 @@ $(document).ready(function () {
 
     // Reset filter
     $("#main-page-dokho").val(0).trigger('change');
-    currentPaginationOptions.filter = {};
+    mainPagePagination.option.filter = {};
 
     // Ajax call + pagination
-    currentPaginationOptions.filter.mamonhoc = mamonhoc;
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.option.filter.mamonhoc = mamonhoc;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
   });
 
   $("#main-page-chuong").on("change", function () {
     const machuong = $(this).val();
-    currentPaginationOptions.filter.machuong = machuong;
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.option.filter.machuong = machuong;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
   });
 
   $("#main-page-dokho").on("change", function () {
     const dokho = +$(this).val();
-    currentPaginationOptions.filter.dokho = dokho;
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.option.filter.dokho = dokho;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
   });
 
   $("#file-cau-hoi").change(function (e) {
@@ -377,7 +377,7 @@ $(document).ready(function () {
 
           $("#modal-add-question").modal("hide");
           // loadQuestion();
-          getPagination(currentPaginationOptions, valuePage.curPage);
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         },
       });
     } else {
@@ -464,7 +464,7 @@ $(document).ready(function () {
       success: function (response) {
         $("#modal-add-question").modal("hide");
         // loadQuestion();
-        getPagination(currentPaginationOptions, valuePage.curPage);
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         setTimeout(function () {
           Dashmix.helpers("jq-notify", {
             type: "success",
@@ -519,8 +519,11 @@ $(document).ready(function () {
 
           $("#modal-add-question").modal("hide");
           // loadQuestion();
-          getPagination(currentPaginationOptions, valuePage.curPage);
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         },
+        error: function (err) {
+          console.error(err.responseText);
+        }
       });
     } else {
       if (mamonhoc == "") {
@@ -652,7 +655,7 @@ $(document).ready(function () {
           success: function (response) {
             e.fire("Deleted!", "Xóa câu hỏi thành công!", "success");
             // loadQuestion();
-            getPagination(currentPaginationOptions, valuePage.curPage);
+            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
           },
         });
       }
@@ -714,11 +717,13 @@ $(document).ready(function () {
     });
     loadPagination();
   }
+
 });
 
 // Pagination
-defaultPaginationOptions.controller = "question";
-defaultPaginationOptions.model = "CauHoiModel";
-defaultPaginationOptions.limit = 10;
-defaultPaginationOptions.filter = {};
-getPagination(currentPaginationOptions, valuePage.curPage);
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "question";
+mainPagePagination.option.model = "CauHoiModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.option.filter = {};
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

@@ -1,7 +1,6 @@
 function showData(data) {
   // console.log(data);
   let html = "";
-  let index = 1;
   data.forEach((Element) => {
     var totalSeconds = Element["thoigianlambai"] || 0;
     var hours = Math.floor(totalSeconds / 3600);
@@ -143,11 +142,11 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-group").text($(this).text());
     currentGroupID = $(this).data("value");
-    currentPaginationOptions.manhom = currentGroupID;
+    mainPagePagination.option.manhom = currentGroupID;
     resetFilterState();
     renderTableTitleColumns();
     resetSortIcons();
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
   });
 
   $(".filtered-by-state").click(function (e) {
@@ -155,15 +154,15 @@ $(document).ready(function () {
     $(".btn-filtered-by-state").text($(this).text());
     const state = $(this).data("state");
     if (state !== "present") {
-      currentPaginationOptions.filter = state;
+      mainPagePagination.option.filter = state;
     } else {
-      delete currentPaginationOptions.filter;
+      delete mainPagePagination.option.filter;
     }
 
     renderTableTitleColumns(state);
     resetSortIcons();
 
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
   });
 
   // Hiển thị đề kiểm tra đáp án + câu trả lời của thí sinh đó
@@ -211,7 +210,7 @@ $(document).ready(function () {
     $("#modal-show-test").modal("show");
     let makq = $(this).data("id");
     // console.log(makq)
-    if (makq === "" || currentPaginationOptions.filter === "interrupted") {
+    if (makq === "" || mainPagePagination.option.filter === "interrupted") {
       let html = `<h5 class="text-center mb-2 fw-normal">Không thể xem kết quả</h5>`;
       $("#content-file").html(html);
       return;
@@ -238,7 +237,7 @@ $(document).ready(function () {
   }
 
   function resetFilterState() {
-    delete currentPaginationOptions.filter;
+    delete mainPagePagination.option.filter;
     $(".btn-filtered-by-state").text("Đã nộp bài");
   }
 
@@ -287,7 +286,7 @@ $(document).ready(function () {
     }
     const column = e.target.dataset.sortColumn;
 
-    switch (currentPaginationOptions.filter) {
+    switch (mainPagePagination.option.filter) {
       case "absent":
         switch (column) {
           case "diemthi":
@@ -325,16 +324,16 @@ $(document).ready(function () {
     }
 
     if (currentSortOrder === "default") {
-      currentPaginationOptions.custom = {};
+      mainPagePagination.option.custom = {};
     } else {
-      currentPaginationOptions.custom.function = "sort";
-      currentPaginationOptions.custom.column = column;
-      currentPaginationOptions.custom.order = currentSortOrder;
+      mainPagePagination.option.custom.function = "sort";
+      mainPagePagination.option.custom.column = column;
+      mainPagePagination.option.custom.order = currentSortOrder;
     }
 
     // AJAX call (with pagination)
-    valuePage.curPage = 1;
-    getPagination(currentPaginationOptions, valuePage.curPage);
+    mainPagePagination.valuePage.curPage = 1;
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
 
     // Display icon
     resetSortIcons();
@@ -495,13 +494,14 @@ function showChart(data) {
     },
     options: options,
   });
+
 }
 
-(function () {
-  // Pagination
-  defaultPaginationOptions.controller = "test";
-  defaultPaginationOptions.model = "KetQuaModel";
-  defaultPaginationOptions.made = made;
-  defaultPaginationOptions.manhom = currentGroupID;
-  getPagination(currentPaginationOptions, valuePage.curPage);
-})();
+// Pagination
+const mainPagePagination = new Pagination();
+mainPagePagination.option.controller = "test";
+mainPagePagination.option.model = "KetQuaModel";
+mainPagePagination.option.made = made;
+mainPagePagination.option.manhom = currentGroupID;
+// mainPagePagination.option.limit = 10;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

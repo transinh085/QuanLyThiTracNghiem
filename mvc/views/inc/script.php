@@ -38,7 +38,6 @@ if(isset($data["Plugin"]["jq-appear"]) && $data["Plugin"]["jq-appear"] == 1) {
     echo '<script src="./public/js/plugins/jquery-appear/jquery.appear.min.js"></script>';
 }
 if(isset($data["Plugin"]["pagination"])) {
-
     echo '<script src="./public/js/pagination.js"></script>';
 } 
 if(isset($data["Script"])) {

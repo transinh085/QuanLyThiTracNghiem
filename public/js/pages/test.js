@@ -5,6 +5,7 @@ function getListGroup(tests) {
         return;
     }
     const arrTestID = tests.map(el => el.made);
+    console.log(arrTestID)
     $.ajax({
         url: `./test/getGroupsTakeTests`,
         method: "post",

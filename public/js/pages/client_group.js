@@ -19,6 +19,7 @@ $(document).ready(function () {
                 } else {
                     $("#modal-join-group").modal("hide");
                     groups.push(response);
+                    console.log(groups);
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Tham gia nhóm thành công !"});
                 }
@@ -105,6 +106,7 @@ $(document).ready(function () {
         let manhom = $(this).data("id");
         loadDataTest(manhom);
         loadDataFriend(manhom);
+        loadDataAnnounce(manhom);
     });
 
     function showListTest(tests) {
@@ -130,6 +132,30 @@ $(document).ready(function () {
             html += `<p class="text-center">Chưa có đề thi...</p>`
         }
         $(".list-test").html(html);
+    }
+
+    function showAnnouncement(announce) {
+        let html = "";
+        if (announce.length != 0) {
+            // announces.forEach(announce => {
+                html += `
+                <li>
+                <a class="d-flex text-dark py-2" href="javascript:void(0)">
+                    <div class="flex-shrink-0 mx-3">
+                        <img class="img-avatar img-avatar48" src="./public/media/avatars/${announce.avatar == null ? "avatar2.jpg" : announce.avatar}" alt="">
+                    </div>
+                    <div class="flex-grow-1 fs-sm pe-2">
+                        <div class="fw-semibold">${announce.noidung}}</div>
+                        <div class="text-muted">2 hours ago</div>
+                    </div>
+                </a>
+            </li>
+                `;
+            // })
+        } else {
+            html += `<p class="text-center">Không có thông báo</p>`
+        }
+        $(".list-announce").html(html);
     }
 
     function loadDataTest(manhom) {
@@ -160,6 +186,22 @@ $(document).ready(function () {
         });
     }
 
+    function loadDataAnnounce(manhom)
+    {
+        $.ajax({
+            type: "post",
+            url: "./teacher_announcement/getAnnounce",
+            data: {
+                manhom: manhom
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+                showAnnouncement(response);
+            }
+        });
+    }
+
     function showListFriend(friends) {
         let html = ``;
         if(friends.length != 0) {
@@ -167,8 +209,7 @@ $(document).ready(function () {
                 html += `<li>
                     <div class="d-flex py-2 align-items-center">
                         <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48"
-                                src="./public/media/avatars/${friend.avatar == null ? "avatar2.jpg" : friend.avatar}" alt="">
+                            <img class="img-avatar img-avatar48" src="./public/media/avatars/${friend.avatar == null ? "avatar2.jpg" : friend.avatar}" alt="">
                         </div>
                         <div class="fw-semibold">${friend.hoten}</div>
                     </div>

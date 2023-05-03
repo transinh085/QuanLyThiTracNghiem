@@ -1,3 +1,5 @@
+Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
+
 let groups = [];
 $(document).ready(function() {
     function showGroup() {

@@ -4,7 +4,7 @@
             <h3 class="block-title">Tất cả người dùng</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-user" id="btn-and">Thêm người dùng</button>
+                    data-bs-target="#modal-add-user" id="btn-and" data-role="nguoidung" data-action="create">Thêm người dùng</button>
             </div>
         </div>
         <div class="block-content bg-body-dark">

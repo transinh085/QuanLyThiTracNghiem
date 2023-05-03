@@ -54,7 +54,7 @@ class Module extends Controller
 
     public function loadData()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" && AuthCore::checkPermission("hocphan", "create")) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $hienthi = $_POST['hienthi'];
             $user_id = $_SESSION['user_id'];
             $result = $this->nhomModel->getBySubject($user_id, $hienthi);

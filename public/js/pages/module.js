@@ -118,7 +118,7 @@ $(document).ready(function () {
                                         <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
                                     </a>
                                     ${btn_hide}
-                                    <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                    <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${nhom_item.manhom}" data-role="hocphan" data-action="delete">
                                         <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
                                         <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
                                     </a>

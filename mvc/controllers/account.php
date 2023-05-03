@@ -77,6 +77,13 @@ class Account extends Controller{
         }
     }
 
+    public function getRole()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "GET") {
+            echo json_encode($_SESSION['user_role']);
+        }
+    }
+
     public function check()
     {
         echo "<pre>";

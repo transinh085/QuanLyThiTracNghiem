@@ -98,13 +98,11 @@ const showData = function (users) {
     }</span>
                           </td> 
                           <td class="text-center">
-                              <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
-                              data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                user.id
-                              }">
+                              <a data-role="nguoidung" data-action="update" class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
+                              data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${user.id}">
                                   <i class="fa fa-fw fa-pencil"></i>
                               </a>
-                              <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
+                              <a data-role="nguoidung" data-action="delete" class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
                                   aria-label="Delete" data-bs-original-title="Delete" data-id="${
                                     user.id
                                   }">

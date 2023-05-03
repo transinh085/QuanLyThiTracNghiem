@@ -17,6 +17,7 @@
     </div>
     <!-- END Page Container -->
     <?php include "inc/script.php" ?>
+    <script src="./public/js/permission.js"></script>
 </body>
 </html>
 

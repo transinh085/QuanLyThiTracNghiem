@@ -20,7 +20,7 @@ $GLOBALS['navbar'] = [
                 'icon'  => 'fa fa-graduation-cap',
                 'url'   => 'client/test',
                 'role' => 'tgthi'
-            )
+            ),
         ]
             ),
     array(
@@ -62,7 +62,13 @@ $GLOBALS['navbar'] = [
                 'icon'  => 'fa fa-file',
                 'url'   => 'test',
                 'role' => 'dethi'
-            )
+            ),
+            array(
+                'name'  => 'Thông báo',
+                'icon'  => 'fa fa-comment',
+                'url'   => 'teacher_announcement',
+                'role' => 'thongbao'
+            ),
         ]
     ),
     array(

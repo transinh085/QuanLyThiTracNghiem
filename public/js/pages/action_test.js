@@ -208,8 +208,8 @@ $(document).ready(function () {
         let newMinutes1 = newTime1.split(":")[1];
          
         if (($(".form-taodethi").valid())) {
-            if ((newYear >= nowYear && newMonth >= nowMonth && newDate >= nowDay && newHours >= nowHours && newMinutes >= nowMintues)) {
-                if ((newYear1 == newYear && newMonth1 == newMonth && newDate1 == newDate && newHours1 > newHours) || (newYear1 > newYear && newMonth1 > newMonth && newDate1 > newDate)) {
+            // if ((newYear >= nowYear && newMonth >= nowMonth && newDate >= nowDay && newHours >= nowHours && newMinutes >= nowMintues)) {
+                // if ((newYear1 == newYear && newMonth1 == newMonth && newDate1 == newDate && newHours1 > newHours) || (newYear1 > newYear && newMonth1 > newMonth && newDate1 > newDate)) {
                     $.ajax({
                         type: "post",
                         url: "./test/addTest",
@@ -242,12 +242,12 @@ $(document).ready(function () {
                             }
                         }
                     });
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu!' });
-                }
-            } else {
-                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian bắt đầu phải lớn hơn thời gian hiện tại!' });
-            }
+                // } else {
+                //     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu!' });
+                // }
+            // } else {
+            //     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian bắt đầu phải lớn hơn thời gian hiện tại!' });
+            // }
         }
     });
 

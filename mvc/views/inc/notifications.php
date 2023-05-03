@@ -7,7 +7,7 @@
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
         aria-labelledby="page-header-notifications-dropdown">
         <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-            Notifications
+            Thông báo
         </div>
         <ul class="nav-items my-2">
             <li>

@@ -59,9 +59,4 @@ class MailAuth extends DB
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
     }
-
-    public function sendEmail() 
-    {
-        
-    }
 }

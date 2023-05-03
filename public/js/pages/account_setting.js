@@ -96,7 +96,6 @@ $("#update-password").click(function (e) {
     let oldBirthDay = $("#user_ngaysinh").val();
     let oldGender = $('input[name="user_gender"]:checked').val();
     let resultElement = $(".up-avatar");
-    console.log(resultElement)
     let avatarProfile = $(".avatar-Profile");
     let avatarAccount = $(".avatar-Account");
 

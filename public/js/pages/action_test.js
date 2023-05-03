@@ -183,42 +183,72 @@ $(document).ready(function () {
     // Xừ lý sự kiện nhấn nút tạo đề
     $("#btn-add-test").click(function (e) { 
         e.preventDefault();
-        if ($(".form-taodethi").valid()) {
-            $.ajax({
-                type: "post",
-                url: "./test/addTest",
-                data: {
-                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                    tende: $("#name-exam").val(),
-                    thoigianthi: $("#exam-time").val(),
-                    thoigianbatdau: $("#time-start").val(),
-                    thoigianketthuc: $("#time-end").val(),
-                    socaude: $("#coban").val(),
-                    socautb: $("#trungbinh").val(),
-                    socaukho: $("#kho").val(),
-                    chuong: $("#chuong").val(),
-                    loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
-                    xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
-                    xemdapan: $("#xemda").prop("checked") ? 1 : 0,
-                    xembailam: $("#xembailam").prop("checked") ? 1 : 0,
-                    daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
-                    daodapan: $("#daodapan").prop("checked") ? 1 : 0,
-                    tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
-                    manhom: getGroupSelected()
-                },
-                success: function (response) {
-                    console.log(response)
-                    if(response) {
-                        if($("#tudongsoande").prop("checked")) location.href = "./test";
-                        else location.href = `./test/select/${response}`;
-                    } else {
-                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
-                    }
-                }
-            });
+        let nowDate = new Date();
+        let nowYear = nowDate.getFullYear();
+        let nowMonth = nowDate.getMonth() + 1;
+        let nowDay = nowDate.getDate();
+        let nowHours = nowDate.getHours();
+        let nowMintues = nowDate.getMinutes();
+        
+        let startTime = $("#time-start").val();
+        let endTime = $("#time-end").val();
+
+        let newYear = startTime.split("-")[0];
+        let newMonth = startTime.split("-")[1];
+        let newDate = startTime.split("-")[2].split(" ")[0];
+        let newTime = startTime.split("-")[2].split(" ")[1];
+        let newHours = newTime.split(":")[0];
+        let newMinutes = newTime.split(":")[1];
+
+        let newYear1 = endTime.split("-")[0];
+        let newMonth1 = endTime.split("-")[1];
+        let newDate1 = endTime.split("-")[2].split(" ")[0];
+        let newTime1 = endTime.split("-")[2].split(" ")[1];
+        let newHours1 = newTime1.split(":")[0];
+        let newMinutes1 = newTime1.split(":")[1];
+         
+        if (($(".form-taodethi").valid())) {
+            // if ((newYear >= nowYear && newMonth >= nowMonth && newDate >= nowDay && newHours >= nowHours && newMinutes >= nowMintues)) {
+                // if ((newYear1 == newYear && newMonth1 == newMonth && newDate1 == newDate && newHours1 > newHours) || (newYear1 > newYear && newMonth1 > newMonth && newDate1 > newDate)) {
+                    $.ajax({
+                        type: "post",
+                        url: "./test/addTest",
+                        data: {
+                            mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                            tende: $("#name-exam").val(),
+                            thoigianthi: $("#exam-time").val(),
+                            thoigianbatdau: $("#time-start").val(),
+                            thoigianketthuc: $("#time-end").val(),
+                            socaude: $("#coban").val(),
+                            socautb: $("#trungbinh").val(),
+                            socaukho: $("#kho").val(),
+                            chuong: $("#chuong").val(),
+                            loaide: $("#tudongsoande").prop("checked") ? 1 : 0,
+                            xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                            xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                            xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                            daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                            daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                            tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                            manhom: getGroupSelected()
+                        },
+                        success: function (response) {
+                            console.log(response)
+                            if(response) {
+                                if($("#tudongsoande").prop("checked")) location.href = "./test";
+                                else location.href = `./test/select/${response}`;
+                            } else {
+                                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề thi không thành công!' });
+                            }
+                        }
+                    });
+                // } else {
+                //     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian kết thúc phải lớn hơn thời gian bắt đầu!' });
+                // }
+            // } else {
+            //     Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian bắt đầu phải lớn hơn thời gian hiện tại!' });
+            // }
         }
-        // if ($(".form-tao-de").valid()) {
-        // }
     });
 
     /*Chỉnh sửa đề thi*/ 

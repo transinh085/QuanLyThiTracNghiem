@@ -376,3 +376,9 @@ td p {
 .btn-otp {
     display: inline;
 }
+
+/* form announcement */
+.col-custom-9 {
+    flex: none;
+    width: 100%;
+}

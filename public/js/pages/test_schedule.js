@@ -4,6 +4,9 @@ function showData(data) {
     $('[data-bs-toggle="tooltip"]').tooltip();
     return;
   }
+
+  console.log(data)
+
   const format = new Intl.DateTimeFormat(navigator.language, {
     year: "numeric",
     month: "2-digit",

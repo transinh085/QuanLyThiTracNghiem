@@ -91,6 +91,7 @@ $(document).ready(function () {
             manguoidung: mssv,
           },
           success: function (response) {
+            console.log(response)
             getGroupSize(manhom);
             mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
@@ -109,6 +110,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
+        console.log(response)
         showData(response);
       },
     });

@@ -147,6 +147,7 @@ $(document).ready(function () {
 
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
+    clearInputFields();
     $(".add-user-element").show();
     $(".update-user-element").hide();
   });
@@ -207,7 +208,6 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".user-edit", function () {
-    $("#modal-add-user").modal("show");
     let id = $(this).data("id");
     $(".add-user-element").hide();
     $(".update-user-element").show();
@@ -224,16 +224,17 @@ $(document).ready(function () {
         $("#masinhvien").val(response.id)
         $("#masinhvien").prop("disabled",true);
         $("#user_name").val(response.hoten),
-          $(`input[name="user_gender"][value="${response.gioitinh}"]`).prop(
-            "checked",
-            true
+        $(`input[name="user_gender"][value="${response.gioitinh}"]`).prop(
+          "checked",
+          true
           ),
-        $("#user_ngaysinh").val(response.ngaysinh);
-        $("#user_email").val(response.email);
-        $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
-        $("#user_status").prop("checked", response.trangthai);
-      },
-    });
+          $("#user_ngaysinh").val(response.ngaysinh);
+          $("#user_email").val(response.email);
+          $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
+          $("#user_status").prop("checked", response.trangthai);
+          $("#modal-add-user").modal("show");
+        },
+      });
   });
 
   
@@ -279,7 +280,7 @@ $(document).ready(function () {
     });
     e.fire({
       title: "Are you sure?",
-      text: "Bạn có chắc chắn muốn xoá nhóm người dùng?",
+      text: "Bạn có chắc chắn muốn xoá người dùng này?",
       icon: "warning",
       showCancelButton: !0,
       customClass: {
@@ -366,6 +367,18 @@ $(document).ready(function () {
     $("#btabs-static-home-tab").tab("show")
   })
 
+  function clearInputFields() {
+    $("#masinhvien").val("");
+    $("#masinhvien").prop("disabled", false);
+    $("#user_email").val("");
+    $("#user_name").val("");
+    $(`input[name="user_gender"]`).prop("checked", false);
+    $("#user_ngaysinh").val("");
+    $("#user_nhomquyen").val(1).trigger("change");
+    $("#user_password").val("");
+    $("#user_status").prop("checked", 1);
+    $("#ps_user_group").val("");
+  }
 });
 
 // Pagination

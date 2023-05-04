@@ -270,5 +270,15 @@ class Module extends Controller
         }
     }
 
+    public function kickUser()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $mssv = $_POST['manguoidung'];
+            $result = $this->nhomModel->kickUser($manhom,$mssv);
+            echo $result;
+        }
+    }
+
 }
 ?>

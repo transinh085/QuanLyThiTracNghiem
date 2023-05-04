@@ -1,35 +1,3 @@
-function getListGroup(tests) {
-    if (tests.length == 0) {
-        $("#list-test").html("");
-        $('[data-bs-toggle="tooltip"]').tooltip();
-        return;
-    }
-    const arrTestID = tests.map(el => el.made);
-    console.log(arrTestID)
-    $.ajax({
-        url: `./test/getGroupsTakeTests`,
-        method: "post",
-        data: {
-          tests: arrTestID,
-        },
-        dataType: "json",
-        success: function (response) {
-          tests.forEach(function (test) {
-            const made = test.made;
-            const listGroup = response.filter(el => el.made === made);
-            const groupsName = listGroup.map(el => el.tennhom);
-            test.nhom = groupsName;
-            test.namhoc = listGroup[0].namhoc;
-            test.hocky = listGroup[0].hocky;
-          });
-          showListTest(tests);
-        },
-        error: function (err) {
-          console.error(err.responseText);
-        },
-      });
-}
-
 function dateIsValid(date) {
     return !Number.isNaN(new Date(date).getTime());
 }
@@ -67,7 +35,6 @@ function showListTest(tests) {
             state.text = "Đã đóng";
         }
         htmlTestState += `<button class="btn btn-sm btn-alt-${state.color} rounded-pill px-3 me-1 my-1" disabled>${state.text}</button>`;
-        let nhom = test.nhom.join(", ");
         html += `<div class="block block-rounded block-fx-pop mb-2">
             <div class="block-content block-content-full border-start border-3 border-${state.color}">
                 <div class="d-md-flex justify-content-md-between align-items-md-center">
@@ -76,7 +43,7 @@ function showListTest(tests) {
                             <a href="./test/detail/${test.made}" class="text-dark link-fx">${test.tende}</a>
                         </h3>
                         <p class="fs-sm text-muted mb-2">
-                            <i class="fa fa-layer-group me-1"></i></i> Giao cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${nhom}" style="cursor:pointer">${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
+                            <i class="fa fa-layer-group me-1"></i></i> Giao cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${test.nhom}" style="cursor:pointer">${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
                         </p>
                         <p class="fs-sm text-muted mb-0">
                             <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${strOpenTime}</span> đến <span>${strCloseTime}</span> 
@@ -191,7 +158,7 @@ const currentUser = container.dataset.id;
 delete container.dataset.id;
 
 // Pagination
-const mainPagePagination = new Pagination(null, null, getListGroup);
+const mainPagePagination = new Pagination(null, null, showListTest);
 mainPagePagination.option.controller = "test";
 mainPagePagination.option.model = "DeThiModel";
 mainPagePagination.option.id = currentUser;

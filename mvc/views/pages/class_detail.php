@@ -16,7 +16,7 @@
                     class="fa-solid fa-file me-1"></i>Xuất bảng
                 điểm</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#modal-block-vcenter"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
+                data-bs-target="#modal-add-user"><i class="fa fa-fw fa-plus me-1"></i>Thêm sinh viên</button>
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting"><i class="fa fa-cog"></i></button>
         </div>
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-block-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter"
+<div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="modal-add-user"
     aria-hidden="true">
     <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

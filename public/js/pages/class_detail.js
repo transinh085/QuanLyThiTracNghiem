@@ -3,14 +3,15 @@ Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker"]);
 const manhom = $(".content").data("id");
 const showData = function (students) {
   let html = "";
-
+  let index = 1;
+  let offset = (this.valuePage.curPage - 1) * this.option.limit;
   if (students.length == 0) {
     html += `<tr><td colspan="7" class="text-center">Không có dữ liệu</td></tr>`;
   } else {
-    students.forEach((student, index) => {
+    students.forEach((student) => {
       html += `
           <tr>
-              <td class="text-center">${index + 1}</td>
+              <td class="text-center">${offset + index++}</td>
               <td class="fs-sm d-flex align-items-center">
                       <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
                         student.avatar == null
@@ -299,7 +300,7 @@ $(document).ready(function () {
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
         Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
-        $("#modal-block-vcenter").modal("hide");
+        $("#modal-add-user").modal("hide");
       },
     });
   }
@@ -366,6 +367,21 @@ $(document).ready(function () {
     e.target.dataset.sortOrder = currentSortOrder;
   });
 
+  function clearInputFields() {
+    $("#mssv").val("");
+    $("#hoten").val("");
+    $("#sdt").val("");
+    $("#email").val(""),
+    $("#ngaysinh").val(""),
+    $("#matkhau").val(""),
+    $('input[name="gender"]').prop("checked", false);
+    $("#ps_user_group").val("");
+  }
+
+  $("[data-bs-target='#modal-add-user']").click(function (e) {
+    e.preventDefault();
+    clearInputFields();
+  });
 });
 
 // Pagination

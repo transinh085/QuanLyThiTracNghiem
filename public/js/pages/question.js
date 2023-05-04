@@ -443,7 +443,7 @@ $(document).ready(function () {
     $("#dokho").val("").trigger("change");
     $("#monhocfile").val("").trigger("change");
     $("#chuongfile").val("").trigger("change");
-    CKEDITOR.instances["js-ckeditor"].setData(null);
+    CKEDITOR.instances["js-ckeditor"].setData("");
     options = [];
     $("#add_option").collapse("hide");
     $("#list-options").html("");
@@ -717,7 +717,7 @@ $(document).ready(function () {
     });
     loadPagination();
   }
-
+  
 });
 
 // Pagination

@@ -717,12 +717,7 @@ $(document).ready(function () {
     });
     loadPagination();
   }
-
-  $("[data-bs-target='#modal-add-user']").click(function (e) {
-    e.preventDefault();
-    clearInputFields();
-  });
-
+  
 });
 
 // Pagination

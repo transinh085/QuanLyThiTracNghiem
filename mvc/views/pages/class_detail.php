@@ -4,7 +4,8 @@
             <form action="#" id="search-form" onsubmit="return false;">
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="si si-magnifier"></i></span>
-                    <input type="text" class="form-control" placeholder="Tìm kiếm sinh viên..." id="search-input" name="search-input">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm sinh viên..." id="search-input"
+                        name="search-input">
                 </div>
             </form>
         </div>
@@ -40,7 +41,8 @@
                             <tr class="table-col-title">
                                 <th class="text-center">STT</th>
                                 <th class="col-sort" data-sort-column="hoten" data-sort-order="default">Họ tên</th>
-                                <th class="text-center col-sort" data-sort-column="id" data-sort-order="default">Mã sinh viên</th>
+                                <th class="text-center col-sort" data-sort-column="id" data-sort-order="default">Mã sinh
+                                    viên</th>
                                 <th class="text-center">Giới tính</th>
                                 <th class="text-center">Ngày sinh</th>
                                 <th class="text-center" style="width: 150px;">Hành động</th>
@@ -49,105 +51,95 @@
                         <tbody id="list-student">
                         </tbody>
                     </table>
-                    <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
+                    <?php if (isset($data["Plugin"]["pagination"]))
+                        require "./mvc/views/inc/pagination.php" ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="modal-add-user"
-    aria-hidden="true">
-    <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="block block-rounded block-transparent bg-white mb-0">
-                <ul class="nav nav-tabs nav-tabs-alt" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" id="them-thu-cong-tab" data-bs-toggle="tab"
-                            data-bs-target="#them-thu-cong" role="tab" aria-controls="them-thu-cong"
-                            aria-selected="true">
-                            Thêm thủ công
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="ma-moi-tab" data-bs-toggle="tab" data-bs-target="#ma-moi"
-                            role="tab" aria-controls="ma-moi" aria-selected="false">
-                            Tham gia bằng mã mời
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="them-file-excel-tab" data-bs-toggle="tab"
-                            data-bs-target="#them-file-excel" role="tab" aria-controls="them-file-excel"
-                            aria-selected="false">
-                            Thêm bằng file Excel
-                        </button>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </li>
-                </ul>
-                <div class="block-content tab-content">
-                    <div class="tab-pane fade fade-up show active" id="them-thu-cong" role="tabpanel"
-                        aria-labelledby="them-thu-cong-tab" tabindex="0">
-                        <form action="" method="post">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="mssv" id="mssv"
-                                    placeholder="Mã sinh viên">
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và tên">
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="sdt" id="sdt" placeholder="Số điện thoại">
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="js-flatpickr form-control" id="ngaysinh" name="ngaysinh"
-                                    placeholder="Ngày sinh" data-date-format="d-m-Y">
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" name="matkhau" id="matkhau"
-                                    placeholder="Mật khẩu">
-                            </div>
-                            <div class="mb-3 row">
-                                <label class="col-2" for="">Giới tính</label>
-                                <div class="col-10">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="male" value="1">
-                                        <label class="form-check-label" for="male">Nam</label>
+    <div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="modal-add-user"
+        aria-hidden="true">
+        <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="block block-rounded block-transparent bg-white mb-0">
+                    <ul class="nav nav-tabs nav-tabs-alt" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="them-thu-cong-tab" data-bs-toggle="tab"
+                                data-bs-target="#them-thu-cong" role="tab" aria-controls="them-thu-cong"
+                                aria-selected="true">
+                                Thêm thủ công
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="ma-moi-tab" data-bs-toggle="tab" data-bs-target="#ma-moi"
+                                role="tab" aria-controls="ma-moi" aria-selected="false">
+                                Tham gia bằng mã mời
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="them-file-excel-tab" data-bs-toggle="tab"
+                                data-bs-target="#them-file-excel" role="tab" aria-controls="them-file-excel"
+                                aria-selected="false">
+                                Thêm bằng file Excel
+                            </button>
+                        </li>
+                        <li class="nav-item ms-auto">
+                            <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </li>
+                    </ul>
+                    <div class="block-content tab-content">
+                        <div class="tab-pane fade fade-up show active" id="them-thu-cong" role="tabpanel"
+                            aria-labelledby="them-thu-cong-tab" tabindex="0">
+                            <form id="addSvThuCong">
+                                <div class="mb-3">
+                                    <label for="mssv" class="form-label">Mã sinh viên</label>
+                                    <input type="text" class="form-control" name="mssv" id="mssv"
+                                        placeholder="Mã sinh viên" required>
+                                </div>
+                                <div class="collapse multi-collapse" id="collapseAddSv">
+                                    <div class="mb-3">
+                                        <label for="hoten" class="form-label">Họ và tên</label>
+                                        <input type="text" class="form-control" name="hoten" id="hoten"
+                                            placeholder="Họ và tên">
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="female"
-                                            value="0">
-                                        <label class="form-check-label" for="female">Nữ</label>
+                                    <div class="mb-3">
+                                        <label for="matkhau" class="form-label">Mật khẩu</label>
+                                        <input type="password" class="form-control" name="matkhau" id="matkhau"
+                                            placeholder="Mật khẩu">
                                     </div>
                                 </div>
+                                <div class="block-content block-content-full text-end">
+                                <button type="button" class="btn btn-sm btn-alt-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-sm btn-primary btn-add-sv-group"
+                                    >Thêm sinh
+                                    viên</button>
+                                <button type="button" class="btn btn-sm btn-primary btn-add-sv">Thêm
+                                    sinh
+                                    viên</button>
                             </div>
-                        </form>
-                        <div class="block-content block-content-full text-end">
-                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh
-                        viên</button>
-                </div>
-                    </div>
-                    <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
-                        tabindex="0">
-                        <h2 class="display-1 text-center py-6" id="show-ma-moi"></h2>
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <p class="text-center mb-0">
+                            </form>
+                        </div>
+                        <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
+                            tabindex="0">
+                            <h2 class="display-1 text-center py-6" id="show-ma-moi"></h2>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <p class="text-center mb-0">
                                 <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
                             </p>
                             <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
                                     class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
                         <div class="block-content block-content-full text-end">
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh
-                        viên</button>
-                </div>
+                            <button type="button" class="btn btn-sm btn-alt-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm
+                                sinh
+                                viên</button>
+                        </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"
                         aria-labelledby="them-file-excel-tab" tabindex="0">
@@ -173,7 +165,7 @@
                         </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

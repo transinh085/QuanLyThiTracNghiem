@@ -1,5 +1,44 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker"]);
 
+Dashmix.onLoad((() => class {
+  static initValidation() {
+    Dashmix.helpers("jq-validation"), jQuery("#addSvThuCong").validate({
+      rules: {
+        "mssv": {
+          required: !0,
+          digits: true,
+          minlength: 10
+        },
+        "hoten": {
+          required: !0,
+        },
+        "matkhau": {
+          required: !0,
+          minlength: 6
+        },
+      },
+      messages: {
+        "mssv": {
+          required: "Vui lòng nhập mã sinh viên của bạn",
+          digits: "Mã sinh viên phải là các ký tự số",
+          minlength: "Mã số sinh viên ít nhất 10 ký tự"
+        },
+        "hoten": {
+          required: "Cung cấp đầy đủ họ tên",
+        },
+        "matkhau": {
+          required: "Nhập mật khẩu",
+          minlength: "Mật khẩu phải có ít nhất 6 ký tự!"
+        },
+      }
+    })
+  }
+
+  static init() {
+    this.initValidation()
+  }
+}.init()));
+
 const manhom = $(".content").data("id");
 const showData = function (students) {
   let html = "";
@@ -192,28 +231,80 @@ $(document).ready(function () {
     });
   });
 
-  $(".btn-add-sv").click(function (e) {
+  $("#mssv").on("input", function(){
+    checkAcc($("#mssv").val())
+  })
+
+  $(".btn-add-sv-group").hide()
+  function checkAcc(mssv){
+    $.ajax({
+      type: "post",
+      url: "./module/checkAcc",
+      data: {
+        mssv: mssv,
+        manhom: manhom
+      },
+      success: function (response) {
+        let check = response;
+        if(check == 0){
+          Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Sinh viên đã có trong nhóm!` });
+          $(".btn-add-sv-group").hide()
+          $(".btn-add-sv").hide()
+          $("#collapseAddSv").collapse("hide")
+        } else if(check == -1){
+          $(".btn-add-sv-group").show()
+          $(".btn-add-sv").hide()
+          $("#collapseAddSv").collapse("hide")
+        } else if(check == 1){
+          $(".btn-add-sv").show()
+          $(".btn-add-sv-group").hide()
+          $("#collapseAddSv").collapse("show")
+        }
+      }
+    });
+  }
+
+  $(".btn-add-sv-group").click(function(){
     e.preventDefault();
     $.ajax({
       type: "post",
-      url: "./module/addSV",
+      url: "./module/addSvGroup",
       data: {
         manhom: manhom,
         mssv: $("#mssv").val(),
-        hoten: $("#hoten").val(),
-        sdt: $("#sdt").val(),
-        email: $("#email").val(),
-        ngaysinh: $("#ngaysinh").val(),
-        password: $("#matkhau").val(),
-        gioitinh: $('input[name="gender"]:checked').val(),
       },
       success: function (response) {
         if(response){
-          getGroupSize(manhom);
-          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          $("#modal-add-user").modal("hide");
+            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
         }
-      },
+      }
     });
+  })
+
+
+  $(".btn-add-sv").click(function (e) {
+    e.preventDefault();
+    if($("#addSvThuCong").valid()){
+      $.ajax({
+        type: "post",
+        url: "./module/addSV",
+        data: {
+          manhom: manhom,
+          mssv: $("#mssv").val(),
+          hoten: $("#hoten").val(),
+          password: $("#matkhau").val(),
+        },
+        success: function (response) {
+          if(response){
+            $("#modal-add-user").modal("hide");
+            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
+            getGroupSize(manhom);
+            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          }
+        },
+      });
+    }
   });
 
   $("#exportStudents").click(function(){
@@ -299,7 +390,7 @@ $(document).ready(function () {
         mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         $("#ps_user_group").val("");
         $("#file-cau-hoi").val("");
-        Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
+        Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
         $("#modal-add-user").modal("hide");
       },
     });
@@ -370,16 +461,12 @@ $(document).ready(function () {
   function clearInputFields() {
     $("#mssv").val("");
     $("#hoten").val("");
-    $("#sdt").val("");
-    $("#email").val(""),
-    $("#ngaysinh").val(""),
-    $("#matkhau").val(""),
-    $('input[name="gender"]').prop("checked", false);
-    $("#ps_user_group").val("");
+    $("#matkhau").val("")
   }
 
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
+    $("#collapseAddSv").collapse("hide")
     clearInputFields();
   });
 });

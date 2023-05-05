@@ -221,6 +221,15 @@ class NhomModel extends DB
         return $rows;
     }
 
+    public function kickUser($manhom,$mssv)
+    {
+        $valid = true;
+        $sql = "DELETE FROM `chitietnhom` WHERE `manguoidung` = $mssv AND `manhom` = $manhom";
+        $result = mysqli_query($this->con,$sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
     public function addSV($mssv, $hoten, $sdt, $email, $ngaysinh, $password, $gioitinh)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);

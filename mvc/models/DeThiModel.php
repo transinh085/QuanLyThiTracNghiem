@@ -405,7 +405,7 @@ class DeThiModel extends DB
                     break;
                 case "getAllCreatedTest":
                     // Lấy danh sách các đề thi đã tạo của giảng viên
-                    $query = "SELECT DT.made, tende, tenmonhoc, thoigianbatdau, thoigianketthuc FROM dethi DT, monhoc MH WHERE DT.monthi = MH.mamonhoc AND nguoitao = '".$args['id']."' AND DT.trangthai = 1";
+                    $query = "SELECT DT.made, tende, tenmonhoc, thoigianbatdau, thoigianketthuc, GROUP_CONCAT(N.tennhom SEPARATOR ', ') AS nhom, namhoc, hocky FROM dethi DT, monhoc MH, giaodethi GDT, nhom N WHERE DT.monthi = MH.mamonhoc AND DT.made = GDT.made AND N.manhom = GDT.manhom AND nguoitao = '".$args['id']."' AND DT.trangthai = 1";
                     if (isset($filter)) {
                         switch ($filter) {
                             case "0";
@@ -423,7 +423,7 @@ class DeThiModel extends DB
                     if ($input) {
                         $query .= " AND (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
                     }
-                    $query .= " ORDER BY DT.made DESC";
+                    $query .= " GROUP BY DT.made ORDER BY DT.made DESC";
                     break;
                 default:
             }

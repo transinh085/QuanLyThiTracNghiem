@@ -42,6 +42,7 @@ class Module extends Controller
                     "datepicker" => 1,
                     "flatpickr" => 1,
                     "sweetalert2" => 1,
+                    "jquery-validate" => 1,
                     "notify" => 1,
                     "pagination" => [],
                 ],
@@ -159,17 +160,32 @@ class Module extends Controller
             $manhom = $_POST['manhom'];
             $mssv = $_POST['mssv'];
             $hoten = $_POST['hoten'];
-            $sdt = $_POST['sdt'];
-            $email = $_POST['email'];
-            $ngaysinh = $_POST['ngaysinh'];
-            $bd = date("Y-m-d", strtotime($ngaysinh));
             $password = $_POST['password'];
-            $gioitinh = $_POST['gioitinh'];
-            $result = $this->nhomModel->addSV($mssv,$hoten,$sdt,$email,$bd,$password,$gioitinh);
+            $result = $this->nhomModel->addSV($mssv,$hoten,$password);
             $joinGroup = $this->nhomModel->join($manhom,$mssv);
-            echo json_encode($result);
+            echo $joinGroup;
         }
     }
+
+    public function addSvGroup(){
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $mssv = $_POST['mssv'];
+            $joinGroup = $this->nhomModel->join($manhom,$mssv);
+            echo ($joinGroup);
+        }
+    }
+
+    public function checkAcc()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $mssv = $_POST['mssv'];
+            $result = $this->nhomModel->checkAcc($mssv,$manhom);
+            echo $result;
+        }
+    }
+    
 
     public function exportExcelStudentS()
     {

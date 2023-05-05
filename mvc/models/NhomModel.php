@@ -230,16 +230,31 @@ class NhomModel extends DB
         return $valid;
     }
 
-    public function addSV($mssv, $hoten, $sdt, $email, $ngaysinh, $password, $gioitinh)
+    public function addSV($mssv, $hoten, $password)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `nguoidung`(`id`, `email`,`hoten`, `gioitinh`,`ngaysinh`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$mssv','$email','$hoten','$gioitinh','$ngaysinh','$password','1', '11')";
+        $sql = "INSERT INTO `nguoidung`(`id`,`hoten`,`matkhau`,`trangthai`, `manhomquyen`) VALUES ('$mssv','$hoten','$password','1', '11')";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) {
             $check = false;
         }
         return $check;
+    }
+
+    public function checkAcc($mssv,$manhom){
+        $sql_checkGroup = "SELECT * FROM chitietnhom where manhom='$manhom' AND manguoidung='$mssv'";
+        $result_checkGroup = mysqli_query($this->con,$sql_checkGroup);
+        if($result_checkGroup->num_rows>0){
+            return "0";
+        }
+
+        $sql_checkNguoiDung = "SELECT * FROM nguoidung where id='$mssv'";
+        $result_checkNguoiDung = mysqli_query($this->con,$sql_checkNguoiDung);
+        if($result_checkNguoiDung->num_rows>0){
+            return "-1";
+        }
+        return "1";
     }
 
     public function getGroupSize($id) {

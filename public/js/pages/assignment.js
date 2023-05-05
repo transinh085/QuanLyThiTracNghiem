@@ -1,5 +1,28 @@
 Dashmix.helpersOnLoad(["jq-select2"]);
 
+Dashmix.onLoad(() =>
+    class {
+        static initValidation() {
+            Dashmix.helpers("jq-validation"),
+            jQuery(".form-taodethi").validate({
+                rules: {
+                    "giang-vien": {
+                        required: !0,
+                    }
+                },
+                messages: {
+                    "giang-vien": {
+                        required: "Vui lòng chọn giảng viên",
+                    }
+                },
+            });
+        }
+        static init() {
+            this.initValidation();
+        }
+    }.init()
+);
+
 // Store assigned (checked) subjects while modal is opening
 let subject = new Set();
 
@@ -115,21 +138,16 @@ $(document).ready(function(){
     });
 
     $("#btn_assignment").click(function(){
-        // let listAssignment = [];
-        // $("input:checkbox[name=selectSubject]:checked").each(function(){
-        //     let subject = {
-        //         mamonhoc: $(this).val()
-        //     }
-        //     listAssignment.push(subject);
-        // });
-        let giangvien = $("#giang-vien").val();
-        if(subject.size === 0){
-            deleteAssignmentUser(giangvien)
-            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-            $("#modal-add-assignment").modal("hide");
-            Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
-        } else {
-            clearAllAndAddAssignmentUser(giangvien, [...subject]);
+        if ($(".form-phancong").valid()) {
+            let giangvien = $("#giang-vien").val();
+            if(subject.size === 0){
+                deleteAssignmentUser(giangvien)
+                mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+                $("#modal-add-assignment").modal("hide");
+                Dashmix.helpers('jq-notify', {type: 'success', icon: 'fa fa-check me-1', message: 'Phân công thành công! :)'});
+            } else {
+                clearAllAndAddAssignmentUser(giangvien, [...subject]);
+            }
         }
     })
 

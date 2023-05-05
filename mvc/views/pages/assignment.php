@@ -67,22 +67,22 @@
                 <div class="block-content tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
-                        <div class="mb-4">
+                        <form class="mb-4 form-phancong">
                             <div class="row">
-                                <div class="col-6 d-flex flex-row">
+                                <div class="col-6 d-flex flex-row w-100">
                                     <div class="d-flex align-items-center">
                                         <label for="giang-vien" class="form-label" style="width: 100px">
                                             Giảng viên
                                         </label>
                                     </div>
                                     <select class="js-select2 form-select data-monhoc" data-tab="1" id="giang-vien"
-                                        name="giang-vien" style="width: 100%;" data-placeholder="Choose one.."
+                                        name="giang-vien" style="width: 100%;" data-placeholder="Chọn giảng viên cần phân công"
                                         required>
                                         <option value=""></option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </form>
 
                         <form action="#" id="modal-add-assignment-search-form" onsubmit="return false;">
                             <div class="mb-4">

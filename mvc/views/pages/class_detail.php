@@ -136,18 +136,13 @@
                     <div class="tab-pane fade fade-up" id="ma-moi" role="tabpanel" aria-labelledby="ma-moi-tab"
                         tabindex="0">
                         <h2 class="display-1 text-center py-6" id="show-ma-moi"></h2>
-                        <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
                             <p class="text-center mb-0">
                                 <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
                             </p>
                             <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
                                     class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
                         </div>
-                        <div class="block-content block-content-full text-end">
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary btn-add-sv" data-bs-dismiss="modal">Thêm sinh
-                        viên</button>
-                </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"
                         aria-labelledby="them-file-excel-tab" tabindex="0">

@@ -22,6 +22,7 @@ class Assignment extends Controller
                     "select" => 1,
                     "notify" => 1,
                     "sweetalert2" => 1,
+                    "jquery-validate" => 1,
                     "pagination" => ["main-page-pagination", "modal-add-assignment-pagination"],
                 ],
                 "Script" => "assignment"

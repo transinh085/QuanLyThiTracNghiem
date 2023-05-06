@@ -138,7 +138,7 @@ class NhomModel extends DB
         $valid = true;
         $sql = "INSERT INTO `chitietnhom`(`manhom`, `manguoidung`) VALUES ('$manhom','$manguoidung')";
         $result = mysqli_query($this->con, $sql);
-        $this->updateSiso($manhom);
+        // $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
@@ -148,7 +148,7 @@ class NhomModel extends DB
         $valid = true;
         $sql = "DELETE FROM `chitietnhom` WHERE `manhom` = '$manhom' AND `manguoidung` = '$manguoidung'";
         $result = mysqli_query($this->con, $sql);
-        $this->updateSiso($manhom);
+        // $this->updateSiso($manhom);
         if(!$result) $valid = false;
         return $valid;
     }
@@ -258,10 +258,12 @@ class NhomModel extends DB
     }
 
     public function getGroupSize($id) {
-        $sql = "SELECT count(*) FROM chitietnhom WHERE manhom = $id";
+        // $sql = "SELECT count(*) FROM chitietnhom WHERE manhom = $id";
+        $sql = "SELECT siso from nhom where manhom = $id";
         $result = mysqli_query($this->con, $sql);
         $row = mysqli_fetch_assoc($result);
-        return $row['count(*)'];
+        // return $row['count(*)'];
+        return $row['siso'];
     }
 
     public function getQuerySortByName($filter, $input, $args, $order) {

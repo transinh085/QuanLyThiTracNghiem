@@ -54,6 +54,12 @@
                         <form class="form-update-profile" method="POST" enctype="multipart/form-data"
                             onsubmit="return false;">
                             <div class="mb-4">
+                                <label class="form-label" for="dm-profile-msv">Mã sinh viên</label>
+                                <input type="text" class="form-control" id="dm-profile-msv"
+                                    name="dm-profile-msv" placeholder="Enter your name.."
+                                    value="<?php echo $data["User"]["id"]?>" disabled>
+                            </div>
+                            <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-name">Họ và tên</label>
                                 <input type="text" class="form-control" id="dm-profile-edit-name"
                                     name="dm-profile-edit-name" placeholder="Enter your name.."

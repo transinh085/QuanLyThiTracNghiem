@@ -441,5 +441,5 @@ $(document).ready(function () {
 const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "subject";
 mainPagePagination.option.model = "MonHocModel";
-// mainPagePagination.option.limit = 10;
+mainPagePagination.option.limit = 10;
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

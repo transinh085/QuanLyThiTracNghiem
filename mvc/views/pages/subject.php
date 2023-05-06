@@ -4,7 +4,7 @@
             <h3 class="block-title">Danh sách môn học</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-subject"><i class="fa-regular fa-floppy-disk"></i> Thêm mới</button>
+                    data-bs-target="#modal-add-subject"><i class="fa-regular fa-plus"></i> Thêm môn học</button>
             </div>
         </div>
         <div class="block-content">

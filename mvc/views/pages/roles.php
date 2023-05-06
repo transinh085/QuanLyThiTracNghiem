@@ -3,7 +3,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Danh sách nhóm quyền</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                <button data-role="nhomquyen" data-action="create" type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
                     data-bs-target="#modal-add-role"><i class="fa-regular fa-plus me-1"></i> Thêm mới</button>
             </div>
         </div>
@@ -28,7 +28,7 @@
                                     <th class="text-center">Mã nhóm quyền</th>
                                     <th>Tên nhóm</th>
                                     <th class="text-center">Số người dùng</th>
-                                    <th class="text-center">Hành động</th>
+                                    <th class="text-center col-header-action">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody id="list-roles"></tbody>
@@ -111,21 +111,6 @@
                                 </td>
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="cauhoi" value="delete">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sinh viên</td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="sinhvien" value="view">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="sinhvien" value="create">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="sinhvien" value="update">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="sinhvien" value="delete">
                                 </td>
                             </tr>
                             <tr>
@@ -218,7 +203,7 @@
                                     <input class="form-check-input" type="checkbox" name="thongbao" value="delete">
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Cài đặt</td>
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="caidat" value="view">
@@ -228,7 +213,7 @@
                                     <input class="form-check-input" type="checkbox" name="caidat" value="update">
                                 </td>
                                 <td class="text-center">&nbsp</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                     <div class="row justify-content-around">

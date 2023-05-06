@@ -3,7 +3,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả phân công</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                <button data-role="phancong" data-action="create" type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
                     data-bs-target="#modal-add-assignment" id="add_assignment"><i class="fa-regular fa-plus"></i> Thêm
                     phân công mới</button>
             </div>
@@ -28,7 +28,7 @@
                             <th>Tên giảng viên</th>
                             <th class="text-center">Mã môn</th>
                             <th>Môn học</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center col-header-action">Action</th>
                         </tr>
                     </thead>
                     <tbody id="listAssignment">

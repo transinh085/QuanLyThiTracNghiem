@@ -31,15 +31,13 @@ function showData(data) {
               <td class="d-none d-sm-table-cell fs-sm">
                   <strong>${dokho}</strong>
               </td>
-              <td class="text-center">
-                  <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
-                              aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                question["macauhoi"]
-                              }">
+              <td class="text-center col-action">
+                  <a data-role="cauhoi" data-action="update" class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="tooltip"
+                              aria-label="Chỉnh sửa" data-bs-original-title="Chỉnh sửa" data-id="${question["macauhoi"]}">
                               <i class="fa fa-fw fa-pencil" ></i>
                           </a>
-                  <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
-                      data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
+                  <a data-role="cauhoi" data-action="delete" class="btn btn-sm btn-alt-secondary btn-delete-question" 
+                      data-bs-toggle="tooltip" aria-label="Xoá" data-bs-original-title="Xoá"  data-id="${
                         question["macauhoi"]
                       }">
                       <i class="fa fa-fw fa-times"></i>
@@ -48,6 +46,7 @@ function showData(data) {
           </tr>`;
   });
   $("#listQuestion").html(html);
+  $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 $(document).ready(function () {
@@ -482,6 +481,7 @@ $(document).ready(function () {
     let id = $(this).data("id");
     $("#question_id").val(id);
     getQuestionById(id);
+    $("#modal-add-question").modal("show");
   });
 
   $("#edit_question").click(function () {

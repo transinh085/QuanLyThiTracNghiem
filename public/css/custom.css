@@ -244,3 +244,15 @@ td p {
     flex: none;
     width: 100%;
 }
+
+[data-role] {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+[data-role].show {
+    opacity: 0.8;
+}
+
+.col-header-action{
+    display: none;
+}

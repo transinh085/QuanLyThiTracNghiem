@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end gap-3">
-                <a class="btn btn-hero btn-primary" href="./test/add"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề thi</a>
+                <a data-role="dethi" data-action="create" class="btn btn-hero btn-primary" href="./test/add"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề thi</a>
             </div>
         </div>
     </form>

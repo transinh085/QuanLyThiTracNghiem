@@ -4,15 +4,16 @@
             <h3 class="block-title">Danh sách môn học</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-subject"><i class="fa-regular fa-plus"></i> Thêm môn học</button>
+                    data-bs-target="#modal-add-subject" data-role="monhoc" data-action="create"><i
+                        class="fa-regular fa-plus"></i> Thêm môn học</button>
             </div>
         </div>
         <div class="block-content">
             <form action="#" id="search-form" onsubmit="return false;">
                 <div class="mb-4">
                     <div class="input-group">
-                        <input type="text" class="form-control form-control-alt" id="search-input"
-                            name="search-input" placeholder="Tìm kiếm môn học...">
+                        <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                            placeholder="Tìm kiếm môn học...">
                         <button class="input-group-text bg-body border-0 btn-search">
                             <i class="fa fa-search"></i>
                         </button>
@@ -28,7 +29,7 @@
                             <th class="d-none d-sm-table-cell text-center">Số tín chỉ</th>
                             <th class="d-none d-sm-table-cell text-center">Số tiết lý thuyết</th>
                             <th class="d-none d-sm-table-cell text-center">Số tiết thực hành</th>
-                            <th class="text-center">Hành động</th>
+                            <th class="text-center col-header-action">Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="list-subject">
@@ -67,8 +68,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Tổng số tín chỉ</label>
-                        <input type="number" class="form-control form-control-alt" name="sotinchi"
-                            id="sotinchi" placeholder="Nhập số tín chỉ">
+                        <input type="number" class="form-control form-control-alt" name="sotinchi" id="sotinchi"
+                            placeholder="Nhập số tín chỉ">
                     </div>
                     <div class="mb-3">
                         <div class="row">
@@ -88,8 +89,10 @@
                 <div class="block-content block-content-full text-end bg-body">
                     <button type="button" class="btn btn-sm btn-alt-secondary me-1"
                         data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-sm btn-primary add-subject-element" id="add_subject">Lưu</button>
-                    <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_subject" data-id="">Cập nhật</button>
+                    <button type="button" class="btn btn-sm btn-primary add-subject-element"
+                        id="add_subject">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_subject"
+                        data-id="">Cập nhật</button>
                 </div>
             </div>
         </div>
@@ -98,63 +101,55 @@
 
 <div class="modal fade" id="modal-chapter" tabindex="-1" role="dialog" aria-labelledby="modal-chapter"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content ">
-            <div class="block block-rounded block-themed block-transparent mb-0">
-                <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Danh sách chương</h3>
-                    <div class="block-options">
-                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-fw fa-times"></i>
-                        </button>
-                    </div>
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Danh sách chương</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+            <div class="table-responsive">
+                    <table class="table table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Tên chương</th>
+                                <th class="text-center col-header-action">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="showChapper"></tbody>
+                    </table>
                 </div>
-                <div class="block-content fs-sm">
-                    <div class="table-responsive">
-                        <table class="table table-vcenter">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th>Tên chương</th>
-                                    <th class="text-center">Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody id="showChapper"></tbody>
-                        </table>
-                    </div>
-                    <div class="mb-3">
-                        <div class="block block-rounded border">
-                            <div class="block-content pb-3">
-                                <a class="fw-bold" data-bs-toggle="collapse" href="#collapseChapter" role="button"
-                                    aria-expanded="false" aria-controls="collapseChapter" id="btn-add-chapter"><i
-                                        class="fa fa-fw fa-plus"></i>Thêm chương</a>
-                                <div class="collapse" id="collapseChapter">
-                                    <form method="post" class="mt-2">
-                                        <div class="row mb-1">
-                                            <div class="col-8">
-                                                <input type="text" class="form-control" name="name_chapter"
-                                                    id="name_chapter" placeholder="Nhập tên chương">
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="hidden" name="mamon_chuong" id="mamon_chuong">
-                                                <input type="hidden" name="machuong" id="machuong">
-                                                <button id="add-chapter" type="submit" class="btn btn-alt-primary">Tạo
-                                                    chương</button>
-                                                <button id="edit-chapter" type="submit" class="btn btn-primary">Đổi
-                                                    tên</button>
-                                                <button type="button"
-                                                    class="btn btn-alt-secondary close-chapter">Huỷ</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                <div class="block block-rounded mb-3">
+                    <div class="block-content pb-3">
+                        <a data-role="chuong" data-action="create" class="fw-bold" data-bs-toggle="collapse" href="#collapseChapter" role="button"
+                            aria-expanded="false" aria-controls="collapseChapter" id="btn-add-chapter"><i
+                                class="fa fa-fw fa-plus"></i>Thêm chương</a>
+                        <div class="collapse" id="collapseChapter">
+                            <form method="post" class="mt-2">
+                                <div class="row mb-1">
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" name="name_chapter"
+                                            id="name_chapter" placeholder="Nhập tên chương">
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="hidden" name="mamon_chuong" id="mamon_chuong">
+                                        <input type="hidden" name="machuong" id="machuong">
+                                        <button id="add-chapter" type="submit" class="btn btn-alt-primary">Tạo
+                                            chương</button>
+                                        <button id="edit-chapter" type="submit" class="btn btn-primary">Đổi
+                                            tên</button>
+                                        <button type="button"
+                                            class="btn btn-alt-secondary close-chapter">Huỷ</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="block-content block-content-full text-end bg-body">
-                    <button type="button" class="btn btn-sm btn-primary me-1" data-bs-dismiss="modal">Thoát</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Thoát</button>
             </div>
         </div>
     </div>

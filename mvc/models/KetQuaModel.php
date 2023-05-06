@@ -202,7 +202,7 @@ class KetQuaModel extends DB{
             }
         }
         $rs = array(
-            "diem_trung_binh" => $tongdiem/$soluong,
+            "diem_trung_binh" => $soluong != 0 ? round($tongdiem/$soluong, 2) : 0,
             "da_nop_bai" => $soluong,
             "chua_nop_bai" => $chuanop,
             "khong_thi" => $khongthi,

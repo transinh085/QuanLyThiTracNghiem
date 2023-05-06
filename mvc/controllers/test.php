@@ -22,7 +22,6 @@ class Test extends Controller
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "view")) {
             $this->view("main_layout", [
                 "Page" => "test",
@@ -42,7 +41,6 @@ class Test extends Controller
 
     public function add()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "create")) {
             $this->view("main_layout", [
                 "Page" => "add_update_test",
@@ -64,7 +62,6 @@ class Test extends Controller
 
     public function update($made)
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "update")) {
             $this->view("main_layout", [
                 "Page" => "add_update_test",
@@ -86,7 +83,6 @@ class Test extends Controller
 
     public function start($made)
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("tgthi", "join")) {
             $this->view("main_layout", [
                 "Page" => "vao_thi",
@@ -105,8 +101,8 @@ class Test extends Controller
 
     public function detail($made)
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "create")) {
+            print_r($this->dethimodel->getInfoTestBasic($made));
             $this->view("main_layout", [
                 "Page" => "test_detail",
                 "Title" => "Danh sách đã thi",
@@ -124,7 +120,6 @@ class Test extends Controller
 
     public function select($made)
     {
-        AuthCore::checkAuthentication();
         $check = $this->dethimodel->getById($made);
         if ($check && AuthCore::checkPermission("dethi", "create") && AuthCore::checkPermission("dethi", "update")) {
             $this->view('main_layout', [
@@ -146,7 +141,6 @@ class Test extends Controller
     // Tham gia thi
     public function taketest($made)
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("tgthi", "join")) {
             $user_id = $_SESSION['user_id'];
             $check = $this->ketquamodel->getMaKQ($made, $user_id);

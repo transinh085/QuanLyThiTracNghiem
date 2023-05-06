@@ -3,7 +3,7 @@
     display: none
 }
 </style>
-<div class="row g-0 flex-md-grow-1 form-taodethi" onsubmit="return false;">
+<form class="row g-0 flex-md-grow-1 form-taodethi">
     <div class="col-md-4 col-lg-5 col-xl-3 order-md-1 bg-white">
         <div class="content px-2">
             <div class="d-md-none push">

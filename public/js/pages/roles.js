@@ -1,5 +1,25 @@
-$(document).ready(function () {
+Dashmix.onLoad((() => class {
+    static initValidation() {
+        Dashmix.helpers("jq-validation"), jQuery(".form_role").validate({
+            rules: {
+                "ten-nhom-quyen": {
+                    required: !0,
+                }
+            },
+            messages: {
+                "ten-nhom-quyen": {
+                    required: "Vui lòng nhập tên nhóm quyền",
+                },
+            }
+        })
+    }
 
+    static init() {
+        this.initValidation()
+    }
+}.init()));
+
+$(document).ready(function () {
     function getDataForm() {
         let roles = [];
         let arr = $("[type='checkbox']");
@@ -21,23 +41,30 @@ $(document).ready(function () {
     $("#save-role").click(function (e) {
         e.preventDefault();
         let roles = getDataForm();
-        $.ajax({
-            type: "post",
-            url: "./roles/add",
-            data: {
-                name: $("#ten-nhom-quyen").val(),
-                roles: roles
-            },
-            success: function (response) {
-                console.log(response);
-                if (response) {
-                    loadDataTable()
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền thành công!' });
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo nhóm quyền không thành công!' });
-                }
+        if ($(".form_role").valid()) {
+            if(roles.length != 0) {
+                $.ajax({
+                    type: "post",
+                    url: "./roles/add",
+                    data: {
+                        name: $("#ten-nhom-quyen").val(),
+                        roles: roles
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if (response) {
+                            loadDataTable();
+                            $("#modal-add-role").modal("hide");
+                            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Tạo nhóm quyền thành công!' });
+                        } else {
+                            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo nhóm quyền không thành công!' });
+                        }
+                    }
+                });
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Bạn phải chọn quyền!' });
             }
-        });
+        }
     });
 
 
@@ -147,24 +174,30 @@ $(document).ready(function () {
     $("#update-role-btn").click(function (e) {
         e.preventDefault();
         let roles = getDataForm();
-        console.log(roles);
-        $.ajax({
-            type: "post",
-            url: "./roles/edit",
-            data: {
-                id: $("[name='manhomquyen']").val(),
-                name: $("#ten-nhom-quyen").val(),
-                roles: roles
-            },
-            success: function (response) {
-                if (response) {
-                    loadDataTable()
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm quyền thành công!' });
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật nhóm quyền không thành công!' });
-                }
+        if ($(".form_role").valid()) {
+            if(roles.length != 0) {
+                $.ajax({
+                    type: "post",
+                    url: "./roles/edit",
+                    data: {
+                        id: $("[name='manhomquyen']").val(),
+                        name: $("#ten-nhom-quyen").val(),
+                        roles: roles
+                    },
+                    success: function (response) {
+                        if (response) {
+                            loadDataTable()
+                            $("#modal-add-role").modal("hide");
+                            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Cập nhật nhóm quyền thành công!' });
+                        } else {
+                            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật nhóm quyền không thành công!' });
+                        }
+                    }
+                });
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Bạn phải chọn quyền!' });
             }
-        });
+        }
     });
 
     loadDataTable()

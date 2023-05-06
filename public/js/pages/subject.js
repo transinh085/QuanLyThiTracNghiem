@@ -80,17 +80,6 @@ function showData(subjects) {
 }
 
 $(document).ready(function () {
-  function loadData() {
-    $.get(
-      "./subject/getData",
-      function (data, textStatus) {
-        showData(data);
-      },
-      "json"
-    );
-  }
-
-  // loadData();
 
   $("[data-bs-target='#modal-add-subject']").click(function (e) {
     e.preventDefault();
@@ -140,7 +129,6 @@ $(document).ready(function () {
                   message: "Thêm môn học thành công!",
                 });
                 $("#modal-add-subject").modal("hide");
-                // loadData();
                 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
               } else {
                 Dashmix.helpers("jq-notify", {
@@ -213,7 +201,6 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Cập nhật môn học thành công!",
           });
-          // loadData();
           mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         } else {
           Dashmix.helpers("jq-notify", {
@@ -266,7 +253,6 @@ $(document).ready(function () {
           success: function (response) {
             if (response) {
               e.fire("Deleted!", "Xóa môn học thành công!", "success");
-              // loadData();
               mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             } else {
               e.fire("Lỗi !", "Xoá môn học không thành công !)", "error");

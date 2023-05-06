@@ -50,7 +50,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-1">
-                <form>
+                <form class="form_role">
                     <div class="mb-2">
                         <label class="form-label" for="ten-nhom-quyen">Tên nhóm quyền</label>
                         <input type="text" class="form-control form-control-alt" id="ten-nhom-quyen"
@@ -233,8 +233,8 @@
             <div class="modal-footer">
                 <input type="hidden" name="manhomquyen">
                 <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-sm btn-primary add-role-element" data-bs-dismiss="modal" id="save-role">Lưu</button>
-                <button type="button" class="btn btn-sm btn-primary update-role-element" data-bs-dismiss="modal" id="update-role-btn">Cập nhật</button>
+                <button type="button" class="btn btn-sm btn-primary add-role-element" id="save-role">Lưu</button>
+                <button type="button" class="btn btn-sm btn-primary update-role-element" id="update-role-btn">Cập nhật</button>
             </div>
         </div>
     </div>

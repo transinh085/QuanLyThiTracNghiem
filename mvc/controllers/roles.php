@@ -10,14 +10,14 @@ class Roles extends Controller{
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if(AuthCore::checkPermission("nhomquyen","view")) {
             $this->view("main_layout",[
                 "Page" => "roles",
                 "Title" => "Phân quyền",
                 "Plugin" => [
                     "sweetalert2" => 1,
-                    "notify" => 1
+                    "notify" => 1,
+                    "jquery-validate" => 1,
                 ],
                 "Script" => "roles"
             ]); 
@@ -26,7 +26,7 @@ class Roles extends Controller{
 
     public function add()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("nhomquyen","create")) {
             $name = $_POST['name'];
             $roles = $_POST['roles'];
             $result = $this->NhomQuyenModel->create($name,$roles);
@@ -34,12 +34,14 @@ class Roles extends Controller{
         }
     }
 
+    // Hiển thị bên nhóm quyền
     public function getAllSl()
     {
         $result = $this->NhomQuyenModel->getAllSl();
         echo json_encode($result);
     }
 
+    // Hiển thị bên user
     public function getAll()
     {
         $result = $this->NhomQuyenModel->getAll();
@@ -48,7 +50,7 @@ class Roles extends Controller{
 
     public function getDetail()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("nhomquyen","view")) {
             $result = $this->NhomQuyenModel->getById($_POST['manhomquyen']);
             echo json_encode($result);
         }
@@ -56,7 +58,7 @@ class Roles extends Controller{
 
     public function edit()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("nhomquyen","update")) {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $roles = $_POST['roles'];
@@ -66,7 +68,7 @@ class Roles extends Controller{
     }
 
     public function delete(){
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if($_SERVER["REQUEST_METHOD"] == "POST"  && AuthCore::checkPermission("nhomquyen","delete")){
             $id = $_POST['id'];
             echo $id;
         }

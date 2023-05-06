@@ -14,7 +14,6 @@ class Module extends Controller
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("hocphan", "view")) {
             $this->view("main_layout", [
                 "Page" => "module",

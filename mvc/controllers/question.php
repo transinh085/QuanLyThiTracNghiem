@@ -38,75 +38,56 @@ class Question extends Controller
         }
     }
 
-
-    function edit($id)
-    {
-        if (AuthCore::checkPermission("cauhoi", "update")) {
-            $this->view("main_layout", [
-                "Page" => "add_question",
-                "Title" => "Sửa câu hỏi",
-                "Plugin" => [
-                    "ckeditor" => 1,
-                    "select" => 1,
-                    "jquery-validate" => 1,
-                ],
-                "Script" => "add_question"
-            ]);
-        }
-    }
-
     public function xulyDocx()
     {
-        if (AuthCore::checkPermission("cauhoi", "create")) {
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                require_once 'vendor/autoload.php';
-                $filename = $_FILES["fileToUpload"]["tmp_name"];
-                $objReader = WordIOFactory::createReader('Word2007');
-                $phpWord = $objReader->load($filename);
-                $text = '';
-                // Lấy kí tự từng đoạn
-                function getWordText($element)
-                {
-                    $result = '';
-                    if ($element instanceof AbstractContainer) {
-                        foreach ($element->getElements() as $element) {
-                            $result .= getWordText($element);
-                        }
-                    } elseif ($element instanceof Text) {
-                        $result .= $element->getText();
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("cauhoi", "create")) {
+            require_once 'vendor/autoload.php';
+            $filename = $_FILES["fileToUpload"]["tmp_name"];
+            $objReader = WordIOFactory::createReader('Word2007');
+            $phpWord = $objReader->load($filename);
+            $text = '';
+            // Lấy kí tự từng đoạn
+            function getWordText($element)
+            {
+                $result = '';
+                if ($element instanceof AbstractContainer) {
+                    foreach ($element->getElements() as $element) {
+                        $result .= getWordText($element);
                     }
-                    return $result;
+                } elseif ($element instanceof Text) {
+                    $result .= $element->getText();
                 }
-
-                foreach ($phpWord->getSections() as $section) {
-                    foreach ($section->getElements() as $element) {
-                        $text .= trim(getWordText($element));
-                        $text .= "\\n";
-                    }
-                }
-
-                $text = rtrim($text, "\\n");
-                substr($text, -1);
-                $questions = explode("\\n\\n", $text);
-                $arrques = array();
-                for ($i = 0; $i < count($questions); $i++) {
-                    $data = explode("\\n", $questions[$i]);
-                    $arrques[$i]['level'] = substr($data[0], 1, 1);
-                    $arrques[$i]['question'] = substr(trim($data[0]), 4);
-                    $arrques[$i]['answer'] = ord(trim(substr($data[count($data) - 1], 8))) - 65 + 1;
-                    $arrques[$i]['option'] = array();
-                    for ($j = 1; $j < count($data) - 1; $j++) {
-                        $arrques[$i]['option'][] = trim(substr($data[$j], 3));
-                    }
-                }
-                echo json_encode($arrques);
+                return $result;
             }
+
+            foreach ($phpWord->getSections() as $section) {
+                foreach ($section->getElements() as $element) {
+                    $text .= trim(getWordText($element));
+                    $text .= "\\n";
+                }
+            }
+
+            $text = rtrim($text, "\\n");
+            substr($text, -1);
+            $questions = explode("\\n\\n", $text);
+            $arrques = array();
+            for ($i = 0; $i < count($questions); $i++) {
+                $data = explode("\\n", $questions[$i]);
+                $arrques[$i]['level'] = substr($data[0], 1, 1);
+                $arrques[$i]['question'] = substr(trim($data[0]), 4);
+                $arrques[$i]['answer'] = ord(trim(substr($data[count($data) - 1], 8))) - 65 + 1;
+                $arrques[$i]['option'] = array();
+                for ($j = 1; $j < count($data) - 1; $j++) {
+                    $arrques[$i]['option'][] = trim(substr($data[$j], 3));
+                }
+            }
+            echo json_encode($arrques);
         }
     }
 
     public function addExcel()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("cauhoi", "create")) {
             require_once 'vendor/autoload.php';
             $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
             try {

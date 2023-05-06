@@ -353,7 +353,7 @@ $(document).ready(function () {
                 thoigianketthuc: $("#time-end").val(),
                 socaude: socaude,
                 socautb: socautb,
-                socaukho: socaukho,
+                socaukho: socaukho, 
                 chuong: $("#chuong").val(),
                 loaide: loaide,
                 xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,

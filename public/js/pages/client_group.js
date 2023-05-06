@@ -134,10 +134,10 @@ $(document).ready(function () {
         $(".list-test").html(html);
     }
 
-    function showAnnouncement(announce) {
+    function showAnnouncement(announces) {
         let html = "";
-        if (announce.length != 0) {
-            // announces.forEach(announce => {
+        if (announces.length != 0) {
+            announces.forEach(announce => {
                 html += `
                 <li>
                 <a class="d-flex text-dark py-2" href="javascript:void(0)">
@@ -145,13 +145,13 @@ $(document).ready(function () {
                         <img class="img-avatar img-avatar48" src="./public/media/avatars/${announce.avatar == null ? "avatar2.jpg" : announce.avatar}" alt="">
                     </div>
                     <div class="flex-grow-1 fs-sm pe-2">
-                        <div class="fw-semibold">${announce.noidung}}</div>
+                        <div class="fw-semibold">${announce.noidung}</div>
                         <div class="text-muted">2 hours ago</div>
                     </div>
                 </a>
             </li>
                 `;
-            // })
+            })
         } else {
             html += `<p class="text-center">Không có thông báo</p>`
         }

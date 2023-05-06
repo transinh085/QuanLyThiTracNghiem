@@ -231,7 +231,7 @@ $(document).ready(function () {
     });
   });
 
-  $("#mssv").on("input", function(){
+  $("#mssv").on("change", function(){
     checkAcc($("#mssv").val())
   })
 

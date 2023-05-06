@@ -90,26 +90,26 @@
                 <div class="block-content tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-home" role="tabpanel"
                         aria-labelledby="btabs-static-home-tab" tabindex="0">
-                        <form method="POST" onsubmit="return false;">
+                        <form id="form_add_question" onsubmit="return false;">
                             <div class="mb-4">
                                 <div class="row">
                                     <div class="col-4">
                                         <label for="" class="form-label">Môn học</label>
                                         <select class="js-select2 form-select data-monhoc" data-tab="1" id="mon-hoc"
                                             name="mon-hoc" style="width: 100%;" data-placeholder="Choose one.."
-                                            required>
+                                            >
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Chương</label>
-                                        <select class="js-select2 form-select data-chuong" id="chuong" data-tab="1"
-                                            style="width: 100%;" data-placeholder="Choose one.." required>
+                                        <select class="js-select2 form-select data-chuong" id="chuong" name="chuong" data-tab="1"
+                                            style="width: 100%;" data-placeholder="Choose one..">
                                         </select>
                                     </div>
                                     <div class="col-4">
                                         <label class="form-label">Độ khó</label>
-                                        <select class="js-select2 form-select" id="dokho" style="width: 100%;"
-                                            data-placeholder="Choose one.." required>
+                                        <select class="js-select2 form-select" id="dokho" name="dokho" style="width: 100%;"
+                                            data-placeholder="Choose one..">
                                             <option></option>
                                             <option value="1">Cơ bản</option>
                                             <option value="2">Trung bình</option>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="js-ckeditor">Nội dung câu hỏi</label>
-                                <textarea id="js-ckeditor" name="ckeditor" required></textarea>
+                                <textarea id="js-ckeditor" name="js-ckeditor"></textarea>
                             </div>
                             <div class="mb-4 row">
                                 <h6>Danh sách đáp án</h6>
@@ -139,7 +139,7 @@
                                 <div class="collapse" id="add_option">
                                     <div class="card card-body">
                                         <label class="form-label" for="option-content">Nội dung trả lời</label>
-                                        <textarea id="option-content" name="ckeditor"></textarea>
+                                        <textarea id="option-content" name="option-content"></textarea>
                                         <div class="form-check mt-4">
                                             <input class="form-check-input" type="checkbox" value="" id="true-option">
                                             <label class="form-check-label" for="true-option">
@@ -184,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label" for="js-ckeditor">Nội dung</label>
+                                <label class="form-label" for="file-cau-hoi">Nội dung</label>
                                 <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
                             </div>
                             <div class="mb-4">

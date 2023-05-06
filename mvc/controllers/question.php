@@ -29,6 +29,7 @@ class Question extends Controller
                     "notify" => 1,
                     "sweetalert2" => 1,
                     "pagination" => [],
+                    "jquery-validate" => 1,
                 ],
                 "Script" => "question"
             ]);
@@ -46,7 +47,8 @@ class Question extends Controller
                 "Title" => "Sửa câu hỏi",
                 "Plugin" => [
                     "ckeditor" => 1,
-                    "select" => 1
+                    "select" => 1,
+                    "jquery-validate" => 1,
                 ],
                 "Script" => "add_question"
             ]);
@@ -209,7 +211,6 @@ class Question extends Controller
         if (AuthCore::checkPermission("cauhoi", "delete")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['macauhoi'];
-                $this->cauTraLoiModel->deletebyanswer($id);
                 $this->cauHoiModel->delete($id);
             }
         }

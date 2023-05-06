@@ -264,7 +264,7 @@ $(document).ready(function () {
     });
   }
 
-  $(".btn-add-sv-group").click(function(){
+  $(".btn-add-sv-group").click(function(e){
     e.preventDefault();
     $.ajax({
       type: "post",
@@ -275,8 +275,10 @@ $(document).ready(function () {
       },
       success: function (response) {
         if(response){
+          getGroupSize(manhom);
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
           $("#modal-add-user").modal("hide");
-            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
+          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
         }
       }
     });

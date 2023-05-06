@@ -503,5 +503,5 @@ mainPagePagination.option.controller = "test";
 mainPagePagination.option.model = "KetQuaModel";
 mainPagePagination.option.made = made;
 mainPagePagination.option.manhom = currentGroupID;
-// mainPagePagination.option.limit = 10;
+mainPagePagination.option.limit = 10;
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

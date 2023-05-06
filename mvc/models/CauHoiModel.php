@@ -19,7 +19,7 @@ class CauHoiModel extends DB{
     public function delete($macauhoi)
     {
         $valid = true;
-        $sql = "DELETE FROM `cauhoi` WHERE `macauhoi`= $macauhoi";
+        $sql = "UPDATE `cauhoi` SET `trangthai`='0' WHERE `macauhoi`= $macauhoi";
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid;
@@ -85,7 +85,7 @@ class CauHoiModel extends DB{
     public function getTotalPageQuestionBySubject($mamonhoc, $machuong, $dokho, $content)
     {
         $limit = 10;
-        $sql = "SELECT macauhoi, noidung, dokho, machuong FROM cauhoi WHERE mamonhoc = '$mamonhoc'";
+        $sql = "SELECT macauhoi, noidung, dokho, machuong FROM cauhoi WHERE mamonhoc = '$mamonhoc' WHERE trangthai='1'";
         $sql .= $machuong == 0 ? "" : " AND machuong = $machuong";
         $sql .= $dokho == 0 ? "" : " AND dokho = $dokho";
         $sql .= $content == '' ? "" : " AND noidung LIKE '%$content%'";
@@ -99,7 +99,7 @@ class CauHoiModel extends DB{
 
     public function getQueryWithInput($filter, $input, $args) {
         $input_entity_encode = htmlentities($input);
-        $query = "SELECT *, fnStripTags(noidung) FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE (noidung LIKE N'%${input}%' OR fnStripTags(noidung) LIKE N'%${input_entity_encode}%')";
+        $query = "SELECT *, fnStripTags(noidung) FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE (noidung LIKE N'%${input}%' OR fnStripTags(noidung) LIKE N'%${input_entity_encode}%') AND cauhoi.trangthai='1'";
         if (isset($filter)) {
             if (isset($filter['mamonhoc'])) {
                 $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];
@@ -118,7 +118,7 @@ class CauHoiModel extends DB{
         if ($input) {
             return $this->getQueryWithInput($filter, $input, $args);
         }
-        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE 1";
+        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE cauhoi.trangthai='1'";
         if (isset($filter)) {
             if (isset($filter['mamonhoc'])) {
                 $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];

@@ -690,7 +690,6 @@ $(document).ready(function () {
           },
           success: function (response) {
             e.fire("Deleted!", "Xóa câu hỏi thành công!", "success");
-            // loadQuestion();
             mainPagePagination.getPagination(
               mainPagePagination.option,
               mainPagePagination.valuePage.curPage

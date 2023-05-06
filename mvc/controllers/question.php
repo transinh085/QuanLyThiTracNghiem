@@ -211,7 +211,6 @@ class Question extends Controller
         if (AuthCore::checkPermission("cauhoi", "delete")) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = $_POST['macauhoi'];
-                $this->cauTraLoiModel->deletebyanswer($id);
                 $this->cauHoiModel->delete($id);
             }
         }

@@ -52,13 +52,6 @@
                         Thêm thủ công
                     </button>
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link" id="btabs-alt-static-profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#btabs-alt-static-profile" role="tab" aria-controls="btabs-alt-static-profile"
-                        aria-selected="false">
-                        Thêm từ file
-                    </button>
-                </li>
                 <li class="nav-item ms-auto">
                     <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal" aria-label="Close"></button>
                 </li>
@@ -123,41 +116,6 @@
                         </div>
                         <!-- <form method="POST" onsubmit="return false;">
                         </form> -->
-                    </div>
-                    <div class="tab-pane" id="btabs-alt-static-profile" role="tabpanel"
-                        aria-labelledby="btabs-static-profile-tab" tabindex="0">
-                        <form id="form-upload" method="POST" enctype="multipart/form-data">
-                            <div class="mb-4">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="" class="form-label">Môn học</label>
-                                        <select id="monhocfile" class="js-select2 form-select data-monhoc" data-tab="2"
-                                            style="width: 100%;" data-placeholder="Choose one.." required>
-                                        </select>
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Chương</label>
-                                        <select id="chuongfile" class="js-select2 form-select data-chuong" data-tab="2"
-                                            style="width: 100%;" data-placeholder="Choose one.." required>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="js-ckeditor">Nội dung</label>
-                                <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
-                            </div>
-                            <div class="mb-4">
-                                <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
-                            </div>
-                            <div class="mb-4 d-flex justify-content-between">
-                                <button type="button" class="btn btn-hero btn-primary" id="btnAddExcel"><i
-                                        class="fa fa-cloud-arrow-up"></i>Thêm file Excel</button>
-                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i
-                                        class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống</button>
-                            </div>
-                        </form>
-                        <div id="content-file"></div>
                     </div>
                 </div>
             </div>

@@ -29,6 +29,7 @@ class Question extends Controller
                     "notify" => 1,
                     "sweetalert2" => 1,
                     "pagination" => [],
+                    "jquery-validate" => 1,
                 ],
                 "Script" => "question"
             ]);
@@ -46,7 +47,8 @@ class Question extends Controller
                 "Title" => "Sửa câu hỏi",
                 "Plugin" => [
                     "ckeditor" => 1,
-                    "select" => 1
+                    "select" => 1,
+                    "jquery-validate" => 1,
                 ],
                 "Script" => "add_question"
             ]);

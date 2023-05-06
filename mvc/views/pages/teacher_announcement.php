@@ -1,4 +1,4 @@
-<form class="row g-0 flex-md-grow-1 form-taodethi" onsubmit="return false;">
+<!-- <form class="row g-0 flex-md-grow-1 form-taodethi" onsubmit="return false;">
     <div class="col-md-8 col-lg-7 col-xl-9 col-custom-9 order-md-0">
         <div class="content content-full">
             <form class="block block-rounded form-tao-de" novalidate="novalidate">
@@ -30,17 +30,69 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <?php 
-                            // if($data["Action"] == "create") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-add-test"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề</button>';
-                            // else if($data["Action"] == "update") echo '<button type="submit" class="btn btn-hero btn-primary" id="btn-update-test"><i class="fa fa-fw fa-plus me-1"></i> Cập nhật đề</button>';
-                            ?>
                             <button type="submit" class="btn btn-hero btn-primary" id="btn-send-announcement"><i class="fa fa-fw fa-plus me-1"></i>Gửi thông báo</button>
-                            <!-- <a class="btn btn-hero btn-success" id="btn-update-quesoftest"><i class="fa fa-fw fa-pencil me-1"></i> Chỉnh sửa danh sách câu hỏi</a> -->
+                            <button type="submit" class="btn btn-hero btn-primary" id="btn-send-announcement"><i class="fa fa-fw fa-plus me-1"></i>Tạo thông báo</button>
+                            <a class="btn btn-hero btn-success" id="btn-update-quesoftest"><i class="fa fa-fw fa-pencil me-1"></i> Chỉnh sửa danh sách câu hỏi</a>
                         </div>
                     </div>
             </form>
         </div>
     </div>
-</form>
+</form> -->
 
-<!-- <span class="select2-container select2-container--default select2-container--open" style="position: absolute; top: 458.273px; left: 717.534px;"><span class="select2-dropdown select2-dropdown--below" dir="ltr" style="width: 285.977px;"><span class="select2-search select2-search--dropdown"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" aria-controls="select2-nhom-hp-results" aria-activedescendant="select2-nhom-hp-result-64xw-1"></span><span class="select2-results"><ul class="select2-results__options" role="listbox" id="select2-nhom-hp-results" aria-expanded="true" aria-hidden="false"><li class="select2-results__option" id="select2-nhom-hp-result-0fkq-0" role="option" aria-selected="false" data-select2-id="select2-nhom-hp-result-0fkq-0">841059 - Lập trình hướng đối tượng - NH2023 - HK1</li><li class="select2-results__option select2-results__option--highlighted" id="select2-nhom-hp-result-64xw-1" role="option" aria-selected="false" data-select2-id="select2-nhom-hp-result-64xw-1">841059 - Lập trình hướng đối tượng - NH2023 - HK2</li></ul></span></span></span> -->
+
+<div class="content" data-id="<?php echo $_SESSION["user_id"] ?>">
+    <form action="#" method="POST" id="search-form" onsubmit="return false;">
+        <div class="row mb-4">
+            <div class="col-6 flex-grow-1">
+                <div class="input-group">
+                    <!-- <button class="btn btn-alt-primary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="0">Chưa mở</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="1">Đang mở</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="2">Đã đóng</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="3">Tất cả</a></li>
+                    </ul> -->
+                    <input type="text" class="form-control" id="search-input" name="search-input" placeholder="Tìm kiếm thông báo...">
+                </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end gap-3">
+                <a class="btn btn-hero btn-primary" href="./teacher_announcement/add"><i class="fa fa-fw fa-plus me-1"></i> Tạo thông báo</a>
+            </div>
+        </div>
+    </form>
+    <div class="list-announces" id="list-announces">
+        <div class="block block-rounded block-fx-pop mb-2">
+                <div class="block-content block-content-full border-start border-3 border-danger">
+                <div class="d-md-flex justify-content-md-between align-items-md-center">
+                        <div class="p-1 p-md-3">
+                            <h3 class="h4 fw-bold mb-3">
+                                <a href="./test/detail/6" class="text-dark link-fx">Nhóm 1</a>
+                            </h3>
+                            <p class="fs-sm text-muted mb-2">
+                                <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="Nhóm 1, Nhóm 2, Nhóm 3">Lập trình Java - NH2022 - HK2</strong>
+                            </p>
+                            <div class="flex-grow-1 fs-sm pe-2">
+                                <div class="fw-semibold">
+                                    <i class="fa fa-message me-1"></i>
+                                    You are running out of space. Please consider
+                                    upgrading your plan.</div>
+                                <div class="text-muted">1 hour ago</div>
+                            </div>
+                        </div>
+                        <div class="p-1 p-md-3">
+                            <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/6">
+                                <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
+                            </a>
+                            <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="6">
+                                <i class="fa fa-times opacity-50 me-1"></i> Xoá thông báo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row my-3">
+        <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
+    </div>
+</div>

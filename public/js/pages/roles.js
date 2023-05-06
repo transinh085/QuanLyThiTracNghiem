@@ -50,11 +50,11 @@ $(document).ready(function () {
                     <td class="text-center fs-sm"><strong>${item.manhomquyen}</strong></td>
                     <td>${item.tennhomquyen}</td>
                     <td class="text-center fs-sm">${item.soluong}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-alt-secondary btn-show-update" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                    <td class="text-center col-action">
+                        <button data-role="nhomquyen" data-action="update" class="btn btn-sm btn-alt-secondary btn-show-update" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
                             <i class="fa fa-fw fa-pencil"></i>
                         </button>
-                        <button class="btn btn-sm btn-alt-secondary delete_roles" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Delete"
+                        <button data-role="nhomquyen" data-action="delete" class="btn btn-sm btn-alt-secondary delete_roles" data-id="${item.manhomquyen}" data-bs-toggle="tooltip" aria-label="Delete"
                             data-bs-original-title="Delete">
                             <i class="fa fa-fw fa-times"></i>
                         </button>

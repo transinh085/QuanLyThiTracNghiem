@@ -113,7 +113,7 @@ $(document).ready(function () {
                                         <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
                                         <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
                                     </a>
-                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}" data-role="hocphan" data-action="update">
                                         <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
                                         <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
                                     </a>

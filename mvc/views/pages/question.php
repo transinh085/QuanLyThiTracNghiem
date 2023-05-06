@@ -4,7 +4,7 @@
             <h3 class="block-title">Tất cả câu hỏi</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#modal-add-question" id="addquestionnew"><i class="fa-regular fa-plus"></i> Thêm câu
+                    data-bs-target="#modal-add-question" id="addquestionnew" data-role="cauhoi" data-action="create"><i class="fa-regular fa-plus"></i> Thêm câu
                     hỏi mới</button>
             </div>
         </div>
@@ -52,7 +52,7 @@
                             <th style="width: 700px;">Nội dung câu hỏi</th>
                             <th class="d-none d-sm-table-cell">Môn học</th>
                             <th class="d-none d-xl-table-cell">Độ khó</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center col-header-action">Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="listQuestion">

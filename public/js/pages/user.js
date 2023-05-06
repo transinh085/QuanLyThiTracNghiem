@@ -97,13 +97,13 @@ const showData = function (users) {
       user.trangthai == 1 ? "Hoạt động" : "Khoá"
     }</span>
                           </td> 
-                          <td class="text-center">
+                          <td class="text-center col-action">
                               <a data-role="nguoidung" data-action="update" class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
-                              data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${user.id}">
+                              data-bs-toggle="tooltip" aria-label="Chỉnh sửa" data-bs-original-title="Chỉnh sửa" data-id="${user.id}">
                                   <i class="fa fa-fw fa-pencil"></i>
                               </a>
                               <a data-role="nguoidung" data-action="delete" class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
-                                  aria-label="Delete" data-bs-original-title="Delete" data-id="${
+                                  aria-label="Xoá" data-bs-original-title="Xoá" data-id="${
                                     user.id
                                   }">
                                   <i class="fa fa-fw fa-times"></i>

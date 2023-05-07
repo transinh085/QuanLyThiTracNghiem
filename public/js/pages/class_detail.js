@@ -103,10 +103,11 @@ const showData = function (students) {
   $('[data-bs-toggle="tooltip"]').tooltip();
 };
 
+
+
 $(document).ready(function () {
   $(document).on("click", ".kick-user", function () {
     var mssv = $(this).data("id");
-
     let e = Swal.mixin({
       buttonsStyling: !1,
       target: "#page-container",
@@ -144,7 +145,6 @@ $(document).ready(function () {
             manguoidung: mssv,
           },
           success: function (response) {
-            console.log(response)
             getGroupSize(manhom);
             mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
@@ -163,13 +163,11 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        console.log(response)
         showData(response);
       },
     });
   }
 
-  // loadList();
 
   function showDataTest(tests) {
     let html = ``;
@@ -196,6 +194,45 @@ $(document).ready(function () {
     $(".list-test").html(html);
   }
 
+  function loadDataAnnounce(manhom)
+  {
+      $.ajax({
+          type: "post",
+          url: "./teacher_announcement/getAnnounce",
+          data: {
+              manhom: manhom
+          },
+          dataType: "json",
+          success: function (response) {
+              showAnnouncement(response);
+          }
+      });
+  }
+
+  function showAnnouncement(announces) {
+    let html = "";
+    if (announces.length != 0) {
+        announces.forEach(announce => {
+            html += `
+            <li>
+            <a class="d-flex text-dark py-2" href="./teacher_announcement/update/${announce.matb}">
+                <div class="flex-shrink-0 mx-3">
+                    <img class="img-avatar img-avatar48" src="./public/media/avatars/${announce.avatar == null ? "avatar2.jpg" : announce.avatar}" alt="">
+                </div>
+                <div class="flex-grow-1 fs-sm pe-2">
+                    <div class="fw-semibold">${announce.noidung}</div>
+                    <div class="text-muted">${formatDate(announce.thoigiantao)}</div>
+                </div>
+            </a>
+        </li>
+            `;
+        })
+    } else {
+        html += `<p class="text-center">Không có thông báo</p>`
+    }
+    $(".list-announce").html(html);
+}
+
   function loadDataTest(manhom) {
     $.ajax({
       type: "post",
@@ -213,6 +250,7 @@ $(document).ready(function () {
   $("[data-bs-target='#offcanvasSetting']").click(function (e) {
     e.preventDefault();
     loadDataTest(manhom);
+    loadDataAnnounce(manhom);
   });
 
   showInvitedCode();
@@ -381,7 +419,6 @@ $(document).ready(function () {
           Dashmix.layout("header_loader_on");
         },
         success: function (response) {
-          console.log(response)
           addExcel(response, password);
         },
         complete: function () {

@@ -231,9 +231,9 @@ $(document).ready(function () {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
       if (seconds < 10) seconds = "0" + seconds;
       $("#timer").html(hours + ":" + minutes + ":" + seconds);
-      if (distance <= 0) {
-        clearInterval(x);
+      if (distance <= 1000 && distance >= 0) {
         nopbai();
+        clearInterval(x);
       }
     }, 1000);
   }

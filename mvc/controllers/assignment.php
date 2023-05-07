@@ -12,7 +12,6 @@ class Assignment extends Controller
 
     function default()
     {
-        AuthCore::checkAuthentication();
         if(AuthCore::checkPermission("phancong","view")) {
             $this->view("main_layout", [
                 "Page" => "assignment",

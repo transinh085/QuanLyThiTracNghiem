@@ -3,7 +3,7 @@
     display: none
 }
 </style>
-<form class="row g-0 flex-md-grow-1 form-taodethi" onsubmit="return false;">
+<form class="row g-0 flex-md-grow-1 form-taothongbao" onsubmit="return false;">
     <div class="col-md-8 col-lg-7 col-xl-9 col-custom-9 order-md-0">
         <div class="content content-full">
             <form class="block block-rounded form-tao-de" novalidate="novalidate">
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="block-content pb-3">
-                                    <div class="row" id="list-group">
+                                    <div class="row" id="list-group" name="list-group">
                                         <div class="text-center fs-sm"><img style="width:100px" src="./public/media/svg/empty_data.png" alt=""></div>
                                     </div>
                                 </div>

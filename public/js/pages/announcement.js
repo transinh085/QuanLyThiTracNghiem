@@ -1,5 +1,32 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 
+
+Dashmix.onLoad((() => class {
+    static initValidation() {
+      Dashmix.helpers("jq-validation"), jQuery(".form-taothongbao").validate({
+        rules: {
+          "name-exam": {
+            required: !0,
+          },
+          "nhom-hp": {
+            required: !0,
+          },
+        },
+        messages: {
+          "name-exam": {
+            required: "Nhập nội dung thông báo cần gửi",
+          },
+          "nhom-hp": {
+            required: "Vui lòng chọn nhóm học phần",
+          },
+        }
+      })
+    }
+  
+    static init() {
+      this.initValidation()
+    }
+  }.init()));
 let groups = [];
 $(document).ready(function() {
     function showGroup() {
@@ -79,25 +106,28 @@ $(document).ready(function() {
         let nowMintues = nowDate.getMinutes();
         let nowSeconds = nowDate.getSeconds();
         let format = nowYear + "/" + nowMonth + "/" + nowDay + " " + nowHours + ":" + nowMintues + ":" + nowSeconds;
-        $.ajax({
-            type: "post",
-            url: "./teacher_announcement/sendAnnouncement",
-            data: {
-                noticeText: $("#name-exam").val(),
-                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                manhom: getGroupSelected(),
-                thoigiantao: format,
-            },
-            dataType: "json",
-            success: function(response) {
-                console.log(response);
-                if (response) {
-                    location.href = "./teacher_announcement";
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Gửi thông báo không thành công!' });
+        if ($(".form-taothongbao").valid()) { 
+            $.ajax({
+                type: "post",
+                url: "./teacher_announcement/sendAnnouncement",
+                data: {
+                    noticeText: $("#name-exam").val(),
+                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                    manhom: getGroupSelected(),
+                    thoigiantao: format,
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    if (response) {
+                        location.href = "./teacher_announcement";
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Gửi thông báo không thành công!' });
+                    }
                 }
-            }
-        })
+            })
+        }
+
     });
 
     function showListAnnounce(announces) {

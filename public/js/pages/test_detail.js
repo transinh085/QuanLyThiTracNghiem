@@ -1,5 +1,4 @@
 function showData(data) {
-  // console.log(data);
   let html = "";
   data.forEach((Element) => {
     var totalSeconds = Element["thoigianlambai"] || 0;
@@ -142,7 +141,7 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-group").text($(this).text());
     currentGroupID = $(this).data("value");
-    mainPagePagination.option.manhom = currentGroupID;
+    mainPagePagination.option.manhom = currentGroupID == 0 ? listGroupID.slice(0, -1) : currentGroupID;
     resetFilterState();
     renderTableTitleColumns();
     resetSortIcons();
@@ -153,11 +152,11 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-state").text($(this).text());
     const state = $(this).data("state");
-    if (state !== "present") {
-      mainPagePagination.option.filter = state;
-    } else {
-      delete mainPagePagination.option.filter;
-    }
+    mainPagePagination.option.filter = state;
+    // if (state !== "present") {
+    // } else {
+    //   delete mainPagePagination.option.filter;
+    // }
 
     renderTableTitleColumns(state);
     resetSortIcons();
@@ -237,7 +236,7 @@ $(document).ready(function () {
   }
 
   function resetFilterState() {
-    delete mainPagePagination.option.filter;
+    mainPagePagination.option.filter = "present";
     $(".btn-filtered-by-state").text("Đã nộp bài");
   }
 
@@ -248,6 +247,7 @@ $(document).ready(function () {
     `;
 
     switch (state) {
+      case "all":
       case "present":
         html += `
         <th class="text-center col-sort" data-sort-column="diemthi" data-sort-order="default">Điểm</th>
@@ -504,4 +504,5 @@ mainPagePagination.option.model = "KetQuaModel";
 mainPagePagination.option.made = made;
 mainPagePagination.option.manhom = currentGroupID;
 mainPagePagination.option.limit = 10;
+mainPagePagination.option.filter = "present";
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

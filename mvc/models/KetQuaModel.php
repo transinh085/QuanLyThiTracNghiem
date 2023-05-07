@@ -88,29 +88,6 @@ class KetQuaModel extends DB{
         return $rows;
     }
 
-    public function getQuerySortByName($filter, $input, $args, $order) {
-        if (isset($filter) && $filter == "absent") {
-            $query = "SELECT CTN.manguoidung, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manguoidung IN (SELECT manguoidung FROM `chitietnhom` where manhom = ".$args['manhom'].") AND CTN.manguoidung NOT IN (SELECT KQ1.manguoidung FROM ketqua KQ1, nguoidung ND1, chitietnhom CTN1 WHERE KQ1.manguoidung = ND1.id AND CTN1.manguoidung = ND1.id AND KQ1.made = ".$args['made']." AND CTN1.manhom = ".$args['manhom'].")";
-        } else {
-            $query = "SELECT KQ.*, email, hoten, SUBSTRING_INDEX(hoten, ' ', -1) AS firstname, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
-            if (isset($filter) && $filter == "interrupted") {
-                $query .= " AND ISNULL(diemthi)";
-            } else {
-                $query .= " AND diemthi IS NOT NULL";
-            }
-        }
-        if ($input) {
-            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
-        }
-        $query = $query . " ORDER BY firstname $order";
-        return $query;
-    }
-
-    public function getListAbsentFromTest($filter, $input, $args) {
-        $query = "SELECT CTN.manguoidung, email, hoten, avatar FROM chitietnhom CTN, nguoidung ND WHERE CTN.manguoidung = ND.id AND CTN.manguoidung IN (SELECT manguoidung FROM `chitietnhom` where manhom = ".$args['manhom'].") AND CTN.manguoidung NOT IN (SELECT KQ1.manguoidung FROM ketqua KQ1, nguoidung ND1, chitietnhom CTN1 WHERE KQ1.manguoidung = ND1.id AND CTN1.manguoidung = ND1.id AND KQ1.made = ".$args['made']." AND CTN1.manhom = ".$args['manhom'].")";
-        return $query;
-    }
-
     // Lấy ra điểm tất cả đề thi của nhóm học phần để xuất file Excel
     public function getMarkOfAllTest($manhom)
     {
@@ -211,21 +188,98 @@ class KetQuaModel extends DB{
         );
         return $rs;
     }
-    
-    // Tìm kiếm & phân trang & sắp xếp
-    public function getQuery($filter, $input, $args) {
-        if (isset($filter) && $filter == "absent") {
-            $query = $this->getListAbsentFromTest($filter, $input, $args);
+
+    public function getQueryAddColumnFirstname($original_query, $filter, $input, $args, $order) {
+        $from_index = strpos($original_query, "FROM");
+        $select_string = substr($original_query, 0, $from_index) . ", SUBSTRING_INDEX(hoten, ' ', -1) AS firstname";
+        $from_string = substr($original_query, $from_index);
+        $query = "$select_string $from_string";
+        return $query;
+    }
+
+    public function getListAbsentFromTest($filter, $input, $args) {
+        if (is_array($args['manhom'])) {
+            $listGroup = implode(", ", $args['manhom']);
         } else {
-            $query = "SELECT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made']." AND CTN.manhom = ".$args['manhom'];
-            if (isset($filter) && $filter == "interrupted") {
-                $query .= " AND ISNULL(diemthi)";
-            } else {
-                $query .= " AND diemthi IS NOT NULL";
+            $listGroup = $args['manhom'];
+        }
+        $query = "SELECT KQ.makq, KQ.made, CTN.manguoidung, KQ.diemthi, KQ.thoigianvaothi, KQ.thoigianlambai, KQ.socaudung, KQ.solanchuyentab, email, hoten, avatar FROM chitietnhom CTN JOIN nguoidung ND ON ND.id = CTN.manguoidung LEFT JOIN ketqua KQ ON CTN.manguoidung = KQ.manguoidung AND KQ.made = ".$args['made']." WHERE KQ.made IS NULL AND CTN.manhom IN ($listGroup)";
+        return $query;
+    }
+
+    public function getQueryAll($filter, $input, $args) {
+        $absent_query = $this->getListAbsentFromTest($filter, $input, $args);
+        $query = "SELECT DISTINCT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
+        if (is_array($args['manhom'])) {
+            $list = implode(", ", $args['manhom']);
+            $query .= " AND CTN.manhom IN ($list)";
+        } else {
+            $query .= " AND CTN.manhom = ".$args['manhom'];
+        }
+        $present_query = $query;
+        $query = "($present_query) UNION ($absent_query)";
+        
+        $order_by = "ORDER BY manguoidung ASC";
+        if (isset($args["custom"]["function"])) {
+            $function = $args["custom"]["function"];
+            switch ($function) {
+                case "sort":
+                    $column = $args["custom"]["column"];
+                    $order = $args["custom"]["order"];
+                    switch ($column) {
+                        case "manguoidung":
+                        case "diemthi":
+                        case "thoigianvaothi":
+                        case "thoigianlambai":
+                        case "solanchuyentab":
+                            $order_by = "ORDER BY $column $order";
+                            break;
+                        case "hoten":
+                            $present_query = $this->getQueryAddColumnFirstname($present_query, $filter, $input, $args, $order);
+                            $absent_query = $this->getQueryAddColumnFirstname($absent_query, $filter, $input, $args, $order);
+                            $query = "($present_query) UNION ($absent_query)";
+                            $order_by = "ORDER BY firstname $order";
+                            break;
+                        default:
+                    }
+                    break;
+                default:
             }
         }
         if ($input) {
-            $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
+            $query = "SELECT * FROM ($query) AS combined_results WHERE (hoten LIKE N'%${input}%' OR manguoidung LIKE '%${input}%')";
+        }
+        $query .= " $order_by";
+        return $query;
+    }
+    
+    // Tìm kiếm & phân trang & sắp xếp
+    public function getQuery($filter, $input, $args) {
+        if ($filter == "all") {
+            return $this->getQueryAll($filter, $input, $args);
+        }
+        if ($filter == "absent") {
+            $query = $this->getListAbsentFromTest($filter, $input, $args);
+        } else {
+            $query = "SELECT DISTINCT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = ".$args['made'];
+            switch ($filter) {
+                case "present":
+                    $query .= " AND diemthi IS NOT NULL";
+                    break;
+                case "interrupted":
+                    $query .= " AND ISNULL(diemthi)";
+                    break;
+                default:
+            }
+            if (is_array($args['manhom'])) {
+                $list = implode(", ", $args['manhom']);
+                $query .= " AND CTN.manhom IN ($list)";
+            } else {
+                $query .= " AND CTN.manhom = ".$args['manhom'];
+            }
+        }
+        if ($input) {
+            $query .= " AND (hoten LIKE N'%${input}%' OR manguoidung LIKE '%${input}%')";
         }
         if (isset($args["custom"]["function"])) {
             $function = $args["custom"]["function"];
@@ -239,10 +293,11 @@ class KetQuaModel extends DB{
                         case "thoigianvaothi":
                         case "thoigianlambai":
                         case "solanchuyentab":
-                            $query = $query . " ORDER BY $column $order";
+                            $query .= " ORDER BY $column $order";
                             break;
                         case "hoten":
-                            $query = $this->getQuerySortByName($filter, $input, $args, $order);
+                            $query = $this->getQueryAddColumnFirstname($query, $filter, $input, $args, $order);
+                            $query .= " ORDER BY firstname $order";
                             break;
                         default:
                     }
@@ -250,7 +305,7 @@ class KetQuaModel extends DB{
                 default:
             }
         } else {
-            $query = $query . " ORDER BY id ASC";
+            $query .= " ORDER BY manguoidung ASC";
         }
         return $query;
     }

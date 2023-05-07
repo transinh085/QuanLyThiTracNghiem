@@ -81,7 +81,7 @@ class Auth extends Controller
     function otp()
     {
         AuthCore::onLogin();
-        if (isset($_COOKIE['checkMail'])) {
+        if (isset($_SESSION['checkMail'])) {
             $this->view("single_layout", [
                 "Page" => "auth/otp",
                 "Title" => "Nhập mã OTP",
@@ -99,7 +99,7 @@ class Auth extends Controller
     function changepass()
     {
         AuthCore::onLogin();
-        if (isset($_COOKIE['checkMail'])) {
+        if (isset($_SESSION['checkMail'])) {
             $this->view("single_layout", [
                 "Page" => "auth/changepass",
                 "Title" => "Nhập mật khẩu mới",
@@ -148,9 +148,7 @@ class Auth extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail = $_POST['email'];
             $check = $this->userModel->getByEmail($mail);
-            if ($check) {
-                setcookie("checkMail", $check['email'], time() + 60 * 10, "/");
-            }
+            
             echo json_encode($check);
         }
     }
@@ -159,7 +157,7 @@ class Auth extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $opt = $_POST['opt'];
-            $email = $_COOKIE['checkMail'];
+            $email = $_SESSION['checkMail'];
             $check = $this->userModel->checkOpt($email, $opt);
             echo $check;
         }
@@ -168,9 +166,10 @@ class Auth extends Controller
     public function changePassword(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = $_POST['password'];
-            $email = $_COOKIE['checkMail'];
+            $email = $_SESSION['checkMail'];
             $check = $this->userModel->changePassword($email, $password);
-            setcookie("checkMail", "", time() - 3600, "/");
+            $resetOTP = $this->userModel->updateOpt($email,"NULL");
+            session_destroy();
             echo $check;
         }
     }
@@ -182,6 +181,8 @@ class Auth extends Controller
             $email = $_POST['email'];
             $sendOTP = $this->mailAuth->sendOpt($email, $opt);
             $resultOTP = $this->userModel->updateOpt($email, $opt);
+                $_SESSION['checkMail'] = $email;
+            
             echo $resultOTP;
         }
     }

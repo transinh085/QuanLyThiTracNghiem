@@ -33,25 +33,24 @@ Dashmix.onLoad(() =>
         rules: {
           passwordNew: {
             required: true,
-            minlength: 6
+            minlength: 6,
           },
           comfirm: {
             required: true,
-            equalTo: "#passwordNew"
-          }
+            equalTo: "#passwordNew",
+          },
         },
         messages: {
           passwordNew: {
             required: "Vui lòng không để trống",
-            minlength: "Mật khẩu ít nhất 6 ký tự"
+            minlength: "Mật khẩu ít nhất 6 ký tự",
           },
           comfirm: {
             required: "Vui lòng không để trống",
-            equalTo: "Mật khẩu không trùng khớp"
-          }
-        }
-      }
-      )
+            equalTo: "Mật khẩu không trùng khớp",
+          },
+        },
+      });
     }
     static init() {
       this.initValidation();
@@ -71,6 +70,7 @@ $("#btnRecover").click(function (e) {
       },
       success: function (response) {
         let data = JSON.parse(response);
+        console.log(data);
         if (response == "null") {
           Dashmix.helpers("jq-notify", {
             type: "danger",
@@ -78,20 +78,16 @@ $("#btnRecover").click(function (e) {
             message: `Tài khoản không tồn tại!`,
           });
         } else {
-          if (data["otp"] == null) {
-            $.ajax({
-              type: "post",
-              url: "./auth/sendOptAuth",
-              data: {
-                email: mail,
-              },
-              success: function (response) {
-                location.href = `./auth/otp`;
-              },
-            });
-          } else {
-            location.href = `./auth/otp`;
-          }
+          $.ajax({
+            type: "post",
+            url: "./auth/sendOptAuth",
+            data: {
+              email: mail,
+            },
+            success: function (response) {
+              location.href = `./auth/otp`;
+            },
+          });
         }
       },
     });
@@ -106,10 +102,11 @@ $("#opt").click(function (e) {
       type: "post",
       url: "./auth/checkOpt",
       data: {
-        opt: opt
+        opt: opt,
       },
       success: function (response) {
         let data = response;
+        console.log(response);
         if (data == 0) {
           Dashmix.helpers("jq-notify", {
             type: "danger",
@@ -119,20 +116,20 @@ $("#opt").click(function (e) {
         } else {
           location.href = `./auth/changepass`;
         }
-      }
+      },
     });
   }
 });
 
 $("#btnChange").click(function (e) {
-  e.preventDefault()
+  e.preventDefault();
   if ($("#changepass").valid()) {
-    let passwordNew = $("#passwordNew").val()
+    let passwordNew = $("#passwordNew").val();
     $.ajax({
       type: "post",
       url: "./auth/changePassword",
       data: {
-        password: passwordNew
+        password: passwordNew,
       },
       success: function (response) {
         if (response == 1) {
@@ -143,10 +140,9 @@ $("#btnChange").click(function (e) {
           });
           setTimeout(function () {
             location.href = `./auth/signin`;
-          }, 3000)
+          }, 3000);
         }
-      }
+      },
     });
   }
-})
-
+});

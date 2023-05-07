@@ -27,10 +27,10 @@ class AnnouncementModel extends DB
     }
 
     public function getAnnounce($manhom) {
-        $sql = "SELECT DISTINCT `thongbao`.`matb`, `noidung`, `avatar` 
+        $sql = "SELECT DISTINCT `thongbao`.`matb`, `noidung`, `avatar` ,`thoigiantao`
         FROM `thongbao`,`chitietthongbao`,`chitietnhom`,`nguoidung` 
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `nguoitao` = `id`
-        AND `chitietthongbao`.`manhom` = $manhom";
+        AND `chitietthongbao`.`manhom` = $manhom ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
@@ -44,7 +44,7 @@ class AnnouncementModel extends DB
         $sql = "SELECT `chitietthongbao`.`matb`,`tennhom`,`noidung`, `tenmonhoc` ,`namhoc`, `hocky`, `thoigiantao`
         FROM `thongbao`, `chitietthongbao`,`nhom`,`monhoc` 
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `nhom`.`manhom` AND `nhom`.`mamonhoc` = `monhoc`.`mamonhoc`
-        AND `thongbao`.`nguoitao` = $user_id";
+        AND `thongbao`.`nguoitao` = $user_id ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
@@ -118,9 +118,14 @@ class AnnouncementModel extends DB
 
     public function getNotifications($id)
     {
-        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` 
-        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `thongbao`.`nguoitao` = `nguoidung`.`id` AND `chitietnhom`.`manhom` = `nhom`.`manhom`
-        AND `chitietnhom`.`manguoidung` = $id";
+        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` , monhoc.mamonhoc, monhoc.tenmonhoc
+        FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` ,`monhoc`
+        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` 
+        AND `thongbao`.`nguoitao` = `nguoidung`.`id` 
+        AND `chitietnhom`.`manhom` = `nhom`.`manhom`
+        AND `monhoc`.`mamonhoc` = `nhom`.`mamonhoc`
+        AND `chitietnhom`.`manguoidung` = $id
+        ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){

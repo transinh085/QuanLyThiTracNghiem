@@ -88,7 +88,7 @@ $("#btnRecover").click(function (e) {
                   },
                   success: function (response) {
                        console.log(response)
-                      location.href = `./auth/otp`;
+                        location.href = `./auth/otp`;
                   },
                 });
               } else {

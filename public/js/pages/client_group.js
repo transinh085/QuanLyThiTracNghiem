@@ -146,7 +146,7 @@ $(document).ready(function () {
                     </div>
                     <div class="flex-grow-1 fs-sm pe-2">
                         <div class="fw-semibold">${announce.noidung}</div>
-                        <div class="text-muted">2 hours ago</div>
+                        <div class="text-muted">${formatDate(announce.thoigiantao)}</div>
                     </div>
                 </a>
             </li>
@@ -196,7 +196,6 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response)
                 showAnnouncement(response);
             }
         });

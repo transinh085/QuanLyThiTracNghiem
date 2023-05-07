@@ -53,8 +53,8 @@ function showListNotifications(notifications)
                     </div>
                     <div class="flex-grow-1 fs-sm pe-2">
                         <div class="fw-semibold">${notification.noidung}</div>
-                        <div class="text-muted">${notification.thoigiantao}</div>
-                        <div class="text-muted">${notification.tennhom}</div>
+                        <div class="text-muted">${formatDate(notification.thoigiantao)}</div>
+                        <div class="text-muted">${notification.tenmonhoc + " - " +notification.tennhom}</div>
                     </div>
                 </a>
             </li>
@@ -65,5 +65,4 @@ function showListNotifications(notifications)
     }
     $(".list-notifications").html(html);
 }
-
 })

@@ -25,3 +25,54 @@ $(document).ajaxStop(function () {
     });
     
 });
+
+$(document).ready(function () {
+
+$(".btn-show-notifications").on("click", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+    console.log(id);
+    
+
+    $.ajax({
+        type: "post",
+        url: "./teacher_announcement/getNotifications",
+        data: {
+            id: id,
+        },
+        dataType: "json",
+        success: function(data) {
+            console.log(data)
+            showListNotifications(data);
+        }
+    });
+  });
+
+  function showListNotifications(notifications)
+  {
+    let html = "";
+    if (notifications.length != 0) {
+        notifications.forEach(notification => {
+            html +=`
+            <li>
+                <a class="d-flex text-dark py-2" href="javascript:void(0)">
+                    <div class="flex-shrink-0 mx-3">
+                        <img class="img-avatar img-avatar48" src="./public/media/avatars/${notification.avatar}" alt="">
+                    </div>
+                    <div class="flex-grow-1 fs-sm pe-2">
+                        <div class="fw-semibold">${notification.noidung}</div>
+                        <div class="text-muted">${notification.thoigiantao}</div>
+                        <div class="text-muted">${notification.tennhom}</div>
+                    </div>
+                </a>
+            </li>
+            `;
+        })
+    } else {
+        html += `<p class="text-center">Không có thông báo</p>`
+    }
+    $(".list-notifications").html(html);
+  }
+
+  
+})

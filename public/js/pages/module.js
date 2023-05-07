@@ -75,15 +75,20 @@ $(document).ready(function () {
     loadDataGroup(mode);
 
     function showGroup(list) {
+        console.log(list)
         let html = "";
         let d = 0;
         if (list.length == 0) {
             html += `<p class="text-center mt-5">Không có dữ liệu</p>`
         } else {
-            list.forEach((item) => {
+            list.forEach((item, index) => {
+                let htmlbtnhide = mode == 1 ? `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-hide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Ẩn tất cả"><i
+                class="far fa-eye-slash"></i></button>` : `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-unhide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Huỷ tất cả"><i
+                class="fa fa-rotate-left"></i></button>`
                 html += `<div>
                     <div class="heading-group d-flex align-items-center">
-                        <h2 class="content-heading" id="${d++}">${"<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>" + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
+                        <h2 class="content-heading pb-0" id="${d++}">${"<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>" + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
+                        ${htmlbtnhide}
                     </div>
                     <div class="row">`;
                 item.nhom.forEach((nhom_item) => {
@@ -138,6 +143,7 @@ $(document).ready(function () {
             });
         }
         $("#class-group").html(html);
+        $('[data-bs-toggle="tooltip"]').tooltip();
     }
 
 
@@ -194,6 +200,52 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", ".btn-hide-all", function () {
+        let index = $(this).data("index");
+        swalWithBootstrapButtons
+            .fire({
+                title: "Are you sure?",
+                text: "Bạn có chắc chắn muốn ẩn hết các nhóm môn học này không!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Chắc chắn!",
+                cancelButtonText: "Không!",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    groups[index].nhom.forEach(item => {
+                        updateHide(item.manhom, 0);
+                    });
+                    groups.splice(index, 1);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+                    showGroup(groups);
+                }
+            });
+    })
+
+    $(document).on("click", ".btn-unhide-all", function () {
+        let index = $(this).data("index");
+        swalWithBootstrapButtons
+            .fire({
+                title: "Are you sure?",
+                text: "Bạn có chắc chắn muốn huỷ ẩn hết các nhóm môn học này không!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Chắc chắn!",
+                cancelButtonText: "Không!",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    groups[index].nhom.forEach(item => {
+                        updateHide(item.manhom, 1);
+                    });
+                    groups.splice(index, 1);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+                    showGroup(groups);
+                }
+            });
+    })
+
     $(document).on("click", ".btn-delete-group", function () {
         swalWithBootstrapButtons
             .fire({
@@ -229,56 +281,55 @@ $(document).ready(function () {
 
     $(document).on("click", ".btn-hide-group", function () {
         let manhom = $(this).data("id");
-        $.ajax({
-            type: "post",
-            url: "./module/hide",
-            data: {
-                manhom: manhom,
-                giatri: 0
-            },
-            success: function (response) {
-                console.log(groups)
-                if (response) {
-                    for (let i = 0; i < groups.length; i++) {
-                        let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
-                        if (index != -1) {
-                            groups[i].nhom.splice(index, 1);
-                            if (groups[i].nhom.length == 0) groups.splice(i, 1);
-                            break;
-                        }
-                    }
-                    showGroup(groups);
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
-                }
-            },
+        updateHide(manhom, 0).then(response => {
+            removeItem(manhom);
+            showGroup(groups);
+            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+        }).catch(error => {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Ẩn nhóm không thành công!' });
         });
     });
 
+    function removeItem(manhom) {
+        for (let i = 0; i < groups.length; i++) {
+            let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
+            if (index != -1) {
+                groups[i].nhom.splice(index, 1);
+                if (groups[i].nhom.length == 0) groups.splice(i, 1);
+                break;
+            }
+        }
+    }
+
     $(document).on("click", ".btn-unhide-group", function () {
         let manhom = $(this).data("id");
-        $.ajax({
-            type: "post",
-            url: "./module/hide",
-            data: {
-                manhom: manhom,
-                giatri: 1
-            },
-            success: function (response) {
-                if (response) {
-                    for (let i = 0; i < groups.length; i++) {
-                        let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
-                        if (index != -1) {
-                            groups[i].nhom.splice(index, 1);
-                            if (groups[i].nhom.length == 0) groups.splice(i, 1);
-                            break;
-                        }
-                    }
-                    showGroup(groups);
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Huỷ ẩn nhóm thành công!' });
-                }
-            },
+        updateHide(manhom, 1).then(response => {
+            removeItem(manhom);
+            showGroup(groups);
+            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Huỷ ẩn nhóm thành công!' });
+        }).catch(error => {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Huỷ ẩn nhóm không thành công!' });
         });
     });
+
+    function updateHide(manhom, giatri) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "post",
+                url: "./module/hide",
+                data: {
+                    manhom: manhom,
+                    giatri: giatri
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
 
     $(document).on("click", ".btn-update-group", function () {
         $(".add-group-element").hide();

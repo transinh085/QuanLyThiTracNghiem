@@ -16,10 +16,11 @@
                 </div>
             </div>
             <div id="side-content" class="d-none d-lg-block push">
-                <form onsubmit="return false;">
+                <form action="#" method="POST" id="search-form" onsubmit="return false;">
                     <div class="mb-4">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm câu hỏi.." id="search-content">
+                            <input type="text" class="form-control" id="search-input" name="search-input" placeholder="Tìm kiếm câu hỏi...">
+                            <!-- <input type="text" class="form-control" placeholder="Tìm kiếm câu hỏi.." id="search-content"> -->
                             <span class="input-group-text">
                                 <i class="fa fa-fw fa-search"></i>
                             </span>
@@ -54,10 +55,7 @@
                 <ul class="list-group fs-sm" id="list-question">
                     <!-- Danh sách câu hỏi -->
                 </ul>
-                <nav aria-label="Page navigation" class="mt-3">
-                    <ul class="pagination justify-content-center" id="nav-page">
-                    </ul>
-                </nav>
+                <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
             </div>
         </div>
     </div>

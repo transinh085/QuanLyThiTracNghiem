@@ -9,6 +9,64 @@ let arrQuestion = [];
 let questions = [];
 // Khởi tạo tổng số trang
 let totalpage = 0
+let currentQuestionLists;
+function getAnswerListForQuestion(questions) {
+    if (questions.length == 0) {
+        $("#list-question").html(`<p class="text-center">Không có câu hỏi</p>`);
+        return;
+    }
+    showListQuestion(questions);
+
+    const arrMaCauHoi = questions.map(question => +question.macauhoi);
+    $.ajax({
+        type: "post",
+        url: "./question/getAnswersForMultipleQuestions",
+        data: {
+            questions: arrMaCauHoi,
+        },
+        dataType: "json",
+        success: function (answers) {
+            // Gắn các câu trả lời vào tương ứng macauhoi
+            currentQuestionLists = questions.map((question) => {
+                const { macauhoi } = question;
+                return {
+                    ...question,
+                    cautraloi: answers
+                    .filter((answer) => answer.macauhoi === macauhoi)
+                    .map(({ macautl, noidungtl, ladapan }) => ({
+                      macautl,
+                      macauhoi,
+                      noidungtl,
+                      ladapan
+                    }))
+                };
+            });
+        },
+        error: function (err) {
+            console.error(err.responseText);
+        }
+    });
+}
+
+function showListQuestion(questions) {
+    let html = ``;
+    if(questions.length != 0) {
+        questions.forEach((question,index) => {
+            let dokhotext = ["", "Dễ","TB","Khó"];
+            let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
+            html += `<li class="list-group-item d-flex">
+                <div class="form-check">
+                    <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
+                    <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidungplaintext}</label>
+                </div>
+                <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
+            </li>`
+        });
+    } else {
+        html += `<p class="text-center">Không có câu hỏi</p>`;
+    }
+    $("#list-question").html(html);
+}
 
 function getInfoTest() {
     return $.ajax({
@@ -44,13 +102,8 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
     let arr_slch = countQuantityLevel(arrQuestion);
 
-    $.when(loadDataChapter(infoTest.monthi)).done(function() {
-        loadDataListQuestion(1);
-        showNavPage(getToTalPage(),1);
-    })
-
-    showListQuesOfTest(arrQuestion);
-    displayQuantityQueston()
+    showListQuestionOfTest(arrQuestion);
+    displayQuantityQuestion();
 
     function countQuantityLevel(arrQuestion) {
         let result = [0,0,0,0];
@@ -60,35 +113,13 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         return result;
     }
 
-    function displayQuantityQueston() {
+    function displayQuantityQuestion() {
         $("#slcaude").text(arr_slch[1]);
         $("#ttcaude").text(infoTest.socaude);
         $("#slcautb").text(arr_slch[2]);
         $("#ttcautb").text(infoTest.socautb);
         $("#slcaukho").text(arr_slch[3]);
         $("#ttcaukho").text(infoTest.socaukho);
-    }
-
-    function loadDataListQuestion(page) {
-        let machuong = $(".data-chapter.active").data("id");
-        let dokho = $(".data-dokho.active").data("id");
-        let content = $("#search-content").val();
-        $.ajax({
-            type: "post",
-            url: "./question/getQuestionBySubject",
-            data: {
-                mamonhoc: infoTest.monthi,
-                machuong: machuong,
-                dokho: dokho,
-                content: content,
-                page: page
-            },
-            dataType: "json",
-            success: function (response) {
-                showListQuestion(response,arrQuestion);
-                questions = response;
-            }
-        });
     }
 
     // Hiển thị danh sách câu hỏi của môn học ở cột bên trái
@@ -114,32 +145,30 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
 
     // Xử lý sự kiện change trên ô input câu hỏi
     $(document).on("click", ".item-question",function () {
-        let index = $(this).data("index");
-        let macauhoi = $(this).data("id");
-
-        if($(this).prop("checked") == true) {
-            if(arr_slch[`${questions[index].dokho}`] < slgioihan[`${questions[index].dokho}`]) {
-                let answer = getAnswer(questions[index].macauhoi);
-                questions[index].cautraloi = answer;
-                arrQuestion.push(questions[index]);
-                arr_slch[`${questions[index].dokho}`]++;
-                displayQuantityQueston();
-                showListQuesOfTest(arrQuestion);
+        const id = +$(this).data("id");
+        const question = currentQuestionLists.find(question => question.macauhoi == id);
+        console.log(question);
+        if ($(this).prop("checked") == true) {
+            if(arr_slch[`${question.dokho}`] < slgioihan[`${question.dokho}`]) {
+                arrQuestion.push(question);
+                arr_slch[`${question.dokho}`]++;
+                displayQuantityQuestion();
+                showListQuestionOfTest(arrQuestion);
             } else {
                 $(this).prop("checked",false);
                 Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Số lượng câu hỏi ở mức độ đã đủ!' });
             }
         } else {
-            let i = arrQuestion.findIndex(item => item.macauhoi == macauhoi);
+            let i = arrQuestion.findIndex(q => q.macauhoi == id);
             arrQuestion.splice(i,1);
-            arr_slch[`${questions[index].dokho}`]--;
-            displayQuantityQueston();
-            showListQuesOfTest(arrQuestion);
+            arr_slch[`${question.dokho}`]--;
+            displayQuantityQuestion();
+            showListQuestionOfTest(arrQuestion);
         }
     });
 
     // Hiển thị preview bên phải
-    function showListQuesOfTest(questions) {
+    function showListQuestionOfTest(questions) {
         let html = ``;
         if(questions.length == 0) {
             html += `<p class="text-center">Chưa có câu hỏi</p>`
@@ -185,31 +214,39 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     }
 
     $(document).on("click", ".btn-up",function () {
-        let index = $(this).data("index");
-        let a = arrQuestion[index];
+        let index = +$(this).data("index");
+        if (index == 0) {
+            $(this).tooltip('hide');
+            return;
+        }
+        let temp = arrQuestion[index];
         arrQuestion[index] = arrQuestion[index - 1];
-        arrQuestion[index - 1] = a;
+        arrQuestion[index - 1] = temp;
         $(this).tooltip('hide');
-        showListQuesOfTest(arrQuestion);
+        showListQuestionOfTest(arrQuestion);
     });
 
     $(document).on("click", ".btn-down",function () {
-        let index = $(this).data("index");
-        let a = arrQuestion[index];
+        let index = +$(this).data("index");
+        if (index == arrQuestion.length - 1) {
+            $(this).tooltip('hide');
+            return;
+        }
+        let temp = arrQuestion[index];
         arrQuestion[index] = arrQuestion[index + 1];
-        arrQuestion[index + 1] = a;
+        arrQuestion[index + 1] = temp;
         $(this).tooltip('hide');
-        showListQuesOfTest(arrQuestion);
+        showListQuestionOfTest(arrQuestion);
     });
 
     $(document).on("click", ".btn-delete",function () {
         let index = $(this).data("index");
-        arr_slch[`${arrQuestion[index].dokho}`]--
+        arr_slch[`${arrQuestion[index].dokho}`]--;
         $(`#q-${arrQuestion[index].macauhoi}`).prop("checked",false);
         $(this).tooltip('hide');
         arrQuestion.splice(index,1);
-        showListQuesOfTest(arrQuestion);
-        displayQuantityQueston()
+        displayQuantityQuestion()
+        showListQuestionOfTest(arrQuestion);
     });
 
     $("#save-test").click(function (e) { 
@@ -236,34 +273,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         }
     });
 
-    function showNavPage(total,currentpage) {
-        total = Math.ceil(total);
-        console.log(total,currentpage)
-        if(total == 0) return;
-        let prev = currentpage > 1 ? currentpage - 1 : 1;
-        let next = currentpage < total ? currentpage + 1 : total;
-        let html = `<li class="page-item ${currentpage == 1 ? "disabled" : ""}">
-            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous" data-id="${prev}">
-                <span aria-hidden="true">
-                    <i class="fa fa-angle-double-left"></i>
-                </span>
-                <span class="visually-hidden">Previous</span>
-            </a>
-        </li>`;
-        for(let i = 0; i < total; i++) {
-            html += `<li class="page-item${(i + 1) == currentpage ? " active" : ""}"><a class="page-link" href="javascript:void(0)" data-id="${i + 1}">${i + 1}</a></li>`
-        }
-        html += `<li class="page-item${currentpage == total ? " disabled" : ""}">
-            <a class="page-link" href="javascript:void(0)" aria-label="Next" data-id="${next}">
-                <span aria-hidden="true">
-                    <i class="fa fa-angle-double-right"></i>
-                </span>
-                <span class="visually-hidden">Next</span>
-            </a>
-        </li>`
-        $("#nav-page").html(html);
-    }
-    
     function loadDataChapter(mamon) {
         return $.ajax({
             type: "post",
@@ -286,52 +295,43 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         $("#list-chapter").html(html);
     }
 
-    function getToTalPage() {
-        let machuong = $(".data-chapter.active").data("id");
-        let dokho = $(".data-dokho.active").data("id");
-        let content = $("#search-content").val();
-        let total = 0;
-        $.ajax({
-            type: "post",
-            url: "./question/getTotalPageQuestionBySubject",
-            async: false,
-            data: {
-                mamonhoc: infoTest.monthi,
-                machuong: machuong,
-                dokho: dokho,
-                content: content
-            },
-            success: function (response) {
-                total = response;
-                totalpage = response;
-            }
-        });
-        return total;
-    }
-
-    $(document).on("click", ".data-chapter",function () {
+    $(document).on("click", ".data-chapter", function () {
         $(".data-chapter.active").removeClass("active");
         $(this).addClass("active");
-        loadDataListQuestion(1);
-        showNavPage(getToTalPage(),1);
+        let machuong = +$(this).data("id");
+        if (machuong === 0) {
+            delete mainPagePagination.option.filter.machuong;
+        } else {
+            mainPagePagination.option.filter.machuong = machuong;
+        }
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
     });
 
-    $(document).on("click", ".data-dokho",function () {
+    $(document).on("click", ".data-dokho", function () {
         $(".data-dokho.active").removeClass("active");
         $(this).addClass("active");
-        loadDataListQuestion(1);
-        showNavPage(getToTalPage(),1);
-    });
-
-
-    $("#search-content").on("input", function () {
-        loadDataListQuestion(1);
-        showNavPage(getToTalPage(),1);
-    });
-
-    $(document).on("click", ".page-link",function () {
-        let page = $(this).data("id");
-        loadDataListQuestion(page);
-        showNavPage(totalpage,page)
+        let dokho = +$(this).data("id");
+        if (dokho === 0) {
+            delete mainPagePagination.option.filter.dokho;
+        } else {
+            mainPagePagination.option.filter.dokho = dokho;
+        }
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
     });
 });
+
+const mainPagePagination = new Pagination(null, null, getAnswerListForQuestion);
+mainPagePagination.option.controller = "test";
+mainPagePagination.option.model = "DeThiModel";
+mainPagePagination.option.limit = 10;
+mainPagePagination.option.filter = {};
+mainPagePagination.option.custom.function = "getQuestionsForTest";
+
+const waitInfoTest = setInterval(function () {
+    if (infoTest) {
+        mainPagePagination.option.id = infoTest.nguoitao;
+        mainPagePagination.option.mamonhoc = infoTest.monthi;
+        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+        clearInterval(waitInfoTest);
+    }
+}, 200);

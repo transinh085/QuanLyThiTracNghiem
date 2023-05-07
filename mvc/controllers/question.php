@@ -276,4 +276,12 @@ class Question extends Controller
         $result = $this->cauHoiModel->getQuery($filter, $input, $args);
         return $result;
     }
+
+    public function getAnswersForMultipleQuestions() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $arr_question_id = $_POST['questions'];
+            $result = $this->cauTraLoiModel->getAnswersForMultipleQuestions($arr_question_id);
+            echo json_encode($result);
+        }
+    }
 }

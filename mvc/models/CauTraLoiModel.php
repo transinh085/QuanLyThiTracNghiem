@@ -64,5 +64,18 @@ class CauTraLoiModel extends DB{
         if(!$result) $valid = false;
         return $valid;
     }
+
+    public function getAnswersForMultipleQuestions($arr_question_id)
+    {
+        $list = implode(", ", $arr_question_id);
+        $sql = "SELECT * FROM cautraloi WHERE macauhoi IN ($list)";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 }
 ?>

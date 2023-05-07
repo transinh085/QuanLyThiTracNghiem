@@ -156,9 +156,12 @@ class KetQuaModel extends DB{
     // Lấy điểm để thống kê 
     public function getStatictical($made, $manhom)
     {
-        $sql = "SELECT DISTINCT chitietnhom.manguoidung,ketqua.manguoidung AS mandkq,makq,ketqua.made, diemthi
-        FROM chitietnhom LEFT JOIN ketqua ON ketqua.manguoidung = chitietnhom.manguoidung AND ketqua.made = '$made'
-        WHERE manhom = '$manhom'";
+        $nhomm = $manhom != 0 ? "AND chitietnhom.manhom = $manhom" : "";
+        $sql = "SELECT chitietnhom.manguoidung, ketqua.manguoidung AS mandkq, makq, ketqua.made, diemthi
+        FROM chitietnhom
+        JOIN giaodethi ON chitietnhom.manhom = giaodethi.manhom
+        LEFT JOIN ketqua ON ketqua.manguoidung = chitietnhom.manguoidung AND ketqua.made = '$made'
+        WHERE giaodethi.made = '$made' $nhomm";
         $result = mysqli_query($this->con, $sql);
         $diemthi = array_fill(0, 10, 0);
         $tongdiem = 0;

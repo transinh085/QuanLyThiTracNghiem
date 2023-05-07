@@ -250,7 +250,7 @@ td p {
     transition: opacity 0.5s ease-in-out;
 }
 [data-role].show {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .col-header-action{

@@ -240,6 +240,7 @@ class DeThiModel extends DB
         $result_dethi = mysqli_query($this->con,$sql_dethi);
         $data_dethi = mysqli_fetch_assoc($result_dethi);
         $trondapan = $data_dethi['trondapan'];
+        $rows = array();
         foreach ($data_question as $row) {
             if($trondapan==1){
                 $arrDapAn = $ctlmodel->getAllWithoutAnswer($row['macauhoi']);

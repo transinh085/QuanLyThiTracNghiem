@@ -14,11 +14,8 @@
                         <button type="button" class="btn-block-option" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">
                             <i class="si si-info"></i>
                         </button>
-                        <a name="" id="" class="btn-block-option" href="#" role="button"><i class="si si-pencil"></i></a>
-                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
-                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
-                            <i class="si si-refresh"></i>
-                        </button>
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="Chỉnh sửa đề thi" class="btn-block-option" href="./test/update/<?php echo $data["Test"]["made"] ?>" role="button"><i class="si si-pencil"></i></a>
+                        <button data-bs-toggle="tooltip" data-bs-placement="top" title="Toàn màn hình" type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
                     </div>
                 </li>
             </ul>
@@ -50,7 +47,7 @@
                                     </span> -->
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-sm" id="export_excel"><i class="fa-solid fa-file me-1"></i>Xuất bảng
+                                    <button type="button" class="btn btn-hero btn-primary btn-sm" id="export_excel"><i class="fa-solid fa-file me-1"></i>Xuất bảng
                                         điểm</button>
                                 </div>
                             </div>

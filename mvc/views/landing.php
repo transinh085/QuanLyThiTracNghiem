@@ -259,10 +259,10 @@
                 <div class="content content-full">
                     <div class="pt-7 pb-5">
                         <div class="position-relative">
-                            <h2 class="fw-bold mb-2 text-center">
+                            <h2 class="fw-bold mb-2 text-center invisible" data-toggle="appear" data-class="animated fadeInDown" data-offset="-200">
                                 <span class="text-primary">Đội ngũ</span> phát triển
                             </h2>
-                            <h3 class="h4 fw-medium text-muted text-center mb-5">
+                            <h3 class="h4 fw-medium text-muted text-center mb-5 invisible" data-toggle="appear" data-class="animated fadeInDown" data-offset="-200">
                                 Tập trung vào chất lượng sản phẩm, cam kết hỗ trợ khách hàng chuyên nghiệp và nhiệt
                                 tình.
                             </h3>
@@ -340,16 +340,16 @@
             <div class="bg-body-light">
                 <div class="content content-full">
                     <div class="py-4">
-                        <h2 class="fw-bold mb-2 text-center">
+                        <h2 class="fw-bold mb-2 text-center invisible" data-toggle="appear" data-class="animated fadeInDown" data-offset="-200">
                             Mọi người nói gì <span class="text-primary">về chúng tôi</span>
                         </h2>
-                        <h3 class="h4 fw-medium text-muted text-center mb-5">
+                        <h3 class="h4 fw-medium text-muted text-center mb-5 invisible" data-toggle="appear" data-class="animated fadeInDown" data-offset="-200">
                             Luôn đồng hành và mang lại các trải nghiệm tốt nhất cho người dùng.
                         </h3>
                     </div>
                     <!-- Slider -->
-                    <div class="js-slider" data-dots="true" data-arrows="true"
-                        data-slides-to-show="1" data-autoplay="true">
+                    <div class="js-slider invisible" data-toggle="appear" data-class="animated bounceIn" data-offset="-200" data-timeout="400" data-dots="true" data-arrows="true"
+                        data-slides-to-show="1" data-autoplay="false">
                         <div class="py-3">
                             <blockquote class="blockquote">
                                 <p class="px-7 fs-5 text-justify mb-5">Sgu Test là một hệ thống tạo đề thi trắc nghiệm rất tiện

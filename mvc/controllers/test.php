@@ -229,7 +229,7 @@ class Test extends Controller
             $socaude = $_POST['socaude'];
             $socautb = $_POST['socautb'];
             $socaukho = $_POST['socaukho'];
-            $chuong = $_POST['chuong'];
+            $chuong = isset($_POST['chuong']) ? $_POST['chuong'] : array();
             $loaide = $_POST['loaide'];
             $xemdiem = $_POST['xemdiem'];
             $xemdapan = $_POST['xemdapan'];
@@ -423,7 +423,8 @@ class Test extends Controller
 
         $info = $this->ketquamodel->getInfoPrintPdf($makq);
         $cauHoi = $this->dethimodel->getResultDetail($makq);
-
+        $diem = $info['diemthi'] != "" ? $info['diemthi'] : 0;
+        $socaudung = $info['socaudung'] != "" ? $info['socaudung'] : 0;
         $html = '
         <!DOCTYPE html>
         <html>
@@ -455,8 +456,8 @@ class Test extends Controller
                     <td>Tên thí sinh: ' . $info['hoten'] . '</td>
                 </tr>
                 <tr style="width:100%">
-                    <td>Số câu đúng: ' . $info['socaudung'] . '/' . $info['tongsocauhoi'] . '</td>
-                    <td>Điểm: ' . $info['diemthi'] . '</td>
+                    <td>Số câu đúng: ' . $socaudung . '/' . $info['tongsocauhoi'] . '</td>
+                    <td>Điểm: ' . $diem . '</td>
                 </tr>
             </table>       
             <hr>

@@ -215,7 +215,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $("#save-test").click(function (e) { 
         e.preventDefault();
         if(arr_slch[1] == slgioihan[1] && arr_slch[2] == slgioihan[2] && arr_slch[3] == slgioihan[3]) {
-            console.log(arrQuestion)
             $.ajax({
                 type: "post",
                 url: "./test/addDetail",
@@ -226,6 +225,9 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
                 success: function (response) {
                     if(response) {
                         Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Thêm câu hỏi thành công!' });
+                        setTimeout(function () {
+                            location.href = `./test/update/${made}`;
+                        }, 3000);
                     } else {
                         Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tạo đề không thành công!' });
                     }

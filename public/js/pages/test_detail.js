@@ -65,7 +65,7 @@ $(document).ready(function () {
     let made = $(this).data("id");
     $.ajax({
       type: "post",
-      url: "./test/getQuestion",
+      url: "./test/getQuestionOfTestManual",
       data: {
         made: made,
       },
@@ -99,42 +99,8 @@ $(document).ready(function () {
     $("#list-question").html(html);
   }
 
-  var made = $("#chitietdethi").data("id");
-  function showTookTheExam(made) {
-    $.ajax({
-      type: "post",
-      url: "./test/tookTheExam",
-      data: {
-        made: made,
-      },
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-        showData(response);
-      },
-    });
-  }
 
   var made = $("#chitietdethi").data("id");
-  // showTookTheExam(made);
-
-  function showExamineeByGroup(made, manhom) {
-    $.ajax({
-      type: "post",
-      url: "./test/getExamineeByGroup",
-      data: {
-        made: made,
-        manhom: manhom,
-      },
-      dataType: "json",
-      success: function (response) {
-        showData(response);
-      },
-      error: function (error) {
-        console.log(error.responseText);
-      },
-    });
-  }
 
   // Dropdown
   $(".filtered-by-group").click(function (e) {
@@ -206,27 +172,25 @@ $(document).ready(function () {
   }
 
   $(document).on("click", ".show-exam-detail", function () {
-    $("#modal-show-test").modal("show");
     let makq = $(this).data("id");
     // console.log(makq)
     if (makq === "" || mainPagePagination.option.filter === "interrupted") {
-      let html = `<h5 class="text-center mb-2 fw-normal">Không thể xem kết quả</h5>`;
-      $("#content-file").html(html);
-      return;
+      alert("Không thể xem kết quả");
+    } else {
+      $.ajax({
+        type: "post",
+        url: "./test/getResultDetail",
+        data: {
+          makq: makq,
+          made: made,
+        },
+        dataType: "json",
+        success: function (response) {
+          showTestDetail(response);
+        },
+      });
+      $("#modal-show-test").modal("show");
     }
-    $.ajax({
-      type: "post",
-      url: "./test/getResultDetail",
-      data: {
-        makq: makq,
-        made: made,
-      },
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-        showTestDetail(response);
-      },
-    });
   });
 
   function resetSortIcons() {
@@ -342,38 +306,42 @@ $(document).ready(function () {
 
   $(document).on("click", ".print-pdf", function () {
     let makq = $(this).data("id");
-    $.ajax({
-      url: `./test/exportPdf/${makq}`,
-      method: "POST",
-      success: function (response) {
-        // Tạo tệp blob từ chuỗi base64
-        var binaryString = atob(response);
-        var binaryLen = binaryString.length;
-        var bytes = new Uint8Array(binaryLen);
-
-        for (var i = 0; i < binaryLen; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        // Tạo đối tượng Blob
-        var blob = new Blob([bytes], { type: "application/pdf" });
-
-        // Tạo đường dẫn URL tới blob
-        var url = URL.createObjectURL(blob);
-
-        // Tạo một liên kết ẩn để tải xuống tệp
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = "ket_qua_thi.pdf";
-        a.style.display = "none";
-        document.body.appendChild(a);
-        // Kích hoạt liên kết và xóa nó sau khi tải xuống
-        a.click();
-        setTimeout(function () {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 100);
-      },
-    });
+    if(makq != "") {
+      $.ajax({
+        url: `./test/exportPdf/${makq}`,
+        method: "POST",
+        success: function (response) {
+          // Tạo tệp blob từ chuỗi base64
+          var binaryString = atob(response);
+          var binaryLen = binaryString.length;
+          var bytes = new Uint8Array(binaryLen);
+  
+          for (var i = 0; i < binaryLen; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          // Tạo đối tượng Blob
+          var blob = new Blob([bytes], { type: "application/pdf" });
+  
+          // Tạo đường dẫn URL tới blob
+          var url = URL.createObjectURL(blob);
+  
+          // Tạo một liên kết ẩn để tải xuống tệp
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "ket_qua_thi.pdf";
+          a.style.display = "none";
+          document.body.appendChild(a);
+          // Kích hoạt liên kết và xóa nó sau khi tải xuống
+          a.click();
+          setTimeout(function () {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 100);
+        },
+      });
+    } else {
+      alert("Thí sinh này không thi nên không có kết quả !!")
+    }
   });
   $("#export_excel").click(function () {
     $.ajax({

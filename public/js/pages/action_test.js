@@ -4,20 +4,20 @@ Dashmix.onLoad(() =>
     class {
         static initValidation() {
             Dashmix.helpers("jq-validation"),
-            $.validator.addMethod("validTimeEnd", function(value, element) {
-                var startTime = new Date($("#time-start").val());
-                var currentTime = new Date();
-                var endTime = new Date(value);
-                return endTime > startTime && endTime > currentTime;
-            }, "Thời gian kết thúc phải lớn hơn thời gian bắt đầu và không bé hơn thời gian hiện tại");
-            
-            $.validator.addMethod("validTimeStart", function(value, element) {
+                $.validator.addMethod("validTimeEnd", function (value, element) {
+                    var startTime = new Date($("#time-start").val());
+                    var currentTime = new Date();
+                    var endTime = new Date(value);
+                    return endTime > startTime && endTime > currentTime;
+                }, "Thời gian kết thúc phải lớn hơn thời gian bắt đầu và không bé hơn thời gian hiện tại");
+
+            $.validator.addMethod("validTimeStart", function (value, element) {
                 var startTime = new Date(value);
                 var currentTime = new Date();
                 return startTime > currentTime;
             }, "Thời gian bắt đầu không được bé hơn thời gian hiện tại");
-            
-            
+
+
             jQuery(".form-taodethi").validate({
                 rules: {
                     "name-exam": {
@@ -96,7 +96,7 @@ $(document).ready(function () {
     // Xử lý cắt url để lấy mã đề thi
     let url = location.href.split("/");
     let param = 0
-    if(url[url.length - 2] == "update") {
+    if (url[url.length - 2] == "update") {
         param = url[url.length - 1]
         getDetail(param);
     }
@@ -211,7 +211,7 @@ $(document).ready(function () {
     $("#btn-add-test").click(function (e) {
         e.preventDefault();
         if ($(".form-taodethi").valid()) {
-            if(getGroupSelected().length != 0) {
+            if (getGroupSelected().length != 0) {
                 $.ajax({
                     type: "post",
                     url: "./test/addTest",
@@ -279,22 +279,37 @@ $(document).ready(function () {
                     );
                 }
                 infodethi = response;
-                console.log(infodethi);
                 showInfo(response);
             },
         });
     }
 
+    function checkDate(time) {
+        let valid = true;
+        let dateToCompare = new Date(time);
+        let currentTime = new Date(); // Thời gian hiện tại
+        if (dateToCompare.getTime() > currentTime.getTime()) valid = false;
+        return valid;
+    }
+
     // Hiển thị thông tin đề thi
     function showInfo(dethi) {
+        let checkD = checkDate(dethi.thoigianbatdau);
         $("#name-exam").val(dethi.tende),
-            $("#exam-time").val(dethi.thoigianthi),
-            $("#time-start").flatpickr({
-                enableTime: true,
-                altInput: true,
-                allowInput: true,
-                defaultDate: dethi.thoigianbatdau,
-            });
+        $("#exam-time").val(dethi.thoigianthi),
+        $("#exam-time").prop("disabled", checkD);
+        $("#time-start").flatpickr({
+            enableTime: true,
+            altInput: true,
+            allowInput: checkD,
+            defaultDate: dethi.thoigianbatdau,
+            onReady: function (selectedDates, dateStr, instance) {
+                if (checkD) {
+                    $(instance.input).prop("disabled", true);
+                    instance._input.disabled = true;
+                }
+            }
+        });
         $("#time-end").flatpickr({
             enableTime: true,
             altInput: true,
@@ -302,23 +317,25 @@ $(document).ready(function () {
             defaultDate: dethi.thoigianketthuc,
         });
         $("#coban").val(dethi.socaude),
-            $("#trungbinh").val(dethi.socautb),
-            $("#kho").val(dethi.socaukho),
-            $("#tudongsoande").prop("checked", dethi.loaide == "1" ? true : false);
-        $("#xemdiem").prop("checked", dethi.xemdiemthi == "1" ? true : false);
-        $("#xemda").prop("checked", dethi.xemdapan == "1" ? true : false);
-        $("#xembailam").prop("checked", dethi.xemdapan == "1" ? true : false);
-        $("#daocauhoi").prop("checked", dethi.troncauhoi == "1" ? true : false);
-        $("#daodapan").prop("checked", dethi.trondapan == "1" ? true : false);
-        $("#tudongnop").prop(
-            "checked",
-            dethi.nopbaichuyentab == "1" ? true : false
-        );
+        $("#coban").prop("disabled", checkD);
+        $("#trungbinh").val(dethi.socautb),
+        $("#trungbinh").prop("disabled", checkD);
+        $("#kho").val(dethi.socaukho),
+        $("#kho").prop("disabled", checkD);
+        $("#tudongsoande").prop("checked", dethi.loaide == "1");
+        $("#tudongsoande").prop("disabled", checkD);
+        $("#xemdiem").prop("checked", dethi.xemdiemthi == "1");
+        $("#xemda").prop("checked", dethi.xemdapan == "1");
+        $("#xembailam").prop("checked", dethi.xemdapan == "1");
+        $("#daocauhoi").prop("checked", dethi.troncauhoi == "1");
+        $("#daodapan").prop("checked", dethi.trondapan == "1");
+        $("#tudongnop").prop("checked",dethi.nopbaichuyentab == "1");
         $("#btn-update-test").data("id", dethi.made);
         $.when(showGroup(), showChapter(dethi.monthi)).done(function () {
             $("#nhom-hp").val(findIndexGroup(dethi.nhom[0])).trigger("change");
-            setGroup(dethi.nhom)
-            if(dethi.loaide == "1") {
+            setGroup(dethi.nhom,dethi.thoigianbatdau)
+            if (dethi.loaide == "1") {
+                $("#chuong").prop("disabled", checkD);
                 $('#chuong').val(dethi.chuong).trigger("change");
             } else $(".show-chap").hide();
         });
@@ -334,9 +351,11 @@ $(document).ready(function () {
         return i;
     }
 
-    function setGroup(list) {
+    function setGroup(list,date) {
+        $("#select-all-group").prop("disabled", checkDate(date));
         list.forEach((item) => {
             $(`.select-group-item[value='${item}']`).prop("checked", true);
+            $(`.select-group-item[value='${item}']`).prop("disabled", checkDate(date));
         });
     }
 
@@ -345,7 +364,6 @@ $(document).ready(function () {
         e.preventDefault();
         let loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
         let made = $(this).data("id");
-        console.log(made)
         let socaude = $("#coban").val();
         let socautb = $("#trungbinh").val();
         let socaukho = $("#kho").val();
@@ -361,7 +379,7 @@ $(document).ready(function () {
                 thoigianketthuc: $("#time-end").val(),
                 socaude: socaude,
                 socautb: socautb,
-                socaukho: socaukho, 
+                socaukho: socaukho,
                 chuong: $("#chuong").val(),
                 loaide: loaide,
                 xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
@@ -373,8 +391,8 @@ $(document).ready(function () {
                 manhom: getGroupSelected()
             },
             success: function (response) {
-                if(response) {
-                    if((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
+                if (response) {
+                    if ((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
                         location.href = `./test/select/${made}`
                     } else {
                         location.href = `./test`

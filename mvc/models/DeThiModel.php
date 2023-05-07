@@ -177,7 +177,7 @@ class DeThiModel extends DB
     // Lấy thông tin cơ bản của đề thi ()
     public function getInfoTestBasic($made)
     {
-        $sql_dethi = "SELECT dethi.made, dethi.tende, dethi.thoigiantao,dethi.loaide, monhoc.mamonhoc, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
+        $sql_dethi = "SELECT dethi.made, dethi.tende, dethi.thoigiantao,dethi.loaide,dethi.nguoitao,monhoc.mamonhoc, monhoc.tenmonhoc FROM dethi, monhoc WHERE made = $made AND dethi.monthi = monhoc.mamonhoc";
         $result_dethi = mysqli_query($this->con, $sql_dethi);
         $dethi = mysqli_fetch_assoc($result_dethi);
         if ($dethi != null) {
@@ -370,6 +370,17 @@ class DeThiModel extends DB
             $rows[] = $row;
         }
         return $rows;
+    }
+
+    public function checkStudentAllowed($manguoidung, $madethi)
+    {
+        $valid = true;
+        $sql = "SELECT *
+        FROM giaodethi, chitietnhom
+        WHERE giaodethi.made = '$madethi' AND giaodethi.manhom = chitietnhom.manhom AND chitietnhom.manguoidung = '$manguoidung'";
+        $result = mysqli_query($this->con,$sql);
+        if(!mysqli_fetch_assoc($result)) $valid = false;
+        return $valid;
     }
 
     public function getQuery($filter, $input, $args)

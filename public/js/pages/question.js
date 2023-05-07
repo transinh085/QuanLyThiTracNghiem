@@ -1,6 +1,49 @@
 Dashmix.helpersOnLoad(["jq-select2", "js-ckeditor"]);
 CKEDITOR.replace("option-content");
 
+Dashmix.onLoad(() =>
+  class {
+    static initValidation() {
+      Dashmix.helpers("jq-validation"),
+        jQuery("#form_add_question").validate({
+          rules: {
+            "mon-hoc": {
+              required: true,
+            },
+            "chuong": {
+              required: true,
+            },
+            "dokho": {
+              required: true,
+            },
+            "js-ckeditor": {
+              required: true,
+            },
+          },
+          messages: {
+            "mon-hoc": {
+              required: "Vui lòng chọn môn học",
+            },
+            "chuong": {
+              required: "Vui lòng chọn chương.",
+            },
+            "dokho": {
+              required: "Vui lòng chọn mức độ.",
+            },
+            "js-ckeditor": {
+              required: "Vui lòng không để trống câu hỏi.",
+            },
+          },
+          errorClass: "is-invalid",
+          validClass: "is-valid",
+        });
+    }
+    static init() {
+      this.initValidation();
+    }
+  }.init()
+);
+
 function showData(data) {
   let html = "";
   let index = 1;
@@ -31,15 +74,13 @@ function showData(data) {
               <td class="d-none d-sm-table-cell fs-sm">
                   <strong>${dokho}</strong>
               </td>
-              <td class="text-center">
-                  <a class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="modal" data-bs-target="#modal-add-question"
-                              aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                question["macauhoi"]
-                              }">
+              <td class="text-center col-action">
+                  <a data-role="cauhoi" data-action="update" class="btn btn-sm btn-alt-secondary btn-edit-question" data-bs-toggle="tooltip"
+                              aria-label="Chỉnh sửa" data-bs-original-title="Chỉnh sửa" data-id="${question["macauhoi"]}">
                               <i class="fa fa-fw fa-pencil" ></i>
                           </a>
-                  <a class="btn btn-sm btn-alt-secondary btn-delete-question" 
-                      data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"  data-id="${
+                  <a data-role="cauhoi" data-action="delete" class="btn btn-sm btn-alt-secondary btn-delete-question" 
+                      data-bs-toggle="tooltip" aria-label="Xoá" data-bs-original-title="Xoá"  data-id="${
                         question["macauhoi"]
                       }">
                       <i class="fa fa-fw fa-times"></i>
@@ -48,6 +89,7 @@ function showData(data) {
           </tr>`;
   });
   $("#listQuestion").html(html);
+  $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 $(document).ready(function () {
@@ -239,24 +281,33 @@ $(document).ready(function () {
     });
 
     // Reset filter
-    $("#main-page-dokho").val(0).trigger('change');
+    $("#main-page-dokho").val(0).trigger("change");
     mainPagePagination.option.filter = {};
 
     // Ajax call + pagination
     mainPagePagination.option.filter.mamonhoc = mamonhoc;
-    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+    mainPagePagination.getPagination(
+      mainPagePagination.option,
+      mainPagePagination.valuePage.curPage
+    );
   });
 
   $("#main-page-chuong").on("change", function () {
     const machuong = $(this).val();
     mainPagePagination.option.filter.machuong = machuong;
-    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+    mainPagePagination.getPagination(
+      mainPagePagination.option,
+      mainPagePagination.valuePage.curPage
+    );
   });
 
   $("#main-page-dokho").on("change", function () {
     const dokho = +$(this).val();
     mainPagePagination.option.filter.dokho = dokho;
-    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+    mainPagePagination.getPagination(
+      mainPagePagination.option,
+      mainPagePagination.valuePage.curPage
+    );
   });
 
   $("#file-cau-hoi").change(function (e) {
@@ -345,81 +396,59 @@ $(document).ready(function () {
 
   //add question
   $("#add_question").click(function (e) {
-    let mamonhoc = $("#mon-hoc").val();
-    let machuong = $("#chuong").val();
-    let dokho = $("#dokho").val();
-    let noidung = CKEDITOR.instances["js-ckeditor"].getData();
-    let cautraloi = options;
-    if (
-      mamonhoc != "" &&
-      machuong != "" &&
-      dokho != "" &&
-      noidung != "" &&
-      cautraloi.length > 1 &&
-      checkSOption(options) == true
-    ) {
-      $.ajax({
-        type: "post",
-        url: "./question/addQues",
-        data: {
-          mamon: mamonhoc,
-          machuong: machuong,
-          dokho: dokho,
-          noidung: noidung,
-          cautraloi: options,
-        },
-        success: function (response) {
+    if ($("#form_add_question").valid()) {
+      let ch = CKEDITOR.instances["js-ckeditor"].getData().length==0;
+      if(ch==""){
+        if (options.length == 0) {
           Dashmix.helpers("jq-notify", {
-            type: "success",
-            icon: "fa fa-check me-1",
-            message: "Tạo câu hỏi thành công!",
+            type: "danger",
+            icon: "fa fa-times me-1",
+            message: "Vui lòng thêm câu trả lời!",
           });
-
-          $("#modal-add-question").modal("hide");
-          // loadQuestion();
-          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-        },
-      });
-    } else {
-      if (mamonhoc == "") {
+        } else {
+          if (!checkSOption(options)) {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: "Vui lòng chọn câu trả lời đúng!",
+            });
+          } else {
+            let mamonhoc = $("#mon-hoc").val();
+            let machuong = $("#chuong").val();
+            let dokho = $("#dokho").val();
+            let noidung = CKEDITOR.instances["js-ckeditor"].getData();
+            $.ajax({
+              type: "post",
+              url: "./question/addQues",
+              data: {
+                mamon: mamonhoc,
+                machuong: machuong,
+                dokho: dokho,
+                noidung: noidung,
+                cautraloi: options,
+              },
+              success: function (response) {
+                Dashmix.helpers("jq-notify", {
+                  type: "success",
+                  icon: "fa fa-check me-1",
+                  message: "Tạo câu hỏi thành công!",
+                });
+  
+                $("#modal-add-question").modal("hide");
+                // loadQuestion();
+                mainPagePagination.getPagination(
+                  mainPagePagination.option,
+                  mainPagePagination.valuePage.curPage
+                );
+              },
+            });
+          }
+        }
+      } else {
         Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng chọn mã môn học",
-        });
-        $("#mon-hoc").focus();
-      } else if (machuong == "") {
-        Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng chọn mã chương",
-        });
-        $("#chuong").focus();
-      } else if (dokho == "") {
-        Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng chọn độ khó",
-        });
-        $("#dokho").focus();
-      } else if (noidung == "") {
-        Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng nhập nội dung",
-        });
-        CKEDITOR.instances["js-ckeditor"].focus();
-      } else if (cautraloi.length < 2) {
-        Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng thêm câu trả lời",
-        });
-      } else if (checkSOption(options) == false) {
-        Dashmix.helpers("jq-notify", {
-          type: "error",
-          icon: "fa fa-check me-1",
-          message: "Vui lòng chọn đáp án đúng",
+          type: "danger",
+          icon: "fa fa-times me-1",
+          message: "Vui lòng không để trống câu hỏi",
         });
       }
     }
@@ -464,7 +493,10 @@ $(document).ready(function () {
       success: function (response) {
         $("#modal-add-question").modal("hide");
         // loadQuestion();
-        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+        mainPagePagination.getPagination(
+          mainPagePagination.option,
+          mainPagePagination.valuePage.curPage
+        );
         setTimeout(function () {
           Dashmix.helpers("jq-notify", {
             type: "success",
@@ -482,6 +514,7 @@ $(document).ready(function () {
     let id = $(this).data("id");
     $("#question_id").val(id);
     getQuestionById(id);
+    $("#modal-add-question").modal("show");
   });
 
   $("#edit_question").click(function () {
@@ -519,11 +552,14 @@ $(document).ready(function () {
 
           $("#modal-add-question").modal("hide");
           // loadQuestion();
-          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          mainPagePagination.getPagination(
+            mainPagePagination.option,
+            mainPagePagination.valuePage.curPage
+          );
         },
         error: function (err) {
           console.error(err.responseText);
-        }
+        },
       });
     } else {
       if (mamonhoc == "") {
@@ -654,8 +690,10 @@ $(document).ready(function () {
           },
           success: function (response) {
             e.fire("Deleted!", "Xóa câu hỏi thành công!", "success");
-            // loadQuestion();
-            mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+            mainPagePagination.getPagination(
+              mainPagePagination.option,
+              mainPagePagination.valuePage.curPage
+            );
           },
         });
       }
@@ -671,7 +709,7 @@ $(document).ready(function () {
       {
         page: page,
         selected: $(".btn-filter").text(),
-        content: $("#search-input").val().trim()
+        content: $("#search-input").val().trim(),
       },
       function (data) {
         showData(data);
@@ -687,7 +725,7 @@ $(document).ready(function () {
       type: "post",
       data: {
         selected: $(".btn-filter").text(),
-        content: $("#search-input").val().trim()
+        content: $("#search-input").val().trim(),
       },
       success: function (data) {
         let sum = parseInt(data);
@@ -717,7 +755,6 @@ $(document).ready(function () {
     });
     loadPagination();
   }
-  
 });
 
 // Pagination
@@ -726,4 +763,7 @@ mainPagePagination.option.controller = "question";
 mainPagePagination.option.model = "CauHoiModel";
 mainPagePagination.option.limit = 10;
 mainPagePagination.option.filter = {};
-mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+mainPagePagination.getPagination(
+  mainPagePagination.option,
+  mainPagePagination.valuePage.curPage
+);

@@ -51,8 +51,8 @@ function showAssignment(data) {
         <td>
             <a class="fw-semibold">${element['tenmonhoc']}</a>
         </td>
-        <td class="text-center">
-            <a class="btn btn-sm btn-alt-secondary btn-delete-assignment" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
+        <td class="text-center col-action">
+            <a data-role="phancong" data-action="delete" class="btn btn-sm btn-alt-secondary btn-delete-assignment" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" data-id="${element['manguoidung']}">
                 <i class="fa fa-fw fa-times"></i>
             </a>
         </td>
@@ -99,17 +99,6 @@ $(document).ready(function(){
     $(".js-select2").select2({
         dropdownParent: $("#modal-add-assignment"),
     });
-
-    // function loadAssignment(){
-    //     $.get("./assignment/getAssignment",
-    //         function (data) {
-    //             showData(data);
-    //         },
-    //         "json"
-    //     );
-    // }
-
-    // loadAssignment();
     
     $.get("./assignment/getGiangVien",
         function (data) {
@@ -124,12 +113,6 @@ $(document).ready(function(){
 
     $("#add_assignment").click(function(){
         $("#giang-vien").val("").trigger("change");
-        // $.get("./assignment/getMonHoc",
-        // function (data) {
-        //     showData(data);
-        // },
-        // "json"
-        // };
         modalAddAssignmentPagination.getPagination(modalAddAssignmentPagination.option, modalAddAssignmentPagination.valuePage.curPage);
     });
 

@@ -1,0 +1,39 @@
+ALTER TABLE `chitietnhom` ADD CONSTRAINT `FK_CHITIETNHOM_NGUOIDUNG` FOREIGN KEY (`manguoidung`) REFERENCES `nguoidung`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TRIGGER `update_group_participants_after_insert` AFTER INSERT ON `chitietnhom`
+FOR EACH ROW UPDATE nhom
+SET siso = 
+(SELECT count(*) FROM chitietnhom where manhom = NEW.manhom)
+WHERE manhom = NEW.manhom
+
+CREATE TRIGGER `update_group_participants_after_delete` AFTER DELETE ON `chitietnhom`
+FOR EACH ROW UPDATE nhom
+SET siso = 
+(SELECT count(*) FROM chitietnhom where manhom = OLD.manhom)
+WHERE manhom = OLD.manhom
+
+CREATE TRIGGER `delete_chitietnhom_by_id` BEFORE DELETE ON `nguoidung`
+FOR EACH ROW DELETE FROM chitietnhom WHERE chitietnhom.manguoidung = OLD.id
+
+DROP FUNCTION IF EXISTS fnStripTags;
+DELIMITER |
+CREATE FUNCTION fnStripTags( Dirty varchar(4000) CHARSET utf8 )
+RETURNS varchar(4000) CHARSET utf8
+DETERMINISTIC 
+BEGIN
+  DECLARE iStart, iEnd, iLength int;
+    WHILE Locate( '<', Dirty ) > 0 And Locate( '>', Dirty, Locate( '<', Dirty )) > 0 DO
+      BEGIN
+        SET iStart = Locate( '<', Dirty ), iEnd = Locate( '>', Dirty, Locate('<', Dirty ));
+        SET iLength = ( iEnd - iStart) + 1;
+        IF iLength > 0 THEN
+          BEGIN
+            SET Dirty = Insert( Dirty, iStart, iLength, '');
+          END;
+        END IF;
+      END;
+    END WHILE;
+    RETURN Dirty;
+END;
+|
+DELIMITER ;

@@ -54,10 +54,10 @@ function showListTest(tests) {
                         <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="./test/detail/${test.made}">
                             <i class="fa fa-eye opacity-50 me-1"></i> Xem chi tiết
                         </a>
-                        <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/${test.made}">
+                        <a data-role="dethi" data-action="update" class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/${test.made}">
                             <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
                         </a>
-                        <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${test.made}">
+                        <a data-role="dethi" data-action="delete" class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${test.made}">
                             <i class="fa fa-times opacity-50 me-1"></i> Xoá đề
                         </a>
                     </div>
@@ -79,21 +79,6 @@ $(document).ready(function () {
             input: "form-control",
         },
     });
-    // let dethi = []
-    // function getData() {
-    //     return $.ajax({
-    //         type: "post",
-    //         url: "./test/getData",
-    //         dataType: "json",
-    //         success: function (data) {
-    //             dethi = data
-    //         }
-    //     });
-    // }
-
-    // $.when(getData()).done(function () {
-    //     showListTest(dethi);
-    // })
 
     $(document).on("click", ".btn-delete", function () {
         let index = $(this).data("index");

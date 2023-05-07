@@ -81,12 +81,12 @@ $GLOBALS['navbar'] = [
                 'url'   => 'roles',
                 'role' => 'nhomquyen'
             ),
-            array(
-                'name'  => 'Cài đặt',
-                'icon'  => 'fa fa-gears',
-                'url'   => 'setting',
-                'role' => 'caidat'
-            )
+            // array(
+            //     'name'  => 'Cài đặt',
+            //     'icon'  => 'fa fa-gears',
+            //     'url'   => 'setting',
+            //     'role' => 'caidat'
+            // )
         ]
     )
 ];

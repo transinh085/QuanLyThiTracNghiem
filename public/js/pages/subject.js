@@ -59,16 +59,16 @@ function showData(subjects) {
               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotinchi}</td>
               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietlythuyet}</td>
               <td class="d-none d-sm-table-cell text-center fs-sm">${subject.sotietthuchanh}</td>
-              <td class="text-center">
-                  <a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
+              <td class="text-center col-action">
+                  <a data-role="chuong" data-action="view" class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter" href="javascript:void(0)"
                       data-bs-toggle="tooltip" aria-label="Thêm chương" data-bs-original-title="Chi tiết chương" data-id="${subject.mamonhoc}">
                       <i class="fa fa-circle-info"></i>
                   </a>
-                  <a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
+                  <a data-role="monhoc" data-action="update" class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"
                       data-bs-toggle="tooltip" aria-label="Sửa môn học" data-bs-original-title="Sửa môn học" data-id="${subject.mamonhoc}">
                       <i class="fa fa-fw fa-pencil"></i>
                   </a>
-                  <a class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
+                  <a data-role="monhoc" data-action="delete" class="btn btn-sm btn-alt-secondary btn-delete-subject" href="javascript:void(0)"
                       data-bs-toggle="tooltip" aria-label="Xoá môn học" data-bs-original-title="Xoá môn học" data-id="${subject.mamonhoc}">
                       <i class="fa fa-fw fa-times"></i>
                   </a>
@@ -80,17 +80,6 @@ function showData(subjects) {
 }
 
 $(document).ready(function () {
-  function loadData() {
-    $.get(
-      "./subject/getData",
-      function (data, textStatus) {
-        showData(data);
-      },
-      "json"
-    );
-  }
-
-  // loadData();
 
   $("[data-bs-target='#modal-add-subject']").click(function (e) {
     e.preventDefault();
@@ -140,7 +129,6 @@ $(document).ready(function () {
                   message: "Thêm môn học thành công!",
                 });
                 $("#modal-add-subject").modal("hide");
-                // loadData();
                 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
               } else {
                 Dashmix.helpers("jq-notify", {
@@ -213,7 +201,6 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Cập nhật môn học thành công!",
           });
-          // loadData();
           mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
         } else {
           Dashmix.helpers("jq-notify", {
@@ -266,7 +253,6 @@ $(document).ready(function () {
           success: function (response) {
             if (response) {
               e.fire("Deleted!", "Xóa môn học thành công!", "success");
-              // loadData();
               mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
             } else {
               e.fire("Lỗi !", "Xoá môn học không thành công !)", "error");
@@ -310,14 +296,14 @@ $(document).ready(function () {
                           index + 1
                         }</strong></td>
                         <td>${chapter["tenchuong"]}</td>
-                        <td class="text-center">
-                            <a class="btn btn-sm btn-alt-secondary chapter-edit"
+                        <td class="text-center col-action">
+                            <a data-role="chuong" data-action="update" class="btn btn-sm btn-alt-secondary chapter-edit"
                                 data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${
                                   chapter["machuong"]
                                 }">
                                 <i class="fa fa-fw fa-pencil"></i>
                             </a>
-                            <a class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
+                            <a data-role="chuong" data-action="delete" class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
                                 data-bs-toggle="tooltip" aria-label="Delete"
                                 data-bs-original-title="Delete" data-id="${
                                   chapter["machuong"]

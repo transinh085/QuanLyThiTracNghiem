@@ -10,8 +10,7 @@
                 data-action="sidebar_toggle">
                 <i class="fa fa-fw fa-bars"></i>
             </button>
-            <button type="button" class="btn btn-alt-secondary me-1 d-none d-lg-inline-block" data-toggle="layout"
-                data-action="sidebar_mini_toggle">
+            <button type="button" class="btn btn-alt-secondary me-1 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
                 <i class="fa fa-fw fa-ellipsis-v"></i>
             </button>
             <!-- END Toggle Sidebar -->

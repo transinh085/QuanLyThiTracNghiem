@@ -14,7 +14,6 @@ class Module extends Controller
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("hocphan", "view")) {
             $this->view("main_layout", [
                 "Page" => "module",
@@ -34,7 +33,8 @@ class Module extends Controller
     public function detail($manhom)
     {
         AuthCore::checkAuthentication();
-        if (AuthCore::checkPermission("hocphan", "view")) {
+        $chitietnhom = $this->nhomModel->getDetailGroup($manhom);
+        if (AuthCore::checkPermission("hocphan", "view") && $_SESSION['user_id'] == $chitietnhom['giangvien']) {
             $this->view("main_layout", [
                 "Page" => "class_detail",
                 "Title" => "Quản lý nhóm",
@@ -47,7 +47,7 @@ class Module extends Controller
                     "pagination" => [],
                 ],
                 "Script" => "class_detail",
-                "Detail" => $this->nhomModel->getDetailGroup($manhom)
+                "Detail" => $chitietnhom
             ]);
         } else
             $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);

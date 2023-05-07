@@ -22,7 +22,6 @@ class Test extends Controller
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "view")) {
             $this->view("main_layout", [
                 "Page" => "test",
@@ -42,7 +41,6 @@ class Test extends Controller
 
     public function add()
     {
-        AuthCore::checkAuthentication();
         if (AuthCore::checkPermission("dethi", "create")) {
             $this->view("main_layout", [
                 "Page" => "add_update_test",
@@ -64,112 +62,147 @@ class Test extends Controller
 
     public function update($made)
     {
-        AuthCore::checkAuthentication();
-        if (AuthCore::checkPermission("dethi", "update")) {
-            $this->view("main_layout", [
-                "Page" => "add_update_test",
-                "Title" => "Cập nhật đề kiểm tra",
-                "Plugin" => [
-                    "datepicker" => 1,
-                    "flatpickr" => 1,
-                    "select" => 1,
-                    "notify" => 1,
-                    "jquery-validate" => 1
-                ],
-                "Script" => "action_test",
-                "Action" => "update"
-            ]);
+        if(filter_var($made, FILTER_VALIDATE_INT) !== false) {
+            $dethi = $this->dethimodel->getById($made);
+            if(isset($dethi)) {
+                if (AuthCore::checkPermission("dethi", "update") && $dethi['nguoitao'] == $_SESSION['user_id']) {
+                    $this->view("main_layout", [
+                        "Page" => "add_update_test",
+                        "Title" => "Cập nhật đề kiểm tra",
+                        "Plugin" => [
+                            "datepicker" => 1,
+                            "flatpickr" => 1,
+                            "select" => 1,
+                            "notify" => 1,
+                            "jquery-validate" => 1
+                        ],
+                        "Script" => "action_test",
+                        "Action" => "update"
+                    ]);
+                } else {
+                    $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+                }
+            } else {
+                $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
+            }
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
         }
     }
 
     public function start($made)
     {
-        AuthCore::checkAuthentication();
-        if (AuthCore::checkPermission("tgthi", "join")) {
-            $this->view("main_layout", [
-                "Page" => "vao_thi",
-                "Title" => "Bắt đầu thi",
-                "Test" => $this->dethimodel->getById($made),
-                "Check" => $this->ketquamodel->getMaKQ($made, $_SESSION['user_id']),
-                "Script" => "vaothi",
-                "Plugin" => [
-                    "notify" => 1
-                ]
-            ]);
+        if(filter_var($made, FILTER_VALIDATE_INT) !== false) {
+            $dethi = $this->dethimodel->getById($made);
+            $check_allow = $this->dethimodel->checkStudentAllowed($_SESSION['user_id'], $made);
+            if (isset($dethi)) {
+                if(AuthCore::checkPermission("tgthi", "join") && $check_allow) {
+                    $this->view("main_layout", [
+                        "Page" => "vao_thi",
+                        "Title" => "Bắt đầu thi",
+                        "Test" => $dethi,
+                        "Check" => $this->ketquamodel->getMaKQ($made, $_SESSION['user_id']),
+                        "Script" => "vaothi",
+                        "Plugin" => [
+                            "notify" => 1
+                        ]
+                    ]);
+                } else {
+                    $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+                }
+            } else {
+                $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
+            }
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
         }
     }
 
     public function detail($made)
     {
-        AuthCore::checkAuthentication();
-        if (AuthCore::checkPermission("dethi", "create")) {
-            $this->view("main_layout", [
-                "Page" => "test_detail",
-                "Title" => "Danh sách đã thi",
-                "Test" => $this->dethimodel->getInfoTestBasic($made),
-                "Script" => "test_detail",
-                "Plugin" => [
-                    "pagination" => [],
-                    "chart" => 1
-                ]
-            ]);
+        if(filter_var($made, FILTER_VALIDATE_INT) !== false) {
+            $dethi = $this->dethimodel->getInfoTestBasic($made);
+            if (isset($dethi)) {
+                if(AuthCore::checkPermission("dethi", "create") && $dethi['nguoitao'] == $_SESSION['user_id']) {
+                    $this->view("main_layout", [
+                        "Page" => "test_detail",
+                        "Title" => "Danh sách đã thi",
+                        "Test" => $dethi,
+                        "Script" => "test_detail",
+                        "Plugin" => [
+                            "pagination" => [],
+                            "chart" => 1
+                        ]
+                    ]);
+                } else {
+                    $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+                }
+            } else {
+                $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
+            }
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
         }
     }
 
     public function select($made)
     {
-        AuthCore::checkAuthentication();
-        $check = $this->dethimodel->getById($made);
-        if ($check && AuthCore::checkPermission("dethi", "create") && AuthCore::checkPermission("dethi", "update")) {
-            $this->view('main_layout', [
-                "Page" => "select_question",
-                "Title" => "Chọn câu hỏi",
-                "Script" => "select_question",
-                "Plugin" => [
-                    "notify" => 1
-                ],
-            ]);
+        if(filter_var($made, FILTER_VALIDATE_INT) !== false) {
+            $check = $this->dethimodel->getById($made);
+            if (isset($check)) {
+                if(($check && AuthCore::checkPermission("dethi", "create") || AuthCore::checkPermission("dethi", "update")) && $check['loaide'] == 0 && $check['nguoitao'] == $_SESSION['user_id']) {
+                    $this->view('main_layout', [
+                        "Page" => "select_question",
+                        "Title" => "Chọn câu hỏi",
+                        "Script" => "select_question",
+                        "Plugin" => [
+                            "notify" => 1
+                        ],
+                    ]);
+                } else {
+                    $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+                }
+            } else {
+                $this->view("single_layout", [
+                    "Page" => "error/page_404",
+                    "Title" => "Lỗi !"
+                ]);
+            }
         } else {
-            $this->view("single_layout", [
-                "Page" => "error/page_404",
-                "Title" => "Lỗi !"
-            ]);
+            $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
         }
     }
 
     // Tham gia thi
     public function taketest($made)
     {
-        AuthCore::checkAuthentication();
-        if (AuthCore::checkPermission("tgthi", "join")) {
-            $user_id = $_SESSION['user_id'];
-            $check = $this->ketquamodel->getMaKQ($made, $user_id);
-            $infoTest = $this->dethimodel->getById($made);
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $now = new DateTime();
-            $timestart = new DateTime($infoTest['thoigianbatdau']);
-            $timeend = new DateTime($infoTest['thoigianketthuc']);
-            if ($now >= $timestart && $now <= $timeend && $check['diemthi'] == '') {
-                $this->view("single_layout", [
-                    "Page" => "de_thi",
-                    "Title" => "Làm bài kiểm tra",
-                    "Made" => $made,
-                    "Script" => "de_thi",
-                    "Plugin" => [
-                        "sweetalert2" => 1
-                    ]
-                ]);
+        if(filter_var($made, FILTER_VALIDATE_INT) !== false) {
+            if (AuthCore::checkPermission("tgthi", "join")) {
+                $user_id = $_SESSION['user_id'];
+                $check = $this->ketquamodel->getMaKQ($made, $user_id);
+                $infoTest = $this->dethimodel->getById($made);
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $now = new DateTime();
+                $timestart = new DateTime($infoTest['thoigianbatdau']);
+                $timeend = new DateTime($infoTest['thoigianketthuc']);
+                if ($now >= $timestart && $now <= $timeend && $check['diemthi'] == '') {
+                    $this->view("single_layout", [
+                        "Page" => "de_thi",
+                        "Title" => "Làm bài kiểm tra",
+                        "Made" => $made,
+                        "Script" => "de_thi",
+                        "Plugin" => [
+                            "sweetalert2" => 1
+                        ]
+                    ]);
+                } else {
+                    header("Location: ../start/$made");
+                }
             } else {
-                header("Location: ../start/$made");
+                $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
             }
         } else {
-            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+            $this->view("single_layout", ["Page" => "error/page_404", "Title" => "Lỗi !"]);
         }
     }
 
@@ -186,7 +219,7 @@ class Test extends Controller
 
     public function addTest()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi", "create")) {
             $mamonhoc = $_POST['mamonhoc'];
             $nguoitao = $_SESSION['user_id'];
             $tende = $_POST['tende'];
@@ -212,7 +245,7 @@ class Test extends Controller
 
     public function updateTest()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi", "update")) {
             $made = $_POST['made'];
             $mamonhoc = $_POST['mamonhoc'];
             $tende = $_POST['tende'];
@@ -236,18 +269,9 @@ class Test extends Controller
         }
     }
 
-    public function getData()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $user_id = $_SESSION['user_id'];
-            $result = $this->dethimodel->getAll($user_id);
-            echo json_encode($result);
-        }
-    }
-
     public function getDetail()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("dethi", "view")) {
             $made = $_POST['made'];
             $result = $this->dethimodel->getById($made);
             echo json_encode($result);

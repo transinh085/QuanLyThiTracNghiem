@@ -2,48 +2,49 @@ Dashmix.helpersOnLoad(["jq-select2"]);
 
 Dashmix.onLoad((() => class {
     static initValidation() {
-      Dashmix.helpers("jq-validation"), jQuery(".form-add-group").validate({
-        rules: {
-          "ten-nhom": {
-            required: !0,
-          },
-          "ghi-chu": {
-            required: !0,
-          },
-          "mon-hoc": {
-            required: !0,
-          },
-          "nam-hoc": {
-            required: !0
-          },
-          "hoc-ky": {
-            required: !0,
-          },
-        },
-        messages: {
-          "ten-nhom": {
-            required: "Vui lòng nhập tên nhóm",
-          },
-          "ghi-chu": {
-            required: "Vui lòng không để trống trường này",
-          },
-          "mon-hoc": {
-            required: "Vui lòng chọn môn học",
-          },
-          "nam-hoc": {
-            required: "Vui lòng chọn năm học",
-          },
-          "hoc-ky": {
-            required: "Vui lòng chọn học kỳ",
-          },
-        }
-      })
+        Dashmix.helpers("jq-validation"), jQuery(".form-add-group").validate({
+            rules: {
+                "ten-nhom": {
+                    required: !0,
+                },
+                "ghi-chu": {
+                    required: !0,
+                },
+                "mon-hoc": {
+                    required: !0,
+                },
+                "nam-hoc": {
+                    required: !0
+                },
+                "hoc-ky": {
+                    required: !0,
+                },
+            },
+            messages: {
+                "ten-nhom": {
+                    required: "Vui lòng nhập tên nhóm",
+                },
+                "ghi-chu": {
+                    required: "Vui lòng không để trống trường này",
+                },
+                "mon-hoc": {
+                    required: "Vui lòng chọn môn học",
+                },
+                "nam-hoc": {
+                    required: "Vui lòng chọn năm học",
+                },
+                "hoc-ky": {
+                    required: "Vui lòng chọn học kỳ",
+                },
+            }
+        })
     }
-  
+
     static init() {
-      this.initValidation()
+        this.initValidation()
     }
-  }.init()));
+}.init()));
+
 $(document).ready(function () {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -76,18 +77,18 @@ $(document).ready(function () {
     function showGroup(list) {
         let html = "";
         let d = 0;
-        if(list.length == 0) {
+        if (list.length == 0) {
             html += `<p class="text-center mt-5">Không có dữ liệu</p>`
         } else {
             list.forEach((item) => {
                 html += `<div>
                     <div class="heading-group d-flex align-items-center">
-                        <h2 class="content-heading" id="${d++}">${ "<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>"  + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
+                        <h2 class="content-heading" id="${d++}">${"<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>" + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
                     </div>
                     <div class="row">`;
                 item.nhom.forEach((nhom_item) => {
                     let btn_hide = "";
-                    if(nhom_item.hienthi == 1) {
+                    if (nhom_item.hienthi == 1) {
                         btn_hide = `<a class="nav-main-link dropdown-item btn-hide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
                             <i class="nav-main-link-icon si si-eye me-2 text-dark"></i>
                             <span class="nav-main-link-name fw-normal">Ẩn nhóm</span>
@@ -113,7 +114,7 @@ $(document).ready(function () {
                                         <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
                                         <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
                                     </a>
-                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}" data-role="hocphan" data-action="update">
                                         <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
                                         <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
                                     </a>
@@ -238,11 +239,11 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(groups)
                 if (response) {
-                    for(let i = 0; i < groups.length; i++) {
+                    for (let i = 0; i < groups.length; i++) {
                         let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
-                        if(index != -1) {
+                        if (index != -1) {
                             groups[i].nhom.splice(index, 1);
-                            if(groups[i].nhom.length == 0) groups.splice(i,1);
+                            if (groups[i].nhom.length == 0) groups.splice(i, 1);
                             break;
                         }
                     }
@@ -264,11 +265,11 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response) {
-                    for(let i = 0; i < groups.length; i++) {
+                    for (let i = 0; i < groups.length; i++) {
                         let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
-                        if(index != -1) {
+                        if (index != -1) {
                             groups[i].nhom.splice(index, 1);
-                            if(groups[i].nhom.length == 0) groups.splice(i,1);
+                            if (groups[i].nhom.length == 0) groups.splice(i, 1);
                             break;
                         }
                     }
@@ -302,7 +303,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#update-group").click(function (e) { 
+    $("#update-group").click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "post",
@@ -337,14 +338,14 @@ $(document).ready(function () {
     // Reset form khi đóng modal
     $("#modal-add-group").on('hidden.bs.modal', function () {
         $("#ten-nhom").val(""),
-        $("#ghi-chu").val(""),
-        $("#mon-hoc").val("").trigger("change"),
-        $("#nam-hoc").val("").trigger("change"),
-        $("#hoc-ky").val("").trigger("change")
+            $("#ghi-chu").val(""),
+            $("#mon-hoc").val("").trigger("change"),
+            $("#nam-hoc").val("").trigger("change"),
+            $("#hoc-ky").val("").trigger("change")
     });
 
     // Thay đổi text khi nhấn vào dropdown
-    $(".filter-search").click(function (e) { 
+    $(".filter-search").click(function (e) {
         e.preventDefault();
         $(".btn-filter").text($(this).text());
         mode = $(this).data("value")
@@ -355,12 +356,12 @@ $(document).ready(function () {
         let result = [];
         let content = $(this).val().toLowerCase();
         console.log(groups);
-        for(let i = 0; i < groups.length; i++) {
-            if(groups[i].mamonhoc.includes(content) || groups[i].tenmonhoc.toLowerCase().includes(content) || groups[i].namhoc.includes(content)) {
+        for (let i = 0; i < groups.length; i++) {
+            if (groups[i].mamonhoc.includes(content) || groups[i].tenmonhoc.toLowerCase().includes(content) || groups[i].namhoc.includes(content)) {
                 result.push(groups[i]);
             }
         }
         showGroup(result);
-    });  
+    });
 
 });

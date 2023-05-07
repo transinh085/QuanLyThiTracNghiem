@@ -89,7 +89,7 @@ class NguoiDungModel extends DB
 
     public function getByEmail($email)
     {
-        $sql = "SELECT * FROM `nguoidung` WHERE `email` = '$email'";
+        $sql = "SELECT email,otp FROM `nguoidung` WHERE `email` = '$email'";
         $result = mysqli_query($this->con, $sql);
         if($result){
             return mysqli_fetch_assoc($result);
@@ -97,6 +97,14 @@ class NguoiDungModel extends DB
             return false;
         }
     }
+
+    public function checkOpt($email,$opt)
+    {
+        $sql = "SELECT email,otp FROM `nguoidung` WHERE `email` = '$email' AND `otp` = '$opt'";
+        $result = mysqli_query($this->con, $sql);
+        return $result->num_rows;
+    }
+
 
     public function changePassword($email, $new_password)
     {
@@ -195,9 +203,9 @@ class NguoiDungModel extends DB
         return $result;
     }
 
-    public function updateOpt($opt, $email)
+    public function updateOpt($email, $otp)
     {
-        $sql = "UPDATE `nguoidung` SET `opt`='$opt' WHERE `email`='$email'";
+        $sql = "UPDATE `nguoidung` SET `otp`= $otp WHERE `email`='$email'";
         $result = mysqli_query($this->con, $sql);
         return $result;
     }

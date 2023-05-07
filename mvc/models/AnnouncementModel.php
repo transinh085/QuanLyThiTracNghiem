@@ -27,10 +27,10 @@ class AnnouncementModel extends DB
     }
 
     public function getAnnounce($manhom) {
-        $sql = "SELECT DISTINCT `thongbao`.`matb`, `noidung`, `avatar` 
+        $sql = "SELECT DISTINCT `thongbao`.`matb`, `noidung`, `avatar` ,`thoigiantao`
         FROM `thongbao`,`chitietthongbao`,`chitietnhom`,`nguoidung` 
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `nguoitao` = `id`
-        AND `chitietthongbao`.`manhom` = $manhom";
+        AND `chitietthongbao`.`manhom` = $manhom ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
@@ -44,7 +44,7 @@ class AnnouncementModel extends DB
         $sql = "SELECT `chitietthongbao`.`matb`,`tennhom`,`noidung`, `tenmonhoc` ,`namhoc`, `hocky`, `thoigiantao`
         FROM `thongbao`, `chitietthongbao`,`nhom`,`monhoc` 
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `nhom`.`manhom` AND `nhom`.`mamonhoc` = `monhoc`.`mamonhoc`
-        AND `thongbao`.`nguoitao` = $user_id";
+        AND `thongbao`.`nguoitao` = $user_id ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
@@ -69,20 +69,21 @@ class AnnouncementModel extends DB
     }
 
     public function deleteAnnounce($matb)
-    {
-        $sql = "DELETE FROM `chitietthongbao` WHERE `matb` = $matb";
-        $result = mysqli_query($this->con,$sql);
+    {  
+        $result = $this->deleteDetailAnnounce($matb);
         if ($result) {
-            $result = $this->deleteDetailAnnounce($matb);
+            $sql = "DELETE FROM `thongbao` WHERE `matb` = $matb";
+            $result = mysqli_query($this->con,$sql);
             return true;
         } else return false;
     }
+
 
     // Xóa thông báo trong bảng thongbao
     public function deleteDetailAnnounce($matb)
     {
         $valid = true;
-        $sql = "DELETE FROM `thongbao` WHERE `matb` = $matb";
+        $sql = "DELETE FROM `chitietthongbao` WHERE `matb` = $matb";
         $result = mysqli_query($this->con,$sql);
         if (!$result) $valid = false;
         return $valid; 
@@ -107,20 +108,28 @@ class AnnouncementModel extends DB
         return $thongbao;
     }
 
-    public function updateAnnounce($matb,$mamonhoc,$noidung,$nhom)
+    public function updateAnnounce($matb,$noidung,$nhom)
     {
         $valid = true;
         $sql = "UPDATE `thongbao` SET `noidung`='$noidung' WHERE `matb` = $matb" ;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        if($result) {
+            $this->deleteDetailAnnounce($matb);
+            $this->sendAnnouncement($matb, $nhom);
+        } else $valid = false;
         return $valid; 
     }
 
     public function getNotifications($id)
     {
-        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` 
-        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `thongbao`.`nguoitao` = `nguoidung`.`id` AND `chitietnhom`.`manhom` = `nhom`.`manhom`
-        AND `chitietnhom`.`manguoidung` = $id";
+        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` , monhoc.mamonhoc, monhoc.tenmonhoc
+        FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` ,`monhoc`
+        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` 
+        AND `thongbao`.`nguoitao` = `nguoidung`.`id` 
+        AND `chitietnhom`.`manhom` = `nhom`.`manhom`
+        AND `monhoc`.`mamonhoc` = `nhom`.`mamonhoc`
+        AND `chitietnhom`.`manguoidung` = $id
+        ORDER BY thoigiantao DESC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){

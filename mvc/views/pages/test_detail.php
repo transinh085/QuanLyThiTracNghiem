@@ -76,12 +76,12 @@
                     <?php if (isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php" ?>
                 </div>
                 <div class="tab-pane" id="thong-ke" role="tabpanel" aria-labelledby="thong-ke-tab" tabindex="0">
-                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-static mb-3" id="dropdown-filter-static" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
+                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-static mb-3" id="dropdown-filter-static" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-static">
+                        <li><a class="dropdown-item filtered-by-static active" href="javascript:void(0)" data-id="0">Tất cả</a></li>
                         <?php
                         foreach ($data["Test"]["nhom"] as $index => $nhom) {
-                            $isactive = $index==0?' active':'';
-                            echo '<li><a class="dropdown-item filtered-by-static'.$isactive.'" href="javascript:void(0)" data-id="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
+                            echo '<li><a class="dropdown-item filtered-by-static" href="javascript:void(0)" data-id="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
                         }
                         ?>
                     </ul>

@@ -130,33 +130,23 @@ $(document).ready(function () {
 
     });
 
-    function formatDate(datetimeStr) {
-        const datetime = new Date(datetimeStr);
-        const hours = datetime.getHours().toString().padStart(2, "0");
-        const minutes = datetime.getMinutes().toString().padStart(2, "0");
-        const day = datetime.getDate().toString().padStart(2, "0");
-        const month = (datetime.getMonth() + 1).toString().padStart(2, "0");
-        const year = datetime.getFullYear().toString();
-        return `${hours}:${minutes} ${day}/${month}/${year}`;
-    }
-
     function showListAnnounce(announces) {
         let html = "";
         if (announces.length != 0) {
             announces.forEach(announce => {
                 html += `
                 <div class="block block-rounded block-fx-pop mb-2">
-            <div class="block-content block-content-full border-start border-3 border-danger">
+            <div class="block-content block-content-full border-start border-3 border-success">
             <div class="d-md-flex justify-content-md-between align-items-md-center">
                     <div class="p-1 p-md-3">
-                        <p class="fs-sm text-muted mb-2">
-                            <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="${announce.nhom}">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
-                        </p>
-                        <div class="flex-grow-1 fs-sm pe-2">
+                        <div class="flex-grow-1 fs-sm pe-2 mb-2">
                             <div class="fw-semibold">
                                 <i class="fa fa-message me-1"></i>
                                 ${announce.noidung}</div>
                         </div>
+                        <p class="fs-sm text-muted mb-2">
+                            <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="${announce.nhom}">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
+                        </p>
                     </div>
                     <div class="p-1 p-md-3">
                         <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="javascript:void(0)">
@@ -240,7 +230,7 @@ $(document).ready(function () {
                                 e.fire("Deleted!", "Xóa thông báo thành công!", "success");
                                 loadListAnnounces();
                             } else {
-                                e.fire("Lỗi !", "Xoá đề thi không thành công !)", "error");
+                                e.fire("Lỗi !", "Xoá thông báo không thành công !)", "error");
                             }
                         },
                     });

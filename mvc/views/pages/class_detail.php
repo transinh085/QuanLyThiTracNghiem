@@ -197,7 +197,9 @@
                 </div>
                 <div class="tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
                     aria-labelledby="so-profile-tab" tabindex="0">
-                    <p class="text-center">Không có thông báo</p>
+                    <ul class="list-announce nav-items my-2">
+                        <p class="text-center">Không có thông báo</p>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -131,10 +131,9 @@ class teacher_announcement extends Controller{
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $matb = $_POST["matb"];
-            $mamonhoc = $_POST["mamonhoc"];
             $noidung = $_POST["noidung"];
             $manhom = $_POST["manhom"];
-            $result = $this->AnnouncementModel->updateAnnounce($matb,$mamonhoc,$noidung,$manhom);
+            $result = $this->AnnouncementModel->updateAnnounce($matb,$noidung,$manhom);
             echo json_encode($result);
         }
     }

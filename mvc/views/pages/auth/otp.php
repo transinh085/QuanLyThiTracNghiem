@@ -19,15 +19,15 @@
                     <!-- Reminder Form -->
                     <!-- jQuery Validation (.js-validation-reminder class is initialized in js/pages/op_auth_reminder.min.js which was auto compiled from _js/pages/op_auth_reminder.js) -->
                     <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                    <form class="js-validation-reminder" action="" method="">
+                    <form id="formOpt">
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" id="reminder-credential"
-                                    name="reminder-credential" placeholder="Enter confirmation code">
+                                <input type="text" class="form-control" id="txtOpt"
+                                    name="txtOpt" placeholder="Enter confirmation code">
                             </div>
                         </div>
                         <div class="text-center mb-4 add-btn-otp">
-                            <button type="submit" class="btn btn-hero btn-primary">
+                            <button id="opt" class="btn btn-hero btn-primary">
                                 verify
                             </button>
                         </div>

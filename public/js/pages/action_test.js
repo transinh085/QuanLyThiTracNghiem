@@ -211,7 +211,7 @@ $(document).ready(function () {
     $("#btn-add-test").click(function (e) {
         e.preventDefault();
         if ($(".form-taodethi").valid()) {
-            if(!getGroupSelected().length == 0) {
+            if(getGroupSelected().length != 0) {
                 $.ajax({
                     type: "post",
                     url: "./test/addTest",

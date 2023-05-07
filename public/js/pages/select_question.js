@@ -96,7 +96,6 @@ function getQuestionOfTest() {
 
 // Đợi khi ajax getInfoTest() thực hiện hoàn tất
 $.when(getInfoTest(),getQuestionOfTest()).done(function(){
-    console.log(arrQuestion)
     $("#name-test").text(infoTest.tende)
     $("#test-time").text(infoTest.thoigianthi);
     let slgioihan = [0,infoTest.socaude,infoTest.socautb,infoTest.socaukho]
@@ -147,7 +146,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $(document).on("click", ".item-question",function () {
         const id = +$(this).data("id");
         const question = currentQuestionLists.find(question => question.macauhoi == id);
-        console.log(question);
         if ($(this).prop("checked") == true) {
             if(arr_slch[`${question.dokho}`] < slgioihan[`${question.dokho}`]) {
                 arrQuestion.push(question);
@@ -252,7 +250,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
     $("#save-test").click(function (e) { 
         e.preventDefault();
         if(arr_slch[1] == slgioihan[1] && arr_slch[2] == slgioihan[2] && arr_slch[3] == slgioihan[3]) {
-            console.log(arrQuestion)
             $.ajax({
                 type: "post",
                 url: "./test/addDetail",

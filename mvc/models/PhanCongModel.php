@@ -80,7 +80,7 @@ class PhanCongModel extends DB{
             $func = $args["custom"]["function"];
             switch ($func) {
                 case "monhoc":
-                    $query = "SELECT * FROM `monhoc` WHERE 1";
+                    $query = "SELECT * FROM `monhoc` WHERE trangthai = 1";
                     if ($input) {
                         $query .= " AND (monhoc.tenmonhoc LIKE N'%${input}%' OR monhoc.mamonhoc LIKE '%${input}%')";
                     }

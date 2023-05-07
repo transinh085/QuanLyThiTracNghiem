@@ -771,11 +771,17 @@ $(document).ready(function () {
   }
 });
 
+// Get current user ID
+const container = document.querySelector(".content");
+const currentUser = container.dataset.id;
+delete container.dataset.id;
+
 // Pagination
 const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "question";
 mainPagePagination.option.model = "CauHoiModel";
 mainPagePagination.option.limit = 10;
+mainPagePagination.option.id = currentUser;
 mainPagePagination.option.filter = {};
 mainPagePagination.getPagination(
   mainPagePagination.option,

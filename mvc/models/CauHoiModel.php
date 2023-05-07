@@ -118,7 +118,7 @@ class CauHoiModel extends DB{
         if ($input) {
             return $this->getQueryWithInput($filter, $input, $args);
         }
-        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE cauhoi.trangthai='1'";
+        $query = "SELECT * FROM cauhoi JOIN monhoc on cauhoi.mamonhoc = monhoc.mamonhoc WHERE cauhoi.trangthai = 1 AND nguoitao = '".$args['id']."'";
         if (isset($filter)) {
             if (isset($filter['mamonhoc'])) {
                 $query .= " AND monhoc.mamonhoc = ".$filter['mamonhoc'];

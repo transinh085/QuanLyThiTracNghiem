@@ -32,7 +32,6 @@ class Module extends Controller
 
     public function detail($manhom)
     {
-        AuthCore::checkAuthentication();
         $chitietnhom = $this->nhomModel->getDetailGroup($manhom);
         if (AuthCore::checkPermission("hocphan", "view") && $_SESSION['user_id'] == $chitietnhom['giangvien']) {
             $this->view("main_layout", [
@@ -55,6 +54,7 @@ class Module extends Controller
 
     public function loadData()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $hienthi = $_POST['hienthi'];
             $user_id = $_SESSION['user_id'];
@@ -128,7 +128,7 @@ class Module extends Controller
 
     public function updateInvitedCode()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan", "create")) {
             $manhom = $_POST['manhom'];
             $result = $this->nhomModel->updateInvitedCode($manhom);
             echo $result;
@@ -137,7 +137,7 @@ class Module extends Controller
 
     public function getInvitedCode()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("hocphan", "view")) {
             $manhom = $_POST['manhom'];
             $result = $this->nhomModel->getInvitedCode($manhom);
             echo $result['mamoi'];
@@ -146,6 +146,7 @@ class Module extends Controller
 
     public function getSvList() 
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $result = $this->nhomModel->getSvList($manhom);
@@ -156,6 +157,7 @@ class Module extends Controller
 
     public function addSV()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $mssv = $_POST['mssv'];
@@ -168,6 +170,7 @@ class Module extends Controller
     }
 
     public function addSvGroup(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $mssv = $_POST['mssv'];
@@ -178,6 +181,7 @@ class Module extends Controller
 
     public function checkAcc()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $mssv = $_POST['mssv'];
@@ -189,6 +193,7 @@ class Module extends Controller
 
     public function exportExcelStudentS()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $result = $this->nhomModel->getStudentByGroup($manhom);
@@ -279,6 +284,7 @@ class Module extends Controller
     }
 
     public function getGroupSize() {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $result = $this->nhomModel->getGroupSize($manhom);
@@ -288,6 +294,7 @@ class Module extends Controller
 
     public function kickUser()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manhom = $_POST['manhom'];
             $mssv = $_POST['manguoidung'];

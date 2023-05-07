@@ -241,6 +241,7 @@ class Question extends Controller
 
     public function getTotalPage()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $content = $_POST['content'];
             $select = $_POST['selected'];
@@ -250,6 +251,7 @@ class Question extends Controller
 
     public function getQuestionBySubject()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mamonhoc = $_POST['mamonhoc'];
             $machuong = $_POST['machuong'];

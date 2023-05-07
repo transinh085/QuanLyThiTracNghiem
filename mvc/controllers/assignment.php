@@ -30,6 +30,7 @@ class Assignment extends Controller
     }
 
     function getGiangVien(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "GET"){
             $result = $this->PhanCongModel->getGiangVien();
             echo json_encode($result);
@@ -37,6 +38,7 @@ class Assignment extends Controller
     }
 
     function getMonHoc(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "GET"){
             $result = $this->PhanCongModel->getMonHoc();
             echo json_encode($result);
@@ -44,6 +46,7 @@ class Assignment extends Controller
     }
 
     function getAssignment(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "GET"){
             $result = $this->PhanCongModel->getAssignment();
             echo json_encode($result);
@@ -51,6 +54,7 @@ class Assignment extends Controller
     }
 
     function addAssignment(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $magiangvien = $_POST['magiangvien'];
             $l_subject = $_POST['listSubject'];
@@ -60,6 +64,7 @@ class Assignment extends Controller
     }
 
     function delete(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $id = $_POST['id'];
             $mamon = $_POST['mamon'];
@@ -69,6 +74,7 @@ class Assignment extends Controller
     }
 
     function deleteAll(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $id = $_POST['id'];
             $result = $this->PhanCongModel->deleteAll($id);
@@ -76,6 +82,7 @@ class Assignment extends Controller
     }
 
     function getAssignmentByUser(){
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $id = $_POST['id'];
             $result = $this->PhanCongModel->getAssignmentByUser($id);
@@ -84,6 +91,7 @@ class Assignment extends Controller
     }
 
     public function getQuery($filter, $input, $args) {
+        AuthCore::checkAuthentication();
         $query = $this->PhanCongModel->getQuery($filter, $input, $args);
         return $query;
     }

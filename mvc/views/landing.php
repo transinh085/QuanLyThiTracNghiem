@@ -2,7 +2,7 @@
 
 <body>
     <!-- Page Container -->
-    <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-glass main-content-boxed">
+    <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-glass main-content-boxed remember-theme">
         <!-- Header -->
         <header id="page-header">
             <div class="content-header">
@@ -15,9 +15,8 @@
                 <div class="space-x-1">
                     <ul class="nav-main nav-main-horizontal nav-main-hover nav">
                         <li class="nav-main-item">
-                            <a class="btn btn-hero rounded-pill btn-light px-3" data-toggle="layout"
-                                data-action="dark_mode_toggle" href="javascript:void(0)">
-                                <i class="fa fa-burn"></i>
+                            <a class="btn btn-hero rounded-pill btn-light px-3" data-toggle="class-toggle" data-target="#dark-mode-toggler" data-class="far fa" onclick="Dashmix.layout('dark_mode_toggle');" href="javascript:void(0)">
+                                <i class="fa fa-moon" id="dark-mode-toggler"></i>
                             </a>
                         </li>
                         <?php 
@@ -156,7 +155,7 @@
                 <div class="content content-full">
                     <div class="row">
                         <div class="order-md-1 col-md-6 d-flex align-items-center justify-content-center">
-                            <img src="./public/media/various/landing_1.jpg" alt="" class="feature__img invisible"
+                            <img src="./public/media/various/landing_1.png" alt="" class="feature__img invisible"
                                 data-toggle="appear" data-class="animated fadeInRight">
                         </div>
                         <div class="order-md-0 col-md-6 d-flex align-items-center">
@@ -192,7 +191,7 @@
                 <div class="content content-full">
                     <div class="row">
                         <div class="order-md-0 col-md-6 d-flex align-items-center justify-content-center">
-                            <img src="./public/media/various/landing_2.jpg" alt="" class="feature__img invisible"
+                            <img src="./public/media/various/landing_2.png" alt="" class="feature__img invisible"
                                 data-toggle="appear" data-class="animated fadeInLeft">
                         </div>
                         <div class="order-md-1 col-md-6 d-flex align-items-center">
@@ -225,7 +224,7 @@
                 <div class="content content-full">
                     <div class="row">
                         <div class="order-md-1 col-md-6 d-flex align-items-center justify-content-center">
-                            <img src="./public/media/various/landing_3.jpg" alt="" class="feature__img invisible"
+                            <img src="./public/media/various/landing_3.png" alt="" class="feature__img invisible"
                                 data-toggle="appear" data-class="animated fadeInRight">
                         </div>
                         <div class="order-md-0 col-md-6 d-flex align-items-center">

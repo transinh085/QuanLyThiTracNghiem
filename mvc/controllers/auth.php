@@ -189,6 +189,7 @@ class Auth extends Controller
 
     public function logout()
     {
+        AuthCore::checkAuthentication();
         $email = $_SESSION['user_email'];
         $result = $this->userModel->updateToken($email, NULL);
         if ($result) {

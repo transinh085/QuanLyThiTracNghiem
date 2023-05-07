@@ -53,6 +53,7 @@ class Client extends Controller{
 
     // /client/test pagination
     public function getQuery($filter, $input, $args) {
+        AuthCore::checkAuthentication();
         $query = $this->dethimodel->getQuery($filter, $input, $args);
         return $query;
     }
@@ -75,6 +76,7 @@ class Client extends Controller{
     }
     
     public function loadDataGroups() {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manguoidung = $_SESSION['user_id'];
             $hienthi = $_POST['hienthi'];
@@ -85,6 +87,7 @@ class Client extends Controller{
 
     public function getFriendList()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $manguoidung = $_SESSION['user_id'];
             $manhom = $_POST['manhom'];

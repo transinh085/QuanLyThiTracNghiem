@@ -11,60 +11,64 @@ function showListTest(tests) {
         minute: "2-digit",
     });
     html = ``;
-    tests.forEach((test) => {
-        let htmlTestState = ``;
-        const open = new Date(test.thoigianbatdau);
-        const close = new Date(test.thoigianketthuc);
-        let strOpenTime = "", strCloseTime = "";
-        if (dateIsValid(test.thoigianbatdau)) {
-            strOpenTime = format.format(open);
-        }
-        if (dateIsValid(test.thoigianketthuc)) {
-            strCloseTime = format.format(close);
-        }
-        const state = {};
-        const now = Date.now();
-        if (now < +open) {
-            state.color = "secondary";
-            state.text = "Chưa mở";
-        } else if (now >= +open && now <= +close) {
-            state.color = "primary";
-            state.text = "Đang mở";
-        } else {
-            state.color = "danger";
-            state.text = "Đã đóng";
-        }
-        htmlTestState += `<button class="btn btn-sm btn-alt-${state.color} rounded-pill px-3 me-1 my-1" disabled>${state.text}</button>`;
-        html += `<div class="block block-rounded block-fx-pop mb-2">
-            <div class="block-content block-content-full border-start border-3 border-${state.color}">
-                <div class="d-md-flex justify-content-md-between align-items-md-center">
-                    <div class="p-1 p-md-3">
-                        <h3 class="h4 fw-bold mb-3">
-                            <a href="./test/detail/${test.made}" class="text-dark link-fx">${test.tende}</a>
-                        </h3>
-                        <p class="fs-sm text-muted mb-2">
-                            <i class="fa fa-layer-group me-1"></i></i> Giao cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${test.nhom}" style="cursor:pointer">${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
-                        </p>
-                        <p class="fs-sm text-muted mb-0">
-                            <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${strOpenTime}</span> đến <span>${strCloseTime}</span> 
-                        </p>
-                    </div>
-                    <div class="p-1 p-md-3">
-                        ${htmlTestState}
-                        <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="./test/detail/${test.made}">
-                            <i class="fa fa-eye opacity-50 me-1"></i> Xem chi tiết
-                        </a>
-                        <a data-role="dethi" data-action="update" class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/${test.made}">
-                            <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
-                        </a>
-                        <a data-role="dethi" data-action="delete" class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${test.made}">
-                            <i class="fa fa-times opacity-50 me-1"></i> Xoá đề
-                        </a>
+    if(tests.length == 0) {
+        html += `<p class="text-center">Không có dữ liệu</p>`
+    } else {
+        tests.forEach((test) => {
+            let htmlTestState = ``;
+            const open = new Date(test.thoigianbatdau);
+            const close = new Date(test.thoigianketthuc);
+            let strOpenTime = "", strCloseTime = "";
+            if (dateIsValid(test.thoigianbatdau)) {
+                strOpenTime = format.format(open);
+            }
+            if (dateIsValid(test.thoigianketthuc)) {
+                strCloseTime = format.format(close);
+            }
+            const state = {};
+            const now = Date.now();
+            if (now < +open) {
+                state.color = "secondary";
+                state.text = "Chưa mở";
+            } else if (now >= +open && now <= +close) {
+                state.color = "primary";
+                state.text = "Đang mở";
+            } else {
+                state.color = "danger";
+                state.text = "Đã đóng";
+            }
+            htmlTestState += `<button class="btn btn-sm btn-alt-${state.color} rounded-pill px-3 me-1 my-1" disabled>${state.text}</button>`;
+            html += `<div class="block block-rounded block-fx-pop mb-2">
+                <div class="block-content block-content-full border-start border-3 border-${state.color}">
+                    <div class="d-md-flex justify-content-md-between align-items-md-center">
+                        <div class="p-1 p-md-3">
+                            <h3 class="h4 fw-bold mb-3">
+                                <a href="./test/detail/${test.made}" class="text-dark link-fx">${test.tende}</a>
+                            </h3>
+                            <p class="fs-sm text-muted mb-2">
+                                <i class="fa fa-layer-group me-1"></i></i> Giao cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${test.nhom}" style="cursor:pointer">${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
+                            </p>
+                            <p class="fs-sm text-muted mb-0">
+                                <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${strOpenTime}</span> đến <span>${strCloseTime}</span> 
+                            </p>
+                        </div>
+                        <div class="p-1 p-md-3">
+                            ${htmlTestState}
+                            <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="./test/detail/${test.made}">
+                                <i class="fa fa-eye opacity-50 me-1"></i> Xem chi tiết
+                            </a>
+                            <a data-role="dethi" data-action="update" class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./test/update/${test.made}">
+                                <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
+                            </a>
+                            <a data-role="dethi" data-action="delete" class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${test.made}">
+                                <i class="fa fa-times opacity-50 me-1"></i> Xoá đề
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>`;
-    });
+            </div>`;
+        });
+    }
     $("#list-test").html(html);
     $('[data-bs-toggle="tooltip"]').tooltip();
 }

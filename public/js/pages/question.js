@@ -731,44 +731,6 @@ $(document).ready(function () {
       "json"
     );
   }
-
-  // loadPagination();
-  function loadPagination() {
-    $.ajax({
-      url: "./question/getTotalPage",
-      type: "post",
-      data: {
-        selected: $(".btn-filter").text(),
-        content: $("#search-input").val().trim(),
-      },
-      success: function (data) {
-        let sum = parseInt(data);
-        let pg = "";
-        let i;
-        for (i = 1; i <= sum; i++) {
-          pg += `<li class="page-item" page-id='${i}'>
-              <a class="page-link" href="javascript:void(0)">${i}</a>
-            </li>`;
-        }
-        $("#pagination").html("");
-        $("#pagination").html(pg);
-      },
-    });
-  }
-
-  function loadSearchQuestion(content) {
-    $.ajax({
-      url: "search.php",
-      type: "get",
-      data: {
-        page: page,
-        select: $(".filter-search").val(),
-        content: content,
-      },
-      success: function (data) {},
-    });
-    loadPagination();
-  }
 });
 
 // Get current user ID

@@ -138,5 +138,13 @@ class AnnouncementModel extends DB
         return $rows;
     }
 
+    public function getQuery($filter, $input, $args) {
+        $query = "SELECT TB.*, tenmonhoc, namhoc, hocky, GROUP_CONCAT(N.tennhom SEPARATOR ', ') AS nhom FROM thongbao TB, chitietthongbao CTTB, nhom N, monhoc MH WHERE TB.matb = CTTB.matb AND CTTB.manhom = N.manhom AND N.mamonhoc = MH.mamonhoc AND TB.nguoitao = ".$args['id'];
+        if ($input) {
+            $query .= " AND noidung LIKE N'%${input}%'";
+        }
+        $query .= " GROUP BY TB.matb ORDER BY thoigiantao DESC";
+        return $query;
+    }
 }
 ?>

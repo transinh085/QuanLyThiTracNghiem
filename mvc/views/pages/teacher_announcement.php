@@ -13,6 +13,7 @@
     </form>
     <div class="list-announces" id="list-announces">
         <!-- list  -->
+    </div>
     <div class="row my-3">
         <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
     </div>

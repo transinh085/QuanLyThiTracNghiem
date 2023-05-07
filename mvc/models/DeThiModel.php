@@ -312,7 +312,7 @@ class DeThiModel extends DB
     // Tạo đề thủ công
     public function getQuestionOfTestManual($made)
     {
-        $sql = "SELECT cauhoi.macauhoi,cauhoi.noidung,cauhoi.dokho FROM chitietdethi, cauhoi WHERE made= '$made' AND chitietdethi.macauhoi = cauhoi.macauhoi";
+        $sql = "SELECT CTDT.macauhoi, noidung, dokho, thutu FROM chitietdethi CTDT, cauhoi CH WHERE CTDT.macauhoi = CH.macauhoi AND CTDT.made = $made ORDER BY thutu ASC";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         $ctlmodel = new CauTraLoiModel();
@@ -436,6 +436,19 @@ class DeThiModel extends DB
                         $query .= " AND (tende LIKE N'%$input%' OR tenmonhoc LIKE N'%$input%')";
                     }
                     $query .= " GROUP BY DT.made ORDER BY DT.made DESC";
+                    break;
+                case "getQuestionsForTest":
+                    $query = "SELECT *, fnStripTags(noidung) AS noidungplaintext FROM cauhoi WHERE trangthai = 1 AND nguoitao = ".$args['id']." AND mamonhoc = ".$args['mamonhoc'];
+                    if (isset($filter['machuong'])) {
+                        $query .= " AND machuong = ".$filter['machuong'];
+                    }
+                    if (isset($filter['dokho'])) {
+                        $query .= " AND dokho = ".$filter['dokho'];
+                    }
+                    if ($input) {
+                        $input_entity_encode = htmlentities($input);
+                        $query .= " AND (noidung LIKE N'%${input}%' OR fnStripTags(noidung) LIKE N'%${input_entity_encode}%')";
+                    }
                     break;
                 default:
             }

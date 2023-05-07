@@ -31,7 +31,8 @@ class Question extends Controller
                     "pagination" => [],
                     "jquery-validate" => 1,
                 ],
-                "Script" => "question"
+                "Script" => "question",
+                "user_id" => $_SESSION['user_id'],
             ]);
         } else {
             $this->view("single_layout", ["Page" => "error/page_404","Title" => "Lỗi !"]);
@@ -275,5 +276,13 @@ class Question extends Controller
     public function getQuery($filter, $input, $args) {
         $result = $this->cauHoiModel->getQuery($filter, $input, $args);
         return $result;
+    }
+
+    public function getAnswersForMultipleQuestions() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $arr_question_id = $_POST['questions'];
+            $result = $this->cauTraLoiModel->getAnswersForMultipleQuestions($arr_question_id);
+            echo json_encode($result);
+        }
     }
 }

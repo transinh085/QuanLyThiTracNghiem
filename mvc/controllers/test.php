@@ -156,7 +156,8 @@ class Test extends Controller
                         "Title" => "Chọn câu hỏi",
                         "Script" => "select_question",
                         "Plugin" => [
-                            "notify" => 1
+                            "notify" => 1,
+                            "pagination" => [],
                         ],
                     ]);
                 } else {

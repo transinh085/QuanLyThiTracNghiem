@@ -7,6 +7,7 @@ class teacher_announcement extends Controller{
     {
         $this->AnnouncementModel = $this->model("AnnouncementModel");
         parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
     
     public function default()
@@ -24,6 +25,7 @@ class teacher_announcement extends Controller{
                     "notify" => 1,
                     "jquery-validate" => 1,
                     "select" => 1,
+                    "pagination" => [],
                 ]
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);

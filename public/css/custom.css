@@ -257,3 +257,19 @@ td p {
     display: none;
 }
 
+/* Text truncate */
+.truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.truncate--1 {
+    -webkit-line-clamp: 1;
+}
+
+.truncate--3 {
+    -webkit-line-clamp: 3;
+}

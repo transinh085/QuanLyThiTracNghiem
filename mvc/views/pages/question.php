@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" data-id="<?php echo $_SESSION["user_id"] ?>">
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">Tất cả câu hỏi</h3>

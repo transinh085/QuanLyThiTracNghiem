@@ -31,7 +31,8 @@ class Question extends Controller
                     "pagination" => [],
                     "jquery-validate" => 1,
                 ],
-                "Script" => "question"
+                "Script" => "question",
+                "user_id" => $_SESSION['user_id'],
             ]);
         } else {
             $this->view("single_layout", ["Page" => "error/page_404","Title" => "Lỗi !"]);

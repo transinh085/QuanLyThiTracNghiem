@@ -95,7 +95,7 @@
             <div class="position-relative bg-body-extra-light" id="section--1">
                 <div class="position-absolute top-0 end-0 bottom-0 start-0 bg-body-light skew-y-1"></div>
                 <div class="position-relative">
-                    <div class="content content-full">
+                    <div class="content content-full my-5">
                         <div class="row g-0 justify-content-center text-center">
                             <div class="col-xl-4 invisible" data-toggle="appear" data-class="animated flipInX">
                                 <div class="w-100 py-4 px-2">

@@ -130,8 +130,12 @@
                                 <p class="text-center mb-0">
                                 <?php echo $data['Detail']['mamonhoc'] . " - " . $data['Detail']['tenmonhoc'] . " - NH" . $data['Detail']['namhoc'] . " - HK" . $data['Detail']['hocky'] . " - " . $data['Detail']['tennhom'] ?>
                             </p>
-                            <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
-                                    class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
+                            <div>
+                                <button type="button" class="btn btn-alt-primary btn-sm btn-copy-code" data-bs-toggle="tooltip" data-bs-placement="top" title="Sao chép mã mời"><i
+                                        class="fa fa-clipboard"></i></button>
+                                <button type="button" class="btn btn-alt-primary btn-sm btn-reset-invited-code"><i
+                                        class="fa fa-arrows-rotate me-1"></i>Tạo mã mới</button>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade fade-up" id="them-file-excel" role="tabpanel"

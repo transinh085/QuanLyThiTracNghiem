@@ -45,8 +45,7 @@ class Subject extends Controller
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mamon = $_POST['mamon'];
-            $tenmon = $_POST['tenmon'];
-            $result = $this->monHocModel->checkSubject($tenmon, $mamon);
+            $result = $this->monHocModel->checkSubject($mamon);
             echo json_encode($result);
         }
     }

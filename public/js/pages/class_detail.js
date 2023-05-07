@@ -39,6 +39,24 @@ Dashmix.onLoad((() => class {
   }
 }.init()));
 
+$(".btn-copy-code").click(function (e) {
+  e.preventDefault();
+  var text = $("#show-ma-moi").text();
+  navigator.clipboard.writeText(text).then(function () {
+    Dashmix.helpers("jq-notify", {
+      type: "success",
+      icon: "fa fa-check me-1",
+      message: `Sao chép mã thành công !`,
+  });
+  }, function () {
+    Dashmix.helpers("jq-notify", {
+      type: "danger",
+      icon: "fa fa-times me-1",
+      message: `Sao chép mã không thành công !`,
+  });
+  });
+});
+
 const manhom = $(".content").data("id");
 const showData = function (students) {
   let html = "";
@@ -52,32 +70,27 @@ const showData = function (students) {
           <tr>
               <td class="text-center">${offset + index++}</td>
               <td class="fs-sm d-flex align-items-center">
-                      <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${
-                        student.avatar == null
-                          ? `avatar2.jpg`
-                          : student.avatar
-                      }"
+                      <img class="img-avatar img-avatar48 me-3" src="./public/media/avatars/${student.avatar == null
+          ? `avatar2.jpg`
+          : student.avatar
+        }"
                           alt="">
                       <div class="d-flex flex-column">
-                          <a class="fw-semibold" href="javascript:void(0)">${
-                            student.hoten
-                          }</a>
-                          <span class="fw-normal fs-sm text-muted">${
-                            student.email
-                          }</span>
+                          <a class="fw-semibold" href="javascript:void(0)">${student.hoten
+        }</a>
+                          <span class="fw-normal fs-sm text-muted">${student.email
+        }</span>
                       </div>
                   </td>
               <td class="text-center">${student.id}</td>
-                  <td class="text-center fs-sm">${
-                    student.gioitinh == 1 ? "Nam" : "Nữ"
-                  }</td>
+                  <td class="text-center fs-sm">${student.gioitinh == 1 ? "Nam" : "Nữ"
+        }</td>
                   <td class="text-center fs-sm">${student.ngaysinh}</td>
                   <td class="text-center">
                       <div class="btn-group">
                           <button type="button" class="btn btn-sm btn-alt-secondary kick-user"
-                              data-bs-toggle="Delete" title="Delete" data-id="${
-                                student.id
-                              }">
+                              data-bs-toggle="Delete" title="Delete" data-id="${student.id
+        }">
                               <i class="fa fa-fw fa-times"></i>
                           </button>
                       </div>
@@ -137,7 +150,7 @@ $(document).ready(function () {
             e.fire("Deleted!", "Xóa người dùng thành công!", "success");
           },
         });
-      } 
+      }
     });
   });
 
@@ -220,23 +233,23 @@ $(document).ready(function () {
   $(".btn-reset-invited-code").click(function (e) {
     e.preventDefault();
     $.ajax({
-        type: "post",
-        url: "./module/updateInvitedCode",
-        data: {
-            manhom: manhom
-        },
-        success: function (response) {
-            showInvitedCode();
-        }
+      type: "post",
+      url: "./module/updateInvitedCode",
+      data: {
+        manhom: manhom
+      },
+      success: function (response) {
+        showInvitedCode();
+      }
     });
   });
 
-  $("#mssv").on("change", function(){
+  $("#mssv").on("change", function () {
     checkAcc($("#mssv").val())
   })
 
   $(".btn-add-sv-group").hide()
-  function checkAcc(mssv){
+  function checkAcc(mssv) {
     $.ajax({
       type: "post",
       url: "./module/checkAcc",
@@ -246,16 +259,16 @@ $(document).ready(function () {
       },
       success: function (response) {
         let check = response;
-        if(check == 0){
+        if (check == 0) {
           Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Sinh viên đã có trong nhóm!` });
           $(".btn-add-sv-group").hide()
           $(".btn-add-sv").hide()
           $("#collapseAddSv").collapse("hide")
-        } else if(check == -1){
+        } else if (check == -1) {
           $(".btn-add-sv-group").show()
           $(".btn-add-sv").hide()
           $("#collapseAddSv").collapse("hide")
-        } else if(check == 1){
+        } else if (check == 1) {
           $(".btn-add-sv").show()
           $(".btn-add-sv-group").hide()
           $("#collapseAddSv").collapse("show")
@@ -264,7 +277,7 @@ $(document).ready(function () {
     });
   }
 
-  $(".btn-add-sv-group").click(function(e){
+  $(".btn-add-sv-group").click(function (e) {
     e.preventDefault();
     $.ajax({
       type: "post",
@@ -274,7 +287,7 @@ $(document).ready(function () {
         mssv: $("#mssv").val(),
       },
       success: function (response) {
-        if(response){
+        if (response) {
           getGroupSize(manhom);
           mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
           $("#modal-add-user").modal("hide");
@@ -287,7 +300,7 @@ $(document).ready(function () {
 
   $(".btn-add-sv").click(function (e) {
     e.preventDefault();
-    if($("#addSvThuCong").valid()){
+    if ($("#addSvThuCong").valid()) {
       $.ajax({
         type: "post",
         url: "./module/addSV",
@@ -298,7 +311,7 @@ $(document).ready(function () {
           password: $("#matkhau").val(),
         },
         success: function (response) {
-          if(response){
+          if (response) {
             $("#modal-add-user").modal("hide");
             Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-times me-1', message: `Thêm người dùng thành công!` });
             getGroupSize(manhom);
@@ -309,7 +322,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#exportStudents").click(function(){
+  $("#exportStudents").click(function () {
     $.ajax({
       type: "post",
       url: "./module/exportExcelStudentS",
@@ -328,7 +341,7 @@ $(document).ready(function () {
     });
   })
 
-  $("#exportScores").click(function(){
+  $("#exportScores").click(function () {
     $.ajax({
       type: "post",
       url: "./test/getMarkOfAllTest",
@@ -346,12 +359,12 @@ $(document).ready(function () {
       }
     });
   })
-  
+
   $("#nhap-file").click(function (e) {
     e.preventDefault();
     let password = $("#ps_user_group").val();
     let file_cauhoi = $("#file-cau-hoi").val();
-    if(password==""||file_cauhoi==""){
+    if (password == "" || file_cauhoi == "") {
       Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Vui lòng điền đầy đủ thông tin!` });
     } else {
       var file = $("#file-cau-hoi")[0].files[0];
@@ -369,7 +382,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           console.log(response)
-          addExcel(response,password);
+          addExcel(response, password);
         },
         complete: function () {
           Dashmix.layout("header_loader_off");
@@ -378,7 +391,7 @@ $(document).ready(function () {
     }
   });
 
-  function addExcel(data,password) {
+  function addExcel(data, password) {
     $.ajax({
       type: "post",
       url: "./user/addFileExcelGroup",
@@ -450,7 +463,7 @@ $(document).ready(function () {
     }
 
     getGroupSize(manhom);
-    
+
     // AJAX call (with pagination)
     mainPagePagination.valuePage.curPage = 1;
     mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

@@ -11,7 +11,6 @@ class User extends Controller{
 
     public function default()
     {
-        AuthCore::checkAuthentication();
         if(AuthCore::checkPermission("nguoidung","view")) {
             $this->view("main_layout",[
                 "Page" => "user",

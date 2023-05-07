@@ -126,7 +126,7 @@ $(document).ready(function () {
   });
 
   function nopbai() {
-    let dethi = $("#dethicontent").data("id");
+    let dethiCheck = $("#dethicontent").data("id");
     let thoigian = new Date();
     $.ajax({
       type: "post",
@@ -134,17 +134,30 @@ $(document).ready(function () {
       data: {
         listCauTraLoi: JSON.parse(localStorage.getItem(cautraloi)),
         thoigianlambai: thoigian,
-        made: dethi,
+        made: dethiCheck,
       },
       success: function (response) {
-        localStorage.removeItem(cautraloi);
-        localStorage.removeItem(dethi);
-        location.href = `./test/start/${made}`;
+        let curTime = new Date().getTime();
+        if (curTime > endTime) {
+          localStorage.removeItem(cautraloi);
+          localStorage.removeItem(dethi);
+          location.href = `./test/start/${made}`;
+        } else {
+          localStorage.removeItem(cautraloi);
+          localStorage.removeItem(dethi);
+          location.href = `./test/start/${made}`;
+        }
       },
       error: function (response) {
-        localStorage.removeItem(cautraloi);
-        localStorage.removeItem(dethi);
-        location.href = `./test/start/${made}`;
+        if (curTime > endTime) {
+          localStorage.removeItem(cautraloi);
+          localStorage.removeItem(dethi);
+          location.href = `./test/start/${made}`;
+        } else {
+          localStorage.removeItem(cautraloi);
+          localStorage.removeItem(dethi);
+          location.href = `./test/start/${made}`;
+        }
       },
     });
   }
@@ -226,7 +239,6 @@ $(document).ready(function () {
   }
 
   $(window).on("beforeunload", function () {
-    endTime = new Date(response).getTime();
     let curTime = new Date().getTime();
     if (curTime > endTime) {
       localStorage.removeItem(cautraloi);

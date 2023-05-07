@@ -8,7 +8,6 @@
                     <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">Đang giảng
                             dạy</a></li>
                     <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Đã ẩn</a></li>
-                    <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="2">Tất cả</a></li>
                 </ul>
                 <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="form-search-group">
             </div>

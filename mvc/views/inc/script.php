@@ -1,5 +1,6 @@
 <!-- END Page Container -->
 <script src="./public/js/dashmix.app.min.js"></script>
+<scrip  src="./public/js/notifications.js"></scrip>
 
 <!-- jQuery (required for BS Datepicker + BS Maxlength + Select2 + Masked Inputs + Ion Range Slider plugins) -->
 <?php
@@ -39,7 +40,7 @@ if(isset($data["Plugin"]["jq-appear"]) && $data["Plugin"]["jq-appear"] == 1) {
 }
 if(isset($data["Plugin"]["pagination"])) {
     echo '<script src="./public/js/pagination.js"></script>';
-} 
+}
 if(isset($data["Script"])) {
     echo '<script src="./public/js/pages/'.$data["Script"].'.js"></script>';
 }

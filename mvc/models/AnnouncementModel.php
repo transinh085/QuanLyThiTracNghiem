@@ -101,5 +101,18 @@ class AnnouncementModel extends DB
         return $valid; 
     }
 
+    public function getNotifications($id)
+    {
+        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` 
+        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `thongbao`.`nguoitao` = `nguoidung`.`id` AND `chitietnhom`.`manhom` = `nhom`.`manhom`
+        AND `chitietnhom`.`manguoidung` = $id";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 }
 ?>

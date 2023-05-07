@@ -4,44 +4,61 @@ Dashmix.onLoad(() =>
   class {
     static initValidation() {
       Dashmix.helpers("jq-validation"),
-        jQuery(".form-add-subject").validate({
-          rules: {
-            mamonhoc: {
-              required: !0,
-              digits: true,
+        $.validator.addMethod('check-email', function (value, element, param) {
+          var result = true;
+          $.ajax({
+            url: './dashboard/checkEmailExist',
+            type: 'post',
+            data: {
+              email: value
             },
-            tenmonhoc: {
-              required: !0,
-            },
-            sotinchi: {
-              required: !0,
-            },
-            sotiet_lt: {
-              required: !0,
-            },
-            sotiet_th: {
-              required: !0,
-            },
+            async: false,
+            success: function (response) {
+              result = response == 0;
+              console.log(result);
+            }
+          });
+          return result;
+        }, 'Mã môn học đã tồn tại');
+
+      jQuery(".form-add-subject").validate({
+        rules: {
+          mamonhoc: {
+            required: !0,
+            digits: true,
           },
-          messages: {
-            mamonhoc: {
-              required: "Vui lòng nhập mã môn học",
-              digits: "Mã môn học phải là các ký tự số",
-            },
-            tenmonhoc: {
-              required: "Vui lòng cung cấp tên môn học",
-            },
-            sotinchi: {
-              required: "Vui lòng cho biết số tín chỉ",
-            },
-            sotiet_lt: {
-              required: "Vui lòng nhập số tiết lý thuyết",
-            },
-            sotiet_th: {
-              required: "Vui lòng nhập số tiết thực hành",
-            },
+          tenmonhoc: {
+            required: !0,
           },
-        });
+          sotinchi: {
+            required: !0,
+          },
+          sotiet_lt: {
+            required: !0,
+          },
+          sotiet_th: {
+            required: !0,
+          },
+        },
+        messages: {
+          mamonhoc: {
+            required: "Vui lòng nhập mã môn học",
+            digits: "Mã môn học phải là các ký tự số",
+          },
+          tenmonhoc: {
+            required: "Vui lòng cung cấp tên môn học",
+          },
+          sotinchi: {
+            required: "Vui lòng cho biết số tín chỉ",
+          },
+          sotiet_lt: {
+            required: "Vui lòng nhập số tiết lý thuyết",
+          },
+          sotiet_th: {
+            required: "Vui lòng nhập số tiết thực hành",
+          },
+        },
+      });
     }
 
     static init() {
@@ -80,7 +97,6 @@ function showData(subjects) {
 }
 
 $(document).ready(function () {
-
   $("[data-bs-target='#modal-add-subject']").click(function (e) {
     e.preventDefault();
     $(".update-subject-element").hide();
@@ -96,8 +112,7 @@ $(document).ready(function () {
         type: "post",
         url: "./subject/checkSubject",
         data: {
-          mamon: mamon,
-          tenmon: tenmon,
+          mamon: mamon
         },
         dataType: "json",
         success: function (response) {
@@ -129,7 +144,10 @@ $(document).ready(function () {
                   message: "Thêm môn học thành công!",
                 });
                 $("#modal-add-subject").modal("hide");
-                mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+                mainPagePagination.getPagination(
+                  mainPagePagination.option,
+                  mainPagePagination.valuePage.curPage
+                );
               } else {
                 Dashmix.helpers("jq-notify", {
                   type: "danger",
@@ -201,7 +219,10 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Cập nhật môn học thành công!",
           });
-          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          mainPagePagination.getPagination(
+            mainPagePagination.option,
+            mainPagePagination.valuePage.curPage
+          );
         } else {
           Dashmix.helpers("jq-notify", {
             type: "danger",
@@ -253,7 +274,10 @@ $(document).ready(function () {
           success: function (response) {
             if (response) {
               e.fire("Deleted!", "Xóa môn học thành công!", "success");
-              mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+              mainPagePagination.getPagination(
+                mainPagePagination.option,
+                mainPagePagination.valuePage.curPage
+              );
             } else {
               e.fire("Lỗi !", "Xoá môn học không thành công !)", "error");
             }
@@ -292,22 +316,19 @@ $(document).ready(function () {
         if (response.length > 0) {
           response.forEach((chapter, index) => {
             html += `<tr>
-                        <td class="text-center fs-sm"><strong>${
-                          index + 1
-                        }</strong></td>
+                        <td class="text-center fs-sm"><strong>${index + 1
+              }</strong></td>
                         <td>${chapter["tenchuong"]}</td>
                         <td class="text-center col-action">
                             <a data-role="chuong" data-action="update" class="btn btn-sm btn-alt-secondary chapter-edit"
-                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${
-                                  chapter["machuong"]
-                                }">
+                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${chapter["machuong"]
+              }">
                                 <i class="fa fa-fw fa-pencil"></i>
                             </a>
                             <a data-role="chuong" data-action="delete" class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
                                 data-bs-toggle="tooltip" aria-label="Delete"
-                                data-bs-original-title="Delete" data-id="${
-                                  chapter["machuong"]
-                                }">
+                                data-bs-original-title="Delete" data-id="${chapter["machuong"]
+              }">
                                 <i class="fa fa-fw fa-times"></i>
                             </a>
                         </td>
@@ -334,20 +355,28 @@ $(document).ready(function () {
   $("#add-chapter").on("click", function (e) {
     e.preventDefault();
     let mamonhoc = $("#mamon_chuong").val();
-    $.ajax({
-      type: "post",
-      url: "./subject/addChapter",
-      data: {
-        mamonhoc: mamonhoc,
-        tenchuong: $("#name_chapter").val(),
-      },
-      success: function (response) {
-        if (response) {
-          resetFormChapter();
-          showChapter(mamonhoc);
-        }
-      },
-    });
+    if ($("#name_chapter").val() == "") {
+      Dashmix.helpers("jq-notify", {
+        type: "danger",
+        icon: "fa fa-times me-1",
+        message: "Tên chương không để trống!",
+      });
+    } else {
+      $.ajax({
+        type: "post",
+        url: "./subject/addChapter",
+        data: {
+          mamonhoc: mamonhoc,
+          tenchuong: $("#name_chapter").val(),
+        },
+        success: function (response) {
+          if (response) {
+            resetFormChapter();
+            showChapter(mamonhoc);
+          }
+        },
+      });
+    }
   });
 
   $(".close-chapter").click(function (e) {
@@ -420,7 +449,6 @@ $(document).ready(function () {
       },
     });
   });
-  
 });
 
 // Pagination
@@ -428,4 +456,7 @@ const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "subject";
 mainPagePagination.option.model = "MonHocModel";
 mainPagePagination.option.limit = 10;
-mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+mainPagePagination.getPagination(
+  mainPagePagination.option,
+  mainPagePagination.valuePage.curPage
+);

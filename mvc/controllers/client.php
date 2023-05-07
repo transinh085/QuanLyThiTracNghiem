@@ -16,40 +16,38 @@ class Client extends Controller{
 
     public function group()
     {
-        AuthCore::checkAuthentication();
-        $this->view("main_layout", [
-            "Page" => "client_group",
-            "Title" => "Nhóm",
-            "Script" => "client_group",
-            "Plugin" => [
-                "jquery-validate" => 1,
-                "notify" => 1,
-                "datepicker" => 1,
-                "flatpickr" => 1,
-                "sweetalert2" => 1,
-                "select" => 1,
-            ]
-        ]);
+        if (AuthCore::checkPermission("tghocphan", "join")) {
+            $this->view("main_layout", [
+                "Page" => "client_group",
+                "Title" => "Nhóm",
+                "Script" => "client_group",
+                "Plugin" => [
+                    "jquery-validate" => 1,
+                    "notify" => 1,
+                    "datepicker" => 1,
+                    "flatpickr" => 1,
+                    "sweetalert2" => 1,
+                    "select" => 1,
+                ]
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
+        }
     }
 
     public function test() {
-        AuthCore::checkAuthentication();
-        $this->view("main_layout", [
-            "Page" => "test_schedule",
-            "Title" => "Lịch kiểm tra",
-            "Script" => "test_schedule",
-            "user_id" => $_SESSION['user_id'],
-            "Plugin" => [
-                "pagination" => [],
-            ],
-        ]);
-    }
-
-    public function getCurrentUserInfo() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $user_id = $_SESSION['user_id'];
-            $result = $this->nguoidungmodel->getById($user_id);
-            echo json_encode($result);
+        if (AuthCore::checkPermission("tgthi", "join")) {
+            $this->view("main_layout", [
+                "Page" => "test_schedule",
+                "Title" => "Lịch kiểm tra",
+                "Script" => "test_schedule",
+                "user_id" => $_SESSION['user_id'],
+                "Plugin" => [
+                    "pagination" => [],
+                ],
+            ]);
+        } else {
+            $this->view("single_layout", ["Page" => "error/page_403", "Title" => "Lỗi !"]);
         }
     }
 
@@ -61,7 +59,7 @@ class Client extends Controller{
 
     public function joinGroup()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("tghocphan", "join")) {
             $mamoi = $_POST['mamoi'];
             $manguoidung = $_SESSION['user_id'];
             $result_manhom = $this->nhommodel->getIdFromInvitedCode($mamoi);
@@ -69,7 +67,7 @@ class Client extends Controller{
                 $manhom = $result_manhom['manhom'];
                 $result = $this->nhommodel->join($manhom,$manguoidung);
                 if($result) {
-                        echo json_encode($this->nhommodel->getDetailGroup($manhom));
+                    echo json_encode($this->nhommodel->getDetailGroup($manhom));
                 }
                 else echo json_encode(1);
             } else echo json_encode(0);
@@ -105,7 +103,7 @@ class Client extends Controller{
 
     public function hide()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("tghocphan", "join")) {
             $manhom = $_POST['manhom'];
             $giatri =$_POST['giatri'];
             $manguoidung = $_SESSION['user_id'];
@@ -116,7 +114,7 @@ class Client extends Controller{
 
     public function delete()
     {
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkPermission("tghocphan", "join")) {
             $manhom = $_POST['manhom'];
             $manguoidung = $_SESSION['user_id'];
             $result = $this->nhommodel->SVDelete($manhom,$manguoidung);

@@ -25,6 +25,7 @@ class Dashboard extends Controller{
     }
 
     public function checkEmail(){
+        AuthCore::checkAuthentication();
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $id = $_SESSION["user_id"];
             $result = $this->nguoidung->checkEmail($id);
@@ -33,6 +34,7 @@ class Dashboard extends Controller{
     }
 
     public function checkEmailExist(){
+        AuthCore::checkAuthentication();
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $email = $_POST['email'];
             $result = $this->nguoidung->checkEmailExist($email);
@@ -40,6 +42,7 @@ class Dashboard extends Controller{
         }
     }
     public function updateEmail(){
+        AuthCore::checkAuthentication();
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
             $id = $_SESSION['user_id'];
             $email = $_POST['email'];

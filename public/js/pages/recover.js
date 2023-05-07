@@ -1,4 +1,11 @@
-Dashmix.onLoad((()=>class{static initValidation(){Dashmix.helpers("jq-validation"),jQuery(".js-validation-reminder").validate({rules:{"reminder-credential":{required:!0,minlength:3}},messages:{"reminder-credential":{required:"Please enter a valid credential"}}})}static init(){this.initValidation()}}.init()));
+Dashmix.onLoad((()=>class{static initValidation(){
+    Dashmix.helpers("jq-validation"),
+    jQuery(".js-validation-reminder").validate({
+        rules:{"reminder-credential":{required:!0,emailWithDot: !0}},
+        messages:{"reminder-credential":{required:"Vui lòng nhập địa chỉ email !",emailWithDot:"Địa chỉ email phải đúng định dạng!"}}
+    })}
+    static init(){this.initValidation()}
+}.init()));
 
 $(document).submit(function (e) { 
     e.preventDefault();
@@ -12,21 +19,10 @@ $(document).submit(function (e) {
         success: function (response) {
             console.log(response)
             if(response == '1'){
-                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Tài khoản của bạn chưa được đăng ký!` });
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Tài khoản không tồn tại!` });
             } else {
-                Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Đã gửi mã thành công mã OTP!` });
-                codeOTP();
+                location.href = `./auth/otp`;
             }
         }
     });
 })
-
-function codeOTP() {
-    html = "";
-    html += `
-                <a class="btn btn-otp btn-sm btn-info" href="./auth/otp">
-                    Nhập OTP
-                </a>
-    `;
-    $(".add-btn-otp").html(html);
-}

@@ -94,12 +94,26 @@ function showData(data) {
 
 $(document).ready(function () {
   let options = [];
-
-  $("select").select2({
+  $(".js-select2").select2();
+  $("#mon-hoc").select2({
     dropdownParent: $("#modal-add-question"),
   });
-
-  $(".js-select2").select2();
+  
+  $("#chuong").select2({
+    dropdownParent: $("#modal-add-question"),
+  });
+  
+  $("#dokho").select2({
+    dropdownParent: $("#modal-add-question"),
+  });
+  
+  $("#monhocfile").select2({
+    dropdownParent: $("#modal-add-question"),
+  });
+  
+  $("#chuongfile").select2({
+    dropdownParent: $("#modal-add-question"),
+  });
 
   $("[data-bs-target='#add_option']").on("click", function () {
     $("#update-option").hide();

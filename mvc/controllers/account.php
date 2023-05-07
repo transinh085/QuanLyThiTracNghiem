@@ -28,6 +28,7 @@ class Account extends Controller{
 
     public function changePassword()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $matkhaucu = $_POST['matkhaucu'];
             $matkhaumoi = $_POST['matkhaumoi'];
@@ -44,6 +45,7 @@ class Account extends Controller{
 
     public function changeProfile()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $_SESSION['user_id'];
             $hoten = $_POST['hoten'];
@@ -59,6 +61,7 @@ class Account extends Controller{
 
     public function uploadFile()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_FILES['file-img']['name'])) {
                 $id = $_SESSION['user_id'];
@@ -79,6 +82,7 @@ class Account extends Controller{
 
     public function getRole()
     {
+        AuthCore::checkAuthentication();
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             echo json_encode($_SESSION['user_role']);
         }
@@ -90,5 +94,3 @@ class Account extends Controller{
         print_r($_SESSION);
     }
 }
-
-?>

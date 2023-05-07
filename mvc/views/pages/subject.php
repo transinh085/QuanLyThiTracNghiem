@@ -126,7 +126,7 @@
                             aria-expanded="false" aria-controls="collapseChapter" id="btn-add-chapter"><i
                                 class="fa fa-fw fa-plus"></i>Thêm chương</a>
                         <div class="collapse" id="collapseChapter">
-                            <form method="post" class="mt-2">
+                            <form method="post" class="mt-2 form-chapter">
                                 <div class="row mb-1">
                                     <div class="col-8">
                                         <input type="text" class="form-control" name="name_chapter"

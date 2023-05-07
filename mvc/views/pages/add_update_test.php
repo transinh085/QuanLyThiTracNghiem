@@ -22,7 +22,7 @@
                     <input class="form-check-input" type="checkbox" id="xemdiem" name="xemdiem">
                     <label class="form-check-label" for="xemdiem">Xem điểm sau khi thi xong</label>
                 </div>
-                <div class="form-check form-switch mb-2">
+                <div class="form-check form-switch mb-2 d-none">
                     <input class="form-check-input" type="checkbox" id="xemda" name="xemda">
                     <label class="form-check-label" for="xemda">Xem đáp án khi thi xong</label>
                 </div>

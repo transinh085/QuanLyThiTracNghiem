@@ -205,7 +205,7 @@ class NguoiDungModel extends DB
 
     public function updateOpt($email, $otp)
     {
-        $sql = "UPDATE `nguoidung` SET `otp`='$otp' WHERE `email`='$email'";
+        $sql = "UPDATE `nguoidung` SET `otp`= $otp WHERE `email`='$email'";
         $result = mysqli_query($this->con, $sql);
         return $result;
     }

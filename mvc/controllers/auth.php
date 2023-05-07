@@ -173,6 +173,7 @@ class Auth extends Controller
             $password = $_POST['password'];
             $email = $_COOKIE['checkMail'];
             $check = $this->userModel->changePassword($email, $password);
+            
             setcookie("checkMail", "", time() - 3600, "/");
             echo $check;
         }

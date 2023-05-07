@@ -28,6 +28,46 @@ Dashmix.onLoad((() => class {
     }
 }.init()));
 let groups = [];
+
+function showListAnnounce(announces) {
+    let html = "";
+    if (announces.length != 0) {
+        announces.forEach(announce => {
+            html += `
+            <div class="block block-rounded block-fx-pop mb-2">
+        <div class="block-content block-content-full border-start border-3 border-success">
+        <div class="d-md-flex justify-content-md-between align-items-md-center">
+                <div class="p-1 p-md-3">
+                    <div class="flex-grow-1 fs-sm pe-2 mb-2">
+                        <h4 class="fw-bold mb-2 truncate truncate--1">${announce.noidung}</h4>
+                    </div>
+                    <p class="fs-sm text-muted mb-2">
+                        <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="${announce.nhom}">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
+                    </p>
+                </div>
+                <div class="p-1 p-md-3">
+                    <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="javascript:void(0)">
+                        <i class="fa fa-clock opacity-50 me-1"></i> ${formatDate(announce.thoigiantao)}
+                    </a>
+                    <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./teacher_announcement/update/${announce.matb}">
+                        <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
+                    </a>
+                    <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${announce.matb}">
+                        <i class="fa fa-times opacity-50 me-1"></i> Xoá thông báo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
+        })
+    } else {
+        html += `<p class="text-center">Không có thông báo</p>`
+    }
+    $(".list-announces").html(html);
+    $('[data-bs-toggle="tooltip"]').tooltip();
+}
+
 $(document).ready(function () {
     function showGroup() {
         let html = "<option></option>";
@@ -118,7 +158,6 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if (response) {
                         location.href = "./teacher_announcement";
                     } else {
@@ -130,60 +169,16 @@ $(document).ready(function () {
 
     });
 
-    function showListAnnounce(announces) {
-        let html = "";
-        if (announces.length != 0) {
-            announces.forEach(announce => {
-                html += `
-                <div class="block block-rounded block-fx-pop mb-2">
-            <div class="block-content block-content-full border-start border-3 border-success">
-            <div class="d-md-flex justify-content-md-between align-items-md-center">
-                    <div class="p-1 p-md-3">
-                        <div class="flex-grow-1 fs-sm pe-2 mb-2">
-                            <div class="fw-semibold">
-                                <i class="fa fa-message me-1"></i>
-                                ${announce.noidung}</div>
-                        </div>
-                        <p class="fs-sm text-muted mb-2">
-                            <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="${announce.nhom}">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
-                        </p>
-                    </div>
-                    <div class="p-1 p-md-3">
-                        <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="javascript:void(0)">
-                            <i class="fa fa-clock opacity-50 me-1"></i> ${formatDate(announce.thoigiantao)}
-                        </a>
-                        <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./teacher_announcement/update/${announce.matb}">
-                            <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
-                        </a>
-                        <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${announce.matb}">
-                            <i class="fa fa-times opacity-50 me-1"></i> Xoá thông báo
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`;
-            })
-        } else {
-            html += `<p class="text-center">Không có thông báo</p>`
-        }
-        $(".list-announces").html(html);
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    }
-
     function loadListAnnounces() {
         return $.ajax({
             type: "post",
             url: "./teacher_announcement/getListAnnounce",
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 showListAnnounce(data);
             }
         });
     }
-
-    loadListAnnounces()
 
     $(document).ready(function () {
         let e = Swal.mixin({
@@ -225,10 +220,9 @@ $(document).ready(function () {
                         },
                         dataType: "json",
                         success: function (response) {
-                            // console.log(response)
                             if (response) {
                                 e.fire("Deleted!", "Xóa thông báo thành công!", "success");
-                                loadListAnnounces();
+                                mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
                             } else {
                                 e.fire("Lỗi !", "Xoá thông báo không thành công !)", "error");
                             }
@@ -237,14 +231,18 @@ $(document).ready(function () {
                 }
             });
         });
-
     })
-
-
-
-
-
 
 });
 
+// Get current user ID
+const container = document.querySelector(".content");
+const currentUser = container.dataset.id;
+delete container.dataset.id;
 
+// Pagination
+const mainPagePagination = new Pagination(null, null, showListAnnounce);
+mainPagePagination.option.controller = "teacher_announcement";
+mainPagePagination.option.model = "AnnouncementModel";
+mainPagePagination.option.id = currentUser;
+mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

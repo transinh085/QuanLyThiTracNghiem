@@ -133,18 +133,6 @@ $(document).ready(function () {
     "json"
   );
 
-  function loadAll() {
-    $.get(
-      "./user/getData",
-      function (data, textStatus) {
-        showData(data);
-      },
-      "json"
-    );
-  }
-
-  // loadAll();
-
   $("[data-bs-target='#modal-add-user']").click(function (e) {
     e.preventDefault();
     clearInputFields();
@@ -170,7 +158,6 @@ $(document).ready(function () {
         }, 
         dataType: "json",
         success: function (response) {
-
           // Kiểm tra xem người dùng đó tồn tại chưa
           if (response.length !== 0) {
             Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
@@ -220,7 +207,7 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        // console.log(response)
+        console.log(response)
         $("#masinhvien").val(response.id)
         $("#masinhvien").prop("disabled",true);
         $("#user_name").val(response.hoten),
@@ -231,7 +218,7 @@ $(document).ready(function () {
           $("#user_ngaysinh").val(response.ngaysinh);
           $("#user_email").val(response.email);
           $("#user_nhomquyen").val(response.manhomquyen).trigger("change");
-          $("#user_status").prop("checked", response.trangthai);
+          $("#user_status").prop("checked", response.trangthai == 1);
           $("#modal-add-user").modal("show");
         },
       });

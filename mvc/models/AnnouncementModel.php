@@ -41,14 +41,29 @@ class AnnouncementModel extends DB
 
     public function getAll($user_id) 
     {
-        $sql = "SELECT `chitietthongbao`.`matb`,`tennhom`,`noidung`, `tenmonhoc` ,`namhoc`, `hocky` 
+        $sql = "SELECT `chitietthongbao`.`matb`,`tennhom`,`noidung`, `tenmonhoc` ,`namhoc`, `hocky`, `thoigiantao`
         FROM `thongbao`, `chitietthongbao`,`nhom`,`monhoc` 
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `nhom`.`manhom` AND `nhom`.`mamonhoc` = `monhoc`.`mamonhoc`
         AND `thongbao`.`nguoitao` = $user_id";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){
-            $rows[] = $row;
+            $matb = $row['matb'];
+            $index = array_search($matb, array_column($rows, 'matb'));
+            if ($index === false) {
+                $item = [
+                    "matb" => $matb,
+                    "noidung" => $row['noidung'],
+                    "tenmonhoc" => $row['tenmonhoc'],
+                    "namhoc" => $row['namhoc'],
+                    "hocky" => $row['hocky'],
+                    "thoigiantao" => $row['thoigiantao'],
+                    "nhom" => [$row['tennhom']]
+                ];
+                array_push($rows, $item);
+            } else {
+                array_push($rows[$index]["nhom"], $row['tennhom']);
+            }
         }
         return $rows;
     }
@@ -99,6 +114,19 @@ class AnnouncementModel extends DB
         $result = mysqli_query($this->con, $sql);
         if(!$result) $valid = false;
         return $valid; 
+    }
+
+    public function getNotifications($id)
+    {
+        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` 
+        WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` AND `thongbao`.`nguoitao` = `nguoidung`.`id` AND `chitietnhom`.`manhom` = `nhom`.`manhom`
+        AND `chitietnhom`.`manguoidung` = $id";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
     }
 
 }

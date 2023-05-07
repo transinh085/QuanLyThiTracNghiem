@@ -230,7 +230,7 @@ $(document).ready(function () {
                                 e.fire("Deleted!", "Xóa thông báo thành công!", "success");
                                 loadListAnnounces();
                             } else {
-                                e.fire("Lỗi !", "Xoá đề thi không thành công !)", "error");
+                                e.fire("Lỗi !", "Xoá thông báo không thành công !)", "error");
                             }
                         },
                     });

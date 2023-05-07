@@ -33,7 +33,6 @@ $(document).ready(function() {
     let param = 0
     if(url[url.length - 2] == "update") {
         param = url[url.length - 1]
-        console.log(param);
         getDetail(param);
     }
 
@@ -106,7 +105,6 @@ $(document).ready(function() {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response)
                 showAnnounce(response)
             }
         });
@@ -116,13 +114,11 @@ $(document).ready(function() {
     $("#btn-update-announce").click(function (e) {
         e.preventDefault();
         let matb = $(this).data("id");
-        console.log(matb);
         $.ajax({
             type: "post",
             url: "./teacher_announcement/updateAnnounce",
             data: {
                 matb: matb,
-                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
                 noidung: $("#name-exam").val(),
                 manhom: getGroupSelected()
             },

@@ -69,20 +69,21 @@ class AnnouncementModel extends DB
     }
 
     public function deleteAnnounce($matb)
-    {
-        $sql = "DELETE FROM `chitietthongbao` WHERE `matb` = $matb";
-        $result = mysqli_query($this->con,$sql);
+    {  
+        $result = $this->deleteDetailAnnounce($matb);
         if ($result) {
-            $result = $this->deleteDetailAnnounce($matb);
+            $sql = "DELETE FROM `thongbao` WHERE `matb` = $matb";
+            $result = mysqli_query($this->con,$sql);
             return true;
         } else return false;
     }
+
 
     // Xóa thông báo trong bảng thongbao
     public function deleteDetailAnnounce($matb)
     {
         $valid = true;
-        $sql = "DELETE FROM `thongbao` WHERE `matb` = $matb";
+        $sql = "DELETE FROM `chitietthongbao` WHERE `matb` = $matb";
         $result = mysqli_query($this->con,$sql);
         if (!$result) $valid = false;
         return $valid; 
@@ -107,12 +108,15 @@ class AnnouncementModel extends DB
         return $thongbao;
     }
 
-    public function updateAnnounce($matb,$mamonhoc,$noidung,$nhom)
+    public function updateAnnounce($matb,$noidung,$nhom)
     {
         $valid = true;
         $sql = "UPDATE `thongbao` SET `noidung`='$noidung' WHERE `matb` = $matb" ;
         $result = mysqli_query($this->con, $sql);
-        if(!$result) $valid = false;
+        if($result) {
+            $this->deleteDetailAnnounce($matb);
+            $this->sendAnnouncement($matb, $nhom);
+        } else $valid = false;
         return $valid; 
     }
 

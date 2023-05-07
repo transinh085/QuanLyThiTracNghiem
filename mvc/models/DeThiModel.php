@@ -16,7 +16,7 @@ class DeThiModel extends DB
         } else return false;
     }
 
-    // Đầu vào như này là đéo ổn 
+    // 
     public function create_dethi_auto($made, $monhoc, $chuong, $socaude, $socautb, $socaukho)
     {
         $valid = true;

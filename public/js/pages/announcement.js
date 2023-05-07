@@ -3,32 +3,32 @@ Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);
 
 Dashmix.onLoad((() => class {
     static initValidation() {
-      Dashmix.helpers("jq-validation"), jQuery(".form-taothongbao").validate({
-        rules: {
-          "name-exam": {
-            required: !0,
-          },
-          "nhom-hp": {
-            required: !0,
-          },
-        },
-        messages: {
-          "name-exam": {
-            required: "Nhập nội dung thông báo cần gửi",
-          },
-          "nhom-hp": {
-            required: "Vui lòng chọn nhóm học phần",
-          },
-        }
-      })
+        Dashmix.helpers("jq-validation"), jQuery(".form-taothongbao").validate({
+            rules: {
+                "name-exam": {
+                    required: !0,
+                },
+                "nhom-hp": {
+                    required: !0,
+                },
+            },
+            messages: {
+                "name-exam": {
+                    required: "Nhập nội dung thông báo cần gửi",
+                },
+                "nhom-hp": {
+                    required: "Vui lòng chọn nhóm học phần",
+                },
+            }
+        })
     }
-  
+
     static init() {
-      this.initValidation()
+        this.initValidation()
     }
-  }.init()));
+}.init()));
 let groups = [];
-$(document).ready(function() {
+$(document).ready(function () {
     function showGroup() {
         let html = "<option></option>";
         $.ajax({
@@ -41,20 +41,20 @@ $(document).ready(function() {
             dataType: "json",
             success: function (response) {
                 groups = response;
-                response.forEach((item,index) => {
-                    html += `<option value="${index}">${item.mamonhoc + " - " + item.tenmonhoc + " - NH"+ item.namhoc + " - HK"+ item.hocky}</option>`;
+                response.forEach((item, index) => {
+                    html += `<option value="${index}">${item.mamonhoc + " - " + item.tenmonhoc + " - NH" + item.namhoc + " - HK" + item.hocky}</option>`;
                 });
                 $("#nhom-hp").html(html);
             }
         });
     }
-    
+
     showGroup();
-    
-    
+
+
     function showListGroup(index) {
         let html = ``;
-        if(groups[index].nhom.length > 0) {
+        if (groups[index].nhom.length > 0) {
             html += `<div class="col-12 mb-3">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="select-all-group">
@@ -74,30 +74,30 @@ $(document).ready(function() {
         }
         $("#list-group").html(html);
     }
-    
+
     $("#nhom-hp").on("change", function () {
         let index = $(this).val();
         showListGroup(index);
     });
-    
-    $(document).on("click","#select-all-group",function () {
+
+    $(document).on("click", "#select-all-group", function () {
         let check = $(this).prop("checked");
         $(".select-group-item").prop("checked", check);
     });
 
     function getGroupSelected() {
         let result = [];
-        $(".select-group-item").each(function() {
-            if($(this).prop("checked") == true) {
+        $(".select-group-item").each(function () {
+            if ($(this).prop("checked") == true) {
                 result.push($(this).val());
             }
         });
         return result;
     }
 
-    $("#btn-send-announcement").click(function (e) { 
+    $("#btn-send-announcement").click(function (e) {
         e.preventDefault();
-        
+
         let nowDate = new Date();
         let nowYear = nowDate.getFullYear();
         let nowMonth = nowDate.getMonth() + 1;
@@ -106,7 +106,7 @@ $(document).ready(function() {
         let nowMintues = nowDate.getMinutes();
         let nowSeconds = nowDate.getSeconds();
         let format = nowYear + "/" + nowMonth + "/" + nowDay + " " + nowHours + ":" + nowMintues + ":" + nowSeconds;
-        if ($(".form-taothongbao").valid()) { 
+        if ($(".form-taothongbao").valid()) {
             $.ajax({
                 type: "post",
                 url: "./teacher_announcement/sendAnnouncement",
@@ -117,7 +117,7 @@ $(document).ready(function() {
                     thoigiantao: format,
                 },
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
                     if (response) {
                         location.href = "./teacher_announcement";
@@ -130,29 +130,38 @@ $(document).ready(function() {
 
     });
 
+    function formatDate(datetimeStr) {
+        const datetime = new Date(datetimeStr);
+        const hours = datetime.getHours().toString().padStart(2, "0");
+        const minutes = datetime.getMinutes().toString().padStart(2, "0");
+        const day = datetime.getDate().toString().padStart(2, "0");
+        const month = (datetime.getMonth() + 1).toString().padStart(2, "0");
+        const year = datetime.getFullYear().toString();
+        return `${hours}:${minutes} ${day}/${month}/${year}`;
+    }
+
     function showListAnnounce(announces) {
         let html = "";
         if (announces.length != 0) {
             announces.forEach(announce => {
-                html +=`
+                html += `
                 <div class="block block-rounded block-fx-pop mb-2">
             <div class="block-content block-content-full border-start border-3 border-danger">
             <div class="d-md-flex justify-content-md-between align-items-md-center">
                     <div class="p-1 p-md-3">
-                        <h3 class="h4 fw-bold mb-3">
-                            <a class="text-dark link-fx">${announce.tennhom}</a>
-                        </h3>
                         <p class="fs-sm text-muted mb-2">
-                            <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="Nhóm 1, Nhóm 2, Nhóm 3">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
+                            <i class="fa fa-layer-group me-1"></i> Gửi cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" style="cursor:pointer" data-bs-original-title="${announce.nhom}">${announce.tenmonhoc} - NH${announce.namhoc} - HK${announce.hocky}</strong>
                         </p>
                         <div class="flex-grow-1 fs-sm pe-2">
                             <div class="fw-semibold">
                                 <i class="fa fa-message me-1"></i>
                                 ${announce.noidung}</div>
-                            <div class="text-muted">1 hour ago</div>
                         </div>
                     </div>
                     <div class="p-1 p-md-3">
+                        <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="javascript:void(0)">
+                            <i class="fa fa-clock opacity-50 me-1"></i> ${formatDate(announce.thoigiantao)}
+                        </a>
                         <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./teacher_announcement/update/${announce.matb}">
                             <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
                         </a>
@@ -163,13 +172,13 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>
-    </div>
-                `;
+    </div>`;
             })
         } else {
             html += `<p class="text-center">Không có thông báo</p>`
         }
         $(".list-announces").html(html);
+        $('[data-bs-toggle="tooltip"]').tooltip();
     }
 
     function loadListAnnounces() {
@@ -177,7 +186,7 @@ $(document).ready(function() {
             type: "post",
             url: "./teacher_announcement/getListAnnounce",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
                 showListAnnounce(data);
             }
@@ -238,7 +247,7 @@ $(document).ready(function() {
                 }
             });
         });
-        
+
     })
 
 

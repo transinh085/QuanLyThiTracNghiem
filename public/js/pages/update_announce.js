@@ -1,6 +1,4 @@
 $(document).ready(function() {
-
-
     function showListGroup(index) {
         let html = ``;
         if(groups[index].nhom.length > 0) {

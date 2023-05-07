@@ -7,7 +7,7 @@ $.getJSON("./account/getRole",
 
 $(document).ajaxStop(function () {
     $("[data-role]").each(function() {
-        if(!role[`${$(this).data("role")}`].includes($(this).data("action"))) {
+        if(role[`${$(this).data("role")}`] === undefined || !role[`${$(this).data("role")}`].includes($(this).data("action"))) {
             $(this).remove();
         } else {
             $(this).addClass("show");
@@ -22,34 +22,26 @@ $(document).ajaxStop(function () {
         if($(this).closest("table").find(".col-action").length != 0) {
             $(this).show()
         }
-    });
-    
+    })
 });
 
 $(document).ready(function () {
 
 $(".btn-show-notifications").on("click", function (e) {
     e.preventDefault();
-    let id = $(this).data("id");
-    console.log(id);
-    
-
     $.ajax({
         type: "post",
         url: "./teacher_announcement/getNotifications",
-        data: {
-            id: id,
-        },
         dataType: "json",
         success: function(data) {
             console.log(data)
             showListNotifications(data);
         }
     });
-  });
+});
 
-  function showListNotifications(notifications)
-  {
+function showListNotifications(notifications)
+{
     let html = "";
     if (notifications.length != 0) {
         notifications.forEach(notification => {
@@ -72,7 +64,6 @@ $(".btn-show-notifications").on("click", function (e) {
         html += `<p class="text-center">Không có thông báo</p>`
     }
     $(".list-notifications").html(html);
-  }
+}
 
-  
 })

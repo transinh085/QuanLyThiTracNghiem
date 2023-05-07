@@ -142,7 +142,7 @@ class teacher_announcement extends Controller{
     public function getNotifications()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $id = $_POST["id"];
+            $id = $_SESSION["user_id"];
             $result = $this->AnnouncementModel->getNotifications($id);
             echo json_encode($result);
         }

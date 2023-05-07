@@ -51,8 +51,7 @@
                         </p>
                     </div>
                     <div class="col-xl-6 order-xl-0">
-                        <form class="form-update-profile" method="POST" enctype="multipart/form-data"
-                            onsubmit="return false;">
+                        <form class="form-update-profile" method="POST" enctype="multipart/form-data">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-msv">Mã sinh viên</label>
                                 <input type="text" class="form-control" id="dm-profile-msv"

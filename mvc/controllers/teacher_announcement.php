@@ -138,6 +138,14 @@ class teacher_announcement extends Controller{
             echo json_encode($result);
         }
     }
-    
+
+    public function getNotifications()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $result = $this->AnnouncementModel->getNotifications($id);
+            echo json_encode($result);
+        }
+    }
 }
 ?>

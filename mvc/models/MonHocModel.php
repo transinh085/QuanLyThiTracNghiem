@@ -75,8 +75,8 @@ class MonHocModel extends DB{
         return $query;
     }
 
-    public function checkSubject($tenmon, $mamon) {
-        $sql = "SELECT * FROM `monhoc` WHERE `mamonhoc` = $mamon OR `tenmonhoc` = '$tenmon'";
+    public function checkSubject($mamon) {
+        $sql = "SELECT * FROM `monhoc` WHERE `mamonhoc` = $mamon";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

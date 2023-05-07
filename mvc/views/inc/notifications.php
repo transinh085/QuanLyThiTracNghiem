@@ -1,6 +1,6 @@
 <!-- Notifications Dropdown -->
 <div class="dropdown d-inline-block">
-    <button type="button" class="btn btn-alt-secondary" id="page-header-notifications-dropdown"
+    <button type="button" class="btn btn-alt-secondary btn-show-notifications" data-id="<?php echo $_SESSION['user_id']?>" id="page-header-notifications-dropdown"
         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-fw fa-bell"></i>
     </button>
@@ -9,7 +9,7 @@
         <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
             Thông báo
         </div>
-        <ul class="nav-items my-2">
+        <ul  class="nav-items my-2 list-notifications">
             <li>
                 <a class="d-flex text-dark py-2" href="javascript:void(0)">
                     <div class="flex-shrink-0 mx-3">

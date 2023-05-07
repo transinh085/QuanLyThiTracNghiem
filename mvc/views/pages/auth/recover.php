@@ -21,7 +21,7 @@
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control" id="reminder-credential"
-                                    name="reminder-credential" placeholder="Mã số sinh viên">
+                                    name="reminder-credential" placeholder="Nhập email của tài khoản">
                                 <span class="input-group-text">
                                     <i class="fa fa-user-circle"></i>
                                 </span>

@@ -114,9 +114,6 @@ class Auth extends Controller
         }
     }
 
-
-
-
     public function addUser()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

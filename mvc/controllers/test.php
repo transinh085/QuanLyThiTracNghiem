@@ -498,7 +498,7 @@ class Test extends Controller
             $manhom = $_POST['manhom'];
             $result = $this->ketquamodel->getTestScoreGroup($made,$manhom);
             if($manhom == 0){
-                
+                $result = $this->ketquamodel->getTestAll($made);
             }
             //Khởi tạo đối tượng
             $excel = new PHPExcel();

@@ -473,9 +473,7 @@ function showChart(data) {
     },
     options: options,
   });
-
 }
-
 // Pagination
 const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "test";

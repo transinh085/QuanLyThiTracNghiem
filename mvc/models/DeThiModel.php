@@ -438,7 +438,7 @@ class DeThiModel extends DB
                     $query .= " GROUP BY DT.made ORDER BY DT.made DESC";
                     break;
                 case "getQuestionsForTest":
-                    $query = "SELECT *, fnStripTags(noidung) AS noidungplaintext FROM cauhoi,phancong WHERE trangthai = 1 AND phancong.manguoidung = ".$args['id']." AND cauhoi.mamonhoc = ".$args['mamonhoc'];
+                    $query = "SELECT cauhoi.*, fnStripTags(noidung) AS noidungplaintext FROM cauhoi,phancong WHERE cauhoi.mamonhoc = phancong.mamonhoc AND trangthai = 1 AND phancong.manguoidung = ".$args['id']." AND cauhoi.mamonhoc = ".$args['mamonhoc'];
                     if (isset($filter['machuong'])) {
                         $query .= " AND machuong = ".$filter['machuong'];
                     }

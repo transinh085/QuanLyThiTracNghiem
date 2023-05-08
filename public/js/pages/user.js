@@ -160,6 +160,27 @@ $(document).ready(function () {
     })
     return result;
   }
+
+  function checkUserUpdate(id,email) {
+    let result = true;
+    $.ajax({
+      type: "post",
+      url: "./user/checkUser",
+      data: {
+        mssv: id,
+        email: email,
+      }, 
+      async: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.length  != 1) {
+          Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
+          result = false;
+        }
+      }
+    })
+    return result;
+  }
   
   $("#btn-add-user").on("click", function (e) {
     e.preventDefault();
@@ -225,26 +246,26 @@ $(document).ready(function () {
     e.preventDefault();
     let mssv = $("#masinhvien").val();
     let email = $("#user_email").val();
-    $.ajax({
-      type: "post",
-      url: "./user/update",
-      data: {
-        id: $(this).data("id"),
-        hoten: $("#user_name").val(),
-        gioitinh: $('input[name="user_gender"]:checked').val(),
-        ngaysinh: $("#user_ngaysinh").val(),
-        email: email,
-        role: $("#user_nhomquyen").val(),
-        password: $("#user_password").val(),
-        status: $("#user_status").prop("checked") ? 1 : 0,
-      },
-      success: function (response) {
-        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-        $("#modal-add-user").modal("hide");
-      },
-    });
-    // if(checkUser(mssv,email)) {
-    // }
+    if(checkUserUpdate(mssv,email)) {
+      $.ajax({
+        type: "post",
+        url: "./user/update",
+        data: {
+          id: $(this).data("id"),
+          hoten: $("#user_name").val(),
+          gioitinh: $('input[name="user_gender"]:checked').val(),
+          ngaysinh: $("#user_ngaysinh").val(),
+          email: email,
+          role: $("#user_nhomquyen").val(),
+          password: $("#user_password").val(),
+          status: $("#user_status").prop("checked") ? 1 : 0,
+        },
+        success: function (response) {
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          $("#modal-add-user").modal("hide");
+        },
+      });
+    }
   });
 
   $(document).on("click", ".user-delete", function () {

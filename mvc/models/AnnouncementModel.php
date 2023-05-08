@@ -122,14 +122,14 @@ class AnnouncementModel extends DB
 
     public function getNotifications($id)
     {
-        $sql = "SELECT  `tennhom`,`avatar`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` , monhoc.mamonhoc, monhoc.tenmonhoc
+        $sql = "SELECT `tennhom`,`avatar`,`hoten`,`noidung`, `thoigiantao` ,`chitietnhom`.`manhom` , monhoc.mamonhoc, monhoc.tenmonhoc
         FROM `thongbao`,`chitietthongbao`,`chitietnhom`, `nguoidung`,`nhom` ,`monhoc`
         WHERE `thongbao`.`matb` = `chitietthongbao`.`matb` AND `chitietthongbao`.`manhom` = `chitietnhom`.`manhom` 
         AND `thongbao`.`nguoitao` = `nguoidung`.`id` 
         AND `chitietnhom`.`manhom` = `nhom`.`manhom`
         AND `monhoc`.`mamonhoc` = `nhom`.`mamonhoc`
         AND `chitietnhom`.`manguoidung` = $id
-        ORDER BY thoigiantao DESC";
+        ORDER BY thoigiantao DESC LIMIT 0, 5";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)){

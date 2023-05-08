@@ -12,11 +12,11 @@
         <ul class="nav-items my-2 list-notifications">
             <!-- data -->
         </ul>
-        <div class="p-2 border-top">
+        <!-- <div class="p-2 border-top">
             <a class="btn btn-alt-primary w-100 text-center" href="javascript:void(0)">
                 <i class="fa fa-fw fa-eye opacity-50 me-1"></i> View All
             </a>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- END Notifications Dropdown -->

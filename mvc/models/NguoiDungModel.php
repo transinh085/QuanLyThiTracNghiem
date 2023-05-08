@@ -27,10 +27,11 @@ class NguoiDungModel extends DB
     {
         $querypass = '';
         if ($password != '') {
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $querypass = ", `matkhau`='$password'";
+            $passwordd = password_hash($password, PASSWORD_DEFAULT);
+            $querypass = ", `matkhau`='$passwordd'";
         }
-        $sql = "UPDATE `nguoidung` SET `email`='$email', `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh',`trangthai`='$trangthai',`manhomquyen`='$role'$querypass WHERE `id`='$id'";
+        $sql = "UPDATE `nguoidung` SET `email`='$email', `hoten`='$fullname',`gioitinh`='$gioitinh',`ngaysinh`='$ngaysinh',`trangthai`='$trangthai',`manhomquyen`='$role' $querypass WHERE `id`='$id'";
+        return $sql;
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) $check = false;

@@ -358,7 +358,6 @@ $(document).ready(function () {
         ds: ds,
       },
       success: function (response) {
-        console.log(response)
         var $a = $("<a>");
         $a.attr("href", response.file);
         $("body").append($a);

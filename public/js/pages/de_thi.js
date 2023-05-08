@@ -137,27 +137,14 @@ $(document).ready(function () {
         made: dethiCheck,
       },
       success: function (response) {
-        let curTime = new Date().getTime();
-        if (curTime > endTime) {
-          localStorage.removeItem(cautraloi);
+        localStorage.removeItem(cautraloi);
           localStorage.removeItem(dethi);
-          location.href = `./test/start/${made}`;
-        } else {
-          localStorage.removeItem(cautraloi);
-          localStorage.removeItem(dethi);
-          location.href = `./test/start/${made}`;
-        }
+        location.href = `./test/start/${made}`;
       },
       error: function (response) {
-        if (curTime > endTime) {
-          localStorage.removeItem(cautraloi);
-          localStorage.removeItem(dethi);
-          location.href = `./test/start/${made}`;
-        } else {
-          localStorage.removeItem(cautraloi);
-          localStorage.removeItem(dethi);
-          location.href = `./test/start/${made}`;
-        }
+        localStorage.removeItem(cautraloi);
+        localStorage.removeItem(dethi);
+      location.href = `./test/start/${made}`;
       },
     });
   }

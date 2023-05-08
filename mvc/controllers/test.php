@@ -497,73 +497,75 @@ class Test extends Controller
             $made = $_POST['made'];
             $manhom = $_POST['manhom'];
             $result = $this->ketquamodel->getTestScoreGroup($made,$manhom);
-            echo $result;
-            // //Khởi tạo đối tượng
-            // $excel = new PHPExcel();
-            // //Chọn trang cần ghi (là số từ 0->n)
-            // $excel->setActiveSheetIndex(0);
-            // //Tạo tiêu đề cho trang. (có thể không cần)
-            // $excel->getActiveSheet()->setTitle("Danh sách kết quả");
+            if($manhom == 0){
+                
+            }
+            //Khởi tạo đối tượng
+            $excel = new PHPExcel();
+            //Chọn trang cần ghi (là số từ 0->n)
+            $excel->setActiveSheetIndex(0);
+            //Tạo tiêu đề cho trang. (có thể không cần)
+            $excel->getActiveSheet()->setTitle("Danh sách kết quả");
 
-            // //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
-            // $excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
-            // $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
-            // $excel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
-            // $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-            // $excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-            // $excel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+            //Xét chiều rộng cho từng, nếu muốn set height thì dùng setRowHeight()
+            $excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+            $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+            $excel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+            $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $excel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
 
 
-            // //Xét in đậm cho khoảng cột
-            // $phpColor = new PHPExcel_Style_Color();
-            // $phpColor->setRGB('FFFFFF'); 
-            // $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
-            // $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setColor( $phpColor );
-            // $excel->getActiveSheet()->getStyle('A1:G1')->applyFromArray(
-            //     array(
-            //         'fill' => array(
-            //             'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            //             'color' => array('rgb' => '33FF33')
-            //         )
-            //     )
-            // );
-            // $excel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->applyFromArray(
-            //     array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
-            // );
-            // $excel->getActiveSheet()->setCellValue('A1', 'MSSV');
-            // $excel->getActiveSheet()->setCellValue('B1', 'Họ và tên');
-            // $excel->getActiveSheet()->setCellValue('C1', 'Điểm thi');
-            // $excel->getActiveSheet()->setCellValue('D1', 'Thời gian vào thi');
-            // $excel->getActiveSheet()->setCellValue('E1', 'Thời gian làm bài');
-            // $excel->getActiveSheet()->setCellValue('F1', 'Số câu đúng');
-            // $excel->getActiveSheet()->setCellValue('G1', 'Số lần chuyển Tab');
-            // // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
-            // // dòng bắt đầu = 2
-            // $numRow = 2;
-            // foreach ($result as $row) {
-            //     $excel->getActiveSheet()->setCellValue('A' . $numRow, $row["manguoidung"]);
-            //     $excel->getActiveSheet()->setCellValue('B' . $numRow, $row["hoten"]);
-            //     $excel->getActiveSheet()->setCellValue('C' . $numRow, $row["diemthi"]);
-            //     $excel->getActiveSheet()->setCellValue('D' . $numRow, $row["thoigianvaothi"]);
-            //     $excel->getActiveSheet()->setCellValue('E' . $numRow, $row["thoigianlambai"]);
-            //     $excel->getActiveSheet()->setCellValue('F' . $numRow, $row["socaudung"]);
-            //     $excel->getActiveSheet()->setCellValue('G' . $numRow, $row["solanchuyentab"]);
-            //     $excel->getActiveSheet()->getStyle("A".$numRow.":G"."$numRow")->getAlignment()->applyFromArray(
-            //         array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
-            //     );;
-            //     $numRow++;
-            // }
-            // ob_start();
-            // $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-            // $write->save('php://output');
-            // $xlsData = ob_get_contents();
-            // ob_end_clean();
-            // $response =  array(
-            //     'status' => TRUE,
-            //     'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
-            // );
+            //Xét in đậm cho khoảng cột
+            $phpColor = new PHPExcel_Style_Color();
+            $phpColor->setRGB('FFFFFF'); 
+            $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+            $excel->getActiveSheet()->getStyle('A1:G1')->getFont()->setColor( $phpColor );
+            $excel->getActiveSheet()->getStyle('A1:G1')->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '33FF33')
+                    )
+                )
+            );
+            $excel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+            );
+            $excel->getActiveSheet()->setCellValue('A1', 'MSSV');
+            $excel->getActiveSheet()->setCellValue('B1', 'Họ và tên');
+            $excel->getActiveSheet()->setCellValue('C1', 'Điểm thi');
+            $excel->getActiveSheet()->setCellValue('D1', 'Thời gian vào thi');
+            $excel->getActiveSheet()->setCellValue('E1', 'Thời gian làm bài');
+            $excel->getActiveSheet()->setCellValue('F1', 'Số câu đúng');
+            $excel->getActiveSheet()->setCellValue('G1', 'Số lần chuyển Tab');
+            // thực hiện thêm dữ liệu vào từng ô bằng vòng lặp
+            // dòng bắt đầu = 2
+            $numRow = 2;
+            foreach ($result as $row) {
+                $excel->getActiveSheet()->setCellValue('A' . $numRow, $row["manguoidung"]);
+                $excel->getActiveSheet()->setCellValue('B' . $numRow, $row["hoten"]);
+                $excel->getActiveSheet()->setCellValue('C' . $numRow, $row["diemthi"]==""?"0":$row["diemthi"]);
+                $excel->getActiveSheet()->setCellValue('D' . $numRow, $row["thoigianvaothi"]==""?"0":$row["thoigianvaothi"]);
+                $excel->getActiveSheet()->setCellValue('E' . $numRow, $row["thoigianlambai"]==""?"0":$row["thoigianlambai"]);
+                $excel->getActiveSheet()->setCellValue('F' . $numRow, $row["socaudung"]==""?"0":$row["socaudung"]);
+                $excel->getActiveSheet()->setCellValue('G' . $numRow, $row["solanchuyentab"]==""?"0":$row["solanchuyentab"]);
+                $excel->getActiveSheet()->getStyle("A".$numRow.":G"."$numRow")->getAlignment()->applyFromArray(
+                    array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
+                );;
+                $numRow++;
+            }
+            ob_start();
+            $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+            $write->save('php://output');
+            $xlsData = ob_get_contents();
+            ob_end_clean();
+            $response =  array(
+                'status' => TRUE,
+                'file' => "data:application/vnd.ms-excel;base64,".base64_encode($xlsData)
+            );
         
-            // die(json_encode($response));
+            die(json_encode($response));
         }
     }
 

@@ -346,24 +346,24 @@ $(document).ready(function () {
   $("#export_excel").click(function () {
     let manhom = $(".filtered-by-group.active").data("value");
     console.log(manhom)
-    // $.ajax({
-    //   method: "post",
-    //   url: "./test/exportExcel",
-    //   dataType: "json",
-    //   data: {
-    //     made: made,
-    //     manhom: $(".filtered-by-group.active").data("id")
-    //   },
-    //   success: function (response) {
-    //     console.log(response)
-    //     var $a = $("<a>");
-    //     $a.attr("href", response.file);
-    //     $("body").append($a);
-    //     $a.attr("download", "Kết quả bài thi.xls");
-    //     $a[0].click();
-    //     $a.remove();
-    //   },
-    // });
+    $.ajax({
+      method: "post",
+      url: "./test/exportExcel",
+      dataType: "json",
+      data: {
+        made: made,
+        manhom: manhom
+      },
+      success: function (response) {
+        console.log(response)
+        var $a = $("<a>");
+        $a.attr("href", response.file);
+        $("body").append($a);
+        $a.attr("download", "Kết quả bài thi.xls");
+        $a[0].click();
+        $a.remove();
+      },
+    });
   });
 });
 

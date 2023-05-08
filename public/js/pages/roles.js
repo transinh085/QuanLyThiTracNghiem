@@ -112,35 +112,43 @@ $(document).ready(function () {
 
     $(document).on("click", ".delete_roles", function () {
         let id = $(this).data('id');
-        $.ajax({
-            type: "post",
-            url: "./roles/delete",
-            data: {
-                id: id
-            },
-            success: function (response) {
-                alert(response)
-            }
-        });
+        let index = $(this).data("index");
         e.fire({
             title: "Are you sure?",
-            text: "Bạn có chắc chắn muốn xoá nhóm quyền!",
+            text: "Bạn có chắc chắn muốn xoá đề thi?",
             icon: "warning",
             showCancelButton: !0,
             customClass: {
                 confirmButton: "btn btn-danger m-1",
-                cancelButton: "btn btn-secondary m-1"
+                cancelButton: "btn btn-secondary m-1",
             },
             confirmButtonText: "Vâng, tôi chắc chắn!",
             html: !1,
-            preConfirm: e => new Promise((e => {
-                setTimeout((() => {
-                    e()
-                }), 50)
-            }))
-        }).then((t => {
-            t.value ? e.fire("Deleted!", "Your imaginary file has been deleted.", "success") : "cancel" === t.dismiss && e.fire("Cancelled", "Your imaginary file is safe :)", "error")
-        }))
+            preConfirm: (e) =>
+                new Promise((e) => {
+                    setTimeout(() => {
+                        e();
+                    }, 50);
+                }),
+        }).then((t) => {
+            if (t.value == true) {
+                $.ajax({
+                    type: "post",
+                    url: "./roles/delete",
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        if (response) {
+                            e.fire("Deleted!", "Xóa nhóm quyền thành công!", "success");
+                            loadDataTable();
+                        } else {
+                            e.fire("Lỗi !", "Xoá nhóm quyền không thành công !)", "error");
+                        }
+                    }
+                });
+            }
+        });
     });
 
     $("#modal-add-role").on('hidden.bs.modal', function () {

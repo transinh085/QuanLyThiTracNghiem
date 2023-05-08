@@ -317,7 +317,7 @@ class NguoiDungModel extends DB
     }
 
     public function getAllRoles() {
-        $sql = "SELECT * FROM nhomquyen";
+        $sql = "SELECT * FROM nhomquyen WHERE trangthai = 1";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {

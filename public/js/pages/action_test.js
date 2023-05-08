@@ -2,24 +2,39 @@ Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
 let groups = [];
 
-function getToTalQuestionOfChapter(chuong,monhoc,dokho) {
+function getToTalQuestionOfChapter(chuong, monhoc, dokho) {
     var result = 0;
     $.ajax({
         url: './question/getsoluongcauhoi',
         type: 'post',
         data: {
-            chuong:chuong,
-            monhoc:monhoc,
-            dokho:dokho
+            chuong: chuong,
+            monhoc: monhoc,
+            dokho: dokho
         },
         async: false,
-        success: function(response) {
+        success: function (response) {
             result = response;
         }
     });
     console.log(result)
     return result;
 }
+
+function getMinutesBetweenDates(start, end) {
+    // Chuyển đổi đối số thành đối tượng Date
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    // Tính số phút giữa hai khoảng thời gian
+    const diffMs = endDate.getTime() - startDate.getTime();
+    const diffMins = Math.round(diffMs / 60000);
+
+    // Trả về số phút tính được
+    return diffMins;
+}
+
+
 
 Dashmix.onLoad(() =>
     class {
@@ -38,12 +53,18 @@ Dashmix.onLoad(() =>
                 return startTime > currentTime;
             }, "Thời gian bắt đầu không được bé hơn thời gian hiện tại");
 
-            $.validator.addMethod('validSoLuong', function(value, element, param) {
+            $.validator.addMethod('validSoLuong', function (value, element, param) {
                 let c = $("#chuong").val() === undefined ? "" : $("#chuong").val();
                 let m = $("#nhom-hp").val() == "" ? 0 : groups[$("#nhom-hp").val()].mamonhoc;
-                let result = parseInt(getToTalQuestionOfChapter(c,m,param)) >= parseInt(value);
+                let result = parseInt(getToTalQuestionOfChapter(c, m, param)) >= parseInt(value);
                 return result;
             }, 'Số lượng câu hỏi không đủ');
+
+            $.validator.addMethod('validThoigianthi', function (value, element, param) {
+                let startTime = new Date($("#time-start").val());
+                let endTime = new Date($("#end-start").val());
+                return startTime < endTime && getMinutesBetweenDates(startTime, endTime) >= value;
+            }, 'Thời gian làm bài không hợp lệ');
 
             jQuery(".form-taodethi").validate({
                 rules: {
@@ -56,10 +77,12 @@ Dashmix.onLoad(() =>
                     },
                     "time-end": {
                         required: !0,
-                        validTimeEnd: true
+                        validTimeEnd: true,
                     },
                     "exam-time": {
                         required: !0,
+                        digits: true,
+                        validThoigianthi: true,
                     },
                     "nhom-hp": {
                         required: !0,
@@ -322,7 +345,7 @@ $(document).ready(function () {
         let valid = true;
         let dateToCompare = new Date(time);
         let currentTime = new Date(); // Thời gian hiện tại
-        if (dateToCompare.getTime() > currentTime.getTime()) valid = false;
+        if (dateToCompare.getTime() >= currentTime.getTime()) valid = false;
         return valid;
     }
 
@@ -330,8 +353,8 @@ $(document).ready(function () {
     function showInfo(dethi) {
         let checkD = checkDate(dethi.thoigianbatdau);
         $("#name-exam").val(dethi.tende),
-        $("#exam-time").val(dethi.thoigianthi),
-        $("#exam-time").prop("disabled", checkD);
+            $("#exam-time").val(dethi.thoigianthi),
+            $("#exam-time").prop("disabled", checkD);
         $("#time-start").flatpickr({
             enableTime: true,
             altInput: true,
@@ -351,11 +374,11 @@ $(document).ready(function () {
             defaultDate: dethi.thoigianketthuc,
         });
         $("#coban").val(dethi.socaude),
-        $("#coban").prop("disabled", checkD);
+            $("#coban").prop("disabled", checkD);
         $("#trungbinh").val(dethi.socautb),
-        $("#trungbinh").prop("disabled", checkD);
+            $("#trungbinh").prop("disabled", checkD);
         $("#kho").val(dethi.socaukho),
-        $("#kho").prop("disabled", checkD);
+            $("#kho").prop("disabled", checkD);
         $("#tudongsoande").prop("checked", dethi.loaide == "1");
         $("#tudongsoande").prop("disabled", checkD);
         $("#xemdiem").prop("checked", dethi.xemdiemthi == "1");
@@ -363,11 +386,11 @@ $(document).ready(function () {
         $("#xembailam").prop("checked", dethi.xemdapan == "1");
         $("#daocauhoi").prop("checked", dethi.troncauhoi == "1");
         $("#daodapan").prop("checked", dethi.trondapan == "1");
-        $("#tudongnop").prop("checked",dethi.nopbaichuyentab == "1");
+        $("#tudongnop").prop("checked", dethi.nopbaichuyentab == "1");
         $("#btn-update-test").data("id", dethi.made);
         $.when(showGroup(), showChapter(dethi.monthi)).done(function () {
             $("#nhom-hp").val(findIndexGroup(dethi.nhom[0])).trigger("change");
-            setGroup(dethi.nhom,dethi.thoigianbatdau)
+            setGroup(dethi.nhom, dethi.thoigianbatdau)
             if (dethi.loaide == "1") {
                 $("#chuong").prop("disabled", checkD);
                 $('#chuong').val(dethi.chuong).trigger("change");
@@ -385,60 +408,87 @@ $(document).ready(function () {
         return i;
     }
 
-    function setGroup(list,date) {
+    function setGroup(list, date) {
         let v = checkDate(date);
         $("#select-all-group").prop("disabled", v);
         list.forEach((item) => {
             $(`.select-group-item[value='${item}']`).prop("checked", true);
-            $(`.select-group-item[value='${item}']`).prop("disabled",v);
+            $(`.select-group-item[value='${item}']`).prop("disabled", v);
         });
+    }
+
+    function validUpdate() {
+        let check = true;
+        if ($("#name-exam").val() == "") {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Tên đề không được để trống' });
+            check = false;
+        }
+        var startTime = new Date($("#time-start").val());
+        var endTime = new Date($("#time-end").val());
+
+        if (endTime <= startTime) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian kết thúc không được bé hơn thời gian bắt đầu' });
+            check = false;
+        }
+
+        if (endTime <= new Date(infodethi.thoigianketthuc)) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian kết thúc phải lớn hơn thời gian kết thúc cũ' });
+            check = false;
+        }
+
+        console.log(getMinutesBetweenDates(startTime, endTime))
+        if (endTime > startTime && getMinutesBetweenDates(startTime, endTime) < infodethi.thoigianthi) {
+            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Thời gian làm bài không hợp lệ' });
+            check = false;
+        }
+
+        return check
     }
 
     // Xử lý nút cập nhật đề thi
     $("#btn-update-test").click(function (e) {
         e.preventDefault();
-        console.log(checkDate(infodethi.thoigiantao));
-        // if(checkDate(infodethi.thoigiantao) && $(".form-taodethi").valid()) {
-        //     let loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
-        //     let made = $(this).data("id");
-        //     let socaude = $("#coban").val();
-        //     let socautb = $("#trungbinh").val();
-        //     let socaukho = $("#kho").val();
-        //     $.ajax({
-        //         type: "post",
-        //         url: "./test/updateTest",
-        //         data: {
-        //             made: made,
-        //             mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-        //             tende: $("#name-exam").val(),
-        //             thoigianthi: $("#exam-time").val(),
-        //             thoigianbatdau: $("#time-start").val(),
-        //             thoigianketthuc: $("#time-end").val(),
-        //             socaude: socaude,
-        //             socautb: socautb,
-        //             socaukho: socaukho,
-        //             chuong: $("#chuong").val(),
-        //             loaide: loaide,
-        //             xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
-        //             xemdapan: $("#xemda").prop("checked") ? 1 : 0,
-        //             xembailam: $("#xembailam").prop("checked") ? 1 : 0,
-        //             daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
-        //             daodapan: $("#daodapan").prop("checked") ? 1 : 0,
-        //             tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
-        //             manhom: getGroupSelected()
-        //         },
-        //         success: function (response) {
-        //             if (response) {
-        //                 if ((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
-        //                     location.href = `./test/select/${made}`
-        //                 } else {
-        //                     location.href = `./test`
-        //                 }
-        //             } else {
-        //                 Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật đề thi không thành công!' });
-        //             }
-        //         }
-        //     });
-        // }
+        if ((!checkDate(infodethi.thoigianbatdau) && $(".form-taodethi").valid()) || validUpdate()) {
+            let loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
+            let made = $(this).data("id");
+            let socaude = $("#coban").val();
+            let socautb = $("#trungbinh").val();
+            let socaukho = $("#kho").val();
+            $.ajax({
+                type: "post",
+                url: "./test/updateTest",
+                data: {
+                    made: made,
+                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                    tende: $("#name-exam").val(),
+                    thoigianthi: $("#exam-time").val(),
+                    thoigianbatdau: $("#time-start").val(),
+                    thoigianketthuc: $("#time-end").val(),
+                    socaude: socaude,
+                    socautb: socautb,
+                    socaukho: socaukho,
+                    chuong: $("#chuong").val(),
+                    loaide: loaide,
+                    xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+                    xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+                    xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+                    daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+                    daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+                    tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+                    manhom: getGroupSelected()
+                },
+                success: function (response) {
+                    if (response) {
+                        if ((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
+                            location.href = `./test/select/${made}`
+                        } else {
+                            location.href = `./test`
+                        }
+                    } else {
+                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật đề thi không thành công!' });
+                    }
+                }
+            });
+        }
     });
 });

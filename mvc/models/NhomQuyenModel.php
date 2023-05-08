@@ -43,9 +43,18 @@ class NhomQuyenModel extends DB {
         return $result;
     }
 
+    public function delete($manhomquyen)
+    {
+        $valid = true;
+        $sql = "UPDATE `nhomquyen` SET `trangthai`='0' WHERE `manhomquyen`= $manhomquyen";
+        $result = mysqli_query($this->con, $sql);
+        if(!$result) $valid = false;
+        return $valid;
+    }
+
     public function getAll()
     { 
-        $sql = "SELECT * FROM `nhomquyen`";
+        $sql = "SELECT * FROM `nhomquyen` WHERE trangthai = 1";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -57,6 +66,7 @@ class NhomQuyenModel extends DB {
     public function getAllSl()
     {
         $sql = "SELECT nhomquyen.manhomquyen, nhomquyen.tennhomquyen, COUNT(id) AS soluong FROM nhomquyen LEFT JOIN nguoidung ON nhomquyen.manhomquyen = nguoidung.manhomquyen
+        WHERE nhomquyen.trangthai = 1
         GROUP BY nhomquyen.manhomquyen";
         $result = mysqli_query($this->con,$sql);
         $rows = array();

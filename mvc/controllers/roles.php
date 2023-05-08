@@ -70,7 +70,7 @@ class Roles extends Controller{
     public function delete(){
         if($_SERVER["REQUEST_METHOD"] == "POST"  && AuthCore::checkPermission("nhomquyen","delete")){
             $id = $_POST['id'];
-            echo $id;
+            echo $this->NhomQuyenModel->delete($id);
         }
     }
 }

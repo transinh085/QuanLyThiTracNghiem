@@ -261,6 +261,7 @@ $(document).ready(function () {
           status: $("#user_status").prop("checked") ? 1 : 0,
         },
         success: function (response) {
+          console.log(response)
           mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
           $("#modal-add-user").modal("hide");
         },

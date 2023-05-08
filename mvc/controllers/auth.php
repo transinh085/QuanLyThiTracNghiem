@@ -116,6 +116,7 @@ class Auth extends Controller
 
     public function addUser()
     {
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fullname = $_POST['fullname'];
             $email = $_POST['email'];
@@ -164,6 +165,7 @@ class Auth extends Controller
     }
 
     public function changePassword(){
+        AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = $_POST['password'];
             $email = $_SESSION['checkMail'];

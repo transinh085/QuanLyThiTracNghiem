@@ -345,14 +345,17 @@ $(document).ready(function () {
   });
   $("#export_excel").click(function () {
     let manhom = $(".filtered-by-group.active").data("value");
+    let ds = mainPagePagination.option.manhom;
     console.log(manhom)
+    console.log(ds)
     $.ajax({
       method: "post",
       url: "./test/exportExcel",
       dataType: "json",
       data: {
         made: made,
-        manhom: manhom
+        manhom: manhom,
+        ds: ds,
       },
       success: function (response) {
         console.log(response)
@@ -393,7 +396,6 @@ function getStatictical() {
     },
     dataType: "json",
     success: function (response) {
-      console.log(response);
       $("#da_nop").text(response.da_nop_bai);
       $("#chua_nop").text(response.chua_nop_bai);
       $("#khong_thi").text(response.khong_thi);

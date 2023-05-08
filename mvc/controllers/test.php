@@ -496,9 +496,10 @@ class Test extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $made = $_POST['made'];
             $manhom = $_POST['manhom'];
+            $ds = $_POST['ds'];
             $result = $this->ketquamodel->getTestScoreGroup($made,$manhom);
             if($manhom == 0){
-                $result = $this->ketquamodel->getTestAll($made);
+                $result = $this->ketquamodel->getTestAll($made,$ds);
             }
             //Khởi tạo đối tượng
             $excel = new PHPExcel();

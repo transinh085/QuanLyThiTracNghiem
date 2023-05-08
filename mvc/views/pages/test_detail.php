@@ -25,14 +25,14 @@
                         <div class="row mb-4">
                             <div class="input-group">
                                 <div class="col-md-6 d-flex gap-3">
-                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $data["Test"]["nhom"][0]["tennhom"] ?></button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
+                                        <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li>
                                         <?php
                                         foreach ($data["Test"]["nhom"] as $nhom) {
                                             echo '<li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="' . $nhom['manhom'] . '">' . $nhom['tennhom'] . '</a></li>';
                                         }
                                         ?>
-                                        <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li>
                                     </ul>
                                     <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Đã nộp bài</button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">

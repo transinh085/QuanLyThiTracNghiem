@@ -366,6 +366,19 @@ $(document).ready(function () {
     $("#user_status").prop("checked", 1);
     $("#ps_user_group").val("");
   }
+
+  $(".filtered-by-role").click(function (e) {
+    e.preventDefault();
+    $(".btn-filtered-by-role").text($(this).text());
+    let roleID = +$(this).data('id');
+    if (roleID === 0) {
+      delete mainPagePagination.option.filter.role;
+    } else {
+      mainPagePagination.option.filter.role = roleID;
+    }
+    mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+  });
+
 });
 
 // Pagination

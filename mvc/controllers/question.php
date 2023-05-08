@@ -287,4 +287,15 @@ class Question extends Controller
             echo json_encode($result);
         }
     }
+    
+    public function getsoluongcauhoi()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $chuong = isset($_POST['chuong']) ? $_POST['chuong'] : array();
+            $monhoc = $_POST['monhoc'];
+            $dokho = $_POST['dokho'];
+            $result = $this->cauHoiModel->getsoluongcauhoi($chuong,$monhoc,$dokho);
+            echo $result;
+        }
+    }
 }

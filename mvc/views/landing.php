@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <?php 
-                        if(!isset($_SESSION['user_id'])) {
+                        if(!isset($_COOKIE['token'])) {
                             echo '<li class="nav-main-item">
                                 <a class="btn btn-hero btn-light rounded-pill" href="auth/signin">
                                     <i class="fa fa-right-to-bracket me-2"></i>Đăng nhập

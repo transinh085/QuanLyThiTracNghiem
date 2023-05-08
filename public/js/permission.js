@@ -26,7 +26,6 @@ $(document).ajaxStop(function () {
 });
 
 $(document).ready(function () {
-
 $(".btn-show-notifications").on("click", function (e) {
     e.preventDefault();
     $.ajax({

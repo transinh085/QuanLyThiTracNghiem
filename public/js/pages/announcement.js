@@ -27,6 +27,8 @@ Dashmix.onLoad((() => class {
         this.initValidation()
     }
 }.init()));
+
+
 let groups = [];
 
 function showListAnnounce(announces) {
@@ -49,10 +51,10 @@ function showListAnnounce(announces) {
                     <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="javascript:void(0)">
                         <i class="fa fa-clock opacity-50 me-1"></i> ${formatDate(announce.thoigiantao)}
                     </a>
-                    <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./teacher_announcement/update/${announce.matb}">
+                    <a data-role="thongbao" và data-action="update" class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1" href="./teacher_announcement/update/${announce.matb}">
                         <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
                     </a>
-                    <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${announce.matb}">
+                    <a data-role="thongbao" và data-action="delete" class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${announce.matb}">
                         <i class="fa fa-times opacity-50 me-1"></i> Xoá thông báo
                     </a>
                 </div>
@@ -63,6 +65,7 @@ function showListAnnounce(announces) {
         })
     } else {
         html += `<p class="text-center">Không có thông báo</p>`
+        $(".pagination").hide();
     }
     $(".list-announces").html(html);
     $('[data-bs-toggle="tooltip"]').tooltip();
@@ -137,7 +140,6 @@ $(document).ready(function () {
 
     $("#btn-send-announcement").click(function (e) {
         e.preventDefault();
-
         let nowDate = new Date();
         let nowYear = nowDate.getFullYear();
         let nowMonth = nowDate.getMonth() + 1;
@@ -147,24 +149,28 @@ $(document).ready(function () {
         let nowSeconds = nowDate.getSeconds();
         let format = nowYear + "/" + nowMonth + "/" + nowDay + " " + nowHours + ":" + nowMintues + ":" + nowSeconds;
         if ($(".form-taothongbao").valid()) {
-            $.ajax({
-                type: "post",
-                url: "./teacher_announcement/sendAnnouncement",
-                data: {
-                    noticeText: $("#name-exam").val(),
-                    mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                    manhom: getGroupSelected(),
-                    thoigiantao: format,
-                },
-                dataType: "json",
-                success: function (response) {
-                    if (response) {
-                        location.href = "./teacher_announcement";
-                    } else {
-                        Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Gửi thông báo không thành công!' });
+            if(getGroupSelected().length != 0) {
+                $.ajax({
+                    type: "post",
+                    url: "./teacher_announcement/sendAnnouncement",
+                    data: {
+                        noticeText: $("#name-exam").val(),
+                        mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+                        manhom: getGroupSelected(),
+                        thoigiantao: format,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response) {
+                            location.href = "./teacher_announcement";
+                        } else {
+                            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Gửi thông báo không thành công!' });
+                        }
                     }
-                }
-            })
+                })
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Bạn phải chọn nhóm !' });
+            }
         }
 
     });

@@ -1,3 +1,30 @@
+Dashmix.onLoad((() => class {
+    static initValidation() {
+        Dashmix.helpers("jq-validation"), jQuery(".form-taothongbao").validate({
+            rules: {
+                "name-exam": {
+                    required: !0,
+                },
+                "nhom-hp": {
+                    required: !0,
+                },
+            },
+            messages: {
+                "name-exam": {
+                    required: "Nhập nội dung thông báo cần gửi",
+                },
+                "nhom-hp": {
+                    required: "Vui lòng chọn nhóm học phần",
+                },
+            }
+        })
+    }
+
+    static init() {
+        this.initValidation()
+    }
+}.init()));
+
 $(document).ready(function() {
     function showListGroup(index) {
         let html = ``;
@@ -114,22 +141,28 @@ $(document).ready(function() {
     $("#btn-update-announce").click(function (e) {
         e.preventDefault();
         let matb = $(this).data("id");
-        $.ajax({
-            type: "post",
-            url: "./teacher_announcement/updateAnnounce",
-            data: {
-                matb: matb,
-                noidung: $("#name-exam").val(),
-                manhom: getGroupSelected()
-            },
-            success: function (response) {
-                if(response) {
-                        location.href = `./teacher_announcement`
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật thông báo không thành công!' });
-                }
+        if ($(".form-taothongbao").valid()) {
+            if(getGroupSelected().length != 0) {
+                $.ajax({
+                    type: "post",
+                    url: "./teacher_announcement/updateAnnounce",
+                    data: {
+                        matb: matb,
+                        noidung: $("#name-exam").val(),
+                        manhom: getGroupSelected()
+                    },
+                    success: function (response) {
+                        if(response) {
+                                location.href = `./teacher_announcement`
+                        } else {
+                            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật thông báo không thành công!' });
+                        }
+                    }
+                });
+            } else {
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Bạn phải chọn nhóm !' });
             }
-        });
+        }
     });
 
 })

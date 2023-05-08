@@ -4,22 +4,6 @@ Dashmix.onLoad(() =>
   class {
     static initValidation() {
       Dashmix.helpers("jq-validation"),
-        $.validator.addMethod('check-email', function (value, element, param) {
-          var result = true;
-          $.ajax({
-            url: './dashboard/checkEmailExist',
-            type: 'post',
-            data: {
-              email: value
-            },
-            async: false,
-            success: function (response) {
-              result = response == 0;
-              console.log(result);
-            }
-          });
-          return result;
-        }, 'Mã môn học đã tồn tại');
 
       jQuery(".form-add-subject").validate({
         rules: {
@@ -103,60 +87,62 @@ $(document).ready(function () {
     $(".add-subject-element").show();
   });
 
-  $("#add_subject").on("click", function () {
-    if ($(".form-add-subject").valid()) {
-      let mamon = $("#mamonhoc").val();
-      let tenmon = $("#tenmonhoc").val();
-
+  function checkTonTai(mamon) {
+    let check = true;
       $.ajax({
         type: "post",
         url: "./subject/checkSubject",
         data: {
           mamon: mamon
         },
+        async: false,
         dataType: "json",
         success: function (response) {
-          // Kiểm tra xem người dùng đó tồn tại chưa
           if (response.length !== 0) {
             Dashmix.helpers("jq-notify", {
               type: "danger",
               icon: "fa fa-times me-1",
               message: `Môn học đã tồn tại!`,
             });
-            return;
+            check = false;
           }
+          
+        },
+      });
+  }
 
-          $.ajax({
-            type: "post",
-            url: "./subject/add",
-            data: {
-              mamon: $("#mamonhoc").val(),
-              tenmon: $("#tenmonhoc").val(),
-              sotinchi: $("#sotinchi").val(),
-              sotietlythuyet: $("#sotiet_lt").val(),
-              sotietthuchanh: $("#sotiet_th").val(),
-            },
-            success: function (response) {
-              if (response) {
-                Dashmix.helpers("jq-notify", {
-                  type: "success",
-                  icon: "fa fa-check me-1",
-                  message: "Thêm môn học thành công!",
-                });
-                $("#modal-add-subject").modal("hide");
-                mainPagePagination.getPagination(
-                  mainPagePagination.option,
-                  mainPagePagination.valuePage.curPage
-                );
-              } else {
-                Dashmix.helpers("jq-notify", {
-                  type: "danger",
-                  icon: "fa fa-times me-1",
-                  message: "Thêm môn học không thành công!",
-                });
-              }
-            },
-          });
+  $("#add_subject").on("click", function () {
+    let mamon = $("#mamonhoc").val();
+    if ($(".form-add-subject").valid() && checkTonTai(mamon)) {
+      $.ajax({
+        type: "post",
+        url: "./subject/add",
+        data: {
+          mamon: mamon,
+          tenmon: $("#tenmonhoc").val(),
+          sotinchi: $("#sotinchi").val(),
+          sotietlythuyet: $("#sotiet_lt").val(),
+          sotietthuchanh: $("#sotiet_th").val(),
+        },
+        success: function (response) {
+          if (response) {
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: "Thêm môn học thành công!",
+            });
+            $("#modal-add-subject").modal("hide");
+              mainPagePagination.getPagination(
+              mainPagePagination.option,
+              mainPagePagination.valuePage.curPage
+            );
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: "Thêm môn học không thành công!",
+            });
+          }
         },
       });
     }
@@ -200,38 +186,40 @@ $(document).ready(function () {
   $("#update_subject").click(function (e) {
     e.preventDefault();
     let mamon = $(this).data("id");
-    $.ajax({
-      type: "post",
-      url: "./subject/update",
-      data: {
-        id: mamon,
-        mamon: $("#mamonhoc").val(),
-        tenmon: $("#tenmonhoc").val(),
-        sotinchi: $("#sotinchi").val(),
-        sotietlythuyet: $("#sotiet_lt").val(),
-        sotietthuchanh: $("#sotiet_th").val(),
-      },
-      success: function (response) {
-        if (response) {
-          $("#modal-add-subject").modal("hide");
-          Dashmix.helpers("jq-notify", {
-            type: "success",
-            icon: "fa fa-check me-1",
-            message: "Cập nhật môn học thành công!",
-          });
-          mainPagePagination.getPagination(
-            mainPagePagination.option,
-            mainPagePagination.valuePage.curPage
-          );
-        } else {
-          Dashmix.helpers("jq-notify", {
-            type: "danger",
-            icon: "fa fa-times me-1",
-            message: "Cập nhật môn học không thành công!",
-          });
-        }
-      },
-    });
+    if ($(".form-add-subject").valid() && checkTonTai(mamon)) {
+      $.ajax({
+        type: "post",
+        url: "./subject/update",
+        data: {
+          id: mamon,
+          mamon: $("#mamonhoc").val(),
+          tenmon: $("#tenmonhoc").val(),
+          sotinchi: $("#sotinchi").val(),
+          sotietlythuyet: $("#sotiet_lt").val(),
+          sotietthuchanh: $("#sotiet_th").val(),
+        },
+        success: function (response) {
+          if (response) {
+            $("#modal-add-subject").modal("hide");
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: "Cập nhật môn học thành công!",
+            });
+            mainPagePagination.getPagination(
+              mainPagePagination.option,
+              mainPagePagination.valuePage.curPage
+            );
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: "Cập nhật môn học không thành công!",
+            });
+          }
+        },
+      });
+    }
   });
 
   $(document).on("click", ".btn-delete-subject", function () {

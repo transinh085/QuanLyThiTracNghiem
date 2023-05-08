@@ -13,6 +13,7 @@ function showListTest(tests) {
     html = ``;
     if(tests.length == 0) {
         html += `<p class="text-center">Không có dữ liệu</p>`
+        $(".pagination").hide();
     } else {
         tests.forEach((test) => {
             let htmlTestState = ``;

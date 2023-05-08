@@ -14,6 +14,11 @@ class AnnouncementModel extends DB
         } else return false;
     }
 
+    public function getById($matb) {
+        $sql = "SELECT * FROM thongbao WHERE matb = '$matb'";
+        $result = mysqli_query($this->con,$sql);
+        return mysqli_fetch_assoc($result);
+    }
 
     public function sendAnnouncement($matb,$nhom)
     {

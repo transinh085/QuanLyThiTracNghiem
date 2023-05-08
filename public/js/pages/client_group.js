@@ -19,7 +19,6 @@ $(document).ready(function () {
                 } else {
                     $("#modal-join-group").modal("hide");
                     groups.push(response);
-                    console.log(groups);
                     showListGroup(groups);
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Tham gia nhóm thành công !"});
                 }
@@ -38,7 +37,6 @@ $(document).ready(function () {
             success: function (data) {
                 groups = data;
                 showListGroup(data)
-                console.log(data)
             }
         });
     }
@@ -50,7 +48,7 @@ $(document).ready(function () {
         if(groups.length == 0) {
             html += `<p class="text-center">Chưa tham gia lớp nào </p>`
         } else {
-            groups.forEach(group => {
+            groups.forEach((group,index) => {
                 let btn_hide = group.hienthi == 1 ? `<a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-eye me-2 text-dark"></i> Ẩn nhóm</a>` 
                 : `<a class="dropdown-item btn-unhide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i> Huỷ ẩn</a>`
                 html += `<div class="col-md-6 col-xl-4">
@@ -89,7 +87,7 @@ $(document).ready(function () {
                             <div class="row g-sm">
                                 <div class="col-12">
                                     <button class="btn w-100 btn-alt-secondary btn-view-group" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                                    aria-controls="offcanvasExample" data-id="${group.manhom}">
+                                    aria-controls="offcanvasExample" data-id="${group.manhom}" data-index="${index}">
                                         <i class="fa fa-eye me-1 opacity-50"></i> Xem nhóm
                                     </button>
                                 </div>
@@ -104,6 +102,8 @@ $(document).ready(function () {
 
     $(document).on('click', ".btn-view-group", function () {
         let manhom = $(this).data("id");
+        let index = $(this).data("index");
+        $(".offcanvas-title").text(`${groups[index].tenmonhoc} - NH${groups[index].namhoc} - HK${groups[index].hocky} - ${groups[index].tennhom}`)
         loadDataTest(manhom);
         loadDataFriend(manhom);
         loadDataAnnounce(manhom);
@@ -229,7 +229,6 @@ $(document).ready(function () {
 
     $("#form-search-group").on("input", function () {
         let content = $(this).val().toLowerCase();
-        console.log(content)
         let result = groups.filter(item => item.mamonhoc.toLowerCase().includes(content) || item.tenmonhoc.toLowerCase().includes(content));
         showListGroup(result);
     });
@@ -290,7 +289,6 @@ $(document).ready(function () {
                             manhom: $(this).data("id"),
                         },
                         success: function (response) {
-                            console.log(response)
                             if (response) {
                                 swalWithBootstrapButtons.fire(
                                     "Thoát thành công!",

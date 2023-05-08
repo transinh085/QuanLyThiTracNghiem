@@ -140,55 +140,53 @@ $(document).ready(function () {
     $(".update-user-element").hide();
   });
 
-  
+  function checkUser(id,email) {
+    let result = true;
+    $.ajax({
+      type: "post",
+      url: "./user/checkUser",
+      data: {
+        mssv: id,
+        email: email,
+      }, 
+      async: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.length !== 0) {
+          Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
+          result = false;
+        }
+      }
+    })
+    return result;
+  }
   
   $("#btn-add-user").on("click", function (e) {
     e.preventDefault();
     let mssv = $("#masinhvien").val();
     let email = $("#user_email").val();
-
     // Validate user
-    if ($(".form-add-user").valid()) {
+    if ($(".form-add-user").valid() && checkUser(mssv,email)) {
       $.ajax({
         type: "post",
-        url: "./user/checkUser",
+        url: "./user/add",
         data: {
-          mssv: mssv,
-          email: email,
-        }, 
-        dataType: "json",
-        success: function (response) {
-          // Kiểm tra xem người dùng đó tồn tại chưa
-          if (response.length !== 0) {
-            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
-            return;
-          }
-          $.ajax({
-            type: "post",
-            url: "./user/add",
-            data: {
-              masinhvien: $("#masinhvien").val(),
-              hoten: $("#user_name").val(),
-              gioitinh: $('input[name="user_gender"]:checked').val(),
-              ngaysinh: $("#user_ngaysinh").val(),
-              email: $("#user_email").val(),
-              role: $("#user_nhomquyen").val(),
-              password: $("#user_password").val(),
-              status: $("#user_status").prop("checked") ? 1 : 0,
-            },
-            success: function (response) {
-              console.log(response.valid)
-              Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
-              $("#modal-add-user").modal("hide");
-              mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-            },
-          });
-          
+          masinhvien: $("#masinhvien").val(),
+          hoten: $("#user_name").val(),
+          gioitinh: $('input[name="user_gender"]:checked').val(),
+          ngaysinh: $("#user_ngaysinh").val(),
+          email: $("#user_email").val(),
+          role: $("#user_nhomquyen").val(),
+          password: $("#user_password").val(),
+          status: $("#user_status").prop("checked") ? 1 : 0,
         },
-        error: function (error) {
-          console.error(error.responseText);
-        }
-      })
+        success: function (response) {
+          console.log(response.valid)
+          Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
+          $("#modal-add-user").modal("hide");
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+        },
+      });
     } else {
       Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
     }
@@ -207,7 +205,6 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        console.log(response)
         $("#masinhvien").val(response.id)
         $("#masinhvien").prop("disabled",true);
         $("#user_name").val(response.hoten),
@@ -223,35 +220,31 @@ $(document).ready(function () {
         },
       });
   });
-
-  
   
   $("#btn-update-user").click(function (e) {
     e.preventDefault();
-    let emailUser = $("#user_email").val();
-    
-      console.log(emailUser)
-
-
-
-    $.ajax({
-      type: "post",
-      url: "./user/update",
-      data: {
-        id: $(this).data("id"),
-        hoten: $("#user_name").val(),
-        gioitinh: $('input[name="user_gender"]:checked').val(),
-        ngaysinh: $("#user_ngaysinh").val(),
-        email: $("#user_email").val(),
-        role: $("#user_nhomquyen").val(),
-        password: $("#user_password").val(),
-        status: $("#user_status").prop("checked") ? 1 : 0,
-      },
-      success: function (response) {
-        mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
-        $("#modal-add-user").modal("hide");
-      },
-    });
+    let mssv = $("#masinhvien").val();
+    let email = $("#user_email").val();
+    if(checkUser(mssv,email)) {
+      $.ajax({
+        type: "post",
+        url: "./user/update",
+        data: {
+          id: $(this).data("id"),
+          hoten: $("#user_name").val(),
+          gioitinh: $('input[name="user_gender"]:checked').val(),
+          ngaysinh: $("#user_ngaysinh").val(),
+          email: email,
+          role: $("#user_nhomquyen").val(),
+          password: $("#user_password").val(),
+          status: $("#user_status").prop("checked") ? 1 : 0,
+        },
+        success: function (response) {
+          mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+          $("#modal-add-user").modal("hide");
+        },
+      });
+    }
   });
 
   $(document).on("click", ".user-delete", function () {

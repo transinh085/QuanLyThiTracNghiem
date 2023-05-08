@@ -1,5 +1,26 @@
 Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
 
+let groups = [];
+
+function getToTalQuestionOfChapter(chuong,monhoc,dokho) {
+    var result = 0;
+    $.ajax({
+        url: './question/getsoluongcauhoi',
+        type: 'post',
+        data: {
+            chuong:chuong,
+            monhoc:monhoc,
+            dokho:dokho
+        },
+        async: false,
+        success: function(response) {
+            result = response;
+        }
+    });
+    console.log(result)
+    return result;
+}
+
 Dashmix.onLoad(() =>
     class {
         static initValidation() {
@@ -17,11 +38,17 @@ Dashmix.onLoad(() =>
                 return startTime > currentTime;
             }, "Thời gian bắt đầu không được bé hơn thời gian hiện tại");
 
+            $.validator.addMethod('validSoLuong', function(value, element, param) {
+                let c = $("#chuong").val() === undefined ? "" : $("#chuong").val();
+                let m = $("#nhom-hp").val() == "" ? 0 : groups[$("#nhom-hp").val()].mamonhoc;
+                let result = parseInt(getToTalQuestionOfChapter(c,m,param)) >= parseInt(value);
+                return result;
+            }, 'Số lượng câu hỏi không đủ');
 
             jQuery(".form-taodethi").validate({
                 rules: {
                     "name-exam": {
-                        required: !0,
+                        required: true,
                     },
                     "time-start": {
                         required: !0,
@@ -45,12 +72,18 @@ Dashmix.onLoad(() =>
                     },
                     coban: {
                         required: !0,
+                        digits: true,
+                        validSoLuong: 1
                     },
                     trungbinh: {
                         required: !0,
+                        digits: true,
+                        validSoLuong: 2
                     },
                     kho: {
                         required: !0,
+                        digits: true,
+                        validSoLuong: 3
                     },
                 },
                 messages: {
@@ -76,12 +109,15 @@ Dashmix.onLoad(() =>
                     },
                     coban: {
                         required: "Vui lòng cho biết số câu dễ",
+                        digits: "Vui lòng nhập số"
                     },
                     trungbinh: {
                         required: "Vui lòng cho biết số câu trung bình",
+                        digits: "Vui lòng nhập số"
                     },
                     kho: {
                         required: "Vui lòng cho biết số câu khó",
+                        digits: "Vui lòng nhập số"
                     },
                 },
             });
@@ -100,8 +136,6 @@ $(document).ready(function () {
         param = url[url.length - 1]
         getDetail(param);
     }
-
-    let groups = [];
 
     function showGroup() {
         let html = "<option></option>";
@@ -235,7 +269,6 @@ $(document).ready(function () {
                         manhom: getGroupSelected(),
                     },
                     success: function (response) {
-                        console.log(response);
                         if (response) {
                             if ($("#tudongsoande").prop("checked")) location.href = "./test";
                             else location.href = `./test/select/${response}`;
@@ -283,6 +316,7 @@ $(document).ready(function () {
             },
         });
     }
+
 
     function checkDate(time) {
         let valid = true;
@@ -352,55 +386,59 @@ $(document).ready(function () {
     }
 
     function setGroup(list,date) {
-        $("#select-all-group").prop("disabled", checkDate(date));
+        let v = checkDate(date);
+        $("#select-all-group").prop("disabled", v);
         list.forEach((item) => {
             $(`.select-group-item[value='${item}']`).prop("checked", true);
-            $(`.select-group-item[value='${item}']`).prop("disabled", checkDate(date));
+            $(`.select-group-item[value='${item}']`).prop("disabled",v);
         });
     }
 
     // Xử lý nút cập nhật đề thi
     $("#btn-update-test").click(function (e) {
         e.preventDefault();
-        let loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
-        let made = $(this).data("id");
-        let socaude = $("#coban").val();
-        let socautb = $("#trungbinh").val();
-        let socaukho = $("#kho").val();
-        $.ajax({
-            type: "post",
-            url: "./test/updateTest",
-            data: {
-                made: made,
-                mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
-                tende: $("#name-exam").val(),
-                thoigianthi: $("#exam-time").val(),
-                thoigianbatdau: $("#time-start").val(),
-                thoigianketthuc: $("#time-end").val(),
-                socaude: socaude,
-                socautb: socautb,
-                socaukho: socaukho,
-                chuong: $("#chuong").val(),
-                loaide: loaide,
-                xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
-                xemdapan: $("#xemda").prop("checked") ? 1 : 0,
-                xembailam: $("#xembailam").prop("checked") ? 1 : 0,
-                daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
-                daodapan: $("#daodapan").prop("checked") ? 1 : 0,
-                tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
-                manhom: getGroupSelected()
-            },
-            success: function (response) {
-                if (response) {
-                    if ((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
-                        location.href = `./test/select/${made}`
-                    } else {
-                        location.href = `./test`
-                    }
-                } else {
-                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật đề thi không thành công!' });
-                }
-            }
-        });
+        console.log(checkDate(infodethi.thoigiantao));
+        // if(checkDate(infodethi.thoigiantao) && $(".form-taodethi").valid()) {
+        //     let loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
+        //     let made = $(this).data("id");
+        //     let socaude = $("#coban").val();
+        //     let socautb = $("#trungbinh").val();
+        //     let socaukho = $("#kho").val();
+        //     $.ajax({
+        //         type: "post",
+        //         url: "./test/updateTest",
+        //         data: {
+        //             made: made,
+        //             mamonhoc: groups[$("#nhom-hp").val()].mamonhoc,
+        //             tende: $("#name-exam").val(),
+        //             thoigianthi: $("#exam-time").val(),
+        //             thoigianbatdau: $("#time-start").val(),
+        //             thoigianketthuc: $("#time-end").val(),
+        //             socaude: socaude,
+        //             socautb: socautb,
+        //             socaukho: socaukho,
+        //             chuong: $("#chuong").val(),
+        //             loaide: loaide,
+        //             xemdiem: $("#xemdiem").prop("checked") ? 1 : 0,
+        //             xemdapan: $("#xemda").prop("checked") ? 1 : 0,
+        //             xembailam: $("#xembailam").prop("checked") ? 1 : 0,
+        //             daocauhoi: $("#daocauhoi").prop("checked") ? 1 : 0,
+        //             daodapan: $("#daodapan").prop("checked") ? 1 : 0,
+        //             tudongnop: $("#tudongnop").prop("checked") ? 1 : 0,
+        //             manhom: getGroupSelected()
+        //         },
+        //         success: function (response) {
+        //             if (response) {
+        //                 if ((infodethi.loaide == 1 && loaide == 0) || (loaide == 0 && (infodethi.socaude != socaude || infodethi.socautb != socautb || infodethi.socaukho != socaukho))) {
+        //                     location.href = `./test/select/${made}`
+        //                 } else {
+        //                     location.href = `./test`
+        //                 }
+        //             } else {
+        //                 Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Cập nhật đề thi không thành công!' });
+        //             }
+        //         }
+        //     });
+        // }
     });
 });

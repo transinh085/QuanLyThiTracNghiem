@@ -1,11 +1,9 @@
 function showData(data) {
   if (data.length === 0) {
-    $(".list-test").html("");
-    $('[data-bs-toggle="tooltip"]').tooltip();
+    $(".list-test").html(`<p class="text-center">Không có dữ liệu</p>`);
+    $(".pagination").hide();
     return;
   }
-
-  console.log(data)
 
   const format = new Intl.DateTimeFormat(navigator.language, {
     year: "numeric",

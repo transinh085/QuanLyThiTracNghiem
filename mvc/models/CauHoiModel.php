@@ -132,5 +132,25 @@ class CauHoiModel extends DB{
         }
         return $query;
     }
+
+    public function getsoluongcauhoi($chuong,$monhoc,$dokho)
+    {
+        $c = "";
+        $mh = null;
+        if(!empty($chuong)) {
+            foreach ($chuong as $key => $machuong) {
+                if($key == count($chuong) - 1) {
+                    $c .= "machuong = $machuong";
+                } else {
+                    $c .= "machuong = $machuong OR ";
+                }
+            }
+        } else {
+            $mh = "mamonhoc = $monhoc";
+        }
+        $sql = "SELECT COUNT(*) as soluong FROM cauhoi WHERE dokho = $dokho AND $c $mh";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result)['soluong'];
+    }
 }
 ?>

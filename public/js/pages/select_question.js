@@ -121,27 +121,6 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
         $("#ttcaukho").text(infoTest.socaukho);
     }
 
-    // Hiển thị danh sách câu hỏi của môn học ở cột bên trái
-    function showListQuestion(questions,arrQuestion) {
-        let html = ``;
-        if(questions.length != 0) {
-            questions.forEach((question,index) => {
-                let dokhotext = ["", "Dễ","TB","Khó"];
-                let check = arrQuestion.findIndex(item => item.macauhoi == question.macauhoi) != -1 ? "checked" : "";
-                html += `<li class="list-group-item d-flex">
-                    <div class="form-check">
-                        <input class="form-check-input item-question" type="checkbox" id="q-${question.macauhoi}" data-id="${question.macauhoi}" data-index="${index}" ${check}>
-                        <label class="form-check-label text-muted" for="q-${question.macauhoi}" style="word-break: break-all;">${question.noidung}</label>
-                    </div>
-                    <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.dokho]}</span>
-                </li>`
-            });
-        } else {
-            html += `<p class="text-center">Không có câu hỏi</p>`;
-        }
-        $("#list-question").html(html);
-    }
-
     // Xử lý sự kiện change trên ô input câu hỏi
     $(document).on("click", ".item-question",function () {
         const id = +$(this).data("id");
@@ -286,6 +265,8 @@ $.when(getInfoTest(),getQuestionOfTest()).done(function(){
             }
         });
     }
+
+    loadDataChapter(infoTest.monthi);
 
     function showChapter(data) {
         let html = `<a class="dropdown-item active data-chapter" href="javascript:void(0)" data-id="0">Tất cả</a>`;

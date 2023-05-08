@@ -344,24 +344,35 @@ $(document).ready(function () {
     }
   });
   $("#export_excel").click(function () {
-    $.ajax({
-      method: "post",
-      url: "./test/exportExcel",
-      dataType: "json",
-      data: {
-        made: made,
-        manhom: $(".filtered-by-static.active").data("id")
-      },
-      success: function (response) {
-        var $a = $("<a>");
-        $a.attr("href", response.file);
-        $("body").append($a);
-        $a.attr("download", "Kết quả bài thi.xls");
-        $a[0].click();
-        $a.remove();
-      },
-    });
+    let manhom = $(".filtered-by-group.active").data("value");
+    console.log(manhom)
+    // $.ajax({
+    //   method: "post",
+    //   url: "./test/exportExcel",
+    //   dataType: "json",
+    //   data: {
+    //     made: made,
+    //     manhom: $(".filtered-by-group.active").data("id")
+    //   },
+    //   success: function (response) {
+    //     console.log(response)
+    //     var $a = $("<a>");
+    //     $a.attr("href", response.file);
+    //     $("body").append($a);
+    //     $a.attr("download", "Kết quả bài thi.xls");
+    //     $a[0].click();
+    //     $a.remove();
+    //   },
+    // });
   });
+});
+
+$(".filtered-by-group").click(function (e) {
+  e.preventDefault();
+  $(".filtered-by-group.active").removeClass("active");
+  $(this).addClass("active");
+  $(".chart-container").html('<canvas id="myChart"></canvas>');
+  getStatictical();
 });
 
 $(".filtered-by-static").click(function (e) {

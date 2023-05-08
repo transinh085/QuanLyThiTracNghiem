@@ -137,7 +137,7 @@ class CauHoiModel extends DB{
     {
         $c = "";
         $mh = null;
-        if(!empty($chuong)) {
+        if(count($chuong) != 0) {
             foreach ($chuong as $key => $machuong) {
                 if($key == count($chuong) - 1) {
                     $c .= "machuong = $machuong";

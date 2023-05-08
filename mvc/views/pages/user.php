@@ -156,8 +156,8 @@
                                     <input class="form-control" type="file" id="file-cau-hoi" accept=".xlsx, .xls, .csv" required>
                                 </div>
                                 <div class="mb-4">
-                                    <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="">Tải về file mẫu
-                                            Docx</a></em>
+                                    <em>Vui lòng soạn người dùng theo đúng định dạng. <a href="./public/filemau/danhsachsv.xls">Tải về file mẫu
+                                            Excel</a></em>
                                 </div>
                                 <div class="mb-4 d-flex justify-content-between">
                                     <button type="submit" class="btn btn-hero btn-primary" id="nhap-file"><i

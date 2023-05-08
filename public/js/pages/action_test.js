@@ -17,7 +17,6 @@ function getToTalQuestionOfChapter(chuong, monhoc, dokho) {
             result = response;
         }
     });
-    console.log(result)
     return result;
 }
 
@@ -62,8 +61,8 @@ Dashmix.onLoad(() =>
 
             $.validator.addMethod('validThoigianthi', function (value, element, param) {
                 let startTime = new Date($("#time-start").val());
-                let endTime = new Date($("#end-start").val());
-                return startTime < endTime && getMinutesBetweenDates(startTime, endTime) >= value;
+                let endTime = new Date($("#time-end").val());
+                return startTime < endTime && parseInt(getMinutesBetweenDates(startTime, endTime)) >= parseInt(value);
             }, 'Thời gian làm bài không hợp lệ');
 
             jQuery(".form-taodethi").validate({

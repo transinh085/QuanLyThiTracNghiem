@@ -188,7 +188,7 @@
                                 <input class="form-control" type="file" id="file-cau-hoi" accept=".docx" required>
                             </div>
                             <div class="mb-4">
-                                <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="">Tải về file mẫu Docx</a></em>
+                                <em>Vui lòng soạn câu hỏi theo đúng định dạng. <a href="./public/filemau/mau_import_cau_hoi.docx">Tải về file mẫu Docx</a></em>
                             </div>
                             <div class="mb-4 d-flex justify-content-between">
                                 <button type="button" class="btn btn-hero btn-primary" id="btnAddExcel"><i

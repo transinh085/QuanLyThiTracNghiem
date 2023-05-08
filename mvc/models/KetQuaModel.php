@@ -324,6 +324,16 @@ class KetQuaModel extends DB{
         return $rows;
     }
 
+    public function getTestAll($made){
+        $sql = "SELECT DISTINCT KQ.*, email, hoten, avatar FROM ketqua KQ, nguoidung ND, chitietnhom CTN WHERE KQ.manguoidung = ND.id AND CTN.manguoidung = ND.id AND KQ.made = '$made'";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function chuyentab($made,$id){
         $sql_dethi = "SELECT * FROM ketqua WHERE made='$made' AND manguoidung='$id'";
         $result = mysqli_query($this->con, $sql_dethi);

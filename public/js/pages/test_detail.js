@@ -107,7 +107,7 @@ $(document).ready(function () {
     e.preventDefault();
     $(".btn-filtered-by-group").text($(this).text());
     currentGroupID = $(this).data("value");
-    mainPagePagination.option.manhom = currentGroupID == 0 ? listGroupID.slice(0, -1) : currentGroupID;
+    mainPagePagination.option.manhom = currentGroupID == 0 ? listGroupID.slice(1) : currentGroupID;
     resetFilterState();
     renderTableTitleColumns();
     resetSortIcons();
@@ -470,7 +470,7 @@ const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "test";
 mainPagePagination.option.model = "KetQuaModel";
 mainPagePagination.option.made = made;
-mainPagePagination.option.manhom = currentGroupID;
+mainPagePagination.option.manhom = listGroupID.slice(1);
 mainPagePagination.option.limit = 10;
 mainPagePagination.option.filter = "present";
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);

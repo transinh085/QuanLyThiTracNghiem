@@ -113,8 +113,19 @@ $(document).ready(function () {
         let html = ``;
         if(tests.length != 0) {
             tests.forEach(test => {
+                const open = new Date(test.thoigianbatdau);
+                const close = new Date(test.thoigianketthuc);
+                const now = Date.now();
+                let color = "";
+                if (now < +open) {
+                    color = "secondary";
+                } else if (now >= +open && now <= +close) {
+                    color = "primary";
+                } else {
+                    color = "danger";
+                }
                 html += `<div class="block block-rounded block-fx-pop mb-2">
-                    <div class="block-content block-content-full border-start border-3 border-primary">
+                    <div class="block-content block-content-full border-start border-3 border-${color}">
                         <div class="d-md-flex justify-content-md-between align-items-md-center">
                             <div class="p-1 p-md-2">
                                 <h3 class="h4 fw-bold mb-3">

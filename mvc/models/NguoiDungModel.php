@@ -275,6 +275,9 @@ class NguoiDungModel extends DB
 
     public function getQuery($filter, $input, $args) {
         $query = "SELECT ND.*, NQ.tennhomquyen FROM nguoidung ND, nhomquyen NQ WHERE ND.manhomquyen = NQ.manhomquyen";
+        if (isset($filter['role'])) {
+            $query .= " AND ND.manhomquyen = ".$filter['role'];
+        }
         if ($input) {
             $query = $query . " AND (ND.hoten LIKE N'%${input}%' OR ND.id LIKE '%${input}%')";
         }
@@ -311,5 +314,15 @@ class NguoiDungModel extends DB
         $sql = "UPDATE `nguoidung` SET `email`='$email' WHERE `id`='$id'";
         $result = mysqli_query($this->con, $sql);
         return $result;
+    }
+
+    public function getAllRoles() {
+        $sql = "SELECT * FROM nhomquyen";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

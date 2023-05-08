@@ -273,3 +273,7 @@ td p {
 .truncate--3 {
     -webkit-line-clamp: 3;
 }
+
+.truncate--6 {
+    -webkit-line-clamp: 6;
+}

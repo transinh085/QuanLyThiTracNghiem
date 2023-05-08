@@ -26,6 +26,7 @@
                             <div class="input-group">
                                 <div class="col-md-6 d-flex gap-3">
                                     <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-group" id="dropdown-filter-group" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                                    <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-static mb-3" id="dropdown-filter-static" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
                                     <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-group">
                                         <li><a class="dropdown-item filtered-by-group" href="javascript:void(0)" data-value="0">Tất cả</a></li>
                                         <?php

@@ -24,7 +24,8 @@ class User extends Controller{
                     "jquery-validate" => 1,
                     "select" => 1,
                     "pagination" => [],
-                ]
+                ],
+                "Roles" => $this->NguoiDungModel->getAllRoles(),
             ]);
         } else $this->view("single_layout", ["Page" => "error/page_403","Title" => "Lỗi !"]);
     }

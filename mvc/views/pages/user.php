@@ -9,9 +9,22 @@
         </div>
         <div class="block-content bg-body-dark">
             <form action="#" id="search-form" onsubmit="return false;">
-                <div class="mb-4">
-                    <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
-                        placeholder="Tìm kiếm người dùng...">
+                <div class="row mb-4">
+                    <div class="input-group">
+                        <div class="col-md-6 d-flex gap-3">
+                            <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-role" id="dropdown-filter-role" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                            <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-role">
+                                <li><a class="dropdown-item filtered-by-role" href="javascript:void(0)" data-id="0">Tất cả</a></li>
+                                <?php
+                                    foreach ($data["Roles"] as $role) {
+                                        echo '<li><a class="dropdown-item filtered-by-role" href="javascript:void(0)" data-id="'.$role['manhomquyen'].'">'.$role['tennhomquyen'].'</a></li>';
+                                    }
+                                ?>
+                            </ul>
+                            <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                            placeholder="Tìm kiếm người dùng...">
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

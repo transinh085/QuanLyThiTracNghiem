@@ -650,4 +650,13 @@ class Test extends Controller
             echo json_encode($result);
         }
     }
+
+    public function getTestsGroupWithUserResult()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $manhom = $_POST['manhom'];
+            $result = $this->dethimodel->getTestsGroupWithUserResult($manhom, $_SESSION['user_id']);
+            echo json_encode($result);
+        }
+    }
 }

@@ -34,7 +34,6 @@ $(document).ready(function () {
             url: "./teacher_announcement/getNotifications",
             dataType: "json",
             success: function(data) {
-                console.log(data)
                 showListNotifications(data);
             }
         });
@@ -61,7 +60,7 @@ $(document).ready(function () {
                             <div class="text-muted">${displayDate || (notification.thoigiantao)}</div>
                             <div class="text-muted">${notification.hoten} - ${notification.tenmonhoc + " - " +notification.tennhom}</div> --->
 
-                            <div class="truncate truncate--6"><span class="fw-semibold">${notification.hoten}</span> đã gửi một thông báo đến học phần <span class="fw-semibold">${notification.tenmonhoc + " - " +notification.tennhom}</span>: ${notification.noidung}</div>
+                            <div class="truncate truncate--3"><span class="fw-semibold">${notification.hoten}</span> đã gửi một thông báo đến học phần <span class="fw-semibold">${notification.tenmonhoc + " - " +notification.tennhom}</span>: ${notification.noidung}${notification.noidung.endsWith(".") ? "" : "."}</div>
                             <div class="text-muted">${displayDate || (notification.thoigiantao)}</div>
                         </div>
                     </a>

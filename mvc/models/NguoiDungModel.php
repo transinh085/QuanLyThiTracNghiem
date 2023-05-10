@@ -107,10 +107,10 @@ class NguoiDungModel extends DB
     }
 
 
-    public function changePassword($email, $new_password)
+    public function changePassword($id, $new_password)
     {
         $new_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $sql = "UPDATE `nguoidung` SET `matkhau`='$new_password' WHERE `email` = '$email'";
+        $sql = "UPDATE `nguoidung` SET `matkhau`='$new_password' WHERE `id` = '$id'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
         if (!$result) $check = false;

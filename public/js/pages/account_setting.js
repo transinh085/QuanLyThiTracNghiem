@@ -46,7 +46,7 @@ Dashmix.onLoad(() =>
                     },
                     async: false,
                     success: function (response) {
-                        result = response == 0;
+                        result = response != 0;
                         console.log(result);
                     }
                 });
@@ -96,7 +96,7 @@ $("#update-password").click(function (e) {
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                if (response.valid) {
+                if (response.valid == true) {
                     Dashmix.helpers("jq-notify", {
                         type: "success",
                         icon: "fa fa-check me-1",

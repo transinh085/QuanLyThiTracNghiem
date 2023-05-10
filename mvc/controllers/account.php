@@ -1,6 +1,7 @@
 <?php
 
-class Account extends Controller{
+class Account extends Controller
+{
     public $nguoidung;
 
     public function __construct()
@@ -9,34 +10,34 @@ class Account extends Controller{
         parent::__construct();
     }
 
-    function default() {
+    function default()
+    {
         AuthCore::checkAuthentication();
-            $this->view("main_layout",[
-                "Page" => "account_setting",
-                "Title" => "Trang cá nhân",
-                "User" => $this->nguoidung->getById($_SESSION['user_id']),
-                "Plugin" => [
-                    "sweetalert2" => 1,
-                    "datepicker" => 1,
-                    "flatpickr" => 1,
-                    "jquery-validate" => 1,
-                    "notify" => 1,
-                ],
-                "Script" => "account_setting"
-            ]);
+        $this->view("main_layout", [
+            "Page" => "account_setting",
+            "Title" => "Trang cá nhân",
+            "User" => $this->nguoidung->getById($_SESSION['user_id']),
+            "Plugin" => [
+                "sweetalert2" => 1,
+                "datepicker" => 1,
+                "flatpickr" => 1,
+                "jquery-validate" => 1,
+                "notify" => 1,
+            ],
+            "Script" => "account_setting"
+        ]);
     }
 
     public function changePassword()
     {
-        AuthCore::checkAuthentication();
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $matkhaucu = $_POST['matkhaucu'];
             $matkhaumoi = $_POST['matkhaumoi'];
-            $email = $_SESSION['user_email'];
-            $valid = $this->nguoidung->checkPassword($email, $matkhaucu);
-            if($valid) {
-                $result = $this->nguoidung->changePassword($email, $matkhaumoi);
-                if($result) echo json_encode(["message" => "Thay đổi mật khẩu thành công !", "valid" => "true"]);
+            $id = $_SESSION['user_id'];
+            $valid = $this->nguoidung->checkPassword($id, $matkhaucu);
+            if ($valid) {
+                $result = $this->nguoidung->changePassword($id, $matkhaumoi);
+                if ($result) echo json_encode(["message" => "Thay đổi mật khẩu thành công !", "valid" => "true"]);
             } else {
                 echo json_encode(["message" => "Mật khẩu không đúng", "valid" => "false"]);
             }
@@ -52,7 +53,7 @@ class Account extends Controller{
             $email = $_POST['email'];
             $ngaysinh = $_POST['ngaysinh'];
             $gioitinh = $_POST['gioitinh'];
-            $result = $this->nguoidung->updateProfile($hoten,$gioitinh,$ngaysinh, $email, $id);
+            $result = $this->nguoidung->updateProfile($hoten, $gioitinh, $ngaysinh, $email, $id);
             if ($result) {
                 echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
             }
@@ -74,7 +75,7 @@ class Account extends Controller{
 
                 $name = $imageExtension[0];
                 $imageExtension = strtolower(end($imageExtension));
-                $result = $this->nguoidung->uploadFile($id,$tmpName,$imageExtension, $validImageExtension,$name);
+                $result = $this->nguoidung->uploadFile($id, $tmpName, $imageExtension, $validImageExtension, $name);
                 echo json_encode($result);
             }
         }
@@ -83,7 +84,7 @@ class Account extends Controller{
     public function getRole()
     {
         AuthCore::checkAuthentication();
-        if($_SERVER["REQUEST_METHOD"] == "GET") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
             echo json_encode($_SESSION['user_role']);
         }
     }

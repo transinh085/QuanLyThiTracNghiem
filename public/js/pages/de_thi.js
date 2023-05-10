@@ -138,13 +138,13 @@ $(document).ready(function () {
       },
       success: function (response) {
         localStorage.removeItem(cautraloi);
-          localStorage.removeItem(dethi);
+        localStorage.removeItem(dethi);
         location.href = `./test/start/${made}`;
       },
       error: function (response) {
         localStorage.removeItem(cautraloi);
         localStorage.removeItem(dethi);
-      location.href = `./test/start/${made}`;
+        location.href = `./test/start/${made}`;
       },
     });
   }
@@ -232,7 +232,7 @@ $(document).ready(function () {
       localStorage.removeItem(dethi);
       location.href = `./test/start/${made}`;
     } else {
-        countDown();
+      countDown();
     }
   });
 

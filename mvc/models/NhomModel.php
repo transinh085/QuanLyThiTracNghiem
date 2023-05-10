@@ -159,7 +159,7 @@ class NhomModel extends DB
         $sql = "SELECT monhoc.mamonhoc,monhoc.tenmonhoc,nhom.manhom, nhom.tennhom, namhoc, hocky ,nguoidung.hoten, nguoidung.avatar,chitietnhom.hienthi
         FROM chitietnhom, nhom, nguoidung, monhoc
         WHERE chitietnhom.manhom = nhom.manhom AND nguoidung.id = nhom.giangvien AND monhoc.mamonhoc = nhom.mamonhoc AND chitietnhom.manguoidung = $user_id
-        AND chitietnhom.hienthi = $hienthi";
+        AND chitietnhom.hienthi = $hienthi AND nhom.trangthai != 0";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

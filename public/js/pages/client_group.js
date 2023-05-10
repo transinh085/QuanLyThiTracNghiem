@@ -46,7 +46,7 @@ $(document).ready(function () {
     function showListGroup(groups) {
         let html = ``;
         if(groups.length == 0) {
-            html += `<p class="text-center">Chưa tham gia lớp nào </p>`
+            html += `<p class="text-center">Chưa tham gia lớp nào</p>`
         } else {
             groups.forEach((group,index) => {
                 let btn_hide = group.hienthi == 1 ? `<a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-eye me-2 text-dark"></i> Ẩn nhóm</a>` 
@@ -130,7 +130,7 @@ $(document).ready(function () {
                     if (now < +open) {
                         color = "secondary";
                     } else if (now >= +open && now <= +close) {
-                        color = "primary";
+                        color = "success";
                     } else {
                         color = "danger";
                     }

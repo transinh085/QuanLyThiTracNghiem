@@ -46,7 +46,7 @@ $(document).ready(function () {
     function showListGroup(groups) {
         let html = ``;
         if(groups.length == 0) {
-            html += `<p class="text-center">Chưa tham gia lớp nào </p>`
+            html += `<p class="text-center">Chưa tham gia lớp nào</p>`
         } else {
             groups.forEach((group,index) => {
                 let btn_hide = group.hienthi == 1 ? `<a class="dropdown-item btn-hide-group" data-id="${group.manhom}" href="javascript:void(0)"><i class="nav-main-link-icon si si-eye me-2 text-dark"></i> Ẩn nhóm</a>` 
@@ -112,17 +112,28 @@ $(document).ready(function () {
     function showListTest(tests) {
         let html = ``;
         if(tests.length != 0) {
+            const format = new Intl.DateTimeFormat(navigator.language, {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+            });
             tests.forEach(test => {
                 const open = new Date(test.thoigianbatdau);
                 const close = new Date(test.thoigianketthuc);
-                const now = Date.now();
                 let color = "";
-                if (now < +open) {
-                    color = "secondary";
-                } else if (now >= +open && now <= +close) {
+                if (test.diemthi) {
                     color = "primary";
                 } else {
-                    color = "danger";
+                    const now = Date.now();
+                    if (now < +open) {
+                        color = "secondary";
+                    } else if (now >= +open && now <= +close) {
+                        color = "success";
+                    } else {
+                        color = "danger";
+                    }
                 }
                 html += `<div class="block block-rounded block-fx-pop mb-2">
                     <div class="block-content block-content-full border-start border-3 border-${color}">
@@ -132,7 +143,7 @@ $(document).ready(function () {
                                     <a href="./test/start/${test.made}" class="text-dark link-fx">${test.tende}</a>
                                 </h3>
                                 <p class="fs-sm text-muted mb-0">
-                                    <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${test.thoigianbatdau}</span> đến <span>${test.thoigianketthuc}</span>
+                                    <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${format.format(open)}</span> đến <span>${format.format(close)}</span>
                                 </p>
                             </div>
                         </div>
@@ -172,7 +183,7 @@ $(document).ready(function () {
     function loadDataTest(manhom) {
         $.ajax({
             type: "post",
-            url: "./test/getTestGroup",
+            url: "./test/getTestsGroupWithUserResult",
             data: {
                 manhom: manhom
             },

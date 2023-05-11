@@ -11,3 +11,5 @@ Cấu hình thông tin database và đường dẫn trang chủ tại file confi
 ### Tài khoản Admin
 - Username: 3121410422
 - Password: 123456
+### Hình ảnh giao diện 
+

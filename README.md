@@ -26,7 +26,7 @@ Cấu hình thông tin database và đường dẫn trang chủ tại file confi
 
 ![Giao diện Ladingpage](./img/thi.jpeg)
 
-<h4 align="center">Thi</h4>
+<h4 align="center">Giao diện lúc thi</h4>
 
 ![Giao diện đăng nhập](./img/login.jpeg)
 

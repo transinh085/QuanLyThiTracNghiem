@@ -36,27 +36,6 @@ Dashmix.onLoad(() =>
           },
         });
 
-      $.validator.addMethod(
-        "check-email",
-        function (value, element, param) {
-          var result = true;
-          $.ajax({
-            url: "./dashboard/checkEmailExist",
-            type: "post",
-            data: {
-              email: value,
-            },
-            async: false,
-            success: function (response) {
-              result = response <= 1;
-              console.log(result);
-            },
-          });
-          return result;
-        },
-        "Địa chỉ email đã tồn tại"
-      );
-
       jQuery(".form-update-profile").validate({
         rules: {
           "dm-profile-edit-name": {
@@ -65,7 +44,6 @@ Dashmix.onLoad(() =>
           "dm-profile-edit-email": {
             required: !0,
             emailWithDot: !0,
-            "check-email": true,
           },
         },
         messages: {
@@ -177,12 +155,20 @@ $("#update-profile").click(function (e) {
         },
         dataType: "json",
         success: function (response) {
-          Dashmix.helpers("jq-notify", {
-            type: "success",
-            icon: "fa fa-check me-1",
-            message: `${response.message}`,
-          });
-          showProfile(newName, newAvatar);
+          if (response.valid == true) {
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: `${response.message}`,
+            });
+            showProfile(newName, newAvatar);
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: `${response.message}`,
+            });
+          }
         },
       });
     }

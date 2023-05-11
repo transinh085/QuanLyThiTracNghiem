@@ -37,9 +37,9 @@ class Account extends Controller
             $valid = $this->nguoidung->checkPassword($id, $matkhaucu);
             if ($valid) {
                 $result = $this->nguoidung->changePassword($id, $matkhaumoi);
-                if ($result) echo json_encode(["message" => "Thay đổi mật khẩu thành công !", "valid" => "true"]);
+                if ($result) echo json_encode(["message" => "Thay đổi mật khẩu thành công !", "valid" => true]);
             } else {
-                echo json_encode(["message" => "Mật khẩu không đúng", "valid" => "false"]);
+                echo json_encode(["message" => "Mật khẩu không đúng", "valid" => false]);
             }
         }
     }
@@ -48,15 +48,36 @@ class Account extends Controller
     {
         AuthCore::checkAuthentication();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST['email'];
             $id = $_SESSION['user_id'];
             $hoten = $_POST['hoten'];
-            $email = $_POST['email'];
             $ngaysinh = $_POST['ngaysinh'];
             $gioitinh = $_POST['gioitinh'];
-            $result = $this->nguoidung->updateProfile($hoten, $gioitinh, $ngaysinh, $email, $id);
-            if ($result) {
-                echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => "true"]);
+            if ($email == $_SESSION['user_email']) {
+                $result = $this->nguoidung->updateProfile($hoten, $gioitinh, $ngaysinh, $email, $id);
+                if ($result) {
+                    echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => true]);
+                }
+            } else {
+                $check = $this->nguoidung->checkEmailExist($email);
+                if ($check == 0) {
+                    $result = $this->nguoidung->updateProfile($hoten, $gioitinh, $ngaysinh, $email, $id);
+                    if ($result) {
+                        echo json_encode(["message" => "Thay đổi hồ sơ thành công !", "valid" => true]);
+                    }
+                } else {
+                    echo json_encode(["message" => "Địa chỉ email đã tồn tại !", "valid" => false]);
+                }
             }
+        }
+    }
+
+    public function checkAllow()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_SESSION['user_id'];
+            $email = $_POST['email'];
+            $result = $this->nguoidung->updateProfile($id, $email);
         }
     }
 

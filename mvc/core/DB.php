@@ -1,11 +1,11 @@
 <?php
-
+include "./config.php";
 class DB{
     public $con;
-    protected $servername = "localhost";
-    protected $username = "root";
-    protected $password = "";
-    protected $dbname = "tracnghiemonline";
+    protected $servername = host_name;
+    protected $username = db_user;
+    protected $password = db_password;
+    protected $dbname = db_name;
 
     function __construct(){
         $this->con = mysqli_connect($this->servername, $this->username, $this->password);
@@ -32,4 +32,3 @@ class DB{
         return $total_pages;
     }
 }
-?>

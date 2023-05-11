@@ -11,7 +11,7 @@ class GoogleAuth extends DB{
         $this->client = new Google_Client();
         $this->client->setClientId('381736684532-nvaeqmmgriog6ctndltmnbtat450ks1e.apps.googleusercontent.com');
         $this->client->setClientSecret('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');
-        $this->client->setRedirectUri('http://localhost/Quanlythitracnghiem/auth/signin');
+        $this->client->setRedirectUri(login_path);
         $this->client->setScopes('email');
         $this->client->addScope('profile');
         $this->nguoidung = new NguoiDungModel();
@@ -54,4 +54,3 @@ class GoogleAuth extends DB{
 
     
 }
-?>

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -14,27 +15,27 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <base href="/Quanlythitracnghiem/">
+    <base href="<?php echo app_path ?>">
     <link rel="shortcut icon" href="./public/media/favicons/favicon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./public/media/favicons/favicon-192x192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./public/media/favicons/apple-touch-icon-180x180.png">
     <!-- END Icons -->
     <!-- Stylesheets -->
     <?php
-    if(isset($data["Plugin"]["datepicker"]) && $data["Plugin"]["datepicker"] == 1) {
+    if (isset($data["Plugin"]["datepicker"]) && $data["Plugin"]["datepicker"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">';
     }
-    if(isset($data["Plugin"]["flatpickr"]) && $data["Plugin"]["flatpickr"] == 1) {
+    if (isset($data["Plugin"]["flatpickr"]) && $data["Plugin"]["flatpickr"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/flatpickr/flatpickr.min.css">';
     }
-    if(isset($data["Plugin"]["select"]) && $data["Plugin"]["select"] == 1) {
+    if (isset($data["Plugin"]["select"]) && $data["Plugin"]["select"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/select2/css/select2.min.css">';
     }
-    if(isset($data["Plugin"]["slick"]) && $data["Plugin"]["slick"] == 1) {
+    if (isset($data["Plugin"]["slick"]) && $data["Plugin"]["slick"] == 1) {
         echo '<link rel="stylesheet" href="./public/js/plugins/slick-carousel/slick.css">';
         echo '<link rel="stylesheet" href="./public/js/plugins/slick-carousel/slick-theme.css">';
     }
-    if(isset($data["Plugin"]["sweetalert2"]) && $data["Plugin"]["sweetalert2"] == 1) {
+    if (isset($data["Plugin"]["sweetalert2"]) && $data["Plugin"]["sweetalert2"] == 1) {
         echo "<link rel=\"stylesheet\" href=\"./public/js/plugins/sweetalert2/sweetalert2.min.css\">\n";
     }
     ?>
@@ -44,6 +45,3 @@
     <link rel="stylesheet" id="css-main" href="./public/css/custom.css">
     <script src="./public/js/lib/jquery.min.js"></script>
 </head>
-
-
-

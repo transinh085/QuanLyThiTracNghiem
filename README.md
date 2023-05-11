@@ -20,10 +20,6 @@ Cấu hình thông tin database và đường dẫn trang chủ tại file confi
 
 ### Giao diện
 
-![Giao diện Ladingpage](./img/landingpage.jpeg)
-
-<h4 align="center">Landing Page</h4>
-
 ![Giao diện Ladingpage](./img/thi.jpeg)
 
 <h4 align="center">Giao diện lúc thi</h4>

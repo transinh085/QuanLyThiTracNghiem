@@ -8,3 +8,6 @@
 |4    |3121410223  |Đặng Lê Anh Huy|
 ### Hướng dẫn cài đặt
 Cấu hình thông tin database và đường dẫn trang chủ tại file config.php
+### Tài khoản Admin
+Username: 3121410422
+Password: 123456

@@ -92,14 +92,3 @@ b. Đề thi tự động (Giảng viên chỉ cần nhập số lượng câu h
 
 <h4 align="center">Chi tiết nhóm học phần</h4>
 
-![Giao diện người dùng](./img/nguoidung.jpeg)
-
-<h4 align="center">Người dùng</h4>
-
-![Giao diện thêm người dùng thủ công](./img/themnguoidungthucong.jpeg)
-
-<h4 align="center">Thêm người dùng thủ công</h4>
-
-![Giao diện thêm người dùng từ file](./img/themnguoidungtufile.jpeg)
-
-<h4 align="center">Thêm người dùng từ file</h4>

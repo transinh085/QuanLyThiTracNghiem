@@ -21,7 +21,7 @@ Cấu hình thông tin database và đường dẫn trang chủ tại file confi
 ### Chức năng
 1. Landing page giới thiệu hệ thống
 2. Đăng nhập, đăng xuất.
-3. Đăng nhập sử dụng cơ chế lưu token -> Mỗi tài khoản chỉ hoạt động trên 1 máy tại 1 thời điểm
+3. Đăng nhập sử dụng cơ chế lưu token 
 4. Đăng nhập sử dụng tài khoản Google (trường hợp đã liên kết với tài khoản Google).
 5. Quên mật khẩu gửi mã OTP về email (trường hợp đã liên kết với tài khoản Google).
 6. Cho phép sinh viên cập nhật hồ sơ.

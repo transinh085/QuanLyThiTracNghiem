@@ -4,45 +4,44 @@ Dashmix.onLoad(() =>
   class {
     static initValidation() {
       Dashmix.helpers("jq-validation"),
-
-      jQuery(".form-add-subject").validate({
-        rules: {
-          mamonhoc: {
-            required: !0,
-            digits: true,
+        jQuery(".form-add-subject").validate({
+          rules: {
+            mamonhoc: {
+              required: !0,
+              digits: true,
+            },
+            tenmonhoc: {
+              required: !0,
+            },
+            sotinchi: {
+              required: !0,
+            },
+            sotiet_lt: {
+              required: !0,
+            },
+            sotiet_th: {
+              required: !0,
+            },
           },
-          tenmonhoc: {
-            required: !0,
+          messages: {
+            mamonhoc: {
+              required: "Vui lòng nhập mã môn học",
+              digits: "Mã môn học phải là các ký tự số",
+            },
+            tenmonhoc: {
+              required: "Vui lòng cung cấp tên môn học",
+            },
+            sotinchi: {
+              required: "Vui lòng cho biết số tín chỉ",
+            },
+            sotiet_lt: {
+              required: "Vui lòng nhập số tiết lý thuyết",
+            },
+            sotiet_th: {
+              required: "Vui lòng nhập số tiết thực hành",
+            },
           },
-          sotinchi: {
-            required: !0,
-          },
-          sotiet_lt: {
-            required: !0,
-          },
-          sotiet_th: {
-            required: !0,
-          },
-        },
-        messages: {
-          mamonhoc: {
-            required: "Vui lòng nhập mã môn học",
-            digits: "Mã môn học phải là các ký tự số",
-          },
-          tenmonhoc: {
-            required: "Vui lòng cung cấp tên môn học",
-          },
-          sotinchi: {
-            required: "Vui lòng cho biết số tín chỉ",
-          },
-          sotiet_lt: {
-            required: "Vui lòng nhập số tiết lý thuyết",
-          },
-          sotiet_th: {
-            required: "Vui lòng nhập số tiết thực hành",
-          },
-        },
-      });
+        });
     }
 
     static init() {
@@ -89,26 +88,26 @@ $(document).ready(function () {
 
   function checkTonTai(mamon) {
     let check = true;
-      $.ajax({
-        type: "post",
-        url: "./subject/checkSubject",
-        data: {
-          mamon: mamon
-        },
-        async: false,
-        dataType: "json",
-        success: function (response) {
-          if (response.length !== 0) {
-            Dashmix.helpers("jq-notify", {
-              type: "danger",
-              icon: "fa fa-times me-1",
-              message: `Môn học đã tồn tại!`,
-            });
-            check = false;
-          }
-          
-        },
-      });
+    $.ajax({
+      type: "post",
+      url: "./subject/checkSubject",
+      data: {
+        mamon: mamon,
+      },
+      async: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.length !== 0) {
+          Dashmix.helpers("jq-notify", {
+            type: "danger",
+            icon: "fa fa-times me-1",
+            message: `Môn học đã tồn tại!`,
+          });
+          check = false;
+        }
+      },
+    });
+    return check;
   }
 
   $("#add_subject").on("click", function () {
@@ -132,7 +131,7 @@ $(document).ready(function () {
               message: "Thêm môn học thành công!",
             });
             $("#modal-add-subject").modal("hide");
-              mainPagePagination.getPagination(
+            mainPagePagination.getPagination(
               mainPagePagination.option,
               mainPagePagination.valuePage.curPage
             );
@@ -304,19 +303,22 @@ $(document).ready(function () {
         if (response.length > 0) {
           response.forEach((chapter, index) => {
             html += `<tr>
-                        <td class="text-center fs-sm"><strong>${index + 1
-              }</strong></td>
+                        <td class="text-center fs-sm"><strong>${
+                          index + 1
+                        }</strong></td>
                         <td>${chapter["tenchuong"]}</td>
                         <td class="text-center col-action">
                             <a data-role="chuong" data-action="update" class="btn btn-sm btn-alt-secondary chapter-edit"
-                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${chapter["machuong"]
-              }">
+                                data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${
+                                  chapter["machuong"]
+                                }">
                                 <i class="fa fa-fw fa-pencil"></i>
                             </a>
                             <a data-role="chuong" data-action="delete" class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
                                 data-bs-toggle="tooltip" aria-label="Delete"
-                                data-bs-original-title="Delete" data-id="${chapter["machuong"]
-              }">
+                                data-bs-original-title="Delete" data-id="${
+                                  chapter["machuong"]
+                                }">
                                 <i class="fa fa-fw fa-times"></i>
                             </a>
                         </td>

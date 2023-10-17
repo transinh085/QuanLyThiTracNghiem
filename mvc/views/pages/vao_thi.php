@@ -55,12 +55,12 @@
             if(isset($data["Check"]['diemthi']) && $data["Check"]['diemthi'] != ''){
                 echo "<button class='btn btn-hero btn-danger w-100' role='button'>Bạn đã hoàn thành bài thi</button>";
             } else if(isset($data["Check"]['makq']) && $data["Check"]['diemthi'] == ''){
-                echo "<a class='btn btn-hero btn-info w-100' href='./test/taketest/".$data['Test']['made']."'>Tiếp tục thi <i class='fa fa-angle-right'></i></a>";
+                echo "<a class='btn btn-hero btn-info w-100 btn-st' href='./test/taketest/".$data['Test']['made']."'>Tiếp tục thi <i class='fa fa-angle-right'></i></a>";
             } else {
                 if($now > $end) echo "<button class='btn btn-hero btn-danger w-100' role='button'>Đã quá thời gian làm bài</button>";
                 else if($end < $now) echo "<button class='btn btn-hero btn-danger w-100' role='button'>Đã quá thời gian làm bài</button>";
                 else if($start > $now) echo "<button class='btn btn-hero btn-light w-100' role='button'>Chưa tới thời gian mở đề</button>";
-                else echo "<button name='start-test' id='start-test' data-id='".$data['Test']['made']."' class='btn btn-hero btn-info w-100' role='button'>Bắt đầu thi <i class='fa fa-angle-right'></i></button>";
+                else echo "<button name='start-test' id='start-test' data-id='".$data['Test']['made']."' class='btn btn-hero btn-info w-100 btn-st' role='button'>Bắt đầu thi <i class='fa fa-angle-right'></i></button>";
             }
         ?>
     </div>

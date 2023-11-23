@@ -56,10 +56,10 @@
 									},
 									"font": "Arial;13;1",
 									"left": 512,
-									"top": 285,
+									"top": 261,
 									"width": 249.35595703125,
 									"height": 13,
-									"text": "Nguoi_dung"
+									"text": "nguoidung"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -82,7 +82,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 308,
+											"top": 284,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -97,7 +97,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 323,
+											"top": 299,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -112,7 +112,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 338,
+											"top": 314,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -127,7 +127,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 353,
+											"top": 329,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -142,7 +142,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 368,
+											"top": 344,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -157,7 +157,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 383,
+											"top": 359,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -172,7 +172,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 398,
+											"top": 374,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -187,7 +187,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 413,
+											"top": 389,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -202,7 +202,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 428,
+											"top": 404,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -217,7 +217,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 443,
+											"top": 419,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -232,7 +232,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 458,
+											"top": 434,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -247,7 +247,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 473,
+											"top": 449,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -262,7 +262,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 488,
+											"top": 464,
 											"width": 239.35595703125,
 											"height": 13
 										},
@@ -277,21 +277,21 @@
 											},
 											"font": "Arial;13;0",
 											"left": 517,
-											"top": 503,
+											"top": 479,
 											"width": 239.35595703125,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 512,
-									"top": 303,
+									"top": 279,
 									"width": 249.35595703125,
 									"height": 218
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 512,
-							"top": 280,
+							"top": 256,
 							"width": 249.35595703125,
 							"height": 241,
 							"nameLabel": {
@@ -322,7 +322,7 @@
 									"top": 245,
 									"width": 242.8369140625,
 									"height": 13,
-									"text": "Nhom_quyen"
+									"text": "nhomquyen"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -402,8 +402,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 929,
-									"top": 337,
+									"left": 800,
+									"top": 251,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -420,7 +420,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 785,
-									"top": 323,
+									"top": 251,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -436,8 +436,8 @@
 										"$ref": "AAAAAAGGg912lJ0BrfE="
 									},
 									"font": "Arial;13;0",
-									"left": 929,
-									"top": 319,
+									"left": 814,
+									"top": 251,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -454,7 +454,7 @@
 								"$ref": "AAAAAAGGg9KISJwrG+s="
 							},
 							"lineStyle": 2,
-							"points": "760:344;944:344;944:300",
+							"points": "760:272;840:272",
 							"nameLabel": {
 								"$ref": "AAAAAAGGg912lJ0CJLI="
 							},
@@ -486,7 +486,7 @@
 									"top": 245,
 									"width": 177.10693359375,
 									"height": 13,
-									"text": "Danh_muc_chucnang"
+									"text": "danhmucchucnang"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -601,7 +601,7 @@
 									"top": 245,
 									"width": 233.6962890625,
 									"height": 13,
-									"text": "Chi_tiet_quyen"
+									"text": "chitietquyen"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -699,7 +699,7 @@
 									"top": 781,
 									"width": 217.57958984375,
 									"height": 13,
-									"text": "Nhom"
+									"text": "nhom"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -997,7 +997,7 @@
 									"top": 557,
 									"width": 203.1259765625,
 									"height": 13,
-									"text": "Cau_hoi"
+									"text": "cauhoi"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1140,7 +1140,7 @@
 									"top": 589,
 									"width": 205.2587890625,
 									"height": 13,
-									"text": "Mon_hoc"
+									"text": "monhoc"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1268,7 +1268,7 @@
 									"top": 773,
 									"width": 185.7587890625,
 									"height": 13,
-									"text": "Chuong"
+									"text": "chuong"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1362,11 +1362,11 @@
 										"$ref": "AAAAAAGGg/BDjZ6gAVI="
 									},
 									"font": "Arial;13;1",
-									"left": 424,
+									"left": 416,
 									"top": 597,
 									"width": 233.42333984375,
 									"height": 13,
-									"text": "Chi_tiet_nhom"
+									"text": "chitietnhom"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1388,7 +1388,7 @@
 												"$ref": "AAAAAAGGg/BvHp6sjdg="
 											},
 											"font": "Arial;13;0",
-											"left": 429,
+											"left": 421,
 											"top": 620,
 											"width": 223.42333984375,
 											"height": 13
@@ -1403,21 +1403,21 @@
 												"$ref": "AAAAAAGGg/CFlZ6zxUI="
 											},
 											"font": "Arial;13;0",
-											"left": 429,
+											"left": 421,
 											"top": 635,
 											"width": 223.42333984375,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 424,
+									"left": 416,
 									"top": 615,
 									"width": 233.42333984375,
 									"height": 38
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 424,
+							"left": 416,
 							"top": 592,
 							"width": 233.42333984375,
 							"height": 61,
@@ -1449,7 +1449,7 @@
 									"top": 413,
 									"width": 188.20263671875,
 									"height": 13,
-									"text": "Cau_tra_loi"
+									"text": "cautraloi"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -1967,7 +1967,7 @@
 									"top": 981,
 									"width": 242.84326171875,
 									"height": 13,
-									"text": "De_thi"
+									"text": "dethi"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -2321,7 +2321,7 @@
 									"top": 845,
 									"width": 180.25537109375,
 									"height": 13,
-									"text": "Chi_tiet_de_thi"
+									"text": "chitietdethi"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -2419,7 +2419,7 @@
 									"top": 1085,
 									"width": 178.0654296875,
 									"height": 13,
-									"text": "De_thi_tu_dong"
+									"text": "dethitudong"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -2517,7 +2517,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 751,
-									"top": 539,
+									"top": 515,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -2551,7 +2551,7 @@
 								"$ref": "AAAAAAGGg9KISJwrG+s="
 							},
 							"lineStyle": 2,
-							"points": "736:520;736:568;1384:568",
+							"points": "736:496;736:568;1384:568",
 							"nameLabel": {
 								"$ref": "AAAAAAGGhCAMU6E5nyQ="
 							},
@@ -2826,7 +2826,7 @@
 									"top": 605,
 									"width": 255.13232421875,
 									"height": 13,
-									"text": "Ket_qua"
+									"text": "ketqua"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -3015,7 +3015,7 @@
 									"top": 853,
 									"width": 242.849609375,
 									"height": 13,
-									"text": "Chi_tiet_ket_qua"
+									"text": "chitietketqua"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -3160,7 +3160,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 719,
-									"top": 539,
+									"top": 515,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -3194,7 +3194,7 @@
 								"$ref": "AAAAAAGGg9KISJwrG+s="
 							},
 							"lineStyle": 2,
-							"points": "704:520;704:688;888:688",
+							"points": "704:496;704:688;888:688",
 							"nameLabel": {
 								"$ref": "AAAAAAGGhDbxXKLMsaw="
 							},
@@ -3388,7 +3388,7 @@
 									"top": 1013,
 									"width": 188.18359375,
 									"height": 13,
-									"text": "Giao_de_thi"
+									"text": "giaodethi"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -3648,7 +3648,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 687,
-									"top": 539,
+									"top": 515,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -3682,7 +3682,7 @@
 								"$ref": "AAAAAAGGg9KISJwrG+s="
 							},
 							"lineStyle": 2,
-							"points": "672:520;672:1128;1336:1128",
+							"points": "672:496;672:1128;1336:1128",
 							"nameLabel": {
 								"$ref": "AAAAAAGGhEkGzqOHRDc="
 							},
@@ -3712,7 +3712,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 566,
-									"top": 549,
+									"top": 537,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -3729,7 +3729,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 567,
-									"top": 539,
+									"top": 515,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -3763,7 +3763,7 @@
 								"$ref": "AAAAAAGGg9KISJwrG+s="
 							},
 							"lineStyle": 2,
-							"points": "552:520;552:592",
+							"points": "552:496;552:592",
 							"nameLabel": {
 								"$ref": "AAAAAAGGhFh4UKT1tw0="
 							},
@@ -4038,7 +4038,7 @@
 									"top": 485,
 									"width": 204.5478515625,
 									"height": 13,
-									"text": "Thong_bao"
+									"text": "thongbao"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -4248,7 +4248,7 @@
 									"top": 741,
 									"width": 187.2060546875,
 									"height": 13,
-									"text": "ChiTietTB"
+									"text": "chitietthongbao"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -4410,7 +4410,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 233,
-									"top": 810,
+									"top": 873,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -4427,7 +4427,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 406,
-									"top": 825,
+									"top": 888,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -4461,7 +4461,7 @@
 								"$ref": "AAAAAAGGg+QmY52MOr4="
 							},
 							"lineStyle": 2,
-							"points": "432:817;248:817;248:800",
+							"points": "432:880;248:880;248:800",
 							"nameLabel": {
 								"$ref": "AAAAAAGGwnPiFGyJkPs="
 							},
@@ -4493,7 +4493,7 @@
 									"top": 357,
 									"width": 212.7109375,
 									"height": 13,
-									"text": "Phan_cong"
+									"text": "phancong"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -4740,7 +4740,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Nguoi_dung",
+					"name": "nguoidung",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5093,7 +5093,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Nhom_quyen",
+					"name": "nhomquyen",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5154,7 +5154,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Danh_muc_chucnang",
+					"name": "danhmucchucnang",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5237,7 +5237,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Chi_tiet_quyen",
+					"name": "chitietquyen",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5320,7 +5320,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Nhom",
+					"name": "nhom",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5745,7 +5745,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Cau_hoi",
+					"name": "cauhoi",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5939,7 +5939,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Mon_hoc",
+					"name": "monhoc",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6114,7 +6114,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Chuong",
+					"name": "chuong",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6214,7 +6214,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Chi_tiet_nhom",
+					"name": "chitietnhom",
 					"columns": [
 						{
 							"_type": "ERDColumn",
@@ -6254,7 +6254,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Cau_tra_loi",
+					"name": "cautraloi",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6336,7 +6336,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "De_thi",
+					"name": "dethi",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6638,7 +6638,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Chi_tiet_de_thi",
+					"name": "chitietdethi",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6712,7 +6712,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "De_thi_tu_dong",
+					"name": "dethitudong",
 					"columns": [
 						{
 							"_type": "ERDColumn",
@@ -6750,7 +6750,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Ket_qua",
+					"name": "ketqua",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -6883,7 +6883,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Chi_tiet_ket_qua",
+					"name": "chitietketqua",
 					"columns": [
 						{
 							"_type": "ERDColumn",
@@ -6951,7 +6951,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Giao_de_thi",
+					"name": "giaodethi",
 					"columns": [
 						{
 							"_type": "ERDColumn",
@@ -6991,7 +6991,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Thong_bao",
+					"name": "thongbao",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -7082,7 +7082,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "ChiTietTB",
+					"name": "chitietthongbao",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -7145,7 +7145,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGGg8rADZwkR5U="
 					},
-					"name": "Phan_cong",
+					"name": "phancong",
 					"columns": [
 						{
 							"_type": "ERDColumn",

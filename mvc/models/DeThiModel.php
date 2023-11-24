@@ -1,5 +1,5 @@
 <?php
-include "./mvc/models/CauTraLoiModel.php";
+// include "./mvc/models/CauTraLoiModel.php";
 class DeThiModel extends DB
 {
     public function create($monthi, $nguoitao, $tende, $thoigianthi, $thoigianbatdau, $thoigianketthuc, $hienthibailam, $xemdiemthi, $xemdapan, $troncauhoi, $trondapan, $nopbaichuyentab, $loaide, $socaude, $socautb, $socaukho, $chuong, $nhom)

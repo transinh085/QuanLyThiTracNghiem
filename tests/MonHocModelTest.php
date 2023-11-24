@@ -16,20 +16,19 @@ class MonHocModelTest extends TestCase
 
     public function testCreate()
     {
-        $mamon = '123455';
+        $mamon = '123456';
         $tenmon = 'Toán';
         $sotinchi = 3;
         $sotietlythuyet = 2;
         $sotietthuchanh = 1;
 
         $result = $this->monHocModel->create($mamon, $tenmon, $sotinchi, $sotietlythuyet, $sotietthuchanh);
-
         $this->assertTrue($result);
     }
 
     public function testDelete()
     {
-        $mamon = '1234';
+        $mamon = '123456';
 
         $result = $this->monHocModel->delete($mamon);
 

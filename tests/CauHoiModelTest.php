@@ -54,7 +54,7 @@ class CauHoiModelTest extends TestCase
             ['content' => 'content4', 'check' => 'false'],
         ];
         foreach ($cautraloi as $x) {
-            $this->cautraloimodel->create($id, $x['content'], $x['check'] == 'true' ? 1 : 0);
+            $this->assertNotFalse($this->cautraloimodel->create($id, $x['content'], $x['check'] == 'true' ? 1 : 0));
         }
     }
 

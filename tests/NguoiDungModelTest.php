@@ -37,7 +37,7 @@ class NguoiDungModelTest extends TestCase
         $nhomquyen = 11;
         $trangthai = 1;
         $result = $this->NguoiDungModel->update($id,$email,$hoten,$password,$ngaysinh,$gioitinh,$nhomquyen,$trangthai);
-        echo $result;
+        $this->assertTrue($result);
     }
 
     protected function tearDown(): void

@@ -26,6 +26,12 @@ class NguoiDungModelTest extends TestCase
         $this->assertTrue($result);
     }
 
+    public function testDelete(){
+        $id = "3221410069";
+        $result = $this->NguoiDungModel->delete($id);
+        $this->assertTrue($result);
+    }
+
 
     public function testUpdate(){
         $id = "3221410069";
